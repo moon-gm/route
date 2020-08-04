@@ -1,0 +1,46 @@
+{
+	"React": {
+		"FW": "React.js",
+		"URL": "/reactjs",
+		"Page": {
+			"ReactLearning": {
+				"Title": "React Learning",
+				"URL": "/reactjs#react-learning"
+			}
+		}
+	},
+	"Next": {
+		"FW": "Next.js",
+		"URL": "/nextjs",
+		"Page": {
+			"NextLearning": {
+				"Title": "Next Learning",
+				"URL": "/nextjs#next-learning"
+			}
+		}
+	},
+	"Gatsby": {
+		"FW": "Gatsby.js",
+		"URL": "/gatsbyjs",
+		"Page": {
+			"GatsbyLearning": {
+				"Title": "Gatsby Learning",
+				"URL": "/gatsbyjs#gatsby-learning"
+			},
+			"AtelierK": {
+				"Title": "Atelier K",
+				"URL": "/gatsbyjs#atelier-k"
+			}
+		}
+	},
+	"Laravel": {
+		"FW": "Laravel",
+		"URL": "/laravel",
+		"Page": {
+			"Tequipedia": {
+				"Title": "テキーラ全書",
+				"URL": "/laravel#tequipedia"
+			}
+		}
+	}
+}

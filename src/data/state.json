@@ -1,0 +1,8 @@
+{
+	"MenuTab": {
+		"React": "reactjs",
+		"Next": "nextjs",
+		"Gatsby": "gatsbyjs",
+		"Laravel": "laravel"
+	}
+}
