@@ -1,0 +1,25 @@
+/** 変数設定 **/
+// width定義
+$sp-max-width: 768px;
+$screen-max-width: 1280px;
+$screen-min-width: 375px;
+
+// height定義
+$header-height: 70px;
+
+// margin設定
+$m-bottom: 20px;
+$m-side: 40px;
+
+// カラー定義
+$white: white;
+$black: black;
+$blue: rgb(29, 29, 182);
+
+$black-skelton: rgba(0, 0, 0, 0.7);
+$white-skelton: rgba(255, 255, 255, 0.5);
+$black-skelton-thin: rgba(0, 0, 0, 0.5);
+
+// z-index定義
+$z-index-header: 10;
+

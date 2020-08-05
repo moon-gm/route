@@ -1,0 +1,31 @@
+/** 共通設定 **/
+:global {
+	// 表示設定
+	.hide-sp {
+		@media screen and (max-width: $sp-max-width){
+			display: none;
+		}
+	}
+
+	// フレックス設定
+	@mixin flex-setting($flex-type) {
+		display: flex;
+		justify-content: $flex-type;
+	}
+
+	.flex-space-between {
+		@include flex-setting(space-between);
+	}
+	.flex-space-around {
+		@include flex-setting(space-around);
+	}
+	.flex-remove-sp {
+		@media screen and (max-width: $sp-max-width){
+			display: block;
+		}
+	}
+	.align-items-center {
+		align-items: center;
+	}
+
+}

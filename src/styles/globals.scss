@@ -1,16 +1,14 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+// リセット
+@import 'reset';
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+// 変数定義
+@import 'variables';
 
-* {
-  box-sizing: border-box;
-}
+// 初期化設定
+@import 'init';
+
+// レイアウト設定
+@import 'layout';
+
+// 共通設定
+@import 'common';

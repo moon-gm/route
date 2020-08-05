@@ -74,19 +74,41 @@ class Layout extends React.Component {
 		sessionStorage.setItem('MenuTabState', state);
 		this.setState({index: index});
 		sessionStorage.setItem('SwipeIndex', index);
+
+		// jQuery導入
+		$('.tab').removeClass('tab-selected');
+		$(`#${state}`).addClass('tab-selected');
+	}
+
+	// スライドの<ボタン処理
+	prevBtn() {
+		if (this.state.index === undefined || this.state.index === 0) {
+			this.setState({index: 0});
+		} else {
+			this.setState({index: this.state.index - 1});
+		}
+	}
+	// スライドの>ボタン処理
+	nextBtn() {
+		if (this.state.index === undefined || this.state.index === 3) {
+			this.setState({index: undefined});
+		} else {
+			this.setState({index: this.state.index + 1});
+		}
 	}
 
 	render() {
+		const func = [this.prevBtn.bind(this), this.nextBtn.bind(this)];
 		return (
 			<div className="container" id="top">
 				{/***  ヘッダーエリア ***/}
-				<Header func={this.changeFW.bind(this, "top", 0)}/>
+				<Header info={this.info} func={this.changeFW.bind(this, "top", 0)}/>
 
 				{/*** ナビゲーションエリア ***/}
-				<Navigation info={this.info} state={this.state}/>
+				<Navigation state={this.state} func={func}/>
 
 				{/*** コンテンツエリア ***/}
-				<div className="contents-area flex-space-around">
+				<div className="contents-area flex-space-around flex-remove-sp">
 
 					{/** サイドエリア **/}
 					<Aside info={this.info} state={this.state}/>
