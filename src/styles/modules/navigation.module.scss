@@ -1,0 +1,19 @@
+@import '../variables';
+
+@keyframes bg-roll-up {
+	0% {
+		background: linear-gradient(to left, $black-skelton, $black-skelton-thin, $white-skelton, $white, $white-skelton, $black-skelton-thin, $black-skelton);
+	}
+	100% {
+		background: linear-gradient(to left, $white, $white-skelton, $black-skelton-thin, $black-skelton, $white-skelton, $black-skelton-thin, $black-skelton);
+	}
+}
+.toLeft {
+	animation: swipeToLeft 0.2s linear, swipeBackToLeft 0.2s linear 0.2s;
+}
+.toRight {
+	animation: swipeToRight 0.2s linear, swipeBackToRight 0.2s linear 0.2s;
+}
+.rollUp {
+	// animation: bg-roll-up infinite 2.5s linear;
+}

@@ -1,6 +1,7 @@
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from 'react-swipeable-views-utils';
 import Link from 'next/link';
+import Styles from '../styles/modules/navigation.module.scss'
 
 const Navigation = ({state, func}) => {
 
@@ -8,11 +9,12 @@ const Navigation = ({state, func}) => {
 
 	return (
 		<div className="navigation-wrap">
-			<nav className="navigation-area">
+			<nav className={`navigation-area ${Styles.rollUp}`}>
 			{/* 使用フレームワークごとのリスト */}
 			<ul className="swipe-area flex-space-around align-items-center">
 				<li className="swipe-btn swipe-prev hide-sp" onClick={func[0]}>
 					{/* :afterで「<」を設定 */}
+					<span className="message-prev">左にスクロールします</span>
 				</li>
 				<AutoSwipe
 					enableMouseEvents
@@ -23,30 +25,31 @@ const Navigation = ({state, func}) => {
 				>
 					<li className="swipe-item flex-space-around align-items-center">
 						<Link href="/reactjs#react-learning">
-							<img src="/react-learning.png" className="swipe-img"/>
+							<img src="/react-learning.png" className={`swipe-img ${state.imageDirection == "right" ? Styles.toLeft : state.imageDirection == "left" ? Styles.toRight : null}`}/>
 						</Link>
 					</li>
 					<li className="swipe-item flex-space-around align-items-center">
 						<Link href="/nextjs#next-learning">
-							<img src="/next-learning.png" className="swipe-img"/>
+							<img src="/next-learning.png" className={`swipe-img ${state.imageDirection == "right" ? Styles.toLeft : state.imageDirection == "left" ? Styles.toRight : null}`}/>
 						</Link>
 					</li>
 					<li className="swipe-item flex-space-around align-items-center">
 						<Link href="/gatsbyjs#gatsby-learning">
-							<img src="/gatsby-learning.png" className="swipe-img"/>
+							<img src="/gatsby-learning.png" className={`swipe-img ${state.imageDirection == "right" ? Styles.toLeft : state.imageDirection == "left" ? Styles.toRight : null}`}/>
 						</Link>
 						<Link href="/gatsbyjs#atelier-k">
-							<img src="/atelier-k.png" className="swipe-img hide-sp"/>
+							<img src="/atelier-k.png" className={`swipe-img hide-sp ${state.imageDirection == "right" ? Styles.toLeft : state.imageDirection == "left" ? Styles.toRight : null}`}/>
 						</Link>
 					</li>
 					<li className="swipe-item flex-space-around align-items-center">
 						<Link href="/laravel#tequipedia">
-							<img src="/tequipedia.png" className="swipe-img"/>
+							<img src="/tequipedia.png" className={`swipe-img ${state.imageDirection == "right" ? Styles.toLeft : state.imageDirection == "left" ? Styles.toRight : null}`}/>
 						</Link>
 					</li>
 				</AutoSwipe>
 				<li className="swipe-btn swipe-next hide-sp" onClick={func[1]}>
 					{/* :afterで「>」を設定 */}
+					<span className="message-next">右にスクロールします</span>
 				</li>
 			</ul>
 		</nav>

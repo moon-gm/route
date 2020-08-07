@@ -17,7 +17,8 @@ class Layout extends React.Component {
 		// Stateの初期値設定
 		this.state = {
 			MenuTab: "top",
-			index: undefined
+			index: undefined,
+			imageDirection: undefined
 		}
 
 		// サイト情報設定
@@ -56,6 +57,7 @@ class Layout extends React.Component {
 		];
 	}
 
+	// レンダー後に走る処理
 	componentDidMount(){
 		const tab = sessionStorage.getItem('MenuTabState');
 		const index = sessionStorage.getItem('SwipeIndex');
@@ -69,6 +71,7 @@ class Layout extends React.Component {
 		}
 	}
 
+	// ヘッダータブを押下したときの処理
 	changeFW(state,index) {
 		this.setState({MenuTab: state});
 		sessionStorage.setItem('MenuTabState', state);
@@ -83,16 +86,20 @@ class Layout extends React.Component {
 	// スライドの<ボタン処理
 	prevBtn() {
 		if (this.state.index === undefined || this.state.index === 0) {
-			this.setState({index: 0});
+			this.setState({imageDirection: "right"});
+			this.setState({index: 3});
 		} else {
+			this.setState({imageDirection: "right"});
 			this.setState({index: this.state.index - 1});
 		}
 	}
 	// スライドの>ボタン処理
 	nextBtn() {
 		if (this.state.index === undefined || this.state.index === 3) {
-			this.setState({index: undefined});
+			this.setState({imageDirection: "left"});
+			this.setState({index: 0});
 		} else {
+			this.setState({imageDirection: "left"});
 			this.setState({index: this.state.index + 1});
 		}
 	}

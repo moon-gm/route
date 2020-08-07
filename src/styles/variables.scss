@@ -23,3 +23,48 @@ $black-skelton-thin: rgba(0, 0, 0, 0.5);
 // z-index定義
 $z-index-header: 10;
 
+// アニメーション設定
+@keyframes swipeToLeft {
+	0% {
+		transform: none;
+	}
+	50% {
+			transform: matrix(0.6, 0, 0, 0.6, -550, 0);
+		}
+	100% {
+		transform: matrix(0.4, 0, 0, 0.4, -1100, 0);
+	}
+}
+@keyframes swipeBackToLeft {
+	0% {
+		transform: matrix(0.4, 0, 0, 0.4, 1100, 0);
+	}
+	50% {
+		transform: matrix(0.6, 0, 0, 0.6, 550, 0);
+	}
+	100% {
+		transform: none;
+	}
+}
+@keyframes swipeToRight {
+	0% {
+		transform: none;
+	}
+	50% {
+		transform: matrix(0.6, 0, 0, 0.6, 550, 0);
+	}
+	100% {
+		transform: matrix(0.4, 0, 0, 0.4, 1100, 0);
+	}
+}
+@keyframes swipeBackToRight {
+	0% {
+		transform: matrix(0.4, 0, 0, 0.4, -1100, 0);
+	}
+	50% {
+			transform: matrix(0.6, 0, 0, 0.6, -550, 0);
+		}
+	100% {
+		transform: none;
+	}
+}
