@@ -56,11 +56,13 @@
 
 	// 注意書き設定
 	.alert {
-		background: $blue-skelton;
+		color: $yellow;
+		background: $yellow-skelton;
 		border-radius: 4px;
-		border: 2px solid $blue;
+		border: 2px dashed $yellow;
 		padding: 5px;
 		margin-bottom: 15px;
+
 	}
 
 	// リスト設定
@@ -68,12 +70,19 @@
 		padding: 5px;
 		.li {
 			padding-bottom: 5px;
+			text-indent: -1em;
+			padding-left: 1em;
 			&:before {
 				content: "▶︎";
 				padding-right: 5px;
 			}
 			&:last-child {
-				padding: 0;
+				padding-bottom: 0;
+			}
+			&-note {
+				padding-left: 1em;
+				font-size: 14px;
+				color: $black;
 			}
 		}
 	}
@@ -86,8 +95,7 @@
 		&:hover {
 			color: $blue;
 			cursor: pointer;
-			background: $black-skelton-thin;
-			box-shadow: 0px 0px 10px 4px $black-skelton-thin;
+			border: 2px solid $blue;
 			.list-text {
 				.inner-wrap {
 					padding: 5px 30px;
@@ -98,7 +106,7 @@
 				}
 			}
 			.icon {
-				filter: drop-shadow(0px 0px 10px $white) drop-shadow(20px 0px 5px $yellow-skelton);
+				filter: drop-shadow(20px 0px 5px $yellow-skelton);
 			}
 			.additional-icon {
 				filter: drop-shadow(0px 0px 10px $white);
@@ -126,7 +134,7 @@
 			}
 			.inner-wrap {
 				display: block;
-				padding: 5px;
+				padding: 5px 15px;
 				border-top: 2px solid $black;
 				border-bottom: 2px solid $black;
 			}

@@ -1,23 +1,32 @@
 import Link from 'next/link'
+import Styles from '../styles/modules/aside.module.scss'
 
 const Aside = ({info, state}) => {
 	return (
 		<aside className="contents-aside">
-			<h1 className="h1">
+			<h1 className={Styles.sectionTitle}>
 				作成サイト一覧
 			</h1>
 			{state.MenuTab === "top" && (
-				<p className="alert">
-					表示方法<br/>
-					<br/>
-					▶︎ヘッダータブのいずれかを選択<br/>
-					<br/>
-					このエリアに対象のFW一覧を表示<br/>
-					<br/>
-					▶︎スクロールのイメージ画像をクリック<br/>
-					<br/>
-					このエリアに対象のFW一覧を表示し、ポートフォリオ作成概要エリアに対象のサイト概要を表示
-				</p>
+				<div className="alert">
+					表示方法
+					<ul className="list-box">
+						<li className="li">
+							ヘッダータブのいずれかを選択
+							<p className="li-note">
+								→このエリアに対象のFW一覧を表示
+							</p>
+						</li>
+					</ul>
+					<ul className="list-box">
+						<li className="li">
+							スクロールのイメージ画像をクリック
+							<p className="li-note">
+								→このエリアに対象のFW一覧を表示し、ポートフォリオ作成概要エリアに対象のサイト概要を表示
+							</p>
+						</li>
+					</ul>
+				</div>
 			)}
 			<ul>
 				{

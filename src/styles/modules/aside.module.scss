@@ -1,0 +1,12 @@
+@import '../variables';
+
+.sectionTitle {
+	color: $white;
+	font-size: 25px;
+	padding: 5px;
+	margin-bottom: 20px;
+	@media screen and (max-width: $sp-max-width){
+		font-size: 20px;
+		margin-bottom: 10px;
+	}
+}
