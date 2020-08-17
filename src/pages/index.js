@@ -4,15 +4,23 @@ const Home = () => {
 	return (
 		<>
 			<Head>
-				<title>Home | Portfolio List</title>
+				<title>Home | Portfolio Show</title>
 			</Head>
 			<div className="page-layout">
 				<h1 className="h1">
 					ポートフォリオ作成概要
 				</h1>
-				<p>
-					作成サイト一覧か、上記画像を押下でここに作成サイトの詳細が表示される
+				<p　className="p">
+					自身の力のみで作成したサイトを、使用したフレームワーク別で紹介。<br/>
+					具体的には、サイトごとに以下の内容で展開していく。
 				</p>
+				<ul　className="list-box">
+					<li className="li">サイトの概要 / リンク</li>
+					<li className="li">Githubリポジトリでのソース確認</li>
+					<li className="li">どういう内容のサイトなのかの機能説明</li>
+					<li className="li">作成方法 / 使用した全ての言語・フレームワーク</li>
+					<li className="li">iframeを用いたサイトの画面イメージ</li>
+				</ul>
 			</div>
 		</>
 	)

@@ -1,21 +1,29 @@
 import Link from 'next/link';
 
-const Header = ({func, info}) => {
+const Header = ({func, info, state}) => {
 	return(
-		<header className="header-area">
+		<header className="header-area" style={{backgroundImage: 'url(watermark.jpg)', backgroundSize: "contain"}}>
 			<div className="header-area-wrapper">
 				<ul className="top-list flex-space-between">
 					<Link href="/">
 						<li className="flex-space-between align-items-center" onClick={func}>
 							<img className="logo" src="/github-logo.png"/>
-							<span>Portfolio List</span>
+							<span>Portfolio Show</span>
 						</li>
 					</Link>
-					<Link href="#top">
-						<li>
-							⬆︎Top
-						</li>
-					</Link>
+					{
+						info.map(items => {
+							if (state.MenuTab === items.State) {
+								return(
+									<Link href={`${items.URL}#top`}>
+										<li>
+											⬆︎Top
+										</li>
+									</Link>
+								);
+							}
+						})
+					}
 				</ul>
 				<ul className="tab-list flex-space-around">
 				{

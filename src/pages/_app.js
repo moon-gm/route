@@ -9,6 +9,7 @@ import Header from '../components/header'
 // Data
 import State from '../data/state.json'
 import Page from '../data/page.json'
+import { urlObjectKeys } from 'next/dist/next-server/lib/utils'
 
 class Layout extends React.Component {
 	constructor(props) {
@@ -59,22 +60,24 @@ class Layout extends React.Component {
 
 	// レンダー後に走る処理
 	componentDidMount(){
-		const tab = sessionStorage.getItem('MenuTabState');
+		// スワイプするイメージの表示設定
 		const index = sessionStorage.getItem('SwipeIndex');
-		if (tab !== undefined) {
-			// ここで使用するとエラーになり得るかもしれないので、修正必要かも↓
-			this.setState({MenuTab: tab});
-		}
 		if (index !== undefined) {
 			// ここで使用するとエラーになり得るかもしれないので、修正必要かも↓
 			this.setState({SwipeIndex: index});
 		}
+
+		// サイドリストの表示条件設定
+		this.info.map(items => {
+			if (window.location.pathname === items.URL) {
+				this.setState({MenuTab: items.State});
+			}
+		})
 	}
 
 	// ヘッダータブを押下したときの処理
 	changeFW(state,index) {
 		this.setState({MenuTab: state});
-		sessionStorage.setItem('MenuTabState', state);
 		this.setState({index: index});
 		sessionStorage.setItem('SwipeIndex', index);
 
@@ -109,7 +112,7 @@ class Layout extends React.Component {
 		return (
 			<div className="container" id="top">
 				{/***  ヘッダーエリア ***/}
-				<Header info={this.info} func={this.changeFW.bind(this, "top", 0)}/>
+				<Header info={this.info} func={this.changeFW.bind(this, "top", 0)} state={this.state}/>
 
 				{/*** ナビゲーションエリア ***/}
 				<Navigation info={this.info} state={this.state} func={func}/>
@@ -121,11 +124,13 @@ class Layout extends React.Component {
 					<Aside info={this.info} state={this.state}/>
 
 					{/** メインエリア **/}
-					<main className="contents-main">
-						{this.props.children}
+					<main className="contents-main" style={{backgroundImage: 'url(screen-sheets.png)'}}>
+						<div className="contents-main-wrap">
+							{this.props.children}
+						</div>
 					</main>
-
 				</div>
+
 			</div>
 		);
 	}

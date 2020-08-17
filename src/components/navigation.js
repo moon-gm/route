@@ -10,8 +10,8 @@ const Navigation = ({info, state, func}) => {
 	return (
 		<>
 			<img src="/film-rail-real.png" className={Styles.mainVisualImage}/>
-			<div className="navigation-wrap">
-				<nav className={`navigation-area ${Styles.rollUp}`}>
+			<div className="navigation-area">
+				<nav className={`navigation-area-wrap ${Styles.rollUp}`}>
 					{/* 使用フレームワークごとのリスト */}
 					<ul className="swipe-area flex-space-around align-items-center">
 						<li className="swipe-btn swipe-prev hide-sp" onClick={func[0]}>

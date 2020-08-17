@@ -64,6 +64,21 @@
 	}
 
 	// リスト設定
+	.list-box {
+		padding: 5px;
+		.li {
+			padding-bottom: 5px;
+			&:before {
+				content: "▶︎";
+				padding-right: 5px;
+			}
+			&:last-child {
+				padding: 0;
+			}
+		}
+	}
+
+	// リスト設定
 	.list {
 		color: $black;
 		padding: 10px;
@@ -71,7 +86,7 @@
 		&:hover {
 			color: $blue;
 			cursor: pointer;
-			background: $black-skelton;
+			background: $black-skelton-thin;
 			box-shadow: 0px 0px 10px 4px $black-skelton-thin;
 			.list-text {
 				.inner-wrap {
