@@ -7,7 +7,7 @@ const Home = () => {
 				<title>Home | Portfolio List</title>
 			</Head>
 			<div className="page-layout">
-				<h1>
+				<h1 className="h1">
 					ポートフォリオ作成概要
 				</h1>
 				<p>

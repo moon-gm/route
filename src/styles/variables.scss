@@ -16,12 +16,14 @@ $white: white;
 $black: black;
 $blue: rgb(29, 29, 182);
 
+$yellow-skelton: rgba(255, 234, 0, 0.365);
+$blue-skelton: rgba(29, 29, 182, 0.3);
 $black-skelton: rgba(0, 0, 0, 0.7);
 $white-skelton: rgba(255, 255, 255, 0.5);
 $black-skelton-thin: rgba(0, 0, 0, 0.5);
 
 // z-index定義
-$z-index-header: 10;
+$header: 100;
 
 // アニメーション設定
 @keyframes swipeToLeft {
@@ -37,10 +39,10 @@ $z-index-header: 10;
 }
 @keyframes swipeBackToLeft {
 	0% {
-		transform: matrix(0.4, 0, 0, 0.4, 1100, 0);
+		transform: matrix(1, 0, 0, 1, 1100, 0);
 	}
 	50% {
-		transform: matrix(0.6, 0, 0, 0.6, 550, 0);
+		transform: matrix(1, 0, 0, 1, 550, 0);
 	}
 	100% {
 		transform: none;
@@ -51,10 +53,10 @@ $z-index-header: 10;
 		transform: none;
 	}
 	50% {
-		transform: matrix(0.6, 0, 0, 0.6, 550, 0);
+		transform: matrix(1, 0, 0, 1, 550, 0);
 	}
 	100% {
-		transform: matrix(0.4, 0, 0, 0.4, 1100, 0);
+		transform: matrix(1, 0, 0, 1, 1100, 0);
 	}
 }
 @keyframes swipeBackToRight {

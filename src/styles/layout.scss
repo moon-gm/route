@@ -2,7 +2,6 @@
 :global {
 	.container {
 		// レイアウト設定
-		padding-top: $header-height + 20px;
 		max-width: $screen-max-width;
 		margin: 0 auto;
 
@@ -14,9 +13,10 @@
 			// レイアウト設定
 			height: $header-height;
 			padding: 10px;
+			line-height: 1;
 			box-shadow: 0px 0px 10px 0px $black;
 			// ヘッダー固定設定
-			z-index: $z-index-header;
+			z-index: $header;
 			position: fixed;
 			top: 0;
 			left: 0;
@@ -74,16 +74,18 @@
 		.navigation-wrap {
 			border-top: 10px solid $black;
 			border-bottom: 10px solid $black;
-			border-radius: 42%;
+			border-radius: 42% 0% 26% 42%;
+			margin-bottom: 50px;
 			@media screen and (max-width: $sp-max-width) {
 				border-radius: unset;
+				margin-bottom: 70px;
 			}
 		}
 		.navigation-area {
 			// カラー設定
 			background: linear-gradient(to left, $black-skelton, $black-skelton-thin, $white-skelton, $white, $white-skelton, $black-skelton-thin, $black-skelton);
 			backdrop-filter: blur(30px);
-			border-radius: 40%;
+			border-radius: 40% 0% 23% 40%;
 			border-top: 15px dashed $black;
 			border-bottom: 15px dashed $black;
 			@media screen and (max-width: $sp-max-width) {
@@ -93,7 +95,7 @@
 			// スワイプエリア設定
 			.swipe-area {
 				margin: 0 auto;
-				border-radius: 36%;
+				border-radius: 38% 0% 20% 38%;
 				border-top: 10px solid $black;
 				border-bottom: 10px solid $black;
 				@media screen and (max-width: $sp-max-width) {
@@ -116,7 +118,7 @@
 					&:after {
 						content: "<";
 						position: absolute;
-						top: 9px;
+						top: 5px;
 						left: 12px;
 						color: $white;
 						font-size: 20px;
@@ -132,7 +134,7 @@
 					.message-prev {
 						display: none;
 						position: absolute;
-						top: 13px;;
+						top: 6px;;
 						left: 70px;
 						width: 300px;
 						color: $white;
@@ -143,7 +145,7 @@
 					&:after {
 						content: ">";
 						position: absolute;
-						top: 9px;
+						top: 5px;
 						right: 12px;
 						color: $white;
 						font-size: 20px;
@@ -159,7 +161,7 @@
 					.message-next {
 						display: none;
 						position: absolute;
-						top: 13px;;
+						top: 6px;;
 						right: -70px;
 						width: 300px;
 						color: $white;
@@ -171,8 +173,8 @@
 					height: 200px;
 					margin: 0 auto;
 					@media screen and (max-width: $sp-max-width) {
-						border-left: 10px solid $black;
-						border-right: 10px solid $black;
+						border-left: 18px solid $black;
+						border-right: 18px solid $black;
 					}
 					.swipe-img {
 						width: 300px;

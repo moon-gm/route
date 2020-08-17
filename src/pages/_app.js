@@ -112,7 +112,7 @@ class Layout extends React.Component {
 				<Header info={this.info} func={this.changeFW.bind(this, "top", 0)}/>
 
 				{/*** ナビゲーションエリア ***/}
-				<Navigation state={this.state} func={func}/>
+				<Navigation info={this.info} state={this.state} func={func}/>
 
 				{/*** コンテンツエリア ***/}
 				<div className="contents-area flex-space-around flex-remove-sp">
