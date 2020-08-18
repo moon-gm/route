@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Styles from '../styles/modules/navigation.module.scss'
+import Styles from '../styles/modules/mainVisual.module.scss'
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from 'react-swipeable-views-utils';
 
@@ -19,8 +19,8 @@ const Navigation = ({info, state, func}) => {
 			{/*** メインビジュアル画像 -- end -- ***/}
 
 			{/*** メインビジュアルエリア -- start -- ***/}
-				<div className="navigation-area">
-					<nav className="navigation-area-wrap">
+				<div className="main-visual-area">
+					<nav className="main-visual-area-wrap">
 						<ul className={`${Styles.scrollArea} flex-space-around align-items-center`}>
 
 							{/** スクロールボタン（<） -- start -- **/}

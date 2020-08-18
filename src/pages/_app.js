@@ -4,7 +4,7 @@ import headerStyles from '../styles/modules/header.module.scss'
 
 // Component
 import Header from '../components/header'
-import Navigation from '../components/navigation'
+import MainVisual from '../components/mainVisual'
 import Aside from '../components/aside'
 
 // Data
@@ -148,7 +148,7 @@ class Layout extends React.Component {
 				/>
 
 				{/*** メインビジュアルエリア ***/}
-				<Navigation
+				<MainVisual
 					info={this.info}
 					state={this.state}
 					func={[this.prevBtn.bind(this), this.nextBtn.bind(this)]}
