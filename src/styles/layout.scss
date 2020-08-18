@@ -1,19 +1,24 @@
-/** レイアウト設定 **/
+/**********************
+ レイアウト設定
+**********************/
 :global {
+	/**** コンテナ設定 ****/
 	.container {
 		// レイアウト設定
 		max-width: $screen-max-width;
 		margin: 0 auto;
 
-		// ヘッダーエリア設定
+		/*** 1.ヘッダーエリア設定 ***/
 		.header-area {
 			// カラー設定
 			background: $white-skelton;
 			backdrop-filter: blur(30px);
+
 			// レイアウト設定
 			height: $header-height;
 			padding: 10px;
 			line-height: 1;
+
 			// ヘッダー固定設定
 			z-index: $header;
 			position: fixed;
@@ -21,8 +26,9 @@
 			left: 0;
 			right: 0;
 
-			// コンテンツラッパー設定
+			/** 1-1.コンテンツラッパー設定 **/
 			&-wrap {
+				// レイアウト設定
 				max-width: $screen-max-width;
 				margin: 0 auto;
 				padding: 0 20px;
@@ -32,37 +38,64 @@
 			}
 		}
 
-		// ナビゲーションエリア設定
+		/*** 2.ナビゲーションエリア設定 ***/
 		.navigation-area {
-			border-top: 10px solid $black;
-			border-bottom: 10px solid $black;
-			border-radius: 42% 0% 26% 42%;
+			// レイアウト設定
 			margin-bottom: 50px;
 			@media screen and (max-width: $sp-max-width) {
-				border-radius: unset;
 				margin-bottom: 0;
 				margin-top: $header-height + 40px;
 			}
+
+			// ボーダー設定
+			border-top: 10px solid $black;
+			border-bottom: 10px solid $black;
+			border-radius: 42% 0% 26% 42%;
+			@media screen and (max-width: $sp-max-width) {
+				border-radius: unset;
+			}
+
+			/** 2-1.コンテンツラッパー設定 **/
 			&-wrap {
 				// カラー設定
-				background: linear-gradient(to left, $black-skelton, $black-skelton-thin, $white-skelton, $white, $white-skelton, $black-skelton-thin, $black-skelton);
+				background: linear-gradient(
+					to left,
+					$black-skelton,
+					$black-skelton-thin,
+					$white-skelton,
+					$white,
+					$white-skelton,
+					$black-skelton-thin,
+					$black-skelton
+				);
 				backdrop-filter: blur(30px);
+				@media screen and (max-width: $sp-max-width) {
+					background: linear-gradient(
+						to left,
+						$black-skelton-thin,
+						$white-skelton,
+						$white,
+						$white-skelton,
+						$black-skelton-thin
+					);
+				}
+
+				// ボーダー設定
 				border-radius: 40% 0% 23% 40%;
 				border-top: 15px dashed $black;
 				border-bottom: 15px dashed $black;
 				@media screen and (max-width: $sp-max-width) {
 					border-radius: unset;
-					background: linear-gradient(to left, $black-skelton-thin, $white-skelton, $white, $white-skelton, $black-skelton-thin);
 				}
 			}
 		}
 
-		// コンテンツエリア設定
+		/*** 3.コンテンツエリア設定 ***/
 		.contents-area {
 			// レイアウト設定
 			padding: 20px 0;
 
-			// サイドエリア設定
+			/** 3-1.サイドエリア設定 **/
 			.contents-aside {
 				// レイアウト設定
 				width: 30%;
@@ -72,16 +105,23 @@
 				}
 			}
 
-			// メインエリア設定
+			/** 3-2.メインエリア設定 **/
 			.contents-main {
 				// レイアウト設定
 				width: 70%;
 				@media screen and (max-width: $sp-max-width) {
 					width: 100%;
 				}
+
+				/* 3-2-1.コンテンツラッパー設定 */
 				&-wrap {
+					// カラー設定
 					background: $white-skelton-thick;
+
+					// レイアウト設定
 					padding: 20px;
+
+					// ボーダー設定
 					border-right: 40px groove $black-skelton;
 					border-left: 40px groove $black-skelton;
 					border-top: 10px groove $black;

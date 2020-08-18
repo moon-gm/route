@@ -4,7 +4,6 @@
 @import '../variables';
 
 /*** 1.アニメーション設定 ***/
-/** 1-1.動作設定 **/
 // 左へ
 @keyframes toLeft {
 	0% {
@@ -54,7 +53,7 @@
 	}
 }
 
-/** 1-2.動作設定適用 **/
+/** 1-1.アニメーション適用 **/
 .toLeft {
 	animation: toLeft 0.2s linear, fromLeft 0.2s linear 0.2s;
 }

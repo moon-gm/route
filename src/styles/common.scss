@@ -1,89 +1,100 @@
-/** 共通設定 **/
+/**********************
+ 共通設定
+**********************/
 :global {
-	// 表示設定
-	.hide-sp {
-		@media screen and (max-width: $sp-max-width){
-			display: none;
-		}
-	}
-
-	// フレックス設定
-	@mixin flex-setting($flex-type) {
+	/*** 1.フレックス設定 ***/
+	@mixin set-flex($flex-type) {
 		display: flex;
 		justify-content: $flex-type;
 	}
 
-	.flex-space-between {
-		@include flex-setting(space-between);
-	}
-	.flex-space-around {
-		@include flex-setting(space-around);
-	}
-	.flex-start {
-		@include flex-setting(flex-start);
-	}
-
-	.flex-remove-sp {
-		@media screen and (max-width: $sp-max-width){
-			display: block;
+		/** 1-1.フレックス適用 **/
+		.flex-space-between {
+			@include set-flex(space-between);
 		}
-	}
-	.align-items-center {
-		align-items: center;
-	}
-
-	// 中央寄せ設定
-	.text-align {
-		text-align: center;
-	}
-
-	// 見出し設定
-	.h1 {
-		font-size: 25px;
-		padding: 5px;
-		margin-bottom: 20px;
-		@media screen and (max-width: $sp-max-width){
-			font-size: 20px;
-			margin-bottom: 10px;
+		.flex-space-around {
+			@include set-flex(space-around);
 		}
-	}
+		.flex-start {
+			@include set-flex(flex-start);
+		}
 
-	// 段落設定
-	.p {
-		padding: 5px;
-		margin-bottom: 15px;
-	}
+		/** 1-2.align-items設定 **/
+		.align-items-center {
+			align-items: center;
+		}
 
-	// 注意書き設定
-	.alert {
-		color: $yellow;
-		background: $yellow-skelton;
-		border-radius: 4px;
-		border: 2px dashed $yellow;
-		padding: 5px;
-		margin-bottom: 15px;
-
-	}
-
-	// リスト設定
-	.list-box {
-		padding: 5px;
-		.li {
-			padding-bottom: 5px;
-			text-indent: -1em;
-			padding-left: 1em;
-			&:before {
-				content: "▶︎";
-				padding-right: 5px;
+	/*** 2.SP設定 ***/
+		/** 2-1.SP非表示設定 **/
+		.hide-sp {
+			@media screen and (max-width: $sp-max-width){
+				display: none;
 			}
-			&:last-child {
-				padding-bottom: 0;
+		}
+
+		/** 2-2.SPフレックス解除設定 **/
+		.flex-remove-sp {
+			@media screen and (max-width: $sp-max-width){
+				display: block;
 			}
-			&-note {
+		}
+
+	/*** 3.パーツ設定 ***/
+		/** 3-1.見出し設定 **/
+		.h1 {
+			font-size: 25px;
+			padding: 5px;
+			margin-bottom: 20px;
+			@media screen and (max-width: $sp-max-width){
+				font-size: 20px;
+				margin-bottom: 10px;
+			}
+		}
+
+		/** 3-2.段落設定 **/
+		.p {
+			padding: 5px;
+			margin-bottom: 15px;
+		}
+
+		/** 3-3.注意書き設定 **/
+		.alert {
+			color: $yellow;
+			background: $yellow-skelton;
+			border-radius: 4px;
+			border: 2px dashed $yellow;
+			padding: 5px;
+			margin-bottom: 15px;
+
+		}
+
+		/** 3-4.リスト設定 **/
+		.list-box {
+			padding: 5px;
+
+			/* 3-4-1.リスト項目設定 */
+			.li {
+				padding-bottom: 5px;
+				text-indent: -1em;
 				padding-left: 1em;
-				font-size: 14px;
-				color: $black;
+
+				// リストアイコンの設定
+				&:before {
+					content: "▶︎";
+					padding-right: 5px;
+				}
+
+				// 最後のリスト項目の設定
+				&:last-child {
+					padding-bottom: 0;
+				}
+
+				// リストの注釈設定
+				&-note {
+					padding-left: 1em;
+					font-size: 14px;
+					color: $black;
+				}
 			}
 		}
-	}
 }
