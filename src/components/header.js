@@ -1,13 +1,14 @@
 import Link from 'next/link';
+// 「Styles」は「Styles.headerTabSelected」をjQueryで使うため、_app.jsでimportしている
 
-const Header = ({func, info, state}) => {
+const Header = ({func, info, state, Styles}) => {
 	return(
 		<header className="header-area" style={{backgroundImage: 'url(watermark.jpg)', backgroundSize: "contain"}}>
-			<div className="header-area-wrapper">
-				<ul className="top-list flex-space-between">
+			<div className="header-area-wrap">
+				<ul className={`${Styles.topList} flex-space-between`}>
 					<Link href="/">
-						<li className="top-logo flex-space-between align-items-center" onClick={func}>
-							<img className="logo" src="/github-logo.png"/>
+						<li className={`${Styles.topLogo} flex-space-between align-items-center`} onClick={func}>
+							<img className={Styles.topLogoImg} src="/github-logo.png"/>
 							<span>Portfolio Show</span>
 						</li>
 					</Link>
@@ -16,7 +17,7 @@ const Header = ({func, info, state}) => {
 							if (state.MenuTab === items.State) {
 								return(
 									<Link href={`${items.URL}#top`}>
-										<li className="top-back">
+										<li className={Styles.topBtn}>
 											⬆︎Top
 										</li>
 									</Link>
@@ -25,7 +26,7 @@ const Header = ({func, info, state}) => {
 						})
 					}
 				</ul>
-				<ul className="tab-list flex-space-around align-items-center">
+				<ul className={`${Styles.tabList} flex-space-around align-items-center`}>
 				{
 					info.map(FWList => {
 						if (state.MenuTab === FWList.State) {
@@ -33,7 +34,7 @@ const Header = ({func, info, state}) => {
 								<li
 									onClick={FWList.Func}
 									id={FWList.State}
-									className={`tab tab-${FWList.State} tab-selected`}
+									className={`${Styles.headerTab} ${Styles.headerTabSelected} tab-${FWList.State}`}
 									key={`tablist${FWList.State}`}
 								>
 									{FWList.FW}
@@ -44,7 +45,7 @@ const Header = ({func, info, state}) => {
 								<li
 									onClick={FWList.Func}
 									id={FWList.State}
-									className={`tab tab-${FWList.State}`}
+									className={`${Styles.headerTab} tab-${FWList.State}`}
 									key={`tablist${FWList.State}`}
 								>
 									{FWList.FW}

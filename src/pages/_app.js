@@ -1,5 +1,6 @@
-// Global Style
+// Style
 import '../styles/globals.scss'
+import headerStyles from '../styles/modules/header.module.scss'
 
 // Component
 import Aside from '../components/aside'
@@ -9,7 +10,6 @@ import Header from '../components/header'
 // Data
 import State from '../data/state.json'
 import Page from '../data/page.json'
-import { urlObjectKeys } from 'next/dist/next-server/lib/utils'
 
 class Layout extends React.Component {
 	constructor(props) {
@@ -82,8 +82,8 @@ class Layout extends React.Component {
 		sessionStorage.setItem('SwipeIndex', index);
 
 		// jQuery導入
-		$('.tab').removeClass('tab-selected');
-		$(`#${state}`).addClass('tab-selected');
+		$(headerStyles.headerTab).removeClass(headerStyles.headerTabSelected);
+		$(`#${state}`).addClass(headerStyles.headerTabSelected);
 	}
 
 	// スライドの<ボタン処理
@@ -112,7 +112,7 @@ class Layout extends React.Component {
 		return (
 			<div className="container" id="top">
 				{/***  ヘッダーエリア ***/}
-				<Header info={this.info} func={this.changeFW.bind(this, "top", 0)} state={this.state}/>
+				<Header info={this.info} func={this.changeFW.bind(this, "top", 0)} state={this.state} Styles={headerStyles}/>
 
 				{/*** ナビゲーションエリア ***/}
 				<Navigation info={this.info} state={this.state} func={func}/>
