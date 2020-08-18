@@ -1,7 +1,11 @@
-/** ナビゲーションエリア設定 **/
+/**********************
+ ナビゲーションエリア設定
+**********************/
 @import '../variables';
 
-// アニメーション設定
+/*** 1.アニメーション設定 ***/
+/** 1-1.動作設定 **/
+// 左へ
 @keyframes toLeft {
 	0% {
 		transform: none;
@@ -13,6 +17,7 @@
 		transform: matrix(0.4, 0, 0, 0.4, -1100, 0);
 	}
 }
+// 左から
 @keyframes fromLeft {
 	0% {
 		transform: matrix(1, 0, 0, 1, 1100, 0);
@@ -24,6 +29,7 @@
 		transform: none;
 	}
 }
+// 右へ
 @keyframes toRight {
 	0% {
 		transform: none;
@@ -35,6 +41,7 @@
 		transform: matrix(1, 0, 0, 1, 1100, 0);
 	}
 }
+// 右から
 @keyframes fromRight {
 	0% {
 		transform: matrix(0.4, 0, 0, 0.4, -1100, 0);
@@ -47,7 +54,7 @@
 	}
 }
 
-// アニメーション適用
+/** 1-2.動作設定適用 **/
 .toLeft {
 	animation: toLeft 0.2s linear, fromLeft 0.2s linear 0.2s;
 }
@@ -55,7 +62,7 @@
 	animation: toRight 0.2s linear, fromRight 0.2s linear 0.2s;
 }
 
-// メインビジュアル画像設定（Film画像）
+/*** 2.メインビジュアル画像設定（Film画像） ***/
 .mainVisualImage {
 	width: 100px;
 	position: relative;
@@ -67,6 +74,166 @@
 		top: 360px;
 		left: 20px;
 		transform: rotateZ(230deg) rotateX(0deg) rotateY(0deg);
+	}
+}
+
+/*** 3.スクロールエリア設定 ***/
+.scrollArea {
+	margin: 0 auto;
+	border-radius: 38% 0% 20% 38%;
+	border-top: 10px solid $black;
+	border-bottom: 10px solid $black;
+	@media screen and (max-width: $sp-max-width) {
+		border-radius: unset;
+	}
+
+	/** 3-1.スクロールボタン設定（共通） **/
+	.scrollBtn {
+		cursor: pointer;
+		background: $black-skelton;
+		padding: 20px;
+		margin: 20px;
+		border-radius: 50%;
+		transform: rotateY(50deg);
+
+		/* 3-1-1.ホバー時設定 */
+		&:hover {
+			background: $white-skelton;
+			transition: background 0.3s, box-shadow 0.3s;
+		}
+	}
+
+	/** 3-2.スクロールボタン設定（前へ） **/
+	.scrollPrev{
+		box-shadow: 4px 0px 5px 5px $white-skelton;
+
+		/* 3-2-1.「<」文字設定 */
+		&:after {
+			content: "<";
+			position: absolute;
+			top: 4px;
+			left: 12px;
+			color: $white;
+			font-size: 20px;
+			font-weight: bold;
+			transform: rotateY(50deg);
+		}
+
+		/* 3-2-2.ホバー時設定 */
+		&:hover {
+			// 注釈メッセージ設定
+			.messagePrev {
+				display: block;
+				transition: display 0.3s;
+			}
+		}
+
+		/* 3-2-3.アクティブ時設定 */
+		&:active {
+			position: relative;
+			top: 0;
+			left: -1px;
+			box-shadow: unset;
+
+			// 注釈メッセージ設定
+			.messagePrev {
+				display: none;
+			}
+		}
+
+		/* 3-2-4.注釈メッセージ設定 */
+		.messagePrev {
+			display: none;
+			position: absolute;
+			top: 6px;;
+			left: 70px;
+			width: 300px;
+			color: $white;
+		}
+	}
+
+	/** 3-3.スクロールボタン設定（次へ） **/
+	.scrollNext {
+		box-shadow: -4px 0px 5px 5px $white-skelton;
+
+		/* 3-3-1.「>」文字設定 */
+		&:after {
+			content: ">";
+			position: absolute;
+			top: 4px;
+			right: 12px;
+			color: $white;
+			font-size: 20px;
+			font-weight: bold;
+			transform: rotateY(50deg);
+		}
+
+		/* 3-3-2.ホバー時設定 */
+		&:hover {
+			// 注釈メッセージ設定
+			.messageNext {
+				display: block;
+				transition: display 0.5s;
+			}
+		}
+
+		/* 3-3-3.アクティブ時設定 */
+		&:active {
+			position: relative;
+			top: 0;
+			left: 1px;
+			box-shadow: unset;
+
+			// 注釈メッセージ設定
+			.messageNext {
+				display: none;
+			}
+		}
+
+		/* 3-3-4.注釈メッセージ設定 */
+		.messageNext {
+			display: none;
+			position: absolute;
+			top: 6px;
+			right: -70px;
+			width: 300px;
+			color: $white;
+		}
+	}
+
+	/** 3-4.スクロールアイテム設定 **/
+	.scrollItem {
+		text-align: center;
+		max-width: 640px;
+		height: 200px;
+		margin: 0 auto;
+		@media screen and (max-width: $sp-max-width) {
+			border-left: 18px solid $black;
+			border-right: 18px solid $black;
+		}
+
+		/* 3-4-1.スクロールする画像設定 */
+		.scrollImg {
+			width: 300px;
+			height: auto;
+			padding: 10px;
+			@media screen and (max-width: $sp-max-width) {
+				padding: 0;
+				width: 100%;
+				max-width: 375px;
+			}
+
+			// ホバー時設定
+			&:hover {
+				cursor: pointer;
+				width: auto;
+				height: 200px;
+				padding: 0;
+				transition: width 0.5s, padding 0.5s;
+				background: $black-skelton;
+				border: 5px groove $blue;
+			}
+		}
 	}
 }
 

@@ -46,12 +46,12 @@ const Aside = ({info, state}) => {
 													href={PageList.URL}
 													key={`pagelist${PageList.URL}`}
 												>
-													<li className="list flex-start align-items-center">
-															<img src="/projector-icon.svg" className="icon"/>
-															<img src="/film-rail.png" className="additional-icon"/>
-															<span className="list-text">
-																<sapn className="middle-wrap">
-																	<sapn className="inner-wrap">
+													<li className={`${Styles.list} flex-start align-items-center`}>
+															<img src="/projector-icon.svg" className={Styles.icon}/>
+															<img src="/film-rail.png" className={Styles.additionalIcon}/>
+															<span className={Styles.listText}>
+																<sapn className={Styles.middleWrap}>
+																	<sapn className={Styles.innerWrap}>
 																		{PageList.Title}
 																	</sapn>
 																</sapn>
