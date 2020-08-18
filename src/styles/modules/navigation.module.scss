@@ -1,12 +1,61 @@
+/** ナビゲーションエリア設定 **/
 @import '../variables';
 
-.toLeft {
-	animation: swipeToLeft 0.2s linear, swipeBackToLeft 0.2s linear 0.2s;
+// アニメーション設定
+@keyframes toLeft {
+	0% {
+		transform: none;
+	}
+	50% {
+			transform: matrix(0.6, 0, 0, 0.6, -550, 0);
+		}
+	100% {
+		transform: matrix(0.4, 0, 0, 0.4, -1100, 0);
+	}
 }
-.toRight {
-	animation: swipeToRight 0.2s linear, swipeBackToRight 0.2s linear 0.2s;
+@keyframes fromLeft {
+	0% {
+		transform: matrix(1, 0, 0, 1, 1100, 0);
+	}
+	50% {
+		transform: matrix(1, 0, 0, 1, 550, 0);
+	}
+	100% {
+		transform: none;
+	}
+}
+@keyframes toRight {
+	0% {
+		transform: none;
+	}
+	50% {
+		transform: matrix(1, 0, 0, 1, 550, 0);
+	}
+	100% {
+		transform: matrix(1, 0, 0, 1, 1100, 0);
+	}
+}
+@keyframes fromRight {
+	0% {
+		transform: matrix(0.4, 0, 0, 0.4, -1100, 0);
+	}
+	50% {
+			transform: matrix(0.6, 0, 0, 0.6, -550, 0);
+		}
+	100% {
+		transform: none;
+	}
 }
 
+// アニメーション適用
+.toLeft {
+	animation: toLeft 0.2s linear, fromLeft 0.2s linear 0.2s;
+}
+.toRight {
+	animation: toRight 0.2s linear, fromRight 0.2s linear 0.2s;
+}
+
+// メインビジュアル画像設定（Film画像）
 .mainVisualImage {
 	width: 100px;
 	position: relative;

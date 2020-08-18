@@ -22,7 +22,10 @@ const Aside = ({info, state}) => {
 						<li className="li">
 							スクロールのイメージ画像をクリック
 							<p className="li-note">
-								→このエリアに対象のFW一覧を表示し、ポートフォリオ作成概要エリアに対象のサイト概要を表示
+								→このエリアに対象のFW一覧を表示
+							</p>
+							<p className="li-note">
+								→ポートフォリオ作成概要エリアに対象のサイト概要を表示
 							</p>
 						</li>
 					</ul>
