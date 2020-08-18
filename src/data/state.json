@@ -1,8 +1,19 @@
 {
 	"MenuTab": {
+		"Top": "top",
 		"React": "reactjs",
 		"Next": "nextjs",
 		"Gatsby": "gatsbyjs",
 		"Laravel": "laravel"
+	},
+	"index": {
+		"React": "0",
+		"Next": "1",
+		"Gatsby": "2",
+		"Laravel": "3"
+	},
+	"imageDirection": {
+		"Right": "right",
+		"Left": "left"
 	}
 }
