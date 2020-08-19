@@ -102,14 +102,14 @@ class Layout extends React.Component {
 	}
 
 	/*** ヘッダータブ押下時の処理 ***/
-	changeFW(state,index) {
-		this.setState({MenuTab: state});
+	changeFW(MenuTab,index) {
+		this.setState({MenuTab: MenuTab});
 		this.setState({index: index});
 		sessionStorage.setItem('ScrollIndex', index);
 
 		// jQuery導入(classNameの切替)
 		$(headerStyles.headerTab).removeClass(headerStyles.headerTabSelected);
-		$(`#${state}`).addClass(headerStyles.headerTabSelected);
+		$(`#${MenuTab}`).addClass(headerStyles.headerTabSelected);
 	}
 
 	/*** スクロールの「<」ボタン処理 ***/
