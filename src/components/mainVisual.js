@@ -21,11 +21,21 @@ const Navigation = ({info, state, func}) => {
 			{/*** メインビジュアルエリア -- start -- ***/}
 				<div className="main-visual-area">
 					<nav className="main-visual-area-wrap">
-						<ul className={`${Styles.scrollArea} flex-space-around align-items-center`}>
+						<ul
+							className={`
+								${Styles.scrollArea}
+								flex-space-around
+								align-items-center
+							`}
+						>
 
 							{/** スクロールボタン（<） -- start -- **/}
 								<li
-									className={`${Styles.scrollBtn} ${Styles.scrollPrev} hide-sp`}
+									className={`
+										${Styles.scrollBtn}
+										${Styles.scrollPrev}
+										hide-sp
+									`}
 									onClick={func[0]}
 								>
 									{/* :afterで「<」を設定 */}
@@ -46,13 +56,27 @@ const Navigation = ({info, state, func}) => {
 									{info.map(scrollItem => {
 										return (
 											<li
-												className={`${Styles.scrollItem} flex-space-around align-items-center`}
+												className={`
+													${Styles.scrollItem}
+													flex-space-around
+													align-items-center
+												`}
 												key={scrollItem.Page[0].ID}
 											>
 												<Link href={scrollItem.Page[0].URL}>
 													<img
 														src={`/${scrollItem.Page[0].ID}.png`}
-														className={`${Styles.scrollImg} ${Styles.toLeft} ${state.imageDirection == "right" ? Styles.toLeft : state.imageDirection == "left" ? Styles.toRight : null}`}
+														className={`
+															${Styles.scrollImg}
+															${Styles.toLeft}
+															${
+																state.imageDirection == "right" ? Styles.toLeft
+																:
+																state.imageDirection == "left" ? Styles.toRight
+																:
+																null
+															}
+														`}
 														onClick={scrollItem.Func}
 													/>
 												</Link>
@@ -64,7 +88,11 @@ const Navigation = ({info, state, func}) => {
 
 							{/** スクロールボタン（>） -- start -- **/}
 								<li
-									className={`${Styles.scrollBtn} ${Styles.scrollNext} hide-sp`}
+									className={`
+										${Styles.scrollBtn}
+										${Styles.scrollNext}
+										hide-sp
+									`}
 									onClick={func[1]}
 								>
 									{/* :afterで「>」を設定 */}

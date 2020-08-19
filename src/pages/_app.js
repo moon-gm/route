@@ -89,7 +89,8 @@ class Layout extends React.Component {
 		// スクロールする画像の表示設定
 		const index = sessionStorage.getItem('ScrollIndex');
 		if (index !== null) {
-			this.setState({index: index});
+			// 取得したindexは文字列型のため数値型に変更してsetState
+			this.setState({index: Number(index)});
 		}
 
 		// サイドリストの表示条件設定
@@ -113,7 +114,7 @@ class Layout extends React.Component {
 
 	/*** スクロールの「<」ボタン処理 ***/
 	prevBtn() {
-		if (this.state.index === undefined || this.state.index === 0) {
+		if (this.state.index === void 0 || this.state.index === 0 || this.state.index === null) {
 			this.setState({imageDirection: "right"});
 			this.setState({index: 3});
 		} else {
@@ -124,7 +125,7 @@ class Layout extends React.Component {
 
 	/*** スクロールの「>」ボタン処理 ***/
 	nextBtn() {
-		if (this.state.index === undefined || this.state.index === 3) {
+		if (this.state.index === void 0 || this.state.index === 3 || this.state.index === null) {
 			this.setState({imageDirection: "left"});
 			this.setState({index: 0});
 		} else {

@@ -13,12 +13,21 @@ const Header = ({info, state, func, Styles}) => {
 			<div className="header-area-wrap">
 
 				{/*** トップリスト -- start -- ***/}
-					<ul className={`${Styles.topList} flex-space-between`}>
+					<ul
+						className={`
+							${Styles.topList}
+							flex-space-between
+						`}
+					>
 
 						{/** トップロゴ　-- start -- **/}
 							<Link href="/">
 								<li
-									className={`${Styles.topLogo} flex-space-between align-items-center`}
+									className={`
+										${Styles.topLogo}
+										flex-space-between
+										align-items-center
+									`}
 									onClick={func}
 								>
 									<img
@@ -34,7 +43,10 @@ const Header = ({info, state, func, Styles}) => {
 							info.map(items => {
 								if (state.MenuTab === items.State) {
 									return(
-										<Link href={`${items.URL}#top`}>
+										<Link
+											href={`${items.URL}#top`}
+											key={items.ID}
+										>
 											<li className={Styles.topBtn}>
 												⬆︎Top
 											</li>
@@ -48,7 +60,13 @@ const Header = ({info, state, func, Styles}) => {
 				{/*** トップリスト -- end -- ***/}
 
 				{/*** ヘッダータブリスト -- start -- ***/}
-					<ul className={`${Styles.tabList} flex-space-around align-items-center`}>
+					<ul
+						className={`
+							${Styles.tabList}
+							flex-space-around
+							align-items-center
+						`}
+					>
 						{info.map(FWList => {
 
 							// 選択されているタブの場合
@@ -56,7 +74,11 @@ const Header = ({info, state, func, Styles}) => {
 								return (
 									<li
 										id={FWList.State}
-										className={`${Styles.headerTab} ${Styles.headerTabSelected} tab-${FWList.State}`}
+										className={`
+											${Styles.headerTab}
+											${Styles.headerTabSelected}
+											tab-${FWList.State}
+										`}
 										key={`tablist${FWList.State}`}
 										onClick={FWList.Func}
 									>
@@ -70,7 +92,10 @@ const Header = ({info, state, func, Styles}) => {
 								return (
 									<li
 										id={FWList.State}
-										className={`${Styles.headerTab} tab-${FWList.State}`}
+										className={`
+											${Styles.headerTab}
+											tab-${FWList.State}
+										`}
 										key={`tablist${FWList.State}`}
 										onClick={FWList.Func}
 									>

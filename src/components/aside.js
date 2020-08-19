@@ -56,7 +56,13 @@ const Aside = ({info, state}) => {
 													href={PageList.URL}
 													key={`pagelist${PageList.URL}`}
 												>
-													<li className={`${Styles.list} flex-start align-items-center`}>
+													<li
+														className={`
+															${Styles.list}
+															flex-start
+															align-items-center
+														`}
+													>
 														<img
 															src="/projector-icon.svg"
 															className={Styles.icon}
