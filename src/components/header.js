@@ -5,10 +5,6 @@ const Header = ({info, state, func, Styles}) => {
 	return(
 		<header
 			className="header-area"
-			style={{
-				backgroundImage: 'url(watermark.jpg)',
-				backgroundSize: "contain"
-			}}
 		>
 			<div className="header-area-wrap">
 
@@ -45,7 +41,7 @@ const Header = ({info, state, func, Styles}) => {
 									return(
 										<Link
 											href={`${items.URL}#top`}
-											key={items.ID}
+											key={`top-btn-${items.ID}`}
 										>
 											<li className={Styles.topBtn}>
 												⬆︎Top

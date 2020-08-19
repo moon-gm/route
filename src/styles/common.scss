@@ -40,24 +40,13 @@
 		}
 
 	/*** 3.パーツ設定 ***/
-		/** 3-1.見出し設定 **/
-		.h1 {
-			font-size: 25px;
-			padding: 5px;
-			margin-bottom: 20px;
-			@media screen and (max-width: $sp-max-width){
-				font-size: 20px;
-				margin-bottom: 10px;
-			}
-		}
-
-		/** 3-2.段落設定 **/
+		/** 3-1.段落設定 **/
 		.p {
 			padding: 5px;
 			margin-bottom: 15px;
 		}
 
-		/** 3-3.注意書き設定 **/
+		/** 3-2.注意書き設定 **/
 		.alert {
 			color: $yellow;
 			background: $yellow-skelton;
@@ -68,11 +57,11 @@
 
 		}
 
-		/** 3-4.リスト設定 **/
+		/** 3-3.リスト設定 **/
 		.list-box {
 			padding: 5px;
 
-			/* 3-4-1.リスト項目設定 */
+			/* 3-3-1.リスト項目設定 */
 			.li {
 				padding-bottom: 5px;
 				text-indent: -1em;

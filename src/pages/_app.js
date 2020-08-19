@@ -94,8 +94,9 @@ class Layout extends React.Component {
 		}
 
 		// サイドリストの表示条件設定
+		const pathName = window.location.pathname.split("/");
 		this.info.map(items => {
-			if (window.location.pathname === items.URL) {
+			if ("/" + pathName[1] === items.URL) {
 				this.setState({MenuTab: items.State});
 			}
 		})
@@ -135,6 +136,14 @@ class Layout extends React.Component {
 	}
 
 	render() {
+		/***** childrenの設定 *****/
+		// childrenに渡すPropsの設定
+		const additionalProps = {
+			info: this.info
+		}
+		// 子要素を再生成してPropsを渡す設定
+		const newChildren = React.cloneElement(this.props.children, additionalProps);
+
 		return (
 			<div
 				id="top"
@@ -167,10 +176,9 @@ class Layout extends React.Component {
 					{/** メインエリア **/}
 					<main
 						className="contents-main"
-						style={{backgroundImage: 'url(screen-sheets.png)'}}
 					>
 						<div className="contents-main-wrap">
-							{this.props.children}
+							{newChildren}
 						</div>
 					</main>
 

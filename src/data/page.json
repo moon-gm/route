@@ -5,7 +5,7 @@
 		"Page": {
 			"ReactLearning": {
 				"Title": "React Learning",
-				"URL": "/reactjs#react-learning",
+				"URL": "/reactjs/react-learning",
 				"ID": "react-learning"
 			}
 		}
@@ -16,7 +16,7 @@
 		"Page": {
 			"NextLearning": {
 				"Title": "Next Learning",
-				"URL": "/nextjs#next-learning",
+				"URL": "/nextjs/next-learning",
 				"ID": "next-learning"
 			}
 		}
@@ -27,12 +27,12 @@
 		"Page": {
 			"GatsbyLearning": {
 				"Title": "Gatsby Learning",
-				"URL": "/gatsbyjs#gatsby-learning",
+				"URL": "/gatsbyjs/gatsby-learning",
 				"ID": "gatsby-learning"
 			},
 			"AtelierK": {
 				"Title": "Atelier K",
-				"URL": "/gatsbyjs#atelier-k",
+				"URL": "/gatsbyjs/atelier-k",
 				"ID": "atelier-k"
 			}
 		}
@@ -43,7 +43,7 @@
 		"Page": {
 			"Tequipedia": {
 				"Title": "テキーラ全書",
-				"URL": "/laravel#tequipedia",
+				"URL": "/laravel/tequipedia",
 				"ID": "tequipedia"
 			}
 		}

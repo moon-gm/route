@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Styles from '../styles/modules/page.module.scss'
 
 const Home = () => {
 	return (
@@ -6,8 +7,8 @@ const Home = () => {
 			<Head>
 				<title>Home | Portfolio Show</title>
 			</Head>
-			<div className="page-layout">
-				<h1 className="h1">
+			<div className={Styles.contentsBox}>
+				<h1 className={Styles.h1}>
 					ポートフォリオ作成概要
 				</h1>
 				<p　className="p">
