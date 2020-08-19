@@ -51,7 +51,13 @@
 	right: 0;
 	margin: auto;
 
-	/** 1-1.ヘッダータブ設定 **/
+	/** 2-1.コンテンツラッパー設定 **/
+	&Wrap {
+		max-width: $screen-max-width;
+		margin: 0 auto;
+	}
+
+	/** 2-2.ヘッダータブ設定 **/
 	.headerTab {
 		cursor: pointer;
 		display: block;
@@ -60,7 +66,7 @@
 		height: 30px;
 		padding: 5px 10px;
 
-		/* 1-1-1.ホバー時設定 */
+		/* 2-2-1.ホバー時設定 */
 		&:hover {
 			color: $blue;
 			text-shadow: 80px 0px 0px $white-skelton-thick;
@@ -77,7 +83,7 @@
 			}
 		}
 
-		/* 1-1-2.選択時設定 */
+		/* 2-2-2.選択時設定 */
 		&Selected {
 			color: $blue;
 			background: $white-skelton;
