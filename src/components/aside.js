@@ -7,7 +7,12 @@ const Aside = ({info, state}) => {
 
 			{/*** セクションタイトル -- start -- ***/}
 				<h1 className={Styles.sectionTitle}>
-					Portfolio List
+					{info.map(item => {
+						return (
+							state.MenuTab === item.State && item.FW
+						)
+					})}
+					{state.MenuTab === "top" && "Portfolio List"}
 				</h1>
 			{/*** セクションタイトル -- end -- ***/}
 
