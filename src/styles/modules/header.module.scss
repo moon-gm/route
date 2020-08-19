@@ -69,6 +69,12 @@
 			&:last-child {
 				text-shadow: -80px 0px 0px $white-skelton-thick;
 			}
+			@media screen and (max-width: $sp-max-width) {
+				text-shadow: unset;
+				&:last-child {
+					text-shadow: unset;
+				}
+			}
 		}
 
 		/* 1-1-2.選択時設定 */

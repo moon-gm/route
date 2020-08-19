@@ -20,7 +20,7 @@ const Navigation = ({info, state, func}) => {
 
 			{/*** メインビジュアルエリア -- start -- ***/}
 				<div className="main-visual-area">
-					<nav className="main-visual-area-wrap">
+					<div className="main-visual-area-wrap">
 						<ul
 							className={`
 								${Styles.scrollArea}
@@ -103,7 +103,7 @@ const Navigation = ({info, state, func}) => {
 							{/** スクロールボタン（>） -- end -- **/}
 
 						</ul>
-					</nav>
+					</div>
 				</div>
 			{/*** メインビジュアルエリア -- end -- ***/}
 		</>

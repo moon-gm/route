@@ -65,7 +65,20 @@
 		@include layout;
 		font-size: 16px;
 		border-bottom: 2px dotted $blue;
-		animation: slideIn1 2s linear 2s;
+
+		// ホバー時設定
+		&:hover {
+			border-bottom: 2px solid $blue;
+			background: $black-skelton-thin;
+			color: $blue;
+			&:after {
+				content: "? Help";
+				cursor: pointer;
+				padding-left: 10px;
+				font-size: 12px;
+				color: $white-skelton;
+			}
+		}
 	}
 
 	/*** 3.画像ボックス設定 ***/
