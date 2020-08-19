@@ -1,10 +1,45 @@
 import Head from 'next/head'
+import Modal from './modal'
 import Styles from '../styles/modules/page.module.scss'
 
 const PageLayout = ({pageData}) => {
 
 	// 使用フレームワークの最後の配列を取得
 	const lastArray = pageData.FW.slice(-1)[0];
+
+	// モーダルの値設定
+	const openBtn = "?"
+
+	const modalData = {
+		summary: {
+			title: "概要",
+			content: "作成したサイトが主に果たす役割・機能のあらまし。",
+		},
+		site: {
+			title: "サイトリンク",
+			content: "作成したサイトへのリンク。主に「Github Pages」や「Vercel」でデプロイしている。",
+		},
+		source: {
+			title: "Githubソース",
+			content: "ソースは全てGithubにpushしており、リンクは対象リポジトリのトップを表示。",
+		},
+		contents: {
+			title: "内容",
+			content: "作成したサイトが果たす主な役割・機能の詳細。このサイトで何ができるのかなど。",
+		},
+		wayToMake: {
+			title: "作成方法",
+			content: "使用したフレームワークなどをどのように活用しているか、また、どのようなシステムにしているかなどの説明。",
+		},
+		FW: {
+			title: "使用フレームワーク・言語",
+			content: "実際に使用したフレームワークを全て記載。フレームワーク使用にあたって基本となる言語は省略（HTMLなど）。Node.jsは主にプロジェクトを導入する際に使用（npm）。",
+		},
+		iframe: {
+			title: "画面イメージ",
+			content: "イメージとしているが、iframeで挿入しているため、実際のサイト同様に操作できる。",
+		},
+	}
 
 	return (
 		<>
@@ -23,8 +58,13 @@ const PageLayout = ({pageData}) => {
 
 				{/*** セクション１ -- 概要 -- ***/}
 				<section className={`${Styles.sectionBox} ${Styles.sectionBox1}`}>
-					<h2 className={Styles.h2}>
-						概要
+					<h2 className={`${Styles.h2} flex-start align-items-center`}>
+						{modalData.summary.title}
+						<Modal
+							openBtn={openBtn}
+							title={modalData.summary.title}
+							content={modalData.summary.content}
+						/>
 					</h2>
 					<p className={Styles.p}>
 						{pageData.summary}
@@ -33,8 +73,13 @@ const PageLayout = ({pageData}) => {
 
 				{/*** セクション２ -- サイトリンク -- ***/}
 				<section className={`${Styles.sectionBox} ${Styles.sectionBox2}`}>
-					<h2 className={Styles.h2}>
-						サイトリンク
+					<h2 className={`${Styles.h2} flex-start align-items-center`}>
+						{modalData.site.title}
+						<Modal
+							openBtn={openBtn}
+							title={modalData.site.title}
+							content={modalData.site.content}
+						/>
 					</h2>
 					<p className={Styles.p}>
 						<a
@@ -48,8 +93,13 @@ const PageLayout = ({pageData}) => {
 
 				{/*** セクション３ -- Githubソース -- ***/}
 				<section className={`${Styles.sectionBox} ${Styles.sectionBox3}`}>
-					<h2 className={Styles.h2}>
-						Githubソース
+					<h2 className={`${Styles.h2} flex-start align-items-center`}>
+						{modalData.source.title}
+						<Modal
+							openBtn={openBtn}
+							title={modalData.source.title}
+							content={modalData.source.content}
+						/>
 					</h2>
 					<p className={Styles.p}>
 						<a
@@ -63,8 +113,13 @@ const PageLayout = ({pageData}) => {
 
 				{/*** セクション４ -- 内容 -- ***/}
 				<section className={`${Styles.sectionBox} ${Styles.sectionBox4}`}>
-					<h2 className={Styles.h2}>
-						内容
+					<h2 className={`${Styles.h2} flex-start align-items-center`}>
+						{modalData.contents.title}
+						<Modal
+							openBtn={openBtn}
+							title={modalData.contents.title}
+							content={modalData.contents.content}
+						/>
 					</h2>
 					<p className={Styles.p}>
 					{pageData.contents}
@@ -73,8 +128,13 @@ const PageLayout = ({pageData}) => {
 
 				{/*** セクション５ -- 作成方法 -- ***/}
 				<section className={`${Styles.sectionBox} ${Styles.sectionBox5}`}>
-					<h2 className={Styles.h2}>
-						作成方法
+					<h2 className={`${Styles.h2} flex-start align-items-center`}>
+						{modalData.wayToMake.title}
+						<Modal
+							openBtn={openBtn}
+							title={modalData.wayToMake.title}
+							content={modalData.wayToMake.content}
+						/>
 					</h2>
 					<p className={Styles.p}>
 						{pageData.wayToMake}
@@ -83,8 +143,13 @@ const PageLayout = ({pageData}) => {
 
 				{/*** セクション６ -- 使用フレームワーク・言語 -- ***/}
 				<section className={`${Styles.sectionBox} ${Styles.sectionBox6}`}>
-					<h2 className={Styles.h2}>
-						使用フレームワーク・言語
+					<h2 className={`${Styles.h2} flex-start align-items-center`}>
+						{modalData.FW.title}
+						<Modal
+							openBtn={openBtn}
+							title={modalData.FW.title}
+							content={modalData.FW.content}
+						/>
 					</h2>
 					{/** テキスト **/}
 					<p className={Styles.p}>
@@ -122,8 +187,13 @@ const PageLayout = ({pageData}) => {
 
 				{/*** セクション７ -- 画面イメージ -- ***/}
 				<section className={`${Styles.sectionBox} ${Styles.sectionBox7}`}>
-					<h2 className={Styles.h2}>
-						画面イメージ
+					<h2 className={`${Styles.h2} flex-start align-items-center`}>
+						{modalData.iframe.title}
+						<Modal
+							openBtn={openBtn}
+							title={modalData.iframe.title}
+							content={modalData.iframe.content}
+						/>
 					</h2>
 					<iframe className={Styles.iframe} src={pageData.link.site}/>
 				</section>

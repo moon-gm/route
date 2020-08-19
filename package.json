@@ -9,11 +9,12 @@
     "export": "next export"
   },
   "dependencies": {
+    "@zeit/next-sass": "^1.0.1",
     "next": "9.5.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-swipeable-views": "^0.13.9",
-    "@zeit/next-sass": "^1.0.1"
+    "react-modal": "^3.11.2",
+    "react-swipeable-views": "^0.13.9"
   },
   "devDependencies": {
     "node-sass": "^4.14.1"
