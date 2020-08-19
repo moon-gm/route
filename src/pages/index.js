@@ -16,10 +16,12 @@ const Home = () => {
 					具体的には、サイトごとに以下の内容で展開していく。
 				</p>
 				<ul　className="list-box">
-					<li className="li">サイトの概要 / リンク</li>
+					<li className="li">概要</li>
+					<li className="li">サイトリンク</li>
 					<li className="li">Githubリポジトリでのソース確認</li>
 					<li className="li">どういう内容のサイトなのかの機能説明</li>
-					<li className="li">作成方法 / 使用した全ての言語・フレームワーク</li>
+					<li className="li">作成方法</li>
+					<li className="li">使用した言語・フレームワーク</li>
 					<li className="li">iframeを用いたサイトの画面イメージ</li>
 				</ul>
 			</div>

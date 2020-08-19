@@ -81,10 +81,10 @@ const PageLayout = ({pageData}) => {
 					</p>
 				</section>
 
-				{/*** セクション６ -- 使用フレームワーク -- ***/}
+				{/*** セクション６ -- 使用フレームワーク・言語 -- ***/}
 				<section className={`${Styles.sectionBox} ${Styles.sectionBox6}`}>
 					<h2 className={Styles.h2}>
-						使用フレームワーク
+						使用フレームワーク・言語
 					</h2>
 					{/** テキスト **/}
 					<p className={Styles.p}>

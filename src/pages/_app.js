@@ -48,6 +48,11 @@ class Layout extends React.Component {
 						URL: Page.Next.Page.NextLearning.URL,
 						ID: Page.Next.Page.NextLearning.ID
 					},
+					{
+						Title: Page.Next.Page.PortfolioShow.Title,
+						URL: Page.Next.Page.PortfolioShow.URL,
+						ID: Page.Next.Page.PortfolioShow.ID
+					},
 				],
 			},
 			{
@@ -107,6 +112,9 @@ class Layout extends React.Component {
 		this.setState({MenuTab: MenuTab});
 		this.setState({index: index});
 		sessionStorage.setItem('ScrollIndex', index);
+
+		// 画面上部に遷移
+		window.scrollTo(0, 0);
 
 		// jQuery導入(classNameの切替)
 		$(headerStyles.headerTab).removeClass(headerStyles.headerTabSelected);
