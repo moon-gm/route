@@ -7,7 +7,7 @@ const Aside = ({info, state}) => {
 
 			{/*** セクションタイトル -- start -- ***/}
 				<h1 className={Styles.sectionTitle}>
-					作成サイト一覧
+					Portfolio List
 				</h1>
 			{/*** セクションタイトル -- end -- ***/}
 
@@ -72,11 +72,11 @@ const Aside = ({info, state}) => {
 															className={Styles.additionalIcon}
 														/>
 														<span className={Styles.listText}>
-															<sapn className={Styles.middleWrap}>
-																<sapn className={Styles.innerWrap}>
+															<span className={Styles.middleWrap}>
+																<span className={Styles.innerWrap}>
 																	{PageList.Title}
-																</sapn>
-															</sapn>
+																</span>
+															</span>
 														</span>
 													</li>
 												</Link>

@@ -56,16 +56,19 @@
 		cursor: pointer;
 		display: block;
 		text-align: center;
-		width: 100px;
+		width: auto;
 		height: 30px;
-		padding: 5px;
+		padding: 5px 10px;
 
 		/* 1-1-1.ホバー時設定 */
 		&:hover {
 			color: $blue;
-			text-shadow: 0px 30px 0px $white-skelton-thick;
+			text-shadow: 80px 0px 0px $white-skelton-thick;
 			background: $white-skelton;
 			transition: background 0.5s, text-shadow 0.3s;
+			&:last-child {
+				text-shadow: -80px 0px 0px $white-skelton-thick;
+			}
 		}
 
 		/* 1-1-2.選択時設定 */
