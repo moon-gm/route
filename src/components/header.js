@@ -2,6 +2,12 @@ import Link from 'next/link';
 // 「Styles」は「Styles.headerTabSelected」をjQueryで使うため、_app.jsでimportしている
 
 const Header = ({info, state, func, Styles}) => {
+
+	// Topに戻るボタンの処理
+	function scrollToTop() {
+		window.scrollTo(0, 0);
+	}
+
 	return(
 		<header
 			className="header-area"
@@ -35,22 +41,14 @@ const Header = ({info, state, func, Styles}) => {
 							</Link>
 						{/** トップロゴ　-- end -- **/}
 
-						{/** トップボタン　-- start -- **/
-							info.map(items => {
-								if (state.MenuTab === items.State) {
-									return(
-										<Link
-											href={`${items.URL}#top`}
-											key={`top-btn-${items.ID}`}
-										>
-											<li className={Styles.topBtn}>
-												⬆︎Top
-											</li>
-										</Link>
-									);
-								}
-							})
-						/** トップボタン　-- end -- **/}
+						{/** トップボタン　-- start -- **/}
+							<li
+								className={Styles.topBtn}
+								onClick={scrollToTop}
+							>
+								⬆︎Top
+							</li>
+						{/** トップボタン　-- end -- **/}
 
 					</ul>
 				{/*** トップリスト -- end -- ***/}
@@ -64,44 +62,72 @@ const Header = ({info, state, func, Styles}) => {
 								align-items-center
 							`}
 						>
-							{info.map(FWList => {
+							<Link href="/">
+								<li
+									className={`
+									${Styles.headerTab}
+									`}
+									onClick={func}
+								>
+									Profile
+								</li>
+							</Link>
+							<li
+								className={`
+								${Styles.headerTab}
+								${Styles.headerTabWithList}
+								`}
+							>
+								Production
+								<ul className={Styles.headerPullDownList}>
+									{info.map(FWList => {
 
-								// 選択されているタブの場合
-								if (state.MenuTab === FWList.State) {
-									return (
-										<li
-											id={FWList.State}
-											className={`
-												${Styles.headerTab}
-												${Styles.headerTabSelected}
-												tab-${FWList.State}
-											`}
-											key={`tablist${FWList.State}`}
-											onClick={FWList.Func}
-										>
-											{FWList.FW}
-										</li>
-									);
-								}
+										// 選択されているタブの場合
+										if (state.MenuTab === FWList.State) {
+											return (
+												<Link
+													href={FWList.Page[0].URL}
+													key={`tablist${FWList.State}`}
+												>
+													<li
+														id={FWList.State}
+														className={`
+															${Styles.headerPullDownBtn}
+															${Styles.headerTabSelected}
+															tab-${FWList.State}
+														`}
+														onClick={FWList.Func}
+													>
+														{FWList.FW}
+													</li>
+												</Link>
+											);
+										}
 
-								// 選択されていないタブの場合
-								else {
-									return (
-										<li
-											id={FWList.State}
-											className={`
-												${Styles.headerTab}
-												tab-${FWList.State}
-											`}
-											key={`tablist${FWList.State}`}
-											onClick={FWList.Func}
-										>
-											{FWList.FW}
-										</li>
-									);
-								}
+										// 選択されていないタブの場合
+										else {
+											return (
+												<Link
+													href={FWList.Page[0].URL}
+													key={`tablist${FWList.State}`}
+												>
+													<li
+														id={FWList.State}
+														className={`
+															${Styles.headerPullDownBtn}
+															tab-${FWList.State}
+														`}
+														onClick={FWList.Func}
+													>
+														{FWList.FW}
+													</li>
+												</Link>
+											);
+										}
 
-							})}
+									})}
+								</ul>
+							</li>
 						</ul>
 					</div>
 				{/*** ヘッダータブリスト -- end -- ***/}

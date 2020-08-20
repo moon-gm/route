@@ -62,9 +62,9 @@
 		cursor: pointer;
 		display: block;
 		text-align: center;
-		width: auto;
+		width: 100px;
 		height: 30px;
-		padding: 5px 10px;
+		padding: 5px 0;
 
 		/* 2-2-1.ホバー時設定 */
 		&:hover {
@@ -73,11 +73,55 @@
 			transition: background 0.5s;
 		}
 
-		/* 2-2-2.選択時設定 */
+		/* 2-2-2.プルダウンリストがある場合の設定 */
+		&WithList {
+
+			// ホバー時の設定
+			&:hover {
+				// プルダウンリスト
+				.headerPullDownList {
+					display: block;
+				}
+				// プルダウンボタン
+				.headerPullDownBtn {
+
+				}
+			}
+
+			// プルダウンリストの設定
+			.headerPullDown {
+
+				// リスト全体設定
+				&List {
+					display: none;
+					background: $black-skelton-thin;
+					position: relative;
+					top: 10px;
+					left: 0px;
+				}
+
+				// ボタン設定
+				&Btn {
+					padding: 7px 5px;
+					color: $white;
+					border-left: 1px solid $white-skelton;
+					border-right: 1px solid $white-skelton;
+					// border-bottom: 1px solid $white-skelton;
+
+					// ホバー時の設定
+					&:hover {
+						background: $white-skelton;
+						color: $blue;
+					}
+				}
+			}
+		}
+
+		/* 2-2-3.選択時設定 */
 		&Selected {
 			color: $blue;
 			background: $white-skelton;
-			border-bottom: 5px solid $blue;
+			border-bottom: 3px solid $blue;
 		}
 	}
 
