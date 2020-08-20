@@ -4,29 +4,41 @@
 // 変数設定
 @import './../variables';
 
+/*** 1.モーダルを開くボタン ***/
+.openModal {
+	cursor: pointer;
+	font-size: 12px;
+	padding: 4px;
+	color: $blue;
+
+	// ホバー時設定
+	&:hover {
+		color: $white;
+	}
+}
+
+/*** 2.モーダルウィンドウ ***/
+/** 2-1.モーダルタイトル **/
 .title {
 	font-weight: bold;
 	border-bottom: 2px dotted $white;
+
+	// 接頭文字設定
 	&:before {
 		content: "?";
 		padding-right: 0.5em;
 	}
 }
+
+/** 2-2.モーダルコンテンツ **/
 .content {
 	font-size: 14px;
 	padding: 20px 0;
 	color: $white;
 	max-width: 500px;
 }
-.openModal {
-	cursor: pointer;
-	font-size: 12px;
-	padding: 4px;
-	color: $blue;
-	&:hover {
-		color: $white;
-	}
-}
+
+/** 2-3.モーダルクローズボタン **/
 .closeModal {
 	cursor: pointer;
 	outline: none;
@@ -39,6 +51,8 @@
 	color: $white;
 	border: 2px solid $white-skelton;
 	padding: 2px;
+
+	// ホバー時設定
 	&:hover {
 		color: $blue;
 		background: $white-skelton;
