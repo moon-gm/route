@@ -48,10 +48,10 @@
 
 		/** 3-2.注意書き設定 **/
 		.alert {
-			color: $yellow;
-			background: $yellow-skelton;
+			color: $blue;
+			background: $white-skelton-thick;
 			border-radius: 4px;
-			border: 2px dashed $yellow;
+			border: 1px solid $blue;
 			padding: 5px;
 			margin-bottom: 15px;
 
@@ -60,6 +60,7 @@
 		/** 3-3.リスト設定 **/
 		.list-box {
 			padding: 5px;
+			margin-bottom: 20px;
 
 			/* 3-3-1.リスト項目設定 */
 			.li {
@@ -67,10 +68,17 @@
 				text-indent: -1em;
 				padding-left: 1em;
 
+				// リストテキストの設定
+				&-text {
+					padding: 5px;
+					color: $blue;
+				}
+
 				// リストアイコンの設定
 				&:before {
-					content: "▶︎";
+					content: "☑︎";
 					padding-right: 5px;
+					color: $blue;
 				}
 
 				// 最後のリスト項目の設定
