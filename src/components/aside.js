@@ -20,29 +20,15 @@ const Aside = ({info, state}) => {
 				// Top画面でのみ表示
 				state.MenuTab === "top" && (
 					<div className="alert">
-						表示方法
-
+						以下の動作でこのエリアを表示切替
 						<ul className="list-box">
 							<li className="li">
-								ヘッダーのProductionタブからいずれかを選択
-								<p className="li-note">
-									→このエリアに対象のFW一覧を表示
-								</p>
+								ヘッダーの「Production」タブから選択
 							</li>
-						</ul>
-
-						<ul className="list-box">
 							<li className="li">
-								スクロールのイメージ画像をクリック
-								<p className="li-note">
-									→このエリアに対象のFW一覧を表示
-								</p>
-								<p className="li-note">
-									→プロフィール記載エリアに対象のサイト概要を表示
-								</p>
+								サイト画像を選択
 							</li>
 						</ul>
-
 					</div>
 				)
 			/*** 表示方法ウィンドウ -- end -- ***/}
