@@ -69,18 +69,8 @@
 		/* 2-2-1.ホバー時設定 */
 		&:hover {
 			color: $blue;
-			text-shadow: 80px 0px 0px $white-skelton-thick;
 			background: $white-skelton;
-			transition: background 0.5s, text-shadow 0.3s;
-			&:last-child {
-				text-shadow: -80px 0px 0px $white-skelton-thick;
-			}
-			@media screen and (max-width: $sp-max-width) {
-				text-shadow: unset;
-				&:last-child {
-					text-shadow: unset;
-				}
-			}
+			transition: background 0.5s;
 		}
 
 		/* 2-2-2.選択時設定 */
