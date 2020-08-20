@@ -6,7 +6,7 @@ const PortfolioShow = ({info}) => {
 		head: info[1].FW,
 
 		// サイトタイトル
-		title: info[1].Page[1].Title,
+		title: info[1].Page[0].Title,
 
 		// 概要
 		summary: "Next.jsで作成の当サイト。他に作成したものをまとめたポートフォリオサイト。現在の新作。",

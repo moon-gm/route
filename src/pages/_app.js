@@ -24,6 +24,7 @@ class Layout extends React.Component {
 
 		/*** サイト情報設定 ***/
 		this.info = [
+			// React.js
 			{
 				FW: Page.React.FW,
 				URL: Page.React.URL,
@@ -37,6 +38,7 @@ class Layout extends React.Component {
 					},
 				],
 			},
+			// Next.js
 			{
 				FW: Page.Next.FW,
 				URL: Page.Next.URL,
@@ -44,17 +46,18 @@ class Layout extends React.Component {
 				Func: this.changeFW.bind(this, State.MenuTab.Next, State.index.Next),
 				Page: [
 					{
-						Title: Page.Next.Page.NextLearning.Title,
-						URL: Page.Next.Page.NextLearning.URL,
-						ID: Page.Next.Page.NextLearning.ID
-					},
-					{
 						Title: Page.Next.Page.PortfolioShow.Title,
 						URL: Page.Next.Page.PortfolioShow.URL,
 						ID: Page.Next.Page.PortfolioShow.ID
 					},
+					{
+						Title: Page.Next.Page.NextLearning.Title,
+						URL: Page.Next.Page.NextLearning.URL,
+						ID: Page.Next.Page.NextLearning.ID
+					},
 				],
 			},
+			// Gatsby.js
 			{
 				FW: Page.Gatsby.FW,
 				URL: Page.Gatsby.URL,
@@ -62,17 +65,18 @@ class Layout extends React.Component {
 				Func: this.changeFW.bind(this, State.MenuTab.Gatsby, State.index.Gatsby),
 				Page: [
 					{
-						Title: Page.Gatsby.Page.GatsbyLearning.Title,
-						URL: Page.Gatsby.Page.GatsbyLearning.URL,
-						ID:Page.Gatsby.Page.GatsbyLearning.ID
-					},
-					{
 						Title: Page.Gatsby.Page.AtelierK.Title,
 						URL: Page.Gatsby.Page.AtelierK.URL,
 						ID: Page.Gatsby.Page.AtelierK.ID
 					},
+					{
+						Title: Page.Gatsby.Page.GatsbyLearning.Title,
+						URL: Page.Gatsby.Page.GatsbyLearning.URL,
+						ID:Page.Gatsby.Page.GatsbyLearning.ID
+					},
 				],
 			},
+			// Laravel
 			{
 				FW: Page.Laravel.FW,
 				URL: Page.Laravel.URL,

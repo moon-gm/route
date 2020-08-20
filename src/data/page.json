@@ -14,15 +14,15 @@
 		"FW": "Next.js",
 		"URL": "/nextjs",
 		"Page": {
-			"NextLearning": {
-				"Title": "Next Learning",
-				"URL": "/nextjs/next-learning",
-				"ID": "next-learning"
-			},
 			"PortfolioShow": {
 				"Title": "Portfolio Show",
 				"URL": "/nextjs/portfolio-show",
 				"ID": "portfolio-show"
+			},
+			"NextLearning": {
+				"Title": "Next Learning",
+				"URL": "/nextjs/next-learning",
+				"ID": "next-learning"
 			}
 		}
 	},
@@ -30,16 +30,17 @@
 		"FW": "Gatsby.js",
 		"URL": "/gatsbyjs",
 		"Page": {
-			"GatsbyLearning": {
-				"Title": "Gatsby Learning",
-				"URL": "/gatsbyjs/gatsby-learning",
-				"ID": "gatsby-learning"
-			},
 			"AtelierK": {
 				"Title": "Atelier K",
 				"URL": "/gatsbyjs/atelier-k",
 				"ID": "atelier-k"
+			},
+			"GatsbyLearning": {
+				"Title": "Gatsby Learning",
+				"URL": "/gatsbyjs/gatsby-learning",
+				"ID": "gatsby-learning"
 			}
+
 		}
 	},
 	"Laravel": {

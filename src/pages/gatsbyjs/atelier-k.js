@@ -6,7 +6,7 @@ const AtelierK = ({info}) => {
 		head: info[2].FW,
 
 		// サイトタイトル
-		title: info[2].Page[1].Title,
+		title: info[2].Page[0].Title,
 
 		// 概要
 		summary: "飼い猫を題材にした写真ギャラリーサイト。",

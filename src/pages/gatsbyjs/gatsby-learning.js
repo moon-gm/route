@@ -6,7 +6,7 @@ const GatsbyJS = ({info}) => {
 		head: info[2].FW,
 
 		// サイトタイトル
-		title: info[2].Page[0].Title,
+		title: info[2].Page[1].Title,
 
 		// 概要
 		summary: "Gatsby.jsの学習内容をそのまま反映させていく学習サイト。",

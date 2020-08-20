@@ -6,7 +6,7 @@ const NextJS = ({info}) => {
 		head: info[1].FW,
 
 		// サイトタイトル
-		title: info[1].Page[0].Title,
+		title: info[1].Page[1].Title,
 
 		// 概要
 		summary: "Next.jsの学習内容をそのまま反映させていく学習サイト。",
