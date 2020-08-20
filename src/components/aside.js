@@ -24,7 +24,7 @@ const Aside = ({info, state}) => {
 
 						<ul className="list-box">
 							<li className="li">
-								ヘッダータブのいずれかを選択
+								ヘッダーのProductionタブからいずれかを選択
 								<p className="li-note">
 									→このエリアに対象のFW一覧を表示
 								</p>
@@ -38,7 +38,7 @@ const Aside = ({info, state}) => {
 									→このエリアに対象のFW一覧を表示
 								</p>
 								<p className="li-note">
-									→ポートフォリオ作成概要エリアに対象のサイト概要を表示
+									→プロフィール記載エリアに対象のサイト概要を表示
 								</p>
 							</li>
 						</ul>
