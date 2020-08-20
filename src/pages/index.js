@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Modal from './../components/modal'
 import Styles from '../styles/modules/page.module.scss'
 
 const Home = () => {
@@ -13,8 +14,13 @@ const Home = () => {
 					<h1 className={Styles.h1}>
 						プロフィール
 					</h1>
-					<h2　className={Styles.h2}>
+					<h2 className={`${Styles.h2} flex-start align-items-center`}>
 						経歴
+						<Modal
+							openBtn="?"
+							title="経歴"
+							content="経歴の概略、業務と学んだ技術を記載。時系列順にはなっているが、実際の細かい経歴については、経歴書の方で確認。"
+						/>
 					</h2>
 					<h3　className={Styles.h3}>
 						前職
