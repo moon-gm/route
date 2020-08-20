@@ -10,7 +10,23 @@
 		"React": 0,
 		"Next": 1,
 		"Gatsby": 2,
-		"Laravel": 3
+		"Laravel": 3,
+		"SitePages": {
+			"React": {
+				"ReactLearning": 0
+			},
+			"Next": {
+				"PortfolioShow": 1,
+				"NextLearning": 4
+			},
+			"Gatsby": {
+				"AtelierK": 2,
+				"GatsbyLearning": 5
+			},
+			"Laravel": {
+				"Tequipedia": 3
+			}
+		}
 	},
 	"imageDirection": {
 		"Right": "right",

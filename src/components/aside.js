@@ -67,6 +67,7 @@ const Aside = ({info, state}) => {
 															flex-start
 															align-items-center
 														`}
+														onClick={PageList.Func}
 													>
 														<img
 															src="/projector-icon.svg"

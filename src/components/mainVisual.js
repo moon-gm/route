@@ -8,6 +8,19 @@ const Navigation = ({info, state, func}) => {
 	// スクロールエリアのオート再生設定
 	const AutoScroll = autoPlay(SwipeableViews);
 
+	// スクロールする画像の順序設定
+	const scrollItems = [
+		// 各FW代表ページ
+		info[0].Page[0], // React.js index: 0
+		info[1].Page[0], // Next.js index: 1
+		info[2].Page[0], // Gatsby.js index: 2
+		info[3].Page[0], // Laravel index: 3
+
+		// 追加ページ
+		info[1].Page[1], // Next.js index: 4
+		info[2].Page[1], // Gatsby.js index: 5
+	];
+
 	return (
 		<>
 
@@ -53,7 +66,7 @@ const Navigation = ({info, state, func}) => {
 									direction="incremental"
 									interval={2500}
 								>
-									{info.map(scrollItem => {
+									{scrollItems.map(scrollItem => {
 										return (
 											<li
 												className={`
@@ -61,11 +74,11 @@ const Navigation = ({info, state, func}) => {
 													flex-space-around
 													align-items-center
 												`}
-												key={scrollItem.Page[0].ID}
+												key={scrollItem.ID}
 											>
-												<Link href={scrollItem.Page[0].URL}>
+												<Link href={scrollItem.URL}>
 													<img
-														src={`/${scrollItem.Page[0].ID}.png`}
+														src={`/${scrollItem.ID}.png`}
 														className={`
 															${Styles.scrollImg}
 															${Styles.toLeft}

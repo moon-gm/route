@@ -34,7 +34,8 @@ class Layout extends React.Component {
 					{
 						Title: Page.React.Page.ReactLearning.Title,
 						URL: Page.React.Page.ReactLearning.URL,
-						ID: Page.React.Page.ReactLearning.ID
+						ID: Page.React.Page.ReactLearning.ID,
+						Func: this.changeFW.bind(this, State.MenuTab.React, State.index.SitePages.React.ReactLearning)
 					},
 				],
 			},
@@ -48,12 +49,14 @@ class Layout extends React.Component {
 					{
 						Title: Page.Next.Page.PortfolioShow.Title,
 						URL: Page.Next.Page.PortfolioShow.URL,
-						ID: Page.Next.Page.PortfolioShow.ID
+						ID: Page.Next.Page.PortfolioShow.ID,
+						Func: this.changeFW.bind(this, State.MenuTab.Next, State.index.SitePages.Next.PortfolioShow)
 					},
 					{
 						Title: Page.Next.Page.NextLearning.Title,
 						URL: Page.Next.Page.NextLearning.URL,
-						ID: Page.Next.Page.NextLearning.ID
+						ID: Page.Next.Page.NextLearning.ID,
+						Func: this.changeFW.bind(this, State.MenuTab.Next, State.index.SitePages.Next.NextLearning)
 					},
 				],
 			},
@@ -67,12 +70,14 @@ class Layout extends React.Component {
 					{
 						Title: Page.Gatsby.Page.AtelierK.Title,
 						URL: Page.Gatsby.Page.AtelierK.URL,
-						ID: Page.Gatsby.Page.AtelierK.ID
+						ID: Page.Gatsby.Page.AtelierK.ID,
+						Func: this.changeFW.bind(this, State.MenuTab.Gatsby, State.index.SitePages.Gatsby.AtelierK)
 					},
 					{
 						Title: Page.Gatsby.Page.GatsbyLearning.Title,
 						URL: Page.Gatsby.Page.GatsbyLearning.URL,
-						ID:Page.Gatsby.Page.GatsbyLearning.ID
+						ID:Page.Gatsby.Page.GatsbyLearning.ID,
+						Func: this.changeFW.bind(this, State.MenuTab.Gatsby, State.index.SitePages.Gatsby.GatsbyLearning)
 					},
 				],
 			},
@@ -86,7 +91,8 @@ class Layout extends React.Component {
 					{
 						Title: Page.Laravel.Page.Tequipedia.Title,
 						URL: Page.Laravel.Page.Tequipedia.URL,
-						ID: Page.Laravel.Page.Tequipedia.ID
+						ID: Page.Laravel.Page.Tequipedia.ID,
+						Func: this.changeFW.bind(this, State.MenuTab.Laravel, State.index.SitePages.Laravel.Tequipedia)
 					},
 				],
 			},
@@ -129,7 +135,7 @@ class Layout extends React.Component {
 	prevBtn() {
 		if (this.state.index === void 0 || this.state.index === 0 || this.state.index === null) {
 			this.setState({imageDirection: "right"});
-			this.setState({index: 3});
+			this.setState({index: 5});
 		} else {
 			this.setState({imageDirection: "right"});
 			this.setState({index: this.state.index - 1});
@@ -138,7 +144,7 @@ class Layout extends React.Component {
 
 	/*** スクロールの「>」ボタン処理 ***/
 	nextBtn() {
-		if (this.state.index === void 0 || this.state.index === 3 || this.state.index === null) {
+		if (this.state.index === void 0 || this.state.index === 5 || this.state.index === null) {
 			this.setState({imageDirection: "left"});
 			this.setState({index: 0});
 		} else {
