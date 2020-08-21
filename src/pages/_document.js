@@ -11,9 +11,7 @@ export default class MyDocument extends Document {
       <html>
         <Head>
 			<meta charset="UTF-8"/>
-			<meta name="description" content="Portfolio List"/>
-			<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-			<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-cale=1,minimum-scale=1"/>
+			<meta name="description" content="Portfolio Show"/>
 			<meta property="og:url" content="https://route-eight.vercel.app/"/>
 			<meta property="og:title" content="Portfolio Show"/>
 			<meta property="og:description" content="各種フレームワークを用いて学習しながら作成"/>
