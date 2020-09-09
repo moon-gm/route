@@ -67,18 +67,20 @@
 				padding-bottom: 5px;
 				text-indent: -1em;
 				padding-left: 1em;
+				margin-bottom: 10px;
 
 				// リストテキストの設定
 				&-text {
 					padding: 5px;
-					color: $blue;
+					color: $black;
+					font-weight: bold;
 				}
 
 				// リストアイコンの設定
 				&:before {
 					content: "☑︎";
 					padding-right: 5px;
-					color: $blue;
+					color: $black;
 				}
 
 				// 最後のリスト項目の設定
@@ -91,6 +93,7 @@
 					padding-left: 1em;
 					font-size: 14px;
 					color: $black;
+					margin-bottom: 5px;
 				}
 			}
 		}

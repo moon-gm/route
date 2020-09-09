@@ -9,9 +9,17 @@
 	font-size: 25px;
 	padding: 5px;
 	margin-bottom: 20px;
+	border-bottom: 2px solid $white;
 	@media screen and (max-width: $sp-max-width){
 		font-size: 20px;
 		margin-bottom: 10px;
+	}
+
+	/** 1-1.選択時設定 **/
+	&Checked {
+		border-bottom: 3px solid $blue;
+		background: $white-skelton;
+		color: $blue;
 	}
 }
 

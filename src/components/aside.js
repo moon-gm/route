@@ -6,80 +6,67 @@ const Aside = ({info, state}) => {
 		<aside className="contents-aside">
 
 			{/*** セクションタイトル -- start -- ***/}
-				<h1 className={Styles.sectionTitle}>
 					{info.map(item => {
 						return (
-							state.MenuTab === item.State && item.FW
+							<React.Fragment
+								key={`sidelist${item.State}`}
+							>
+								{state.MenuTab === item.State ? (
+									<h1 className={`${Styles.sectionTitle} ${Styles.sectionTitleChecked}`}>
+										{item.FW}
+									</h1>
+
+								):(
+									<h1 className={Styles.sectionTitle}>
+										{item.FW}
+									</h1>
+								)}
+								{/** 作成サイトリスト -- start -- **/}
+									<ul>
+										{item.Page.map(page => {
+												return (
+													<React.Fragment
+														key={`sidelistItem${page.ID}`}
+													>
+														<Link
+															href={page.URL}
+															key={`pagelist${page.URL}`}
+														>
+															<li
+																className={`
+																	${Styles.list}
+																	flex-start
+																	align-items-center
+																`}
+																onClick={page.Func}
+															>
+																<img
+																	src="/projector-icon.svg"
+																	className={Styles.icon}
+																/>
+																<img
+																	src="/film-rail.png"
+																	className={Styles.additionalIcon}
+																/>
+																<span className={Styles.listText}>
+																	<span className={Styles.middleWrap}>
+																		<span className={Styles.innerWrap}>
+																			{page.Title}
+																		</span>
+																	</span>
+																</span>
+															</li>
+														</Link>
+													</React.Fragment>
+												);
+											})}
+									</ul>
+								{/** 作成サイトリスト -- end -- **/}
+							</React.Fragment>
 						)
 					})}
-					{state.MenuTab === "top" && "Portfolio List"}
-				</h1>
 			{/*** セクションタイトル -- end -- ***/}
 
-			{/*** 表示方法ウィンドウ -- start -- ***/
-				// Top画面でのみ表示
-				state.MenuTab === "top" && (
-					<div className="alert">
-						以下の動作でこのエリアを表示切替
-						<ul className="list-box">
-							<li className="li">
-								ヘッダーの「Production」タブから選択
-							</li>
-							<li className="li">
-								サイト画像を選択
-							</li>
-						</ul>
-					</div>
-				)
-			/*** 表示方法ウィンドウ -- end -- ***/}
-
-			{/*** 作成サイトリスト -- start -- ***/}
-				<ul>
-					{info.map(FWList => {
-							return (
-								<React.Fragment
-									key={`sidelist${FWList.State}`}
-								>
-									{FWList.State === state.MenuTab && (
-										FWList.Page.map(PageList => {
-											return (
-												<Link
-													href={PageList.URL}
-													key={`pagelist${PageList.URL}`}
-												>
-													<li
-														className={`
-															${Styles.list}
-															flex-start
-															align-items-center
-														`}
-														onClick={PageList.Func}
-													>
-														<img
-															src="/projector-icon.svg"
-															className={Styles.icon}
-														/>
-														<img
-															src="/film-rail.png"
-															className={Styles.additionalIcon}
-														/>
-														<span className={Styles.listText}>
-															<span className={Styles.middleWrap}>
-																<span className={Styles.innerWrap}>
-																	{PageList.Title}
-																</span>
-															</span>
-														</span>
-													</li>
-												</Link>
-											);
-										})
-									)}
-								</React.Fragment>
-							);
-						})}
-				</ul>
-			{/*** 作成サイトリスト -- end -- ***/}
 
 		</aside>
 	);

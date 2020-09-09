@@ -19,7 +19,8 @@ class Layout extends React.Component {
 		this.state = {
 			MenuTab: State.MenuTab.Top,
 			index: undefined,
-			imageDirection: undefined
+			imageDirection: undefined,
+			sideList: true,
 		}
 
 		/*** サイト情報設定 ***/
@@ -129,6 +130,7 @@ class Layout extends React.Component {
 		// jQuery導入(classNameの切替)
 		$(headerStyles.headerTab).removeClass(headerStyles.headerTabSelected);
 		$(`#${MenuTab}`).addClass(headerStyles.headerTabSelected);
+
 	}
 
 	/*** スクロールの「<」ボタン処理 ***/
@@ -153,6 +155,15 @@ class Layout extends React.Component {
 		}
 	}
 
+	/*** サイドメニューの表示ボタン処理 ***/
+	sideListShow() {
+		if(this.state.sideList) {
+			this.setState({sideList: false})
+		} else {
+			this.setState({sideList: true})
+		}
+	}
+
 	render() {
 		/***** childrenの設定 *****/
 		// childrenに渡すPropsの設定
@@ -171,33 +182,46 @@ class Layout extends React.Component {
 				<Header
 					info={this.info}
 					state={this.state}
-					func={this.changeFW.bind(this, State.MenuTab.Top, State.index.React)}
+					topPage={this.changeFW.bind(this, State.MenuTab.Top, State.index.React)}
+					productionPage={this.changeFW.bind(this, State.MenuTab.React, State.index.React)}
+					sideListShow={this.sideListShow.bind(this)}
 					Styles={headerStyles}
 				/>
 
 				{/*** メインビジュアルエリア ***/}
-				<MainVisual
-					info={this.info}
-					state={this.state}
-					func={[this.prevBtn.bind(this), this.nextBtn.bind(this)]}
-				/>
+				{this.state.MenuTab !== "top" && (
+					<MainVisual
+						info={this.info}
+						state={this.state}
+						func={[this.prevBtn.bind(this), this.nextBtn.bind(this)]}
+					/>
+				)}
 
 				{/*** コンテンツエリア ***/}
 				<div className="contents-area flex-space-around flex-remove-sp">
 
 					{/** サイドエリア **/}
-					<Aside
-						info={this.info}
-						state={this.state}
-					/>
+					{this.state.MenuTab !== "top" && this.state.sideList && (
+						<Aside
+							info={this.info}
+							state={this.state}
+						/>
+					)}
 
 					{/** メインエリア **/}
 					<main
 						className="contents-main"
 					>
-						<div className="contents-main-wrap">
+						{this.state.MenuTab === "top" ? (
+							<div className="contents-main-wrap" style={{marginTop: "100px"}}>
 							{newChildren}
 						</div>
+						):(
+							<div className="contents-main-wrap">
+								{newChildren}
+							</div>
+						)}
+
 					</main>
 
 				</div>

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 // 「Styles」は「Styles.headerTabSelected」をjQueryで使うため、_app.jsでimportしている
 
-const Header = ({info, state, func, Styles}) => {
+const Header = ({info, state, topPage, productionPage, sideListShow, Styles}) => {
 
 	// Topに戻るボタンの処理
 	function scrollToTop() {
@@ -30,7 +30,7 @@ const Header = ({info, state, func, Styles}) => {
 										flex-space-between
 										align-items-center
 									`}
-									onClick={func}
+									onClick={topPage}
 								>
 									<img
 										src="/github-logo.png"
@@ -50,6 +50,17 @@ const Header = ({info, state, func, Styles}) => {
 							</li>
 						{/** トップボタン　-- end -- **/}
 
+						{/** サイドメニュー表示ボタン　-- start -- **/}
+						{state.MenuTab !== "top" && (
+							<li
+								className={Styles.menuBtn}
+								onClick={sideListShow}
+							>
+								{state.sideList ? "close" : "≡"}
+							</li>
+						)}
+						{/** サイドメニュー表示ボタン　-- end -- **/}
+
 					</ul>
 				{/*** トップリスト -- end -- ***/}
 
@@ -67,67 +78,21 @@ const Header = ({info, state, func, Styles}) => {
 									className={`
 									${Styles.headerTab}
 									`}
-									onClick={func}
+									onClick={topPage}
 								>
 									Profile
 								</li>
 							</Link>
-							<li
-								className={`
-								${Styles.headerTab}
-								${Styles.headerTabWithList}
-								`}
-							>
-								Production
-								<ul className={Styles.headerPullDownList}>
-									{info.map(FWList => {
-
-										// 選択されているタブの場合
-										if (state.MenuTab === FWList.State) {
-											return (
-												<Link
-													href={FWList.Page[0].URL}
-													key={`tablist${FWList.State}`}
-												>
-													<li
-														id={FWList.State}
-														className={`
-															${Styles.headerPullDownBtn}
-															${Styles.headerTabSelected}
-															tab-${FWList.State}
-														`}
-														onClick={FWList.Func}
-													>
-														{FWList.FW}
-													</li>
-												</Link>
-											);
-										}
-
-										// 選択されていないタブの場合
-										else {
-											return (
-												<Link
-													href={FWList.Page[0].URL}
-													key={`tablist${FWList.State}`}
-												>
-													<li
-														id={FWList.State}
-														className={`
-															${Styles.headerPullDownBtn}
-															tab-${FWList.State}
-														`}
-														onClick={FWList.Func}
-													>
-														{FWList.FW}
-													</li>
-												</Link>
-											);
-										}
-
-									})}
-								</ul>
-							</li>
+							<Link href="/reactjs/react-learning">
+								<li
+									className={`
+									${Styles.headerTab}
+									`}
+									onClick={productionPage}
+								>
+									Production
+								</li>
+							</Link>
 						</ul>
 					</div>
 				{/*** ヘッダータブリスト -- end -- ***/}

@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import Styles from '../styles/modules/mainVisual.module.scss'
 import SwipeableViews from "react-swipeable-views";
-import { autoPlay } from 'react-swipeable-views-utils';
+// import { autoPlay } from 'react-swipeable-views-utils';
 
 const Navigation = ({info, state, func}) => {
 
 	// スクロールエリアのオート再生設定
-	const AutoScroll = autoPlay(SwipeableViews);
+	// const AutoScroll = autoPlay(SwipeableViews);
 
 	// スクロールする画像の順序設定
 	const scrollItems = [
@@ -59,12 +59,12 @@ const Navigation = ({info, state, func}) => {
 							{/** スクロールボタン（<） -- end -- **/}
 
 							{/** スクロールエリア -- start -- **/}
-								<AutoScroll
+								<SwipeableViews
 									enableMouseEvents
 									resistance
 									index={state.index}
-									direction="incremental"
-									interval={2500}
+									// direction="incremental"
+									// interval={2500}
 								>
 									{scrollItems.map(scrollItem => {
 										return (
@@ -96,7 +96,7 @@ const Navigation = ({info, state, func}) => {
 											</li>
 										);
 									})}
-								</AutoScroll>
+								</SwipeableViews>
 							{/** スクロールエリア -- end -- **/}
 
 							{/** スクロールボタン（>） -- start -- **/}
