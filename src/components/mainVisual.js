@@ -19,6 +19,7 @@ const Navigation = ({info, state, func}) => {
 		// 追加ページ
 		info[1].Page[1], // Next.js index: 4
 		info[2].Page[1], // Gatsby.js index: 5
+		info[1].Page[2], // Next.js index: 6
 	];
 
 	return (

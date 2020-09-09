@@ -23,6 +23,11 @@
 				"Title": "Next Learning",
 				"URL": "/nextjs/next-learning",
 				"ID": "next-learning"
+			},
+			"NationalFlags": {
+				"Title": "National Flags",
+				"URL": "/nextjs/national-flags",
+				"ID": "national-flags"
 			}
 		}
 	},

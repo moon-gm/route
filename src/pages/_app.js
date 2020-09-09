@@ -63,6 +63,13 @@ class Layout extends React.Component {
 						Func: this.changeFW.bind(this, State.MenuTab.Next, State.index.SitePages.Next.NextLearning),
 						State: State.index.SitePages.Next.NextLearning
 					},
+					{
+						Title: Page.Next.Page.NationalFlags.Title,
+						URL: Page.Next.Page.NationalFlags.URL,
+						ID: Page.Next.Page.NationalFlags.ID,
+						Func: this.changeFW.bind(this, State.MenuTab.Next, State.index.SitePages.Next.NationalFlags),
+						State: State.index.SitePages.Next.NationalFlags
+					},
 				],
 			},
 			// Gatsby.js
@@ -146,7 +153,7 @@ class Layout extends React.Component {
 	prevBtn() {
 		if (this.state.index === void 0 || this.state.index === 0 || this.state.index === null) {
 			this.setState({imageDirection: "right"});
-			this.setState({index: 5});
+			this.setState({index: 6});
 		} else {
 			this.setState({imageDirection: "right"});
 			this.setState({index: this.state.index - 1});
@@ -155,7 +162,7 @@ class Layout extends React.Component {
 
 	/*** スクロールの「>」ボタン処理 ***/
 	nextBtn() {
-		if (this.state.index === void 0 || this.state.index === 5 || this.state.index === null) {
+		if (this.state.index === void 0 || this.state.index === 6 || this.state.index === null) {
 			this.setState({imageDirection: "left"});
 			this.setState({index: 0});
 		} else {
