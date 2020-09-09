@@ -82,6 +82,7 @@ const Navigation = ({info, state, func}) => {
 														className={`
 															${Styles.scrollImg}
 															${Styles.toLeft}
+															${state.pageNum === scrollItem.State && Styles.scrollImgSelected}
 															${
 																state.imageDirection == "right" ? Styles.toLeft
 																:

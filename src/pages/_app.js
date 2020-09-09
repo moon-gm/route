@@ -21,6 +21,7 @@ class Layout extends React.Component {
 			index: undefined,
 			imageDirection: undefined,
 			sideList: true,
+			pageNum: undefined,
 		}
 
 		/*** サイト情報設定 ***/
@@ -36,7 +37,8 @@ class Layout extends React.Component {
 						Title: Page.React.Page.ReactLearning.Title,
 						URL: Page.React.Page.ReactLearning.URL,
 						ID: Page.React.Page.ReactLearning.ID,
-						Func: this.changeFW.bind(this, State.MenuTab.React, State.index.SitePages.React.ReactLearning)
+						Func: this.changeFW.bind(this, State.MenuTab.React, State.index.SitePages.React.ReactLearning),
+						State: State.index.SitePages.React.ReactLearning
 					},
 				],
 			},
@@ -51,13 +53,15 @@ class Layout extends React.Component {
 						Title: Page.Next.Page.PortfolioShow.Title,
 						URL: Page.Next.Page.PortfolioShow.URL,
 						ID: Page.Next.Page.PortfolioShow.ID,
-						Func: this.changeFW.bind(this, State.MenuTab.Next, State.index.SitePages.Next.PortfolioShow)
+						Func: this.changeFW.bind(this, State.MenuTab.Next, State.index.SitePages.Next.PortfolioShow),
+						State: State.index.SitePages.Next.PortfolioShow
 					},
 					{
 						Title: Page.Next.Page.NextLearning.Title,
 						URL: Page.Next.Page.NextLearning.URL,
 						ID: Page.Next.Page.NextLearning.ID,
-						Func: this.changeFW.bind(this, State.MenuTab.Next, State.index.SitePages.Next.NextLearning)
+						Func: this.changeFW.bind(this, State.MenuTab.Next, State.index.SitePages.Next.NextLearning),
+						State: State.index.SitePages.Next.NextLearning
 					},
 				],
 			},
@@ -72,13 +76,15 @@ class Layout extends React.Component {
 						Title: Page.Gatsby.Page.AtelierK.Title,
 						URL: Page.Gatsby.Page.AtelierK.URL,
 						ID: Page.Gatsby.Page.AtelierK.ID,
-						Func: this.changeFW.bind(this, State.MenuTab.Gatsby, State.index.SitePages.Gatsby.AtelierK)
+						Func: this.changeFW.bind(this, State.MenuTab.Gatsby, State.index.SitePages.Gatsby.AtelierK),
+						State: State.index.SitePages.Gatsby.AtelierK
 					},
 					{
 						Title: Page.Gatsby.Page.GatsbyLearning.Title,
 						URL: Page.Gatsby.Page.GatsbyLearning.URL,
 						ID:Page.Gatsby.Page.GatsbyLearning.ID,
-						Func: this.changeFW.bind(this, State.MenuTab.Gatsby, State.index.SitePages.Gatsby.GatsbyLearning)
+						Func: this.changeFW.bind(this, State.MenuTab.Gatsby, State.index.SitePages.Gatsby.GatsbyLearning),
+						State: State.index.SitePages.Gatsby.GatsbyLearning
 					},
 				],
 			},
@@ -93,7 +99,8 @@ class Layout extends React.Component {
 						Title: Page.Laravel.Page.Tequipedia.Title,
 						URL: Page.Laravel.Page.Tequipedia.URL,
 						ID: Page.Laravel.Page.Tequipedia.ID,
-						Func: this.changeFW.bind(this, State.MenuTab.Laravel, State.index.SitePages.Laravel.Tequipedia)
+						Func: this.changeFW.bind(this, State.MenuTab.Laravel, State.index.SitePages.Laravel.Tequipedia),
+						State: State.index.SitePages.Laravel.Tequipedia
 					},
 				],
 			},
@@ -107,6 +114,7 @@ class Layout extends React.Component {
 		if (index !== null) {
 			// 取得したindexは文字列型のため数値型に変更してsetState
 			this.setState({index: Number(index)});
+			this.setState({pageNum: Number(index)});
 		}
 
 		// サイドリストの表示条件設定
@@ -122,6 +130,7 @@ class Layout extends React.Component {
 	changeFW(MenuTab,index) {
 		this.setState({MenuTab: MenuTab});
 		this.setState({index: index});
+		this.setState({pageNum: index});
 		sessionStorage.setItem('ScrollIndex', index);
 
 		// 画面上部に遷移

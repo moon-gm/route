@@ -35,6 +35,7 @@ const Aside = ({info, state}) => {
 															<li
 																className={`
 																	${Styles.list}
+																	${state.pageNum === page.State && Styles.listSelected}
 																	flex-start
 																	align-items-center
 																`}
