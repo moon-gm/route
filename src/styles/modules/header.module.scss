@@ -5,13 +5,13 @@
 
 /*** 1.トップリスト設定 ***/
 .topList {
-	cursor: pointer;
 	margin-bottom: 10px;
 	font-size: 18px;
 	font-weight: bold;
 
 	/** 1-1.ロゴ設定 **/
 	.topLogo {
+		cursor: pointer;
 		/* 1-1-1.ホバー時設定 */
 		&:hover {
 			color: $blue;
@@ -29,6 +29,7 @@
 
 	/** 1-2.「⬆︎Top」ボタン設定 **/
 	.topBtn {
+		cursor: pointer;
 		/* 1-2-1.ホバー時設定 */
 		&:hover {
 			color: $blue;
@@ -41,13 +42,14 @@
 	.menuBtn {
 		display: none;
 		@media screen and (max-width: $sp-max-width) {
+			cursor: pointer;
 			display: block;
+			font-size: 20px;
 		}
+
 		/* 1-3-1.ホバー時設定 */
 		&:hover {
 			color: $blue;
-			text-shadow: -60px 0px 0px $white-skelton;
-			transition: text-shadow 0.3s;
 		}
 	}
 }

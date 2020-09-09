@@ -56,7 +56,7 @@ const Header = ({info, state, topPage, productionPage, sideListShow, Styles}) =>
 								className={Styles.menuBtn}
 								onClick={sideListShow}
 							>
-								{state.sideList ? "close" : "≡"}
+								{state.sideList ? "×" : "≡"}
 							</li>
 						)}
 						{/** サイドメニュー表示ボタン　-- end -- **/}
