@@ -31,6 +31,14 @@ const NextJS = ({info}) => {
 			{ text: "jQuery", image: "jquery.png" },
 			{ text: "Node.js", image: "nodejs.png" },
 			{ text: "JavaScript", image: "javascript.png" },
+		],
+
+		// 使用技術
+		skill: [
+			{title: "Next", contents: ["API Routes"]},
+			{title: "React", contents: ["スワイプ（react-swipeable-views）", "Hooks（useState, useEffect）"]},
+			{title: "Node.js", contents: ["npm"]},
+			{title: "Sass(css)", contents: ["@mixin", "@Keyframes", "animation", "レスポンシブ"]},
 		]
 	}
 	return <PageLayout pageData={pageData}/>

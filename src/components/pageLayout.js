@@ -35,6 +35,10 @@ const PageLayout = ({pageData}) => {
 			title: "使用フレームワーク・言語",
 			content: "実際に使用したフレームワークを全て記載。フレームワーク使用にあたって基本となる言語は省略（HTMLなど）。Node.jsは主にプロジェクトを導入する際に使用（npm）。",
 		},
+		skill: {
+			title: "使用技術",
+			content: "各言語・フレームワーク内で実際に使用した技術を記載。",
+		},
 		iframe: {
 			title: "画面イメージ",
 			content: "イメージとしているが、iframeで挿入しているため、実際のサイト同様に操作できる。",
@@ -185,7 +189,36 @@ const PageLayout = ({pageData}) => {
 					</div>
 				</section>
 
-				{/*** セクション７ -- 画面イメージ -- ***/}
+				{/*** セクション７ -- 使用技術 -- ***/}
+				<section className={`${Styles.sectionBox} ${Styles.sectionBox6}`}>
+					<h2 className={`${Styles.h2} flex-start align-items-center`}>
+						{modalData.skill.title}
+						<Modal
+							openBtn={openBtn}
+							title={modalData.skill.title}
+							content={modalData.skill.content}
+						/>
+					</h2>
+					{/** リスト **/}
+					{pageData.skill.map(items => {
+						return (
+							<ul key={`FW-text${items.title}`} className="list-box">
+								<li className="li">
+									<span className="li-text">{items.title}</span>
+									{items.contents.map(item => {
+										return (
+											<p className="li-note">
+												・{item}
+											</p>
+										);
+									})}
+								</li>
+							</ul>
+						);
+					})}
+				</section>
+
+				{/*** セクション８ -- 画面イメージ -- ***/}
 				<section className={`${Styles.sectionBox} ${Styles.sectionBox7}`}>
 					<h2 className={`${Styles.h2} flex-start align-items-center`}>
 						{modalData.iframe.title}

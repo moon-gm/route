@@ -31,6 +31,15 @@ const PortfolioShow = ({info}) => {
 			{ text: "jQuery", image: "jquery.png" },
 			{ text: "Node.js", image: "nodejs.png" },
 			{ text: "JavaScript", image: "javascript.png" },
+		],
+
+		// 使用技術
+		skill: [
+			{title: "Next", contents: ["API Routes"]},
+			{title: "React", contents: ["スワイプ（react-swipeable-views）", "モーダルウィンドウ（react-modal）", "Hooks（useState, useEffect）"]},
+			{title: "Node.js", contents: ["npm"]},
+			{title: "JavaScript", contents: ["sessionStorage"]},
+			{title: "Sass(css)", contents: ["@mixin", "@Keyframes", "animation", "レスポンシブ"]},
 		]
 	}
 	return <PageLayout pageData={pageData}/>

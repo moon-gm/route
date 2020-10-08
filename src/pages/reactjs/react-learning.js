@@ -29,6 +29,14 @@ const ReactJS = ({info}) => {
 			{ text: "Sass", image: "sass.png" },
 			{ text: "Node.js", image: "nodejs.png" },
 			{ text: "JavaScript", image: "javascript.png" },
+		],
+
+		// 使用技術
+		skill: [
+			{title: "React", contents: ["スワイプ（react-swipeable-views）", "モーダルウィンドウ（react-modal）", "コードハイライト（react-syntax-highlighter）", "ファイルドロップ（react-dropzone）", "アイテムドラッグ（react-draggable）", "型チェック（prop-types）", "ルーター（react-router-dom）", "範囲外クリック（react-onclickoutside）"]},
+			{title: "Node.js", contents: ["npm"]},
+			{title: "JavaScript", contents: ["sessionStorage"]},
+			{title: "Sass(css)", contents: ["@mixin", "@Keyframes", "animation", "レスポンシブ"]},
 		]
 	}
 	return <PageLayout pageData={pageData}/>

@@ -31,6 +31,15 @@ const GatsbyJS = ({info}) => {
 			{ text: "GarphQL", image: "graphql.png" },
 			{ text: "Node.js", image: "nodejs.png" },
 			{ text: "JavaScript", image: "javascript.png" },
+		],
+
+		// 使用技術
+		skill: [
+			{title: "Gatsby", contents: ["Routes", "Gatsby-GraphQL"]},
+			{title: "React", contents: ["スワイプ（react-swipeable-views）"]},
+			{title: "Node.js", contents: ["npm"]},
+			{title: "JavaScript", contents: ["sessionStorage"]},
+			{title: "Sass(css)", contents: ["@mixin", "@Keyframes", "animation", "レスポンシブ"]},
 		]
 	}
 	return <PageLayout pageData={pageData}/>
