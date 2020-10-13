@@ -85,6 +85,15 @@ const Home = () => {
 								→Android/iOS端末でのデバッグテスト
 							</p>
 						</li>
+						<li className="li">
+							<span className="li-text">クレジットカード集計システムの保守（本社受託開発）</span>
+							<p className="li-note">
+								→システムの本番DBにssh接続、カード登録店舗情報などをSQLのINSERT文で追加
+							</p>
+							<p className="li-note">
+								→上記作業の試験項目・作業手順書などを作成し、試験を実施
+							</p>
+						</li>
 					</ul>
 					<h2　className={Styles.h2}>
 						技術・現在力を入れていること
