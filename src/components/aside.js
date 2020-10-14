@@ -11,7 +11,7 @@ const Aside = ({info, state}) => {
 							<React.Fragment
 								key={`sidelist${item.State}`}
 							>
-								{state.FWSelected === item.State ? (
+								{state.selectedFW === item.State ? (
 									<h1 className={`${styles.sectionTitle} ${styles.sectionTitleChecked}`}>
 										{item.FW}
 									</h1>
@@ -35,7 +35,7 @@ const Aside = ({info, state}) => {
 															<li
 																className={`
 																	${styles.list}
-																	${state.pageSelected === page.State && styles.listSelected}
+																	${state.selectedPage === page.State && styles.listSelected}
 																	flex-start
 																	align-items-center
 																`}

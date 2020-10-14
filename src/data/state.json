@@ -1,5 +1,5 @@
 {
-	"FWSelected": {
+	"selectedFW": {
 		"Top": "top",
 		"React": "reactjs",
 		"Next": "nextjs",

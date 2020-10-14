@@ -44,7 +44,7 @@ const Header = ({info, state, func, fw, pg, styles}) => {
 						{/** トップボタン　-- end -- **/}
 
 						{/** サイドメニュー表示ボタン　-- start -- **/}
-						{state.FWSelected !== "top" && (
+						{state.selectedFW !== "top" && (
 							<li
 								onClick={func.sideListShow}
 								className={styles.menuBtn}

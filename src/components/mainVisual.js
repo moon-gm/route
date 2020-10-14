@@ -77,7 +77,7 @@ const MainVisual = ({info, state, func, fw, pg}) => {
 														className={`
 															${styles.scrollImg}
 															${styles.toLeft}
-															${state.pageSelected === scrollItem.State && styles.scrollImgSelected}
+															${state.selectedPage === scrollItem.State && styles.scrollImgSelected}
 														`}
 														onClick={scrollItem.Func}
 													/>

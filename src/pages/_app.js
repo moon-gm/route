@@ -20,10 +20,10 @@ class Layout extends React.Component {
 
 		/*** ■ Stateの初期値設定 ***/
 		this.state = {
-			FWSelected: State.FWSelected.Top, // FWごとの設定
+			selectedFW: State.selectedFW.Top, // 表示ページのFWの選択設定
+			selectedPage: undefined, // 表示ページの画像とリストの選択設定
 			index: undefined, // MainVisualのスクロール画像のindex設定
 			sideList: true, // サイドエリアの表示設定
-			pageSelected: undefined, // 表示ページの画像とリストの選択設定
 		}
 
 		/*** ■ state.indexの最大値設定 ***/
@@ -33,21 +33,21 @@ class Layout extends React.Component {
 		this.ALL_FUNC = {
 
 			// ページで使用
-			ReactLearning: this.changeFW.bind(this, State.FWSelected.React, State.index.SitePages.React.ReactLearning),
-			PortfolioShow: this.changeFW.bind(this, State.FWSelected.Next, State.index.SitePages.Next.PortfolioShow),
-			NextLearning: this.changeFW.bind(this, State.FWSelected.Next, State.index.SitePages.Next.NextLearning),
-			NationalFlags: this.changeFW.bind(this, State.FWSelected.Next, State.index.SitePages.Next.NationalFlags),
-			AtelierK: this.changeFW.bind(this, State.FWSelected.Gatsby, State.index.SitePages.Gatsby.AtelierK),
-			GatsbyLearning: this.changeFW.bind(this, State.FWSelected.Gatsby, State.index.SitePages.Gatsby.GatsbyLearning),
-			Tequipedia: this.changeFW.bind(this, State.FWSelected.Laravel, State.index.SitePages.Laravel.Tequipedia),
+			ReactLearning: this.changeFW.bind(this, State.selectedFW.React, State.index.SitePages.React.ReactLearning),
+			PortfolioShow: this.changeFW.bind(this, State.selectedFW.Next, State.index.SitePages.Next.PortfolioShow),
+			NextLearning: this.changeFW.bind(this, State.selectedFW.Next, State.index.SitePages.Next.NextLearning),
+			NationalFlags: this.changeFW.bind(this, State.selectedFW.Next, State.index.SitePages.Next.NationalFlags),
+			AtelierK: this.changeFW.bind(this, State.selectedFW.Gatsby, State.index.SitePages.Gatsby.AtelierK),
+			GatsbyLearning: this.changeFW.bind(this, State.selectedFW.Gatsby, State.index.SitePages.Gatsby.GatsbyLearning),
+			Tequipedia: this.changeFW.bind(this, State.selectedFW.Laravel, State.index.SitePages.Laravel.Tequipedia),
 
 			// メインビジュアルエリアで使用
 			onPrevBtn: this.onPrevBtn.bind(this),
 			onNextBtn: this.onNextBtn.bind(this),
 
 			// ヘッダーで使用
-			showTop: this.changeFW.bind(this, State.FWSelected.Top, State.index.React),
-			showProduction: this.changeFW.bind(this, State.FWSelected.React, State.index.React),
+			showTop: this.changeFW.bind(this, State.selectedFW.Top, State.index.React),
+			showProduction: this.changeFW.bind(this, State.selectedFW.React, State.index.React),
 			showSideList: this.showSideList.bind(this),
 
 		}
@@ -81,12 +81,12 @@ class Layout extends React.Component {
 			if (condition) {
 
 				// FW切替
-				this.setState({FWSelected: items.State})
+				this.setState({selectedFW: items.State})
 				items.Page.map(item =>{
 
 					// ページ選択切替
 					const condition =  (pathName === item.URL)
-					condition && (this.setState({pageSelected: item.State}), this.setState({index: item.State}))
+					condition && (this.setState({selectedPage: item.State}), this.setState({index: item.State}))
 
 				})
 
@@ -98,13 +98,13 @@ class Layout extends React.Component {
 
 
 	/*** ■ Productionの各サイト一覧押下時の処理 ***/
-	changeFW(FWSelected,index) {
+	changeFW(selectedFW,index) {
 
 		// Stateをセットしてページを切替
 		this.setState({
-			FWSelected: FWSelected,
+			selectedFW: selectedFW,
 			index: index,
-			pageSelected: index
+			selectedPage: index
 		})
 
 		// 画面上部に遷移
@@ -167,7 +167,7 @@ class Layout extends React.Component {
 				/>
 
 				{/*** メインビジュアルエリア ***/}
-				{this.state.FWSelected !== "top" && (
+				{this.state.selectedFW !== "top" && (
 					<MainVisual
 						info={this.PAGE_INFO}
 						state={this.state}
@@ -181,7 +181,7 @@ class Layout extends React.Component {
 				<div className="contents-area flex-space-around flex-remove-sp">
 
 					{/** サイドエリア **/}
-					{this.state.FWSelected !== "top" && this.state.sideList && (
+					{this.state.selectedFW !== "top" && this.state.sideList && (
 						<Aside
 							info={this.PAGE_INFO}
 							state={this.state}
@@ -192,7 +192,7 @@ class Layout extends React.Component {
 					<main
 						className="contents-main"
 					>
-						{this.state.FWSelected === "top" ? (
+						{this.state.selectedFW === "top" ? (
 							<div className="contents-main-wrap" style={{marginTop: "100px"}}>
 								{newChildren}
 							</div>
