@@ -9,7 +9,7 @@ import Aside from '../components/aside'
 
 // Data
 import State from '../data/state.json'
-import Page from '../data/page.json'
+import Page from '../data/page'
 
 class Layout extends React.Component {
 	constructor(props) {
@@ -24,94 +24,19 @@ class Layout extends React.Component {
 			pageNum: undefined,
 		}
 
+		/*** Function設定 ***/
+		this.funcs = {
+			ReactLearning: this.changeFW.bind(this, State.MenuTab.React, State.index.SitePages.React.ReactLearning),
+			PortfolioShow: this.changeFW.bind(this, State.MenuTab.Next, State.index.SitePages.Next.PortfolioShow),
+			NextLearning: this.changeFW.bind(this, State.MenuTab.Next, State.index.SitePages.Next.NextLearning),
+			NationalFlags: this.changeFW.bind(this, State.MenuTab.Next, State.index.SitePages.Next.NationalFlags),
+			AtelierK: this.changeFW.bind(this, State.MenuTab.Gatsby, State.index.SitePages.Gatsby.AtelierK),
+			GatsbyLearning: this.changeFW.bind(this, State.MenuTab.Gatsby, State.index.SitePages.Gatsby.GatsbyLearning),
+			Tequipedia: this.changeFW.bind(this, State.MenuTab.Laravel, State.index.SitePages.Laravel.Tequipedia),
+		}
+
 		/*** サイト情報設定 ***/
-		this.info = [
-			// React.js
-			{
-				FW: Page.React.FW,
-				URL: Page.React.URL,
-				State: State.MenuTab.React,
-				Func: this.changeFW.bind(this, State.MenuTab.React, State.index.React),
-				Page: [
-					{
-						Title: Page.React.Page.ReactLearning.Title,
-						URL: Page.React.Page.ReactLearning.URL,
-						ID: Page.React.Page.ReactLearning.ID,
-						Func: this.changeFW.bind(this, State.MenuTab.React, State.index.SitePages.React.ReactLearning),
-						State: State.index.SitePages.React.ReactLearning
-					},
-				],
-			},
-			// Next.js
-			{
-				FW: Page.Next.FW,
-				URL: Page.Next.URL,
-				State: State.MenuTab.Next,
-				Func: this.changeFW.bind(this, State.MenuTab.Next, State.index.Next),
-				Page: [
-					{
-						Title: Page.Next.Page.PortfolioShow.Title,
-						URL: Page.Next.Page.PortfolioShow.URL,
-						ID: Page.Next.Page.PortfolioShow.ID,
-						Func: this.changeFW.bind(this, State.MenuTab.Next, State.index.SitePages.Next.PortfolioShow),
-						State: State.index.SitePages.Next.PortfolioShow
-					},
-					{
-						Title: Page.Next.Page.NextLearning.Title,
-						URL: Page.Next.Page.NextLearning.URL,
-						ID: Page.Next.Page.NextLearning.ID,
-						Func: this.changeFW.bind(this, State.MenuTab.Next, State.index.SitePages.Next.NextLearning),
-						State: State.index.SitePages.Next.NextLearning
-					},
-					{
-						Title: Page.Next.Page.NationalFlags.Title,
-						URL: Page.Next.Page.NationalFlags.URL,
-						ID: Page.Next.Page.NationalFlags.ID,
-						Func: this.changeFW.bind(this, State.MenuTab.Next, State.index.SitePages.Next.NationalFlags),
-						State: State.index.SitePages.Next.NationalFlags
-					},
-				],
-			},
-			// Gatsby.js
-			{
-				FW: Page.Gatsby.FW,
-				URL: Page.Gatsby.URL,
-				State: State.MenuTab.Gatsby,
-				Func: this.changeFW.bind(this, State.MenuTab.Gatsby, State.index.Gatsby),
-				Page: [
-					{
-						Title: Page.Gatsby.Page.AtelierK.Title,
-						URL: Page.Gatsby.Page.AtelierK.URL,
-						ID: Page.Gatsby.Page.AtelierK.ID,
-						Func: this.changeFW.bind(this, State.MenuTab.Gatsby, State.index.SitePages.Gatsby.AtelierK),
-						State: State.index.SitePages.Gatsby.AtelierK
-					},
-					{
-						Title: Page.Gatsby.Page.GatsbyLearning.Title,
-						URL: Page.Gatsby.Page.GatsbyLearning.URL,
-						ID:Page.Gatsby.Page.GatsbyLearning.ID,
-						Func: this.changeFW.bind(this, State.MenuTab.Gatsby, State.index.SitePages.Gatsby.GatsbyLearning),
-						State: State.index.SitePages.Gatsby.GatsbyLearning
-					},
-				],
-			},
-			// Laravel
-			{
-				FW: Page.Laravel.FW,
-				URL: Page.Laravel.URL,
-				State: State.MenuTab.Laravel,
-				Func: this.changeFW.bind(this, State.MenuTab.Laravel, State.index.Laravel),
-				Page: [
-					{
-						Title: Page.Laravel.Page.Tequipedia.Title,
-						URL: Page.Laravel.Page.Tequipedia.URL,
-						ID: Page.Laravel.Page.Tequipedia.ID,
-						Func: this.changeFW.bind(this, State.MenuTab.Laravel, State.index.SitePages.Laravel.Tequipedia),
-						State: State.index.SitePages.Laravel.Tequipedia
-					},
-				],
-			},
-		];
+		this.info = Page(this.funcs)
 	}
 
 	/*** レンダー後の処理 ***/
