@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Modal from 'react-modal';
-import Styles from '../styles/modules/modal.module.scss'
+import styles from '../styles/modules/modal.module.scss'
 
 // モーダルウィンドウのCSS設定
 const customStyles = {
@@ -47,7 +47,7 @@ const ModalWindow = ({title, content, openBtn}) => {
 		<div>
 			<span
 				onClick={openModal}
-				className={Styles.openModal}
+				className={styles.openModal}
 			>
 				{openBtn}
 			</span>
@@ -60,19 +60,19 @@ const ModalWindow = ({title, content, openBtn}) => {
 			>
 				<h2
 					id="title"
-					className={Styles.title}
+					className={styles.title}
 				>
 					{title}
 				</h2>
 				<p
 					id="content"
-					className={Styles.content}
+					className={styles.content}
 				>
 					{content}
 				</p>
 				<button
 					onClick={closeModal}
-					className={Styles.closeModal}
+					className={styles.closeModal}
 				>
 					Close
 				</button>

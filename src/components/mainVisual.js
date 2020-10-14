@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Styles from '../styles/modules/mainVisual.module.scss'
+import styles from '../styles/modules/mainVisual.module.scss'
 import SwipeableViews from "react-swipeable-views";
 // import { autoPlay } from 'react-swipeable-views-utils';
 
@@ -28,7 +28,7 @@ const Navigation = ({info, state, onPrevBtn, onNextBtn}) => {
 			{/*** メインビジュアル画像 -- start -- ***/}
 				<img
 					src="/film-rail-real.png"
-					className={Styles.mainVisualImage}
+					className={styles.mainVisualImage}
 				/>
 			{/*** メインビジュアル画像 -- end -- ***/}
 
@@ -37,7 +37,7 @@ const Navigation = ({info, state, onPrevBtn, onNextBtn}) => {
 					<div className="main-visual-area-wrap">
 						<ul
 							className={`
-								${Styles.scrollArea}
+								${styles.scrollArea}
 								flex-space-around
 								align-items-center
 							`}
@@ -46,14 +46,14 @@ const Navigation = ({info, state, onPrevBtn, onNextBtn}) => {
 							{/** スクロールボタン（<） -- start -- **/}
 								<li
 									className={`
-										${Styles.scrollBtn}
-										${Styles.scrollPrev}
+										${styles.scrollBtn}
+										${styles.scrollPrev}
 										hide-sp
 									`}
 									onClick={onPrevBtn}
 								>
 									{/* :afterで「<」を設定 */}
-									<span className={Styles.messagePrev}>
+									<span className={styles.messagePrev}>
 										左にスクロールします
 									</span>
 								</li>
@@ -71,7 +71,7 @@ const Navigation = ({info, state, onPrevBtn, onNextBtn}) => {
 										return (
 											<li
 												className={`
-													${Styles.scrollItem}
+													${styles.scrollItem}
 													flex-space-around
 													align-items-center
 												`}
@@ -81,13 +81,13 @@ const Navigation = ({info, state, onPrevBtn, onNextBtn}) => {
 													<img
 														src={`/${scrollItem.ID}.png`}
 														className={`
-															${Styles.scrollImg}
-															${Styles.toLeft}
-															${state.pageSelected === scrollItem.State && Styles.scrollImgSelected}
+															${styles.scrollImg}
+															${styles.toLeft}
+															${state.pageSelected === scrollItem.State && styles.scrollImgSelected}
 															${
-																state.imageDirection == "right" ? Styles.toLeft
+																state.imageDirection == "left" ? styles.toLeft
 																:
-																state.imageDirection == "left" ? Styles.toRight
+																state.imageDirection == "right" ? styles.toRight
 																:
 																null
 															}
@@ -104,14 +104,14 @@ const Navigation = ({info, state, onPrevBtn, onNextBtn}) => {
 							{/** スクロールボタン（>） -- start -- **/}
 								<li
 									className={`
-										${Styles.scrollBtn}
-										${Styles.scrollNext}
+										${styles.scrollBtn}
+										${styles.scrollNext}
 										hide-sp
 									`}
 									onClick={onNextBtn}
 								>
 									{/* :afterで「>」を設定 */}
-									<span className={Styles.messageNext}>
+									<span className={styles.messageNext}>
 										右にスクロールします
 									</span>
 								</li>

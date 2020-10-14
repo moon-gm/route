@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Modal from './../components/modal'
-import Styles from '../styles/modules/page.module.scss'
+import styles from '../styles/modules/page.module.scss'
 
 const Home = () => {
 	return (
@@ -12,19 +12,19 @@ const Home = () => {
 			{/***  ヘッド設定 -- end -- ***/}
 
 			{/***  コンテンツボックス -- start -- ***/}
-				<div className={Styles.contentsBox}>
+				<div className={styles.contentsBox}>
 
 					{/**  セクションボックス１ -- start -- **/}
-						<div className={Styles.sectionBox}>
+						<div className={styles.sectionBox}>
 
 							{/*  タイトル（プロフィール） -- start -- */}
-								<h1 className={Styles.h1}>
+								<h1 className={styles.h1}>
 									プロフィール
 								</h1>
 							{/*  タイトル（プロフィール） -- end -- */}
 
 							{/*  項目（経歴） -- start -- */}
-								<h2 className={`${Styles.h2} flex-start align-items-center`}>
+								<h2 className={`${styles.h2} flex-start align-items-center`}>
 									経歴
 									<Modal
 										openBtn="?"
@@ -33,7 +33,7 @@ const Home = () => {
 									/>
 								</h2>
 
-								<h3　className={Styles.h3}>
+								<h3　className={styles.h3}>
 									前職
 								</h3>
 								<ul　className="list-box">
@@ -48,7 +48,7 @@ const Home = () => {
 									</li>
 								</ul>
 
-								<h3　className={Styles.h3}>
+								<h3　className={styles.h3}>
 									現職
 								</h3>
 								<ul　className="list-box">
@@ -110,7 +110,7 @@ const Home = () => {
 							{/*  項目（経歴） -- end -- */}
 
 							{/*  項目（技術・現在力を入れていること） -- start -- */}
-								<h2　className={Styles.h2}>
+								<h2　className={styles.h2}>
 									技術・現在力を入れていること
 								</h2>
 								<ul　className="list-box">
@@ -136,7 +136,7 @@ const Home = () => {
 							{/*  項目（技術・現在力を入れていること） -- end -- */}
 
 							{/*  項目（趣味・得意なこと） -- start -- */}
-								<h2　className={Styles.h2}>
+								<h2　className={styles.h2}>
 									趣味・得意なこと
 								</h2>
 								<ul　className="list-box">
@@ -154,16 +154,16 @@ const Home = () => {
 					{/**  セクションボックス１ -- end -- **/}
 
 					{/**  セクションボックス２ -- start -- **/}
-						<div className={Styles.sectionBox}>
+						<div className={styles.sectionBox}>
 
 							{/*  タイトル（ポートフォリオ紹介） -- start -- */}
-								<h1 className={Styles.h1}>
+								<h1 className={styles.h1}>
 									ポートフォリオ紹介
 								</h1>
 							{/*  タイトル（ポートフォリオ紹介） -- end -- */}
 
 							{/*  項目（概要説明） -- start -- */}
-								<h2　className={Styles.h2}>
+								<h2　className={styles.h2}>
 									概要説明
 								</h2>
 								<p　className="p">
@@ -172,7 +172,7 @@ const Home = () => {
 							{/*  項目（概要説明） -- end -- */}
 
 							{/*  項目（ポイント） -- start -- */}
-								<h2　className={Styles.h2}>
+								<h2　className={styles.h2}>
 									ポイント
 								</h2>
 								<ul　className="list-box">

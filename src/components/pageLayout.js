@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Modal from './modal'
-import Styles from '../styles/modules/page.module.scss'
+import styles from '../styles/modules/page.module.scss'
 
 const PageLayout = ({pageData}) => {
 
@@ -53,16 +53,16 @@ const PageLayout = ({pageData}) => {
 			</Head>
 
 			<div
-				className={Styles.contentsBox}
+				className={styles.contentsBox}
 			>
 				{/*** サイトタイトル ***/}
-				<h1 className={Styles.h1}>
+				<h1 className={styles.h1}>
 					{pageData.title}
 				</h1>
 
 				{/*** セクション１ -- 概要 -- ***/}
-				<section className={`${Styles.sectionBox} ${Styles.sectionBox1}`}>
-					<h2 className={`${Styles.h2} flex-start align-items-center`}>
+				<section className={`${styles.sectionBox} ${styles.sectionBox1}`}>
+					<h2 className={`${styles.h2} flex-start align-items-center`}>
 						{modalData.summary.title}
 						<Modal
 							openBtn={openBtn}
@@ -70,14 +70,14 @@ const PageLayout = ({pageData}) => {
 							content={modalData.summary.content}
 						/>
 					</h2>
-					<p className={Styles.p}>
+					<p className={styles.p}>
 						{pageData.summary}
 					</p>
 				</section>
 
 				{/*** セクション２ -- サイトリンク -- ***/}
-				<section className={`${Styles.sectionBox} ${Styles.sectionBox2}`}>
-					<h2 className={`${Styles.h2} flex-start align-items-center`}>
+				<section className={`${styles.sectionBox} ${styles.sectionBox2}`}>
+					<h2 className={`${styles.h2} flex-start align-items-center`}>
 						{modalData.site.title}
 						<Modal
 							openBtn={openBtn}
@@ -85,7 +85,7 @@ const PageLayout = ({pageData}) => {
 							content={modalData.site.content}
 						/>
 					</h2>
-					<p className={Styles.p}>
+					<p className={styles.p}>
 						<a
 							href={pageData.link.site}
 							target="_blank"
@@ -96,8 +96,8 @@ const PageLayout = ({pageData}) => {
 				</section>
 
 				{/*** セクション３ -- Githubソース -- ***/}
-				<section className={`${Styles.sectionBox} ${Styles.sectionBox3}`}>
-					<h2 className={`${Styles.h2} flex-start align-items-center`}>
+				<section className={`${styles.sectionBox} ${styles.sectionBox3}`}>
+					<h2 className={`${styles.h2} flex-start align-items-center`}>
 						{modalData.source.title}
 						<Modal
 							openBtn={openBtn}
@@ -105,7 +105,7 @@ const PageLayout = ({pageData}) => {
 							content={modalData.source.content}
 						/>
 					</h2>
-					<p className={Styles.p}>
+					<p className={styles.p}>
 						<a
 							href={pageData.link.source}
 							target="_blank"
@@ -116,8 +116,8 @@ const PageLayout = ({pageData}) => {
 				</section>
 
 				{/*** セクション４ -- 内容 -- ***/}
-				<section className={`${Styles.sectionBox} ${Styles.sectionBox4}`}>
-					<h2 className={`${Styles.h2} flex-start align-items-center`}>
+				<section className={`${styles.sectionBox} ${styles.sectionBox4}`}>
+					<h2 className={`${styles.h2} flex-start align-items-center`}>
 						{modalData.contents.title}
 						<Modal
 							openBtn={openBtn}
@@ -125,14 +125,14 @@ const PageLayout = ({pageData}) => {
 							content={modalData.contents.content}
 						/>
 					</h2>
-					<p className={Styles.p}>
+					<p className={styles.p}>
 					{pageData.contents}
 					</p>
 				</section>
 
 				{/*** セクション５ -- 作成方法 -- ***/}
-				<section className={`${Styles.sectionBox} ${Styles.sectionBox5}`}>
-					<h2 className={`${Styles.h2} flex-start align-items-center`}>
+				<section className={`${styles.sectionBox} ${styles.sectionBox5}`}>
+					<h2 className={`${styles.h2} flex-start align-items-center`}>
 						{modalData.wayToMake.title}
 						<Modal
 							openBtn={openBtn}
@@ -140,14 +140,14 @@ const PageLayout = ({pageData}) => {
 							content={modalData.wayToMake.content}
 						/>
 					</h2>
-					<p className={Styles.p}>
+					<p className={styles.p}>
 						{pageData.wayToMake}
 					</p>
 				</section>
 
 				{/*** セクション６ -- 使用フレームワーク・言語 -- ***/}
-				<section className={`${Styles.sectionBox} ${Styles.sectionBox6}`}>
-					<h2 className={`${Styles.h2} flex-start align-items-center`}>
+				<section className={`${styles.sectionBox} ${styles.sectionBox6}`}>
+					<h2 className={`${styles.h2} flex-start align-items-center`}>
 						{modalData.FW.title}
 						<Modal
 							openBtn={openBtn}
@@ -156,7 +156,7 @@ const PageLayout = ({pageData}) => {
 						/>
 					</h2>
 					{/** テキスト **/}
-					<p className={Styles.p}>
+					<p className={styles.p}>
 						{pageData.FW.map(items => {
 							if (items === lastArray) {
 								// 配列の最後の値の場合
@@ -176,7 +176,7 @@ const PageLayout = ({pageData}) => {
 						})}
 					</p>
 					{/** 画像 **/}
-					<div className={Styles.imgBox}>
+					<div className={styles.imgBox}>
 						{pageData.FW.map(items => {
 							return (
 								<img
@@ -190,8 +190,8 @@ const PageLayout = ({pageData}) => {
 				</section>
 
 				{/*** セクション７ -- 使用技術 -- ***/}
-				<section className={`${Styles.sectionBox} ${Styles.sectionBox6}`}>
-					<h2 className={`${Styles.h2} flex-start align-items-center`}>
+				<section className={`${styles.sectionBox} ${styles.sectionBox6}`}>
+					<h2 className={`${styles.h2} flex-start align-items-center`}>
 						{modalData.skill.title}
 						<Modal
 							openBtn={openBtn}
@@ -219,8 +219,8 @@ const PageLayout = ({pageData}) => {
 				</section>
 
 				{/*** セクション８ -- 画面イメージ -- ***/}
-				<section className={`${Styles.sectionBox} ${Styles.sectionBox7}`}>
-					<h2 className={`${Styles.h2} flex-start align-items-center`}>
+				<section className={`${styles.sectionBox} ${styles.sectionBox7}`}>
+					<h2 className={`${styles.h2} flex-start align-items-center`}>
 						{modalData.iframe.title}
 						<Modal
 							openBtn={openBtn}
@@ -228,7 +228,7 @@ const PageLayout = ({pageData}) => {
 							content={modalData.iframe.content}
 						/>
 					</h2>
-					<iframe className={Styles.iframe} src={pageData.link.site}/>
+					<iframe className={styles.iframe} src={pageData.link.site}/>
 				</section>
 
 			</div>

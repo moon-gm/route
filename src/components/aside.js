@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Styles from '../styles/modules/aside.module.scss'
+import styles from '../styles/modules/aside.module.scss'
 
 const Aside = ({info, state}) => {
 	return (
@@ -12,12 +12,12 @@ const Aside = ({info, state}) => {
 								key={`sidelist${item.State}`}
 							>
 								{state.FWSelected === item.State ? (
-									<h1 className={`${Styles.sectionTitle} ${Styles.sectionTitleChecked}`}>
+									<h1 className={`${styles.sectionTitle} ${styles.sectionTitleChecked}`}>
 										{item.FW}
 									</h1>
 
 								):(
-									<h1 className={Styles.sectionTitle}>
+									<h1 className={styles.sectionTitle}>
 										{item.FW}
 									</h1>
 								)}
@@ -34,8 +34,8 @@ const Aside = ({info, state}) => {
 														>
 															<li
 																className={`
-																	${Styles.list}
-																	${state.pageSelected === page.State && Styles.listSelected}
+																	${styles.list}
+																	${state.pageSelected === page.State && styles.listSelected}
 																	flex-start
 																	align-items-center
 																`}
@@ -43,15 +43,15 @@ const Aside = ({info, state}) => {
 															>
 																<img
 																	src="/projector-icon.svg"
-																	className={Styles.icon}
+																	className={styles.icon}
 																/>
 																<img
 																	src="/film-rail.png"
-																	className={Styles.additionalIcon}
+																	className={styles.additionalIcon}
 																/>
-																<span className={Styles.listText}>
-																	<span className={Styles.middleWrap}>
-																		<span className={Styles.innerWrap}>
+																<span className={styles.listText}>
+																	<span className={styles.middleWrap}>
+																		<span className={styles.innerWrap}>
 																			{page.Title}
 																		</span>
 																	</span>
