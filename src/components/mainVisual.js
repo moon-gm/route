@@ -84,13 +84,6 @@ const Navigation = ({info, state, onPrevBtn, onNextBtn}) => {
 															${styles.scrollImg}
 															${styles.toLeft}
 															${state.pageSelected === scrollItem.State && styles.scrollImgSelected}
-															${
-																state.imageDirection == "left" ? styles.toLeft
-																:
-																state.imageDirection == "right" ? styles.toRight
-																:
-																null
-															}
 														`}
 														onClick={scrollItem.Func}
 													/>

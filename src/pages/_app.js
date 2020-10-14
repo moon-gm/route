@@ -22,7 +22,6 @@ class Layout extends React.Component {
 		this.state = {
 			FWSelected: State.FWSelected.Top, // FWごとの設定
 			index: undefined, // MainVisualのスクロール画像のindex設定
-			imageDirection: undefined, // MainVisualのスクロール画像のスクロール方向の設定
 			sideList: true, // サイドエリアの表示設定
 			pageSelected: undefined, // 表示ページの選択項目の表示切替設定
 		}
@@ -110,9 +109,6 @@ class Layout extends React.Component {
 	/*** ■ スクロールの「<」ボタン処理 ***/
 	onPrevBtn() {
 
-		// Stateをセットしてスクロール画像の方向を「右」に設定
-		this.setState({imageDirection: "right"})
-
 		// スクロール画像のindexが「null or 0」でない時、indexに-1する
 		const condition = (this.state.index === void 0 || this.state.index === 0 || this.state.index === null)
 		condition ? this.setState({index: this.MAX_INDEX}) : this.setState({index: this.state.index - 1})
@@ -121,9 +117,6 @@ class Layout extends React.Component {
 
 	/*** ■ スクロールの「>」ボタン処理 ***/
 	onNextBtn() {
-
-		// Stateをセットしてスクロール画像の方向を「左」に設定
-		this.setState({imageDirection: "left"})
 
 		// スクロール画像のindexが「null or 0」でない時、indexに+1する
 		const condition = (this.state.index === void 0 || this.state.index === this.MAX_INDEX || this.state.index === null)
