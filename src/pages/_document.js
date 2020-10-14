@@ -31,7 +31,7 @@ export default class MyDocument extends Document {
 				crossorigin="anonymous"
 			/>
         </Head>
-        <body className="custom_class">
+        <body>
           <Main />
           <NextScript />
         </body>
