@@ -1,6 +1,5 @@
 // FWごとのページデータ設定
-import State from './state.json'
-export default function returnAllPage(Funcs) {
+export default function returnAllPage(State, Funcs) {
 	const pageData = [
 		{//React
 			FW: "React",
@@ -12,7 +11,7 @@ export default function returnAllPage(Funcs) {
 					URL: "/reactjs/react-learning",
 					ID: "react-learning",
 					Func: Funcs.ReactLearning,
-					State: State.index.React.ReactLearning,
+					State: State.index.ReactLearning,
 				},
 			],
 		},
@@ -26,21 +25,21 @@ export default function returnAllPage(Funcs) {
 					URL: "/nextjs/portfolio-show",
 					ID: "portfolio-show",
 					Func: Funcs.PortfolioShow,
-					State: State.index.Next.PortfolioShow,
+					State: State.index.PortfolioShow,
 				},
 				{
 					Title: "Next Learning",
 					URL: "/nextjs/next-learning",
 					ID: "next-learning",
 					Func: Funcs.NextLearning,
-					State: State.index.Next.NextLearning,
+					State: State.index.NextLearning,
 				},
 				{
 					Title: "National Flags",
 					URL: "/nextjs/national-flags",
 					ID: "national-flags",
 					Func: Funcs.NationalFlags,
-					State: State.index.Next.NationalFlags,
+					State: State.index.NationalFlags,
 				},
 			],
 		},
@@ -54,14 +53,14 @@ export default function returnAllPage(Funcs) {
 					URL: "/gatsbyjs/atelier-k",
 					ID: "atelier-k",
 					Func: Funcs.AtelierK,
-					State: State.index.Gatsby.AtelierK,
+					State: State.index.AtelierK,
 				},
 				{
 					Title: "Gatsby Learning",
 					URL: "/gatsbyjs/gatsby-learning",
 					ID: "gatsby-learning",
 					Func: Funcs.GatsbyLearning,
-					State: State.index.Gatsby.GatsbyLearning,
+					State: State.index.GatsbyLearning,
 				},
 			],
 		},
@@ -75,7 +74,7 @@ export default function returnAllPage(Funcs) {
 					URL:  "/laravel/tequipedia",
 					ID: "tequipedia",
 					Func: Funcs.Tequipedia,
-					State: State.index.Laravel.Tequipedia,
+					State: State.index.Tequipedia,
 				},
 			],
 		},
