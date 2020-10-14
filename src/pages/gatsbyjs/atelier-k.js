@@ -1,12 +1,12 @@
 import PageLayout from '../../components/pageLayout'
 
-const AtelierK = ({info}) => {
+const AtelierK = ({info, fw, pg}) => {
 	const pageData = {
 		// Webページタイトル
-		head: info[2].FW,
+		head: info[fw.Gatsby].FW,
 
 		// サイトタイトル
-		title: info[2].Page[0].Title,
+		title: info[fw.Gatsby].Page[pg.AtelierK].Title,
 
 		// 概要
 		summary: "飼い猫を題材にした写真ギャラリーサイト。",

@@ -1,12 +1,12 @@
 import PageLayout from '../../components/pageLayout'
 
-const Tequipedia = ({info}) => {
+const Tequipedia = ({info, fw, pg}) => {
 	const pageData = {
 		// Webページタイトル
-		head: info[3].FW,
+		head: info[fw.Laravel].FW,
 
 		// サイトタイトル
-		title: info[3].Page[0].Title,
+		title: info[fw.Laravel].Page[pg.Tequipedia].Title,
 
 		// 概要
 		summary: "テキーラを題材にした物品紹介サイト。",

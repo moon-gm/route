@@ -16,17 +16,17 @@ class Layout extends React.Component {
 	//-------------------------------- 初期値設定 --------------------------------//
 
 	constructor(props) {
-		super(props);
+		super(props)
 
 		/*** ■ Stateの初期値設定 ***/
 		this.state = {
 			FWSelected: State.FWSelected.Top, // FWごとの設定
 			index: undefined, // MainVisualのスクロール画像のindex設定
 			sideList: true, // サイドエリアの表示設定
-			pageSelected: undefined, // 表示ページの選択項目の表示切替設定
+			pageSelected: undefined, // 表示ページの画像とリストの選択設定
 		}
 
-		/*** ■ indexの最大値設定 ***/
+		/*** ■ state.indexの最大値設定 ***/
 		this.MAX_INDEX = 6
 
 		/*** ■ Function設定 ***/
@@ -54,6 +54,15 @@ class Layout extends React.Component {
 
 		/*** ■ サイト情報設定 ***/
 		this.PAGE_INFO = Page(this.ALL_FUNC)
+		// 以下はpage.jsで設定の順番（※この番号を変更したらpage.jsの順序も入れ替える）
+		this.FW_NUM = { React: 0, Next: 1, Gatsby: 2, Laravel: 3, }
+		this.PAGE_NUM = {
+			/* React */ ReactLearning: 0,
+			/* Next */ PortfolioShow: 0, NextLearning: 1, NationalFlags: 2,
+			/* Gatsby */ AtelierK: 0, GatsbyLearning: 1,
+			/* Laravel */ Tequipedia: 0,
+		}
+
 	}
 
 
@@ -62,25 +71,26 @@ class Layout extends React.Component {
 	/*** ■ レンダー後の処理 ***/
 	componentDidMount(){
 
-		// スクロールする画像の表示設定
-		const index = sessionStorage.getItem('ScrollIndex')
-		if (index !== null) {
-
-			// 取得したindexは文字列型のため数値型に変更してsetState
-			this.setState({
-				index: Number(index),
-				pageSelected: Number(index)
-			})
-
-		}
-
-		// サイドリストの表示条件設定
-		const pathName = window.location.pathname.split("/")
+		// 画像・リストの表示条件設定
+		const pathName = window.location.pathname
+		const pathSplit = pathName.split("/")
 		this.PAGE_INFO.map(items => {
 
 			// URLに合わせてStateを変更
-			const condition =  ("/" + pathName[1] === items.URL)
-			condition && this.setState({FWSelected: items.State})
+			const condition =  ("/" + pathSplit[1] === items.URL)
+			if (condition) {
+
+				// FW切替
+				this.setState({FWSelected: items.State})
+				items.Page.map(item =>{
+
+					// ページ選択切替
+					const condition =  (pathName === item.URL)
+					condition && (this.setState({pageSelected: item.State}), this.setState({index: item.State}))
+
+				})
+
+			}
 
 		})
 
@@ -96,9 +106,6 @@ class Layout extends React.Component {
 			index: index,
 			pageSelected: index
 		})
-
-		// セッションにスクロール画像にindexを保存
-		sessionStorage.setItem('ScrollIndex', index)
 
 		// 画面上部に遷移
 		window.scrollTo(0, 0)
@@ -136,7 +143,11 @@ class Layout extends React.Component {
 	render() {
 
 		// children設定
-		const additionalProps = { info: this.PAGE_INFO } // childrenに渡すPropsの設定
+		const additionalProps = { // childrenに渡すPropsの設定
+			info: this.PAGE_INFO,
+			fw: this.FW_NUM,
+			pg: this.PAGE_NUM,
+		}
 		const newChildren = React.cloneElement(this.props.children, additionalProps) // 子要素を再生成してPropsを渡す設定
 
 		// レイアウト設定
@@ -149,10 +160,10 @@ class Layout extends React.Component {
 				<Header
 					info={this.PAGE_INFO}
 					state={this.state}
+					func={this.ALL_FUNC}
+					fw={this.FW_NUM}
+					pg={this.PAGE_NUM}
 					styles={headerStyles}
-					showTop={this.ALL_FUNC.showTop}
-					showSideList={this.ALL_FUNC.showSideList}
-					showProduction={this.ALL_FUNC.showProduction}
 				/>
 
 				{/*** メインビジュアルエリア ***/}
@@ -160,8 +171,9 @@ class Layout extends React.Component {
 					<MainVisual
 						info={this.PAGE_INFO}
 						state={this.state}
-						onPrevBtn={this.ALL_FUNC.onPrevBtn}
-						onNextBtn={this.ALL_FUNC.onNextBtn}
+						func={this.ALL_FUNC}
+						fw={this.FW_NUM}
+						pg={this.PAGE_NUM}
 					/>
 				)}
 

@@ -1,25 +1,21 @@
 import Link from 'next/link';
 import styles from '../styles/modules/mainVisual.module.scss'
 import SwipeableViews from "react-swipeable-views";
-// import { autoPlay } from 'react-swipeable-views-utils';
 
-const Navigation = ({info, state, onPrevBtn, onNextBtn}) => {
-
-	// スクロールエリアのオート再生設定
-	// const AutoScroll = autoPlay(SwipeableViews);
+const MainVisual = ({info, state, func, fw, pg}) => {
 
 	// スクロールする画像の順序設定
 	const scrollItems = [
 		// 各FW代表ページ
-		info[0].Page[0], // React.js index: 0
-		info[1].Page[0], // Next.js index: 1
-		info[2].Page[0], // Gatsby.js index: 2
-		info[3].Page[0], // Laravel index: 3
+		info[fw.React].Page[pg.ReactLearning], // index: 0
+		info[fw.Next].Page[pg.PortfolioShow], // index: 1
+		info[fw.Gatsby].Page[pg.AtelierK], // index: 2
+		info[fw.Laravel].Page[pg.Tequipedia], // index: 3
 
 		// 追加ページ
-		info[1].Page[1], // Next.js index: 4
-		info[2].Page[1], // Gatsby.js index: 5
-		info[1].Page[2], // Next.js index: 6
+		info[fw.Next].Page[pg.NextLearning], // index: 4
+		info[fw.Gatsby].Page[pg.GatsbyLearning], // index: 5
+		info[fw.Next].Page[pg.NationalFlags], // index: 6
 	];
 
 	return (
@@ -50,7 +46,7 @@ const Navigation = ({info, state, onPrevBtn, onNextBtn}) => {
 										${styles.scrollPrev}
 										hide-sp
 									`}
-									onClick={onPrevBtn}
+									onClick={func.onPrevBtn}
 								>
 									{/* :afterで「<」を設定 */}
 									<span className={styles.messagePrev}>
@@ -64,8 +60,6 @@ const Navigation = ({info, state, onPrevBtn, onNextBtn}) => {
 									enableMouseEvents
 									resistance
 									index={state.index}
-									// direction="incremental"
-									// interval={2500}
 								>
 									{scrollItems.map(scrollItem => {
 										return (
@@ -101,7 +95,7 @@ const Navigation = ({info, state, onPrevBtn, onNextBtn}) => {
 										${styles.scrollNext}
 										hide-sp
 									`}
-									onClick={onNextBtn}
+									onClick={func.onNextBtn}
 								>
 									{/* :afterで「>」を設定 */}
 									<span className={styles.messageNext}>
@@ -117,4 +111,4 @@ const Navigation = ({info, state, onPrevBtn, onNextBtn}) => {
 		</>
 	);
 }
-export default Navigation
+export default MainVisual

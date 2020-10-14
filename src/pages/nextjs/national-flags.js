@@ -1,12 +1,12 @@
 import PageLayout from '../../components/pageLayout'
 
-const NationalFlags = ({info}) => {
+const NationalFlags = ({info, fw, pg}) => {
 	const pageData = {
 		// Webページタイトル
-		head: info[1].FW,
+		head: info[fw.Next].FW,
 
 		// サイトタイトル
-		title: info[1].Page[2].Title,
+		title: info[fw.Next].Page[pg.NationalFlags].Title,
 
 		// 概要
 		summary: "Next.jsとFaunaDBで作成した、国旗を軸とした国データ検索・登録アプリケーション。Node.jsで画像アップロード処理を実装。",

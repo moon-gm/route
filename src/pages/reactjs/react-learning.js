@@ -1,12 +1,12 @@
 import PageLayout from '../../components/pageLayout'
 
-const ReactJS = ({info}) => {
+const ReactJS = ({info, fw, pg}) => {
 	const pageData = {
 		// Webページタイトル
-		head: info[0].FW,
+		head: info[fw.React].FW,
 
 		// サイトタイトル
-		title: info[0].Page[0].Title,
+		title: info[fw.React].Page[pg.ReactLearning].Title,
 
 		// 概要
 		summary: "Reactの学習内容をそのまま反映させていく学習サイト。",

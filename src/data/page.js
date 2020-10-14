@@ -1,9 +1,9 @@
 // FWごとのページデータ設定
 import State from './state.json'
 export default function returnAllPage(Funcs) {
-	return [
+	const pageData = [
 		{//React
-			FW: "React.js",
+			FW: "React",
 			URL: "/reactjs",
 			State: State.FWSelected.React,
 			Page: [
@@ -12,12 +12,12 @@ export default function returnAllPage(Funcs) {
 					URL: "/reactjs/react-learning",
 					ID: "react-learning",
 					Func: Funcs.ReactLearning,
-					State: State.index.SitePages.React.ReactLearning
+					State: State.index.SitePages.React.ReactLearning,
 				},
 			],
 		},
 		{// Next
-			FW: "Next.js",
+			FW: "Next",
 			URL: "/nextjs",
 			State: State.FWSelected.Next,
 			Page: [
@@ -26,26 +26,26 @@ export default function returnAllPage(Funcs) {
 					URL: "/nextjs/portfolio-show",
 					ID: "portfolio-show",
 					Func: Funcs.PortfolioShow,
-					State: State.index.SitePages.Next.PortfolioShow
+					State: State.index.SitePages.Next.PortfolioShow,
 				},
 				{
 					Title: "Next Learning",
 					URL: "/nextjs/next-learning",
 					ID: "next-learning",
 					Func: Funcs.NextLearning,
-					State: State.index.SitePages.Next.NextLearning
+					State: State.index.SitePages.Next.NextLearning,
 				},
 				{
 					Title: "National Flags",
 					URL: "/nextjs/national-flags",
 					ID: "national-flags",
 					Func: Funcs.NationalFlags,
-					State: State.index.SitePages.Next.NationalFlags
+					State: State.index.SitePages.Next.NationalFlags,
 				},
 			],
 		},
 		{// Gatsby
-			FW: "Gatsby.js",
+			FW: "Gatsby",
 			URL: "/gatsbyjs",
 			State: State.FWSelected.Gatsby,
 			Page: [
@@ -54,14 +54,14 @@ export default function returnAllPage(Funcs) {
 					URL: "/gatsbyjs/atelier-k",
 					ID: "atelier-k",
 					Func: Funcs.AtelierK,
-					State: State.index.SitePages.Gatsby.AtelierK
+					State: State.index.SitePages.Gatsby.AtelierK,
 				},
 				{
 					Title: "Gatsby Learning",
 					URL: "/gatsbyjs/gatsby-learning",
 					ID: "gatsby-learning",
 					Func: Funcs.GatsbyLearning,
-					State: State.index.SitePages.Gatsby.GatsbyLearning
+					State: State.index.SitePages.Gatsby.GatsbyLearning,
 				},
 			],
 		},
@@ -75,9 +75,11 @@ export default function returnAllPage(Funcs) {
 					URL:  "/laravel/tequipedia",
 					ID: "tequipedia",
 					Func: Funcs.Tequipedia,
-					State: State.index.SitePages.Laravel.Tequipedia
+					State: State.index.SitePages.Laravel.Tequipedia,
 				},
 			],
 		},
 	]
+
+	return pageData
 }

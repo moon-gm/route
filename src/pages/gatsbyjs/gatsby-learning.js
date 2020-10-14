@@ -1,12 +1,12 @@
 import PageLayout from '../../components/pageLayout'
 
-const GatsbyJS = ({info}) => {
+const GatsbyJS = ({info, fw, pg}) => {
 	const pageData = {
 		// Webページタイトル
-		head: info[2].FW,
+		head: info[fw.Gatsby].FW,
 
 		// サイトタイトル
-		title: info[2].Page[1].Title,
+		title: info[fw.Gatsby].Page[pg.GatsbyLearning].Title,
 
 		// 概要
 		summary: "Gatsby.jsの学習内容をそのまま反映させていく学習サイト。",

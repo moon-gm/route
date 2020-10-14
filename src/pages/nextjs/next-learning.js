@@ -1,12 +1,12 @@
 import PageLayout from '../../components/pageLayout'
 
-const NextJS = ({info}) => {
+const NextJS = ({info, fw, pg}) => {
 	const pageData = {
 		// Webページタイトル
-		head: info[1].FW,
+		head: info[fw.Next].FW,
 
 		// サイトタイトル
-		title: info[1].Page[1].Title,
+		title: info[fw.Next].Page[pg.NextLearning].Title,
 
 		// 概要
 		summary: "Next.jsの学習内容をそのまま反映させていく学習サイト。",

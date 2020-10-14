@@ -1,7 +1,7 @@
 import Link from 'next/link';
 // 「styles」は「styles.headerTabSelected」をjQueryで使うため、_app.jsでimportしている
 
-const Header = ({info, state, showTop, showProduction, sideListShow, styles}) => {
+const Header = ({info, state, func, fw, pg, styles}) => {
 
 	// Topに戻るボタンの処理
 	function scrollToTop() {
@@ -9,28 +9,21 @@ const Header = ({info, state, showTop, showProduction, sideListShow, styles}) =>
 	}
 
 	return(
-		<header
-			className="header-area"
-		>
+		<header className="header-area">
 			<div className="header-area-wrap">
 
 				{/*** トップリスト -- start -- ***/}
-					<ul
-						className={`
-							${styles.topList}
-							flex-space-between
-						`}
-					>
+					<ul className={`${styles.topList} flex-space-between`}>
 
 						{/** トップロゴ　-- start -- **/}
 							<Link href="/">
 								<li
+									onClick={func.showTop}
 									className={`
 										${styles.topLogo}
 										flex-space-between
 										align-items-center
 									`}
-									onClick={showTop}
 								>
 									<img
 										src="/github-logo.png"
@@ -43,8 +36,8 @@ const Header = ({info, state, showTop, showProduction, sideListShow, styles}) =>
 
 						{/** トップボタン　-- start -- **/}
 							<li
-								className={styles.topBtn}
 								onClick={scrollToTop}
+								className={styles.topBtn}
 							>
 								⬆︎Top
 							</li>
@@ -53,8 +46,8 @@ const Header = ({info, state, showTop, showProduction, sideListShow, styles}) =>
 						{/** サイドメニュー表示ボタン　-- start -- **/}
 						{state.FWSelected !== "top" && (
 							<li
+								onClick={func.sideListShow}
 								className={styles.menuBtn}
-								onClick={sideListShow}
 							>
 								{state.sideList ? "×" : "≡"}
 							</li>
@@ -75,20 +68,16 @@ const Header = ({info, state, showTop, showProduction, sideListShow, styles}) =>
 						>
 							<Link href="/">
 								<li
-									className={`
-									${styles.headerTab}
-									`}
-									onClick={showTop}
+									onClick={func.showTop}
+									className={styles.headerTab}
 								>
 									Profile
 								</li>
 							</Link>
-							<Link href="/reactjs/react-learning">
+							<Link href={info[fw.React].Page[pg.ReactLearning].URL}>
 								<li
-									className={`
-									${styles.headerTab}
-									`}
-									onClick={showProduction}
+									onClick={func.showProduction}
+									className={styles.headerTab}
 								>
 									Production
 								</li>
