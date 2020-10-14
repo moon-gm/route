@@ -12,10 +12,13 @@ import State from '../data/state.json'
 import Page from '../data/page'
 
 class Layout extends React.Component {
+
+	//-------------------------------- 初期値設定 --------------------------------//
+
 	constructor(props) {
 		super(props);
 
-		/*** Stateの初期値設定 ***/
+		/*** ■ Stateの初期値設定 ***/
 		this.state = {
 			FWSelected: State.FWSelected.Top, // FWごとの設定
 			index: undefined, // MainVisualのスクロール画像のindex設定
@@ -24,10 +27,10 @@ class Layout extends React.Component {
 			pageSelected: undefined, // 表示ページの選択項目の表示切替設定
 		}
 
-		/*** indexの最大値設定 ***/
+		/*** ■ indexの最大値設定 ***/
 		this.MAX_INDEX = 6
 
-		/*** Function設定 ***/
+		/*** ■ Function設定 ***/
 		this.ALL_FUNC = {
 
 			// ページで使用
@@ -50,69 +53,100 @@ class Layout extends React.Component {
 
 		}
 
-		/*** サイト情報設定 ***/
+		/*** ■ サイト情報設定 ***/
 		this.PAGE_INFO = Page(this.ALL_FUNC)
 	}
 
-	/*** レンダー後の処理 ***/
+
+	//-------------------------------- メソッド設定 --------------------------------//
+
+	/*** ■ レンダー後の処理 ***/
 	componentDidMount(){
+
 		// スクロールする画像の表示設定
 		const index = sessionStorage.getItem('ScrollIndex')
 		if (index !== null) {
+
 			// 取得したindexは文字列型のため数値型に変更してsetState
 			this.setState({
 				index: Number(index),
 				pageSelected: Number(index)
 			})
+
 		}
 
 		// サイドリストの表示条件設定
 		const pathName = window.location.pathname.split("/")
 		this.PAGE_INFO.map(items => {
+
+			// URLに合わせてStateを変更
 			const condition =  ("/" + pathName[1] === items.URL)
 			condition && this.setState({FWSelected: items.State})
+
 		})
+
 	}
 
-	/*** Productionの各サイト一覧押下時の処理 ***/
+
+	/*** ■ Productionの各サイト一覧押下時の処理 ***/
 	changeFW(FWSelected,index) {
+
+		// Stateをセットしてページを切替
 		this.setState({
 			FWSelected: FWSelected,
 			index: index,
 			pageSelected: index
-		});
-		sessionStorage.setItem('ScrollIndex', index);
+		})
+
+		// セッションにスクロール画像にindexを保存
+		sessionStorage.setItem('ScrollIndex', index)
 
 		// 画面上部に遷移
-		window.scrollTo(0, 0);
+		window.scrollTo(0, 0)
+
 	}
 
-	/*** スクロールの「<」ボタン処理 ***/
+
+	/*** ■ スクロールの「<」ボタン処理 ***/
 	onPrevBtn() {
+
+		// Stateをセットしてスクロール画像の方向を「右」に設定
 		this.setState({imageDirection: "right"})
 
+		// スクロール画像のindexが「null or 0」でない時、indexに-1する
 		const condition = (this.state.index === void 0 || this.state.index === 0 || this.state.index === null)
 		condition ? this.setState({index: this.MAX_INDEX}) : this.setState({index: this.state.index - 1})
+
 	}
 
-	/*** スクロールの「>」ボタン処理 ***/
+	/*** ■ スクロールの「>」ボタン処理 ***/
 	onNextBtn() {
+
+		// Stateをセットしてスクロール画像の方向を「左」に設定
 		this.setState({imageDirection: "left"})
 
+		// スクロール画像のindexが「null or 0」でない時、indexに+1する
 		const condition = (this.state.index === void 0 || this.state.index === this.MAX_INDEX || this.state.index === null)
 		condition ? this.setState({index: 0}) : this.setState({index: this.state.index + 1})
+
 	}
 
-	/*** サイドメニューの表示ボタン処理 ***/
+	/*** ■ サイドメニューの表示ボタン処理 ***/
 	showSideList() {
+
+		// Stateの「sideList」に合わせてサイドエリアの表示を切替
 		this.state.sideList ? this.setState({sideList: false}) : this.setState({sideList: true})
+
 	}
 
+	/*** ■ レンダー処理 ***/
 	render() {
-		/***** childrenの設定 *****/
+
+		// children設定
 		const additionalProps = { info: this.PAGE_INFO } // childrenに渡すPropsの設定
 		const newChildren = React.cloneElement(this.props.children, additionalProps) // 子要素を再生成してPropsを渡す設定
 
+		// レイアウト設定
 		return (
 			<div
 				id="top"
