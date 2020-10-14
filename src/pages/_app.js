@@ -33,21 +33,21 @@ class Layout extends React.Component {
 		this.ALL_FUNC = {
 
 			// ページで使用
-			ReactLearning: this.changeFW.bind(this, State.selectedFW.React, State.index.SitePages.React.ReactLearning),
-			PortfolioShow: this.changeFW.bind(this, State.selectedFW.Next, State.index.SitePages.Next.PortfolioShow),
-			NextLearning: this.changeFW.bind(this, State.selectedFW.Next, State.index.SitePages.Next.NextLearning),
-			NationalFlags: this.changeFW.bind(this, State.selectedFW.Next, State.index.SitePages.Next.NationalFlags),
-			AtelierK: this.changeFW.bind(this, State.selectedFW.Gatsby, State.index.SitePages.Gatsby.AtelierK),
-			GatsbyLearning: this.changeFW.bind(this, State.selectedFW.Gatsby, State.index.SitePages.Gatsby.GatsbyLearning),
-			Tequipedia: this.changeFW.bind(this, State.selectedFW.Laravel, State.index.SitePages.Laravel.Tequipedia),
+			ReactLearning: this.changeFW.bind(this, State.selectedFW.React, State.index.React.ReactLearning),
+			PortfolioShow: this.changeFW.bind(this, State.selectedFW.Next, State.index.Next.PortfolioShow),
+			NextLearning: this.changeFW.bind(this, State.selectedFW.Next, State.index.Next.NextLearning),
+			NationalFlags: this.changeFW.bind(this, State.selectedFW.Next, State.index.Next.NationalFlags),
+			AtelierK: this.changeFW.bind(this, State.selectedFW.Gatsby, State.index.Gatsby.AtelierK),
+			GatsbyLearning: this.changeFW.bind(this, State.selectedFW.Gatsby, State.index.Gatsby.GatsbyLearning),
+			Tequipedia: this.changeFW.bind(this, State.selectedFW.Laravel, State.index.Laravel.Tequipedia),
 
 			// メインビジュアルエリアで使用
 			onPrevBtn: this.onPrevBtn.bind(this),
 			onNextBtn: this.onNextBtn.bind(this),
 
 			// ヘッダーで使用
-			showTop: this.changeFW.bind(this, State.selectedFW.Top, State.index.React),
-			showProduction: this.changeFW.bind(this, State.selectedFW.React, State.index.React),
+			showTop: this.changeFW.bind(this, State.selectedFW.Top, 0),
+			showProduction: this.changeFW.bind(this, State.selectedFW.React, 0),
 			showSideList: this.showSideList.bind(this),
 
 		}
@@ -98,7 +98,7 @@ class Layout extends React.Component {
 
 
 	/*** ■ Productionの各サイト一覧押下時の処理 ***/
-	changeFW(selectedFW,index) {
+	changeFW(selectedFW, index) {
 
 		// Stateをセットしてページを切替
 		this.setState({

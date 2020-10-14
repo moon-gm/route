@@ -7,26 +7,20 @@
 		"Laravel": "laravel"
 	},
 	"index": {
-		"React": 0,
-		"Next": 1,
-		"Gatsby": 2,
-		"Laravel": 3,
-		"SitePages": {
-			"React": {
-				"ReactLearning": 0
-			},
-			"Next": {
-				"PortfolioShow": 1,
-				"NextLearning": 4,
-				"NationalFlags": 6
-			},
-			"Gatsby": {
-				"AtelierK": 2,
-				"GatsbyLearning": 5
-			},
-			"Laravel": {
-				"Tequipedia": 3
-			}
+		"React": {
+			"ReactLearning": 0
+		},
+		"Next": {
+			"PortfolioShow": 1,
+			"NextLearning": 4,
+			"NationalFlags": 6
+		},
+		"Gatsby": {
+			"AtelierK": 2,
+			"GatsbyLearning": 5
+		},
+		"Laravel": {
+			"Tequipedia": 3
 		}
 	}
 }
