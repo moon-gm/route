@@ -1,7 +1,7 @@
 import Link from 'next/link';
-// 「Styles」は「Styles.headerTabSelected」をjQueryで使うため、_app.jsでimportしている
+// 「styles」は「styles.headerTabSelected」をjQueryで使うため、_app.jsでimportしている
 
-const Header = ({info, state, topPage, productionPage, sideListShow, Styles}) => {
+const Header = ({info, state, showTop, showProduction, sideListShow, styles}) => {
 
 	// Topに戻るボタンの処理
 	function scrollToTop() {
@@ -17,7 +17,7 @@ const Header = ({info, state, topPage, productionPage, sideListShow, Styles}) =>
 				{/*** トップリスト -- start -- ***/}
 					<ul
 						className={`
-							${Styles.topList}
+							${styles.topList}
 							flex-space-between
 						`}
 					>
@@ -26,15 +26,15 @@ const Header = ({info, state, topPage, productionPage, sideListShow, Styles}) =>
 							<Link href="/">
 								<li
 									className={`
-										${Styles.topLogo}
+										${styles.topLogo}
 										flex-space-between
 										align-items-center
 									`}
-									onClick={topPage}
+									onClick={showTop}
 								>
 									<img
 										src="/github-logo.png"
-										className={Styles.topLogoImg}
+										className={styles.topLogoImg}
 									/>
 									<span>Portfolio Show</span>
 								</li>
@@ -43,7 +43,7 @@ const Header = ({info, state, topPage, productionPage, sideListShow, Styles}) =>
 
 						{/** トップボタン　-- start -- **/}
 							<li
-								className={Styles.topBtn}
+								className={styles.topBtn}
 								onClick={scrollToTop}
 							>
 								⬆︎Top
@@ -51,9 +51,9 @@ const Header = ({info, state, topPage, productionPage, sideListShow, Styles}) =>
 						{/** トップボタン　-- end -- **/}
 
 						{/** サイドメニュー表示ボタン　-- start -- **/}
-						{state.MenuTab !== "top" && (
+						{state.FWSelected !== "top" && (
 							<li
-								className={Styles.menuBtn}
+								className={styles.menuBtn}
 								onClick={sideListShow}
 							>
 								{state.sideList ? "×" : "≡"}
@@ -65,10 +65,10 @@ const Header = ({info, state, topPage, productionPage, sideListShow, Styles}) =>
 				{/*** トップリスト -- end -- ***/}
 
 				{/*** ヘッダータブリスト -- start -- ***/}
-					<div className={Styles.tabList}>
+					<div className={styles.tabList}>
 						<ul
 							className={`
-								${Styles.tabListWrap}
+								${styles.tabListWrap}
 								flex-space-around
 								align-items-center
 							`}
@@ -76,9 +76,9 @@ const Header = ({info, state, topPage, productionPage, sideListShow, Styles}) =>
 							<Link href="/">
 								<li
 									className={`
-									${Styles.headerTab}
+									${styles.headerTab}
 									`}
-									onClick={topPage}
+									onClick={showTop}
 								>
 									Profile
 								</li>
@@ -86,9 +86,9 @@ const Header = ({info, state, topPage, productionPage, sideListShow, Styles}) =>
 							<Link href="/reactjs/react-learning">
 								<li
 									className={`
-									${Styles.headerTab}
+									${styles.headerTab}
 									`}
-									onClick={productionPage}
+									onClick={showProduction}
 								>
 									Production
 								</li>

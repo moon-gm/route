@@ -17,102 +17,101 @@ class Layout extends React.Component {
 
 		/*** Stateの初期値設定 ***/
 		this.state = {
-			MenuTab: State.MenuTab.Top,
-			index: undefined,
-			imageDirection: undefined,
-			sideList: true,
-			pageNum: undefined,
+			FWSelected: State.FWSelected.Top, // FWごとの設定
+			index: undefined, // MainVisualのスクロール画像のindex設定
+			imageDirection: undefined, // MainVisualのスクロール画像のスクロール方向の設定
+			sideList: true, // サイドエリアの表示設定
+			pageSelected: undefined, // 表示ページの選択項目の表示切替設定
 		}
 
+		/*** indexの最大値設定 ***/
+		this.MAX_INDEX = 6
+
 		/*** Function設定 ***/
-		this.funcs = {
-			ReactLearning: this.changeFW.bind(this, State.MenuTab.React, State.index.SitePages.React.ReactLearning),
-			PortfolioShow: this.changeFW.bind(this, State.MenuTab.Next, State.index.SitePages.Next.PortfolioShow),
-			NextLearning: this.changeFW.bind(this, State.MenuTab.Next, State.index.SitePages.Next.NextLearning),
-			NationalFlags: this.changeFW.bind(this, State.MenuTab.Next, State.index.SitePages.Next.NationalFlags),
-			AtelierK: this.changeFW.bind(this, State.MenuTab.Gatsby, State.index.SitePages.Gatsby.AtelierK),
-			GatsbyLearning: this.changeFW.bind(this, State.MenuTab.Gatsby, State.index.SitePages.Gatsby.GatsbyLearning),
-			Tequipedia: this.changeFW.bind(this, State.MenuTab.Laravel, State.index.SitePages.Laravel.Tequipedia),
+		this.ALL_FUNC = {
+
+			// ページで使用
+			ReactLearning: this.changeFW.bind(this, State.FWSelected.React, State.index.SitePages.React.ReactLearning),
+			PortfolioShow: this.changeFW.bind(this, State.FWSelected.Next, State.index.SitePages.Next.PortfolioShow),
+			NextLearning: this.changeFW.bind(this, State.FWSelected.Next, State.index.SitePages.Next.NextLearning),
+			NationalFlags: this.changeFW.bind(this, State.FWSelected.Next, State.index.SitePages.Next.NationalFlags),
+			AtelierK: this.changeFW.bind(this, State.FWSelected.Gatsby, State.index.SitePages.Gatsby.AtelierK),
+			GatsbyLearning: this.changeFW.bind(this, State.FWSelected.Gatsby, State.index.SitePages.Gatsby.GatsbyLearning),
+			Tequipedia: this.changeFW.bind(this, State.FWSelected.Laravel, State.index.SitePages.Laravel.Tequipedia),
+
+			// メインビジュアルエリアで使用
+			onPrevBtn: this.onPrevBtn.bind(this),
+			onNextBtn: this.onNextBtn.bind(this),
+
+			// ヘッダーで使用
+			showTop: this.changeFW.bind(this, State.FWSelected.Top, State.index.React),
+			showProduction: this.changeFW.bind(this, State.FWSelected.React, State.index.React),
+			showSideList: this.showSideList.bind(this),
+
 		}
 
 		/*** サイト情報設定 ***/
-		this.info = Page(this.funcs)
+		this.PAGE_INFO = Page(this.ALL_FUNC)
 	}
 
 	/*** レンダー後の処理 ***/
 	componentDidMount(){
 		// スクロールする画像の表示設定
-		const index = sessionStorage.getItem('ScrollIndex');
+		const index = sessionStorage.getItem('ScrollIndex')
 		if (index !== null) {
 			// 取得したindexは文字列型のため数値型に変更してsetState
-			this.setState({index: Number(index)});
-			this.setState({pageNum: Number(index)});
+			this.setState({
+				index: Number(index),
+				pageSelected: Number(index)
+			})
 		}
 
 		// サイドリストの表示条件設定
-		const pathName = window.location.pathname.split("/");
-		this.info.map(items => {
-			if ("/" + pathName[1] === items.URL) {
-				this.setState({MenuTab: items.State});
-			}
+		const pathName = window.location.pathname.split("/")
+		this.PAGE_INFO.map(items => {
+			const condition =  ("/" + pathName[1] === items.URL)
+			condition && this.setState({FWSelected: items.State})
 		})
 	}
 
-	/*** ヘッダータブ押下時の処理 ***/
-	changeFW(MenuTab,index) {
-		this.setState({MenuTab: MenuTab});
-		this.setState({index: index});
-		this.setState({pageNum: index});
+	/*** Productionの各サイト一覧押下時の処理 ***/
+	changeFW(FWSelected,index) {
+		this.setState({
+			FWSelected: FWSelected,
+			index: index,
+			pageSelected: index
+		});
 		sessionStorage.setItem('ScrollIndex', index);
 
 		// 画面上部に遷移
 		window.scrollTo(0, 0);
-
-		// jQuery導入(classNameの切替)
-		$(headerStyles.headerTab).removeClass(headerStyles.headerTabSelected);
-		$(`#${MenuTab}`).addClass(headerStyles.headerTabSelected);
-
 	}
 
 	/*** スクロールの「<」ボタン処理 ***/
-	prevBtn() {
-		if (this.state.index === void 0 || this.state.index === 0 || this.state.index === null) {
-			this.setState({imageDirection: "right"});
-			this.setState({index: 6});
-		} else {
-			this.setState({imageDirection: "right"});
-			this.setState({index: this.state.index - 1});
-		}
+	onPrevBtn() {
+		this.setState({imageDirection: "right"})
+
+		const condition = (this.state.index === void 0 || this.state.index === 0 || this.state.index === null)
+		condition ? this.setState({index: this.MAX_INDEX}) : this.setState({index: this.state.index - 1})
 	}
 
 	/*** スクロールの「>」ボタン処理 ***/
-	nextBtn() {
-		if (this.state.index === void 0 || this.state.index === 6 || this.state.index === null) {
-			this.setState({imageDirection: "left"});
-			this.setState({index: 0});
-		} else {
-			this.setState({imageDirection: "left"});
-			this.setState({index: this.state.index + 1});
-		}
+	onNextBtn() {
+		this.setState({imageDirection: "left"})
+
+		const condition = (this.state.index === void 0 || this.state.index === this.MAX_INDEX || this.state.index === null)
+		condition ? this.setState({index: 0}) : this.setState({index: this.state.index + 1})
 	}
 
 	/*** サイドメニューの表示ボタン処理 ***/
-	sideListShow() {
-		if(this.state.sideList) {
-			this.setState({sideList: false})
-		} else {
-			this.setState({sideList: true})
-		}
+	showSideList() {
+		this.state.sideList ? this.setState({sideList: false}) : this.setState({sideList: true})
 	}
 
 	render() {
 		/***** childrenの設定 *****/
-		// childrenに渡すPropsの設定
-		const additionalProps = {
-			info: this.info
-		}
-		// 子要素を再生成してPropsを渡す設定
-		const newChildren = React.cloneElement(this.props.children, additionalProps);
+		const additionalProps = { info: this.PAGE_INFO } // childrenに渡すPropsの設定
+		const newChildren = React.cloneElement(this.props.children, additionalProps) // 子要素を再生成してPropsを渡す設定
 
 		return (
 			<div
@@ -121,20 +120,21 @@ class Layout extends React.Component {
 			>
 				{/*** ヘッダーエリア ***/}
 				<Header
-					info={this.info}
+					info={this.PAGE_INFO}
 					state={this.state}
-					topPage={this.changeFW.bind(this, State.MenuTab.Top, State.index.React)}
-					productionPage={this.changeFW.bind(this, State.MenuTab.React, State.index.React)}
-					sideListShow={this.sideListShow.bind(this)}
-					Styles={headerStyles}
+					styles={headerStyles}
+					showTop={this.ALL_FUNC.showTop}
+					showSideList={this.ALL_FUNC.showSideList}
+					showProduction={this.ALL_FUNC.showProduction}
 				/>
 
 				{/*** メインビジュアルエリア ***/}
-				{this.state.MenuTab !== "top" && (
+				{this.state.FWSelected !== "top" && (
 					<MainVisual
-						info={this.info}
+						info={this.PAGE_INFO}
 						state={this.state}
-						func={[this.prevBtn.bind(this), this.nextBtn.bind(this)]}
+						onPrevBtn={this.ALL_FUNC.onPrevBtn}
+						onNextBtn={this.ALL_FUNC.onNextBtn}
 					/>
 				)}
 
@@ -142,9 +142,9 @@ class Layout extends React.Component {
 				<div className="contents-area flex-space-around flex-remove-sp">
 
 					{/** サイドエリア **/}
-					{this.state.MenuTab !== "top" && this.state.sideList && (
+					{this.state.FWSelected !== "top" && this.state.sideList && (
 						<Aside
-							info={this.info}
+							info={this.PAGE_INFO}
 							state={this.state}
 						/>
 					)}
@@ -153,10 +153,10 @@ class Layout extends React.Component {
 					<main
 						className="contents-main"
 					>
-						{this.state.MenuTab === "top" ? (
+						{this.state.FWSelected === "top" ? (
 							<div className="contents-main-wrap" style={{marginTop: "100px"}}>
-							{newChildren}
-						</div>
+								{newChildren}
+							</div>
 						):(
 							<div className="contents-main-wrap">
 								{newChildren}

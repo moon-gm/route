@@ -3,7 +3,7 @@ import Styles from '../styles/modules/mainVisual.module.scss'
 import SwipeableViews from "react-swipeable-views";
 // import { autoPlay } from 'react-swipeable-views-utils';
 
-const Navigation = ({info, state, func}) => {
+const Navigation = ({info, state, onPrevBtn, onNextBtn}) => {
 
 	// スクロールエリアのオート再生設定
 	// const AutoScroll = autoPlay(SwipeableViews);
@@ -50,7 +50,7 @@ const Navigation = ({info, state, func}) => {
 										${Styles.scrollPrev}
 										hide-sp
 									`}
-									onClick={func[0]}
+									onClick={onPrevBtn}
 								>
 									{/* :afterで「<」を設定 */}
 									<span className={Styles.messagePrev}>
@@ -83,7 +83,7 @@ const Navigation = ({info, state, func}) => {
 														className={`
 															${Styles.scrollImg}
 															${Styles.toLeft}
-															${state.pageNum === scrollItem.State && Styles.scrollImgSelected}
+															${state.pageSelected === scrollItem.State && Styles.scrollImgSelected}
 															${
 																state.imageDirection == "right" ? Styles.toLeft
 																:
@@ -108,7 +108,7 @@ const Navigation = ({info, state, func}) => {
 										${Styles.scrollNext}
 										hide-sp
 									`}
-									onClick={func[1]}
+									onClick={onNextBtn}
 								>
 									{/* :afterで「>」を設定 */}
 									<span className={Styles.messageNext}>

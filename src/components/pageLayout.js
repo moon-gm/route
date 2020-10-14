@@ -207,7 +207,7 @@ const PageLayout = ({pageData}) => {
 									<span className="li-text">{items.title}</span>
 									{items.contents.map(item => {
 										return (
-											<p className="li-note">
+											<p className="li-note" key={item}>
 												・{item}
 											</p>
 										);
