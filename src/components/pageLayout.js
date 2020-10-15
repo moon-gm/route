@@ -9,7 +9,6 @@ const PageLayout = ({pageData}) => {
 
 	// モーダルの値設定
 	const openBtn = "?"
-
 	const modalData = {
 		summary: {
 			title: "概要",
@@ -45,191 +44,189 @@ const PageLayout = ({pageData}) => {
 		},
 	}
 
+	// セクション共通部分のコンポーネント
+	const Section = ({title, modalContent, children}) => {
+		return (
+			<section className={styles.sectionBox}>
+				<h2 className={`
+					${styles.h2}
+					flex-start
+					align-items-center
+				`}>
+					{title}
+					<Modal
+						openBtn={openBtn}
+						title={title}
+						content={modalContent}
+					/>
+				</h2>
+				{children}
+			</section>
+		)
+	}
+
 	return (
 		<>
-			{/*** <head>の<title>設定 ***/}
-			<Head>
-				<title>{pageData.head} | Portfolio Show</title>
-			</Head>
+			{/*** <head>の<title>設定 -- start -- ***/}
+				<Head>
+					<title>{pageData.head} | Portfolio Show</title>
+				</Head>
+			{/*** <head>の<title>設定 -- end -- ***/}
 
-			<div
-				className={styles.contentsBox}
-			>
-				{/*** サイトタイトル ***/}
-				<h1 className={styles.h1}>
-					{pageData.title}
-				</h1>
+			<div className={styles.contentsBox}>
 
-				{/*** セクション１ -- 概要 -- ***/}
-				<section className={`${styles.sectionBox} ${styles.sectionBox1}`}>
-					<h2 className={`${styles.h2} flex-start align-items-center`}>
-						{modalData.summary.title}
-						<Modal
-							openBtn={openBtn}
-							title={modalData.summary.title}
-							content={modalData.summary.content}
-						/>
-					</h2>
-					<p className={styles.p}>
-						{pageData.summary}
-					</p>
-				</section>
+				{/*** サイトタイトル -- start -- ***/}
+					<h1 className={styles.h1}>
+						{pageData.title}
+					</h1>
+				{/*** サイトタイトル -- end -- ***/}
 
-				{/*** セクション２ -- サイトリンク -- ***/}
-				<section className={`${styles.sectionBox} ${styles.sectionBox2}`}>
-					<h2 className={`${styles.h2} flex-start align-items-center`}>
-						{modalData.site.title}
-						<Modal
-							openBtn={openBtn}
-							title={modalData.site.title}
-							content={modalData.site.content}
-						/>
-					</h2>
-					<p className={styles.p}>
-						<a
-							href={pageData.link.site}
-							target="_blank"
-						>
-							{pageData.link.site}
-						</a>
-					</p>
-				</section>
+				{/*** セクション__概要 -- start --***/}
+					<Section
+						title={modalData.summary.title}
+						modalContent={modalData.summary.content}
+					>
+						<p className={styles.p}>
+							{pageData.summary}
+						</p>
+					</Section>
+				{/*** セクション__概要 -- end --***/}
 
-				{/*** セクション３ -- Githubソース -- ***/}
-				<section className={`${styles.sectionBox} ${styles.sectionBox3}`}>
-					<h2 className={`${styles.h2} flex-start align-items-center`}>
-						{modalData.source.title}
-						<Modal
-							openBtn={openBtn}
-							title={modalData.source.title}
-							content={modalData.source.content}
-						/>
-					</h2>
-					<p className={styles.p}>
-						<a
-							href={pageData.link.source}
-							target="_blank"
-						>
-							{pageData.link.source}
-						</a>
-					</p>
-				</section>
+				{/*** セクション__サイトリンク -- start --***/}
+					<Section
+						title={modalData.site.title}
+						modalContent={modalData.site.content}
+					>
+						<p className={styles.p}>
+							<a
+								href={pageData.link.site}
+								target="_blank"
+							>
+								{pageData.link.site}
+							</a>
+						</p>
+					</Section>
+				{/*** セクション__サイトリンク -- end --***/}
 
-				{/*** セクション４ -- 内容 -- ***/}
-				<section className={`${styles.sectionBox} ${styles.sectionBox4}`}>
-					<h2 className={`${styles.h2} flex-start align-items-center`}>
-						{modalData.contents.title}
-						<Modal
-							openBtn={openBtn}
-							title={modalData.contents.title}
-							content={modalData.contents.content}
-						/>
-					</h2>
-					<p className={styles.p}>
-					{pageData.contents}
-					</p>
-				</section>
+				{/*** セクション__Githubソース -- start --***/}
+					<Section
+						title={modalData.source.title}
+						modalContent={modalData.source.content}
+					>
+						<p className={styles.p}>
+							<a
+								href={pageData.link.source}
+								target="_blank"
+							>
+								{pageData.link.source}
+							</a>
+						</p>
+					</Section>
+				{/*** セクション__Githubソース -- end --***/}
 
-				{/*** セクション５ -- 作成方法 -- ***/}
-				<section className={`${styles.sectionBox} ${styles.sectionBox5}`}>
-					<h2 className={`${styles.h2} flex-start align-items-center`}>
-						{modalData.wayToMake.title}
-						<Modal
-							openBtn={openBtn}
-							title={modalData.wayToMake.title}
-							content={modalData.wayToMake.content}
-						/>
-					</h2>
-					<p className={styles.p}>
-						{pageData.wayToMake}
-					</p>
-				</section>
+				{/*** セクション__内容 -- start --***/}
+					<Section
+						title={modalData.contents.title}
+						modalContent={modalData.contents.content}
+					>
+						<p className={styles.p}>
+							{pageData.contents}
+						</p>
+					</Section>
+				{/*** セクション__内容 -- end --***/}
 
-				{/*** セクション６ -- 使用フレームワーク・言語 -- ***/}
-				<section className={`${styles.sectionBox} ${styles.sectionBox6}`}>
-					<h2 className={`${styles.h2} flex-start align-items-center`}>
-						{modalData.FW.title}
-						<Modal
-							openBtn={openBtn}
-							title={modalData.FW.title}
-							content={modalData.FW.content}
-						/>
-					</h2>
-					{/** テキスト **/}
-					<p className={styles.p}>
-						{pageData.FW.map(items => {
-							if (items === lastArray) {
-								// 配列の最後の値の場合
-								return (
-									<React.Fragment key={`FW-text${items.text}`}>
-										{items.text}
-									</React.Fragment>
-								);
-							} else {
-								// 配列の最後の値以外の場合
-								return (
-									<React.Fragment key={`FW-text${items.text}`}>
-										{`${items.text} / `}
-									</React.Fragment>
-								);
-							}
-						})}
-					</p>
-					{/** 画像 **/}
-					<div className={styles.imgBox}>
-						{pageData.FW.map(items => {
-							return (
-								<img
-									src={`/${items.image}`}
-									alt={items.text}
-									key={`FW-image${items.text}`}
-								/>
-							);
-						})}
-					</div>
-				</section>
+				{/*** セクション__作成方法 -- start --***/}
+					<Section
+						title={modalData.wayToMake.title}
+						modalContent={modalData.wayToMake.content}
+					>
+						<p className={styles.p}>
+							{pageData.wayToMake}
+						</p>
+					</Section>
+				{/*** セクション__作成方法 -- end --***/}
 
-				{/*** セクション７ -- 使用技術 -- ***/}
-				<section className={`${styles.sectionBox} ${styles.sectionBox6}`}>
-					<h2 className={`${styles.h2} flex-start align-items-center`}>
-						{modalData.skill.title}
-						<Modal
-							openBtn={openBtn}
-							title={modalData.skill.title}
-							content={modalData.skill.content}
-						/>
-					</h2>
-					{/** リスト **/}
-					{pageData.skill.map(items => {
-						return (
-							<ul key={`FW-text${items.title}`} className="list-box">
-								<li className="li">
-									<span className="li-text">{items.title}</span>
-									{items.contents.map(item => {
-										return (
-											<p className="li-note" key={item}>
-												・{item}
-											</p>
-										);
+				{/*** セクション__使用フレームワーク・言語 -- start --***/}
+					<Section
+						title={modalData.FW.title}
+						modalContent={modalData.FW.content}
+					>
+						<>
+
+							{/** テキスト -- start -- **/}
+								<p className={styles.p}>
+									{pageData.FW.map(items => {
+										if (items === lastArray) {
+											// 配列の最後の値の場合
+											return (
+												<React.Fragment key={`FW-text${items.text}`}>
+													{items.text}
+												</React.Fragment>
+											);
+										} else {
+											// 配列の最後の値以外の場合
+											return (
+												<React.Fragment key={`FW-text${items.text}`}>
+													{`${items.text} / `}
+												</React.Fragment>
+											);
+										}
 									})}
-								</li>
-							</ul>
-						);
-					})}
-				</section>
+								</p>
+							{/** テキスト -- start -- **/}
 
-				{/*** セクション８ -- 画面イメージ -- ***/}
-				<section className={`${styles.sectionBox} ${styles.sectionBox7}`}>
-					<h2 className={`${styles.h2} flex-start align-items-center`}>
-						{modalData.iframe.title}
-						<Modal
-							openBtn={openBtn}
-							title={modalData.iframe.title}
-							content={modalData.iframe.content}
+							{/** 画像 -- start -- **/}
+								<div className={styles.imgBox}>
+									{pageData.FW.map(items => {
+										return (
+											<img
+												src={`/${items.image}`}
+												alt={items.text}
+												key={`FW-image${items.text}`}
+											/>
+										)
+									})}
+								</div>
+							{/** 画像 -- end -- **/}
+						</>
+					</Section>
+				{/*** セクション__使用フレームワーク・言語 -- end --***/}
+
+				{/*** セクション__使用技術 -- start --***/}
+					<Section
+						title={modalData.skill.title}
+						modalContent={modalData.skill.content}
+					>
+						{pageData.skill.map(skill => {
+							return (
+								<ul key={`FW-text${skill.title}`} className="list-box">
+									<li className="li">
+										<span className="li-text">{skill.title}</span>
+										{skill.contents.map(item => {
+											return (
+												<p className="li-note" key={item}>
+													・{item}
+												</p>
+											)
+										})}
+									</li>
+								</ul>
+							)
+						})}
+					</Section>
+				{/*** セクション__使用技術 -- end --***/}
+
+				{/*** セクション__画面イメージ -- start --***/}
+					<Section
+						title={modalData.iframe.title}
+						modalContent={modalData.iframe.content}
+					>
+						<iframe
+							className={styles.iframe}
+							src={pageData.link.site}
 						/>
-					</h2>
-					<iframe className={styles.iframe} src={pageData.link.site}/>
-				</section>
+					</Section>
+				{/*** セクション__画面イメージ -- end --***/}
 
 			</div>
 		</>
