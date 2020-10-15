@@ -7,6 +7,7 @@ const NextJS = ({info, fw, pg}) => {
 
 		// サイトタイトル
 		title: info[fw.Next].Page[pg.NextLearning].Title,
+		createDate: info[fw.Next].Page[pg.NextLearning].CreateDate,
 
 		// 概要
 		summary: "Next.jsの学習内容をそのまま反映させていく学習サイト。",

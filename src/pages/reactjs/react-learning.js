@@ -7,6 +7,7 @@ const ReactJS = ({info, fw, pg}) => {
 
 		// サイトタイトル
 		title: info[fw.React].Page[pg.ReactLearning].Title,
+		createDate: info[fw.React].Page[pg.ReactLearning].CreateDate,
 
 		// 概要
 		summary: "Reactの学習内容をそのまま反映させていく学習サイト。",

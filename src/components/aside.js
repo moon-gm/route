@@ -53,7 +53,8 @@ const Aside = ({data}) => {
 															<span className={styles.listText}>
 																<span className={styles.middleWrap}>
 																	<span className={styles.innerWrap}>
-																		{page.Title}
+																		{page.Title}<br/>
+																		{page.CreateDate} 〜
 																	</span>
 																</span>
 															</span>

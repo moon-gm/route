@@ -7,6 +7,7 @@ const PortfolioShow = ({info, fw, pg}) => {
 
 		// サイトタイトル
 		title: info[fw.Next].Page[pg.PortfolioShow].Title,
+		createDate: info[fw.Next].Page[pg.PortfolioShow].CreateDate,
 
 		// 概要
 		summary: "Next.jsで作成の当サイト。他に作成したものをまとめたポートフォリオサイト。",

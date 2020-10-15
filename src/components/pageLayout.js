@@ -79,6 +79,9 @@ const PageLayout = ({pageData}) => {
 					<h1 className={styles.h1}>
 						{pageData.title}
 					</h1>
+					<p className={styles.p}>
+						作成：{pageData.createDate} 〜
+					</p>
 				{/*** サイトタイトル -- end -- ***/}
 
 				{/*** セクション__概要 -- start --***/}

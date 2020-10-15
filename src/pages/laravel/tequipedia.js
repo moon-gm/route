@@ -7,6 +7,7 @@ const Tequipedia = ({info, fw, pg}) => {
 
 		// サイトタイトル
 		title: info[fw.Laravel].Page[pg.Tequipedia].Title,
+		createDate: info[fw.Laravel].Page[pg.Tequipedia].CreateDate,
 
 		// 概要
 		summary: "テキーラを題材にした物品紹介サイト。",

@@ -7,6 +7,7 @@ const GatsbyJS = ({info, fw, pg}) => {
 
 		// サイトタイトル
 		title: info[fw.Gatsby].Page[pg.GatsbyLearning].Title,
+		createDate: info[fw.Gatsby].Page[pg.GatsbyLearning].CreateDate,
 
 		// 概要
 		summary: "Gatsby.jsの学習内容をそのまま反映させていく学習サイト。",

@@ -7,6 +7,7 @@ const AtelierK = ({info, fw, pg}) => {
 
 		// サイトタイトル
 		title: info[fw.Gatsby].Page[pg.AtelierK].Title,
+		createDate: info[fw.Gatsby].Page[pg.AtelierK].CreateDate,
 
 		// 概要
 		summary: "飼い猫を題材にした写真ギャラリーサイト。",
