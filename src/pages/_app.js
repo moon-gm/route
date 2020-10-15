@@ -21,11 +21,11 @@ class Layout extends React.Component {
 		this.state = {
 			selectedFW: "profile", // 表示ページのFWの選択設定
 			selectedPage: undefined, // 表示ページの画像とリストの選択設定
-			index: undefined, // MainVisualのスクロール画像のindex設定
+			imgIndex: undefined, // MainVisualのスクロール画像のindex設定
 			sideList: true, // サイドエリアの表示設定
 		}
 
-		/*** ■ state.indexの最大値設定 ***/
+		/*** ■ state.imgIndexの最大値設定 ***/
 		this.MAX_INDEX = 6
 
 		/*** ■ State設定 ***/
@@ -34,7 +34,7 @@ class Layout extends React.Component {
 				Profile: "profile", React: "reactjs", Next: "nextjs",
 				Gatsby: "gatsbyjs", Laravel: "laravel",
 			},
-			index: {
+			imgIndex: {
 				/* React */ ReactLearning: 0,
 				/* Next */ PortfolioShow: 1, NextLearning: 4, NationalFlags: 6,
 				/* Gatsby */ AtelierK: 2, GatsbyLearning: 5,
@@ -46,13 +46,13 @@ class Layout extends React.Component {
 		this.ALL_FUNC = {
 
 			// ページで使用
-			ReactLearning: this.changeFW.bind(this, this.ALL_STATE.selectedFW.React, this.ALL_STATE.index.ReactLearning),
-			PortfolioShow: this.changeFW.bind(this, this.ALL_STATE.selectedFW.Next, this.ALL_STATE.index.PortfolioShow),
-			NextLearning: this.changeFW.bind(this, this.ALL_STATE.selectedFW.Next, this.ALL_STATE.index.NextLearning),
-			NationalFlags: this.changeFW.bind(this, this.ALL_STATE.selectedFW.Next, this.ALL_STATE.index.NationalFlags),
-			AtelierK: this.changeFW.bind(this, this.ALL_STATE.selectedFW.Gatsby, this.ALL_STATE.index.AtelierK),
-			GatsbyLearning: this.changeFW.bind(this, this.ALL_STATE.selectedFW.Gatsby, this.ALL_STATE.index.GatsbyLearning),
-			Tequipedia: this.changeFW.bind(this, this.ALL_STATE.selectedFW.Laravel, this.ALL_STATE.index.Tequipedia),
+			ReactLearning: this.changeFW.bind(this, this.ALL_STATE.selectedFW.React, this.ALL_STATE.imgIndex.ReactLearning),
+			PortfolioShow: this.changeFW.bind(this, this.ALL_STATE.selectedFW.Next, this.ALL_STATE.imgIndex.PortfolioShow),
+			NextLearning: this.changeFW.bind(this, this.ALL_STATE.selectedFW.Next, this.ALL_STATE.imgIndex.NextLearning),
+			NationalFlags: this.changeFW.bind(this, this.ALL_STATE.selectedFW.Next, this.ALL_STATE.imgIndex.NationalFlags),
+			AtelierK: this.changeFW.bind(this, this.ALL_STATE.selectedFW.Gatsby, this.ALL_STATE.imgIndex.AtelierK),
+			GatsbyLearning: this.changeFW.bind(this, this.ALL_STATE.selectedFW.Gatsby, this.ALL_STATE.imgIndex.GatsbyLearning),
+			Tequipedia: this.changeFW.bind(this, this.ALL_STATE.selectedFW.Laravel, this.ALL_STATE.imgIndex.Tequipedia),
 
 			// メインビジュアルエリアで使用
 			onPrevBtn: this.onPrevBtn.bind(this),
@@ -99,7 +99,7 @@ class Layout extends React.Component {
 
 					// ページ選択切替
 					const condition =  (pathName === item.URL)
-					condition && (this.setState({selectedPage: item.State}), this.setState({index: item.State}))
+					condition && (this.setState({selectedPage: item.State}), this.setState({imgIndex: item.State}))
 
 				})
 
@@ -116,7 +116,7 @@ class Layout extends React.Component {
 		// Stateをセットしてページを切替
 		this.setState({
 			selectedFW: selectedFW,
-			index: index,
+			imgIndex: index,
 			selectedPage: index
 		})
 
@@ -129,18 +129,18 @@ class Layout extends React.Component {
 	/*** ■ スクロールの「<」ボタン処理 ***/
 	onPrevBtn() {
 
-		// スクロール画像のindexが「null or 0」でない時、indexに-1する
-		const condition = (this.state.index === void 0 || this.state.index === 0 || this.state.index === null)
-		condition ? this.setState({index: this.MAX_INDEX}) : this.setState({index: this.state.index - 1})
+		// スクロール画像のindexが「null or 0」でない時、imgIndexに-1する
+		const condition = (this.state.imgIndex === void 0 || this.state.imgIndex === 0 || this.state.imgIndex === null)
+		condition ? this.setState({imgIndex: this.MAX_INDEX}) : this.setState({imgIndex: this.state.imgIndex - 1})
 
 	}
 
 	/*** ■ スクロールの「>」ボタン処理 ***/
 	onNextBtn() {
 
-		// スクロール画像のindexが「null or 0」でない時、indexに+1する
-		const condition = (this.state.index === void 0 || this.state.index === this.MAX_INDEX || this.state.index === null)
-		condition ? this.setState({index: 0}) : this.setState({index: this.state.index + 1})
+		// スクロール画像のindexが「null or 0」でない時、imgIndexに+1する
+		const condition = (this.state.imgIndex === void 0 || this.state.imgIndex === this.MAX_INDEX || this.state.imgIndex === null)
+		condition ? this.setState({imgIndex: 0}) : this.setState({imgIndex: this.state.imgIndex + 1})
 
 	}
 

@@ -8,9 +8,7 @@ const Aside = ({info, state}) => {
 			{/*** セクションタイトル -- start -- ***/}
 					{info.map(item => {
 						return (
-							<React.Fragment
-								key={`sidelist${item.State}`}
-							>
+							<React.Fragment key={`sidelist${item.State}`}>
 								{state.selectedFW === item.State ? (
 									<h1 className={`${styles.sectionTitle} ${styles.sectionTitleChecked}`}>
 										{item.FW}
@@ -24,43 +22,41 @@ const Aside = ({info, state}) => {
 								{/** 作成サイトリスト -- start -- **/}
 									<ul>
 										{item.Page.map(page => {
-												return (
-													<React.Fragment
-														key={`sidelistItem${page.ID}`}
+											return (
+												<React.Fragment key={`sidelistItem${page.ID}`}>
+													<Link
+														href={page.URL}
+														key={`pagelist${page.URL}`}
 													>
-														<Link
-															href={page.URL}
-															key={`pagelist${page.URL}`}
+														<li
+															className={`
+																${styles.list}
+																${state.selectedPage === page.State && styles.listSelected}
+																flex-start
+																align-items-center
+															`}
+															onClick={page.Func}
 														>
-															<li
-																className={`
-																	${styles.list}
-																	${state.selectedPage === page.State && styles.listSelected}
-																	flex-start
-																	align-items-center
-																`}
-																onClick={page.Func}
-															>
-																<img
-																	src="/projector-icon.svg"
-																	className={styles.icon}
-																/>
-																<img
-																	src="/film-rail.png"
-																	className={styles.additionalIcon}
-																/>
-																<span className={styles.listText}>
-																	<span className={styles.middleWrap}>
-																		<span className={styles.innerWrap}>
-																			{page.Title}
-																		</span>
+															<img
+																src="/projector-icon.svg"
+																className={styles.icon}
+															/>
+															<img
+																src="/film-rail.png"
+																className={styles.additionalIcon}
+															/>
+															<span className={styles.listText}>
+																<span className={styles.middleWrap}>
+																	<span className={styles.innerWrap}>
+																		{page.Title}
 																	</span>
 																</span>
-															</li>
-														</Link>
-													</React.Fragment>
-												);
-											})}
+															</span>
+														</li>
+													</Link>
+												</React.Fragment>
+											)
+										})}
 									</ul>
 								{/** 作成サイトリスト -- end -- **/}
 							</React.Fragment>
@@ -68,8 +64,7 @@ const Aside = ({info, state}) => {
 					})}
 			{/*** セクションタイトル -- end -- ***/}
 
-
 		</aside>
-	);
+	)
 }
 export default Aside

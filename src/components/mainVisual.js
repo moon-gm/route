@@ -7,15 +7,15 @@ const MainVisual = ({info, state, func, fw, pg}) => {
 	// スクロールする画像の順序設定
 	const scrollItems = [
 		// 各FW代表ページ
-		info[fw.React].Page[pg.ReactLearning], // index: 0
-		info[fw.Next].Page[pg.PortfolioShow], // index: 1
-		info[fw.Gatsby].Page[pg.AtelierK], // index: 2
-		info[fw.Laravel].Page[pg.Tequipedia], // index: 3
+		info[fw.React].Page[pg.ReactLearning], // imgIndex: 0
+		info[fw.Next].Page[pg.PortfolioShow], // imgIndex: 1
+		info[fw.Gatsby].Page[pg.AtelierK], // imgIndex: 2
+		info[fw.Laravel].Page[pg.Tequipedia], // imgIndex: 3
 
 		// 追加ページ
-		info[fw.Next].Page[pg.NextLearning], // index: 4
-		info[fw.Gatsby].Page[pg.GatsbyLearning], // index: 5
-		info[fw.Next].Page[pg.NationalFlags], // index: 6
+		info[fw.Next].Page[pg.NextLearning], // imgIndex: 4
+		info[fw.Gatsby].Page[pg.GatsbyLearning], // imgIndex: 5
+		info[fw.Next].Page[pg.NationalFlags], // imgIndex: 6
 	];
 
 	return (
@@ -59,7 +59,7 @@ const MainVisual = ({info, state, func, fw, pg}) => {
 								<SwipeableViews
 									enableMouseEvents
 									resistance
-									index={state.index}
+									index={state.imgIndex}
 								>
 									{scrollItems.map(scrollItem => {
 										return (
