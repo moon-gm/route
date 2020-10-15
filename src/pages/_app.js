@@ -91,19 +91,22 @@ class Layout extends React.Component {
 
 			// URLに合わせてStateを変更
 			const condition =  ("/" + pathSplit[1] === items.URL)
-			if (condition) {
+			condition && (
 
 				// FW切替
-				this.setState({selectedFW: items.State})
+				this.setState({selectedFW: items.State}),
 				items.Page.map(item =>{
 
 					// ページ選択切替
 					const condition =  (pathName === item.URL)
-					condition && (this.setState({selectedPage: item.State}), this.setState({imgIndex: item.State}))
+					condition && (
+						this.setState({selectedPage: item.State}),
+						this.setState({imgIndex: item.State})
+					)
 
 				})
 
-			}
+			)
 
 		})
 
@@ -135,6 +138,7 @@ class Layout extends React.Component {
 
 	}
 
+
 	/*** ■ スクロールの「>」ボタン処理 ***/
 	onNextBtn() {
 
@@ -144,24 +148,32 @@ class Layout extends React.Component {
 
 	}
 
+
 	/*** ■ サイドメニューの表示ボタン処理 ***/
 	showSideList() {
 
 		// Stateの「sideList」に合わせてサイドエリアの表示を切替
-		this.state.sideList ? this.setState({sideList: false}) : this.setState({sideList: true})
+		const condition = (this.state.sideList)
+		condition ? this.setState({sideList: false}) : this.setState({sideList: true})
 
 	}
 
-	/*** ■ レンダー処理 ***/
+
+	//-------------------------------- レンダリング設定 --------------------------------//
+
 	render() {
 
-		// children設定
-		const additionalProps = { // childrenに渡すPropsの設定
+		// 共通Propsの設定
+		const commonProp = {
 			info: this.PAGE_INFO,
+			state: this.state,
+			func: this.ALL_FUNC,
 			fw: this.FW_NUM,
 			pg: this.PAGE_NUM,
 		}
-		const newChildren = React.cloneElement(this.props.children, additionalProps) // 子要素を再生成してPropsを渡す設定
+
+		// 子要素を再生成してPropsを渡す設定
+		const newChildren = React.cloneElement(this.props.children, commonProp)
 
 		// レイアウト設定
 		return (
@@ -171,23 +183,13 @@ class Layout extends React.Component {
 			>
 				{/*** ヘッダーエリア ***/}
 				<Header
-					info={this.PAGE_INFO}
-					state={this.state}
-					func={this.ALL_FUNC}
-					fw={this.FW_NUM}
-					pg={this.PAGE_NUM}
+					data={commonProp}
 					styles={headerStyles}
 				/>
 
 				{/*** メインビジュアルエリア ***/}
 				{this.state.selectedFW !== "profile" && (
-					<MainVisual
-						info={this.PAGE_INFO}
-						state={this.state}
-						func={this.ALL_FUNC}
-						fw={this.FW_NUM}
-						pg={this.PAGE_NUM}
-					/>
+					<MainVisual data={commonProp}/>
 				)}
 
 				{/*** コンテンツエリア ***/}
@@ -195,18 +197,16 @@ class Layout extends React.Component {
 
 					{/** サイドエリア **/}
 					{this.state.selectedFW !== "profile" && this.state.sideList && (
-						<Aside
-							info={this.PAGE_INFO}
-							state={this.state}
-						/>
+						<Aside data={commonProp}/>
 					)}
 
 					{/** メインエリア **/}
-					<main
-						className="contents-main"
-					>
+					<main className="contents-main">
 						{this.state.selectedFW === "profile" ? (
-							<div className="contents-main-wrap" style={{marginTop: "100px"}}>
+							<div
+								className="contents-main-wrap"
+								style={{marginTop: "100px"}}
+							>
 								{newChildren}
 							</div>
 						):(
@@ -214,7 +214,6 @@ class Layout extends React.Component {
 								{newChildren}
 							</div>
 						)}
-
 					</main>
 
 				</div>

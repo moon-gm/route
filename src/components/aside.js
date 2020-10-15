@@ -1,15 +1,15 @@
 import Link from 'next/link'
 import styles from '../styles/modules/aside.module.scss'
 
-const Aside = ({info, state}) => {
+const Aside = ({data}) => {
 	return (
 		<aside className="contents-aside">
 
 			{/*** セクションタイトル -- start -- ***/}
-					{info.map(item => {
+					{data.info.map(item => {
 						return (
 							<React.Fragment key={`sidelist${item.State}`}>
-								{state.selectedFW === item.State ? (
+								{data.state.selectedFW === item.State ? (
 									<h1 className={`${styles.sectionTitle} ${styles.sectionTitleChecked}`}>
 										{item.FW}
 									</h1>
@@ -31,7 +31,7 @@ const Aside = ({info, state}) => {
 														<li
 															className={`
 																${styles.list}
-																${state.selectedPage === page.State && styles.listSelected}
+																${data.state.selectedPage === page.State && styles.listSelected}
 																flex-start
 																align-items-center
 															`}

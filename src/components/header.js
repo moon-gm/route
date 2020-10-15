@@ -1,7 +1,7 @@
 import Link from 'next/link';
 // 「styles」は「styles.headerTabSelected」をjQueryで使うため、_app.jsでimportしている
 
-const Header = ({info, state, func, fw, pg, styles}) => {
+const Header = ({data, styles}) => {
 
 	// Topに戻るボタンの処理
 	function scrollToTop() {
@@ -18,7 +18,7 @@ const Header = ({info, state, func, fw, pg, styles}) => {
 						{/** トップロゴ　-- start -- **/}
 							<Link href="/">
 								<li
-									onClick={func.showTop}
+									onClick={data.func.showTop}
 									className={`
 										${styles.topLogo}
 										flex-space-between
@@ -44,12 +44,12 @@ const Header = ({info, state, func, fw, pg, styles}) => {
 						{/** トップボタン　-- end -- **/}
 
 						{/** サイドメニュー表示ボタン　-- start -- **/}
-						{state.selectedFW !== "top" && (
+						{data.state.selectedFW !== "top" && (
 							<li
-								onClick={func.sideListShow}
+								onClick={data.func.sideListShow}
 								className={styles.menuBtn}
 							>
-								{state.sideList ? "×" : "≡"}
+								{data.state.sideList ? "×" : "≡"}
 							</li>
 						)}
 						{/** サイドメニュー表示ボタン　-- end -- **/}
@@ -68,15 +68,15 @@ const Header = ({info, state, func, fw, pg, styles}) => {
 						>
 							<Link href="/">
 								<li
-									onClick={func.showTop}
+									onClick={data.func.showTop}
 									className={styles.headerTab}
 								>
 									Profile
 								</li>
 							</Link>
-							<Link href={info[fw.React].Page[pg.ReactLearning].URL}>
+							<Link href={data.info[data.fw.React].Page[data.pg.ReactLearning].URL}>
 								<li
-									onClick={func.showProduction}
+									onClick={data.func.showProduction}
 									className={styles.headerTab}
 								>
 									Production

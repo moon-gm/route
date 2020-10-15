@@ -2,20 +2,20 @@ import Link from 'next/link';
 import styles from '../styles/modules/mainVisual.module.scss'
 import SwipeableViews from "react-swipeable-views";
 
-const MainVisual = ({info, state, func, fw, pg}) => {
+const MainVisual = ({data}) => {
 
 	// スクロールする画像の順序設定
 	const scrollItems = [
 		// 各FW代表ページ
-		info[fw.React].Page[pg.ReactLearning], // imgIndex: 0
-		info[fw.Next].Page[pg.PortfolioShow], // imgIndex: 1
-		info[fw.Gatsby].Page[pg.AtelierK], // imgIndex: 2
-		info[fw.Laravel].Page[pg.Tequipedia], // imgIndex: 3
+		data.info[data.fw.React].Page[data.pg.ReactLearning], // imgIndex: 0
+		data.info[data.fw.Next].Page[data.pg.PortfolioShow], // imgIndex: 1
+		data.info[data.fw.Gatsby].Page[data.pg.AtelierK], // imgIndex: 2
+		data.info[data.fw.Laravel].Page[data.pg.Tequipedia], // imgIndex: 3
 
 		// 追加ページ
-		info[fw.Next].Page[pg.NextLearning], // imgIndex: 4
-		info[fw.Gatsby].Page[pg.GatsbyLearning], // imgIndex: 5
-		info[fw.Next].Page[pg.NationalFlags], // imgIndex: 6
+		data.info[data.fw.Next].Page[data.pg.NextLearning], // imgIndex: 4
+		data.info[data.fw.Gatsby].Page[data.pg.GatsbyLearning], // imgIndex: 5
+		data.info[data.fw.Next].Page[data.pg.NationalFlags], // imgIndex: 6
 	];
 
 	return (
@@ -46,7 +46,7 @@ const MainVisual = ({info, state, func, fw, pg}) => {
 										${styles.scrollPrev}
 										hide-sp
 									`}
-									onClick={func.onPrevBtn}
+									onClick={data.func.onPrevBtn}
 								>
 									{/* :afterで「<」を設定 */}
 									<span className={styles.messagePrev}>
@@ -59,7 +59,7 @@ const MainVisual = ({info, state, func, fw, pg}) => {
 								<SwipeableViews
 									enableMouseEvents
 									resistance
-									index={state.imgIndex}
+									index={data.state.imgIndex}
 								>
 									{scrollItems.map(scrollItem => {
 										return (
@@ -74,12 +74,12 @@ const MainVisual = ({info, state, func, fw, pg}) => {
 												<Link href={scrollItem.URL}>
 													<img
 														src={`/${scrollItem.ID}.png`}
+														onClick={scrollItem.Func}
 														className={`
 															${styles.scrollImg}
 															${styles.toLeft}
-															${state.selectedPage === scrollItem.State && styles.scrollImgSelected}
+															${data.state.selectedPage === scrollItem.State && styles.scrollImgSelected}
 														`}
-														onClick={scrollItem.Func}
 													/>
 												</Link>
 											</li>
@@ -90,12 +90,12 @@ const MainVisual = ({info, state, func, fw, pg}) => {
 
 							{/** スクロールボタン（>） -- start -- **/}
 								<li
+									onClick={data.func.onNextBtn}
 									className={`
 										${styles.scrollBtn}
 										${styles.scrollNext}
 										hide-sp
 									`}
-									onClick={func.onNextBtn}
 								>
 									{/* :afterで「>」を設定 */}
 									<span className={styles.messageNext}>
