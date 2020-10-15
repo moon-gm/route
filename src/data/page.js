@@ -5,6 +5,7 @@ export default function returnAllPage(State, Funcs) {
 			FW: "React",
 			URL: "/reactjs",
 			State: State.selectedFW.React,
+			Img: "/icon/react.png",
 			Page: [
 				{
 					Title: "React Learning",
@@ -19,6 +20,7 @@ export default function returnAllPage(State, Funcs) {
 			FW: "Next.js",
 			URL: "/nextjs",
 			State: State.selectedFW.Next,
+			Img: "/icon/next.png",
 			Page: [
 				{
 					Title: "Portfolio Show",
@@ -47,6 +49,7 @@ export default function returnAllPage(State, Funcs) {
 			FW: "Gatsby.js",
 			URL: "/gatsbyjs",
 			State: State.selectedFW.Gatsby,
+			Img: "/icon/gatsby.png",
 			Page: [
 				{
 					Title: "Atelier K",
@@ -67,6 +70,7 @@ export default function returnAllPage(State, Funcs) {
 		{// Laravel
 			FW: "Laravel",
 			URL: "/laravel",
+			Img: "/icon/laravel.png",
 			State: State.selectedFW.Laravel,
 			Page: [
 				{

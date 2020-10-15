@@ -9,16 +9,21 @@ const Aside = ({data}) => {
 					{data.info.map(item => {
 						return (
 							<React.Fragment key={`sidelist${item.State}`}>
-								{data.state.selectedFW === item.State ? (
-									<h1 className={`${styles.sectionTitle} ${styles.sectionTitleChecked}`}>
-										{item.FW}
-									</h1>
 
-								):(
-									<h1 className={styles.sectionTitle}>
+								{/** FWタイトル -- start -- **/}
+									<h1 className={`
+										${styles.sectionTitle}
+										${data.state.selectedFW === item.State && styles.sectionTitleChecked}
+									`}>
+										<img
+											src={item.Img}
+											alt="icon"
+											className={styles.sectionTitleImg}
+										/>
 										{item.FW}
 									</h1>
-								)}
+								{/** FWタイトル -- start -- **/}
+
 								{/** 作成サイトリスト -- start -- **/}
 									<ul>
 										{item.Page.map(page => {

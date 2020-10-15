@@ -47,6 +47,12 @@
 		background: $white-skelton;
 		color: $blue;
 	}
+
+	/** 1-2.画像アイコン設定 **/
+	&Img {
+		width: 20px;
+		margin-right: 7px;
+	}
 }
 
 /*** 2.リスト設定 ***/
