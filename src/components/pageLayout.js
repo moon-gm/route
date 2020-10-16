@@ -162,17 +162,17 @@ const PageLayout = ({pageData}) => {
 										if (items === lastArray) {
 											// 配列の最後の値の場合
 											return (
-												<React.Fragment key={`FW-text${items.text}`}>
+												<span key={`FW-text${items.text}`}>
 													{items.text}
-												</React.Fragment>
-											);
+												</span>
+											)
 										} else {
 											// 配列の最後の値以外の場合
 											return (
-												<React.Fragment key={`FW-text${items.text}`}>
+												<span key={`FW-text${items.text}`}>
 													{`${items.text} / `}
-												</React.Fragment>
-											);
+												</span>
+											)
 										}
 									})}
 								</p>

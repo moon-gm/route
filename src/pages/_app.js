@@ -29,7 +29,7 @@ class Layout extends React.Component {
 		this.MAX_INDEX = 6
 
 		/*** ■ State設定 ***/
-		this.ALL_STATE = {
+		const STATE = {
 			selectedFW: {
 				Profile: "profile", React: "reactjs", Next: "nextjs",
 				Gatsby: "gatsbyjs", Laravel: "laravel",
@@ -43,30 +43,30 @@ class Layout extends React.Component {
 		}
 
 		/*** ■ Function設定 ***/
-		this.ALL_FUNC = {
+		const FUNC = this.ALL_FUNC = {
 
 			// ページで使用
-			ReactLearning: this.changeFW.bind(this, this.ALL_STATE.selectedFW.React, this.ALL_STATE.imgIndex.ReactLearning),
-			PortfolioShow: this.changeFW.bind(this, this.ALL_STATE.selectedFW.Next, this.ALL_STATE.imgIndex.PortfolioShow),
-			NextLearning: this.changeFW.bind(this, this.ALL_STATE.selectedFW.Next, this.ALL_STATE.imgIndex.NextLearning),
-			NationalFlags: this.changeFW.bind(this, this.ALL_STATE.selectedFW.Next, this.ALL_STATE.imgIndex.NationalFlags),
-			AtelierK: this.changeFW.bind(this, this.ALL_STATE.selectedFW.Gatsby, this.ALL_STATE.imgIndex.AtelierK),
-			GatsbyLearning: this.changeFW.bind(this, this.ALL_STATE.selectedFW.Gatsby, this.ALL_STATE.imgIndex.GatsbyLearning),
-			Tequipedia: this.changeFW.bind(this, this.ALL_STATE.selectedFW.Laravel, this.ALL_STATE.imgIndex.Tequipedia),
+			ReactLearning: this.changeFW.bind(this, STATE.selectedFW.React, STATE.imgIndex.ReactLearning),
+			PortfolioShow: this.changeFW.bind(this, STATE.selectedFW.Next, STATE.imgIndex.PortfolioShow),
+			NextLearning: this.changeFW.bind(this, STATE.selectedFW.Next, STATE.imgIndex.NextLearning),
+			NationalFlags: this.changeFW.bind(this, STATE.selectedFW.Next, STATE.imgIndex.NationalFlags),
+			AtelierK: this.changeFW.bind(this, STATE.selectedFW.Gatsby, STATE.imgIndex.AtelierK),
+			GatsbyLearning: this.changeFW.bind(this, STATE.selectedFW.Gatsby, STATE.imgIndex.GatsbyLearning),
+			Tequipedia: this.changeFW.bind(this, STATE.selectedFW.Laravel, STATE.imgIndex.Tequipedia),
 
 			// メインビジュアルエリアで使用
 			onPrevBtn: this.onPrevBtn.bind(this),
 			onNextBtn: this.onNextBtn.bind(this),
 
 			// ヘッダーで使用
-			showTop: this.changeFW.bind(this, this.ALL_STATE.selectedFW.Profile, 0),
-			showProduction: this.changeFW.bind(this, this.ALL_STATE.selectedFW.React, 0),
+			showTop: this.changeFW.bind(this, STATE.selectedFW.Profile, 0),
+			showProduction: this.changeFW.bind(this, STATE.selectedFW.React, 0),
 			showSideList: this.showSideList.bind(this),
 
 		}
 
 		/*** ■ サイト情報設定 ***/
-		this.PAGE_INFO = Page(this.ALL_STATE, this.ALL_FUNC)
+		this.PAGE_INFO = Page(STATE, FUNC)
 		// 以下はpage.jsで設定の順番（※この番号を変更したらpage.jsの順序も入れ替える）
 		this.FW_NUM = { React: 0, Next: 1, Gatsby: 2, Laravel: 3, }
 		this.PAGE_NUM = {
@@ -87,22 +87,19 @@ class Layout extends React.Component {
 		// 画像・リストの表示条件設定
 		const pathName = window.location.pathname
 		const pathSplit = pathName.split("/")
-		this.PAGE_INFO.map(items => {
+		this.PAGE_INFO.map(fw => {
 
 			// URLに合わせてStateを変更
-			const condition =  ("/" + pathSplit[1] === items.URL)
+			const condition =  ("/" + pathSplit[1] === fw.URL)
 			condition && (
 
 				// FW切替
-				this.setState({selectedFW: items.State}),
-				items.Page.map(item =>{
+				this.setState({selectedFW: fw.State}),
+				fw.Page.map(pg =>{
 
 					// ページ選択切替
-					const condition =  (pathName === item.URL)
-					condition && (
-						this.setState({selectedPage: item.State}),
-						this.setState({imgIndex: item.State})
-					)
+					const condition =  (pathName === pg.URL)
+					condition && (this.setState({selectedPage: pg.State, imgIndex: pg.State}))
 
 				})
 
@@ -123,9 +120,6 @@ class Layout extends React.Component {
 			selectedPage: index
 		})
 
-		// 画面上部に遷移
-		window.scrollTo(0, 0)
-
 	}
 
 
@@ -133,8 +127,9 @@ class Layout extends React.Component {
 	onPrevBtn() {
 
 		// スクロール画像のindexが「null or 0」でない時、imgIndexに-1する
-		const condition = (this.state.imgIndex === void 0 || this.state.imgIndex === 0 || this.state.imgIndex === null)
-		condition ? this.setState({imgIndex: this.MAX_INDEX}) : this.setState({imgIndex: this.state.imgIndex - 1})
+		const imgIndex = this.state.imgIndex
+		const condition = (imgIndex === void 0 || imgIndex === 0 || imgIndex === null)
+		condition ? this.setState({imgIndex: this.MAX_INDEX}) : this.setState({imgIndex: imgIndex - 1})
 
 	}
 
@@ -143,8 +138,9 @@ class Layout extends React.Component {
 	onNextBtn() {
 
 		// スクロール画像のindexが「null or 0」でない時、imgIndexに+1する
-		const condition = (this.state.imgIndex === void 0 || this.state.imgIndex === this.MAX_INDEX || this.state.imgIndex === null)
-		condition ? this.setState({imgIndex: 0}) : this.setState({imgIndex: this.state.imgIndex + 1})
+		const imgIndex = this.state.imgIndex
+		const condition = (imgIndex === void 0 || imgIndex === this.MAX_INDEX || imgIndex === null)
+		condition ? this.setState({imgIndex: 0}) : this.setState({imgIndex: imgIndex + 1})
 
 	}
 

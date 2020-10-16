@@ -61,7 +61,7 @@ const MainVisual = ({data}) => {
 									resistance
 									index={data.state.imgIndex}
 								>
-									{scrollItems.map(scrollItem => {
+									{scrollItems.map(pg => {
 										return (
 											<li
 												className={`
@@ -69,16 +69,16 @@ const MainVisual = ({data}) => {
 													flex-space-around
 													align-items-center
 												`}
-												key={scrollItem.ID}
+												key={pg.ID}
 											>
-												<Link href={scrollItem.URL}>
+												<Link href={pg.URL}>
 													<img
-														src={`/${scrollItem.ID}.png`}
-														onClick={scrollItem.Func}
+														src={`/${pg.ID}.png`}
+														onClick={pg.Func}
 														className={`
 															${styles.scrollImg}
 															${styles.toLeft}
-															${data.state.selectedPage === scrollItem.State && styles.scrollImgSelected}
+															${data.state.selectedPage === pg.State && styles.scrollImgSelected}
 														`}
 													/>
 												</Link>

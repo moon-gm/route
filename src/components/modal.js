@@ -56,7 +56,6 @@ const ModalWindow = ({title, content, openBtn}) => {
 				onAfterOpen={afterOpenModal}
 				onRequestClose={closeModal}
 				style={customStyles}
-				contentLabel="Example Modal"
 			>
 				<h2
 					id="title"

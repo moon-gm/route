@@ -6,41 +6,41 @@ const Aside = ({data}) => {
 		<aside className="contents-aside">
 
 			{/*** セクションタイトル -- start -- ***/}
-					{data.info.map(item => {
+					{data.info.map(fw => {
 						return (
-							<React.Fragment key={`sidelist${item.State}`}>
+							<React.Fragment key={`sidelist${fw.State}`}>
 
 								{/** FWタイトル -- start -- **/}
 									<h1 className={`
 										${styles.sectionTitle}
-										${data.state.selectedFW === item.State && styles.sectionTitleChecked}
+										${data.state.selectedFW === fw.State && styles.sectionTitleChecked}
 									`}>
 										<img
-											src={item.Img}
+											src={fw.Img}
 											alt="icon"
 											className={styles.sectionTitleImg}
 										/>
-										{item.FW}
+										{fw.FW}
 									</h1>
 								{/** FWタイトル -- start -- **/}
 
 								{/** 作成サイトリスト -- start -- **/}
 									<ul>
-										{item.Page.map(page => {
+										{fw.Page.map(pg => {
 											return (
-												<React.Fragment key={`sidelistItem${page.ID}`}>
+												<React.Fragment key={`sidelistItem${pg.ID}`}>
 													<Link
-														href={page.URL}
-														key={`pagelist${page.URL}`}
+														href={pg.URL}
+														key={`pagelist${pg.URL}`}
 													>
 														<li
 															className={`
 																${styles.list}
-																${data.state.selectedPage === page.State && styles.listSelected}
+																${data.state.selectedPage === pg.State && styles.listSelected}
 																flex-start
 																align-items-center
 															`}
-															onClick={page.Func}
+															onClick={pg.Func}
 														>
 															<img
 																src="/projector-icon.svg"
@@ -53,8 +53,8 @@ const Aside = ({data}) => {
 															<span className={styles.listText}>
 																<span className={styles.middleWrap}>
 																	<span className={styles.innerWrap}>
-																		{page.Title}<br/>
-																		{page.CreateDate} 〜
+																		{pg.Title}<br/>
+																		{pg.CreateDate} 〜
 																	</span>
 																</span>
 															</span>
