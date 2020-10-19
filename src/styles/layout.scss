@@ -41,17 +41,10 @@
 		/*** 2.メインビジュアルエリア設定 ***/
 		.main-visual-area {
 			// レイアウト設定
-			margin-bottom: 50px;
-			margin-top: $header-height + 40px;
+			margin-bottom: 20px;
+			margin-top: $header-height + 60px;
 			@media screen and (max-width: $sp-max-width) {
 				margin-bottom: 0;
-			}
-
-			// ボーダー設定
-			border-top: 10px solid $black;
-			border-bottom: 10px solid $black;
-			@media screen and (max-width: $sp-max-width) {
-				border-radius: unset;
 			}
 
 			/** 2-1.コンテンツラッパー設定 **/
@@ -76,20 +69,13 @@
 						$black-skelton-thin
 					);
 				}
-
-				// ボーダー設定
-				border-top: 15px dashed $black;
-				border-bottom: 15px dashed $black;
-				@media screen and (max-width: $sp-max-width) {
-					border-radius: unset;
-				}
 			}
 		}
 
 		/*** 3.コンテンツエリア設定 ***/
 		.contents-area {
 			// レイアウト設定
-			padding: 20px 0;
+			padding: 20px 10px;
 
 			/** 3-1.サイドエリア設定 **/
 			.contents-aside {
@@ -114,7 +100,9 @@
 			.contents-main {
 				// レイアウト設定
 				width: 70%;
+				padding-right: 20px;
 				@media screen and (max-width: $sp-max-width) {
+					padding-left: 20px;
 					width: 100%;
 				}
 
@@ -125,16 +113,6 @@
 
 					// レイアウト設定
 					padding: 20px;
-
-					// ボーダー設定
-					border-right: 40px groove $black-skelton;
-					border-left: 40px groove $black-skelton;
-					border-top: 10px groove $black;
-					border-bottom: 40px groove $black;
-					@media screen and (max-width: $sp-max-width) {
-						border-right: 20px groove $black-skelton;
-						border-left: 20px groove $black-skelton;
-					}
 				}
 			}
 		}
