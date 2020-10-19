@@ -1,4 +1,4 @@
-import Document, { Head, Main, NextScript } from 'next/document'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -8,7 +8,7 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <html>
+      <Html>
         <Head>
 			<meta charset="UTF-8"/>
 			<meta name="description" content="Portfolio Show"/>
@@ -24,18 +24,16 @@ export default class MyDocument extends Document {
 			<link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png"/>
 			<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png"/>
 			<link rel="icon" href="/favicon.ico" />
-			{/* jQuery導入 */}
-			<script
-				src="https://code.jquery.com/jquery-3.5.1.js"
-				integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-				crossorigin="anonymous"
-			/>
+			{/* swiper.js導入 */}
+			<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css"/>
+			<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+
         </Head>
         <body>
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     )
   }
 }

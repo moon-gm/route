@@ -19,7 +19,6 @@
 .scrollArea {
 	margin: 0 auto;
 	height: 220px;
-	border-radius: 38% 0% 20% 38%;
 	border-top: 10px solid $black;
 	border-bottom: 10px solid $black;
 	@media screen and (max-width: $sp-max-width) {
@@ -179,3 +178,8 @@
 	}
 }
 
+/*** 3.swiper.jsのコンテナ設定 ***/
+.swiper-container {
+    width: 1000px;
+    height: 300px;
+}

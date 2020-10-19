@@ -42,15 +42,14 @@
 		.main-visual-area {
 			// レイアウト設定
 			margin-bottom: 50px;
+			margin-top: $header-height + 40px;
 			@media screen and (max-width: $sp-max-width) {
 				margin-bottom: 0;
-				margin-top: $header-height + 40px;
 			}
 
 			// ボーダー設定
 			border-top: 10px solid $black;
 			border-bottom: 10px solid $black;
-			border-radius: 42% 0% 26% 42%;
 			@media screen and (max-width: $sp-max-width) {
 				border-radius: unset;
 			}
@@ -60,13 +59,11 @@
 				// カラー設定
 				background: linear-gradient(
 					to left,
-					$black-skelton,
 					$black-skelton-thin,
 					$white-skelton,
 					$white,
 					$white-skelton,
-					$black-skelton-thin,
-					$black-skelton
+					$black-skelton-thin
 				);
 				backdrop-filter: blur(30px);
 				@media screen and (max-width: $sp-max-width) {
@@ -81,7 +78,6 @@
 				}
 
 				// ボーダー設定
-				border-radius: 40% 0% 23% 40%;
 				border-top: 15px dashed $black;
 				border-bottom: 15px dashed $black;
 				@media screen and (max-width: $sp-max-width) {
