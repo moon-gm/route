@@ -13,13 +13,8 @@ import Page from '../data/page'
 
 // Swiper設定
 import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Pagination, Thumbs, A11y, EffectCoverflow } from 'swiper'
-import 'swiper/swiper.scss'
-import 'swiper/components/navigation/navigation.scss'
-import 'swiper/components/pagination/pagination.scss'
-import 'swiper/components/effect-coverflow/effect-coverflow.scss'
-import 'swiper/components/a11y/a11y.scss'
-SwiperCore.use([Pagination, Thumbs, A11y, EffectCoverflow]) // Swiperで使用するコンポーネント設定
+import SwiperCore, { Pagination, Thumbs, EffectCoverflow } from 'swiper'// CSSは_document.jsのlinkで設定
+SwiperCore.use([Pagination, Thumbs, EffectCoverflow]) // Swiperで使用するコンポーネント設定
 
 class Layout extends React.Component {
 
@@ -98,6 +93,7 @@ class Layout extends React.Component {
 			// URLに合わせてStateを変更
 			const condition =  ("/" + pathSplit[1] === fw.URL)
 			condition && (
+
 				// FW切替
 				this.setState({selectedFW: fw.State}),
 				fw.Page.map(pg =>{
@@ -113,7 +109,6 @@ class Layout extends React.Component {
 		})
 
 	}
-
 
 	/*** ■ Productionの各サイト一覧押下時の処理 ***/
 	changeFW(selectedFW, index) {
@@ -133,7 +128,7 @@ class Layout extends React.Component {
 	render() {
 
 		// 共通Propsの設定
-		const commonProp = {
+		const prop = {
 			info: this.PAGE_INFO,
 			state: this.state,
 			func: this.ALL_FUNC,
@@ -142,67 +137,82 @@ class Layout extends React.Component {
 		}
 
 		// 子要素を再生成してPropsを渡す設定
-		const newChildren = React.cloneElement(this.props.children, commonProp)
+		const newChildren = React.cloneElement(this.props.children, prop)
 
 		// レイアウト設定
 		return (
 			<div id="top" className="container">
+
 				{/*** ヘッダーエリア -- start -- ***/}
-					<Header data={commonProp} styles={headerStyles}/>
+					<Header
+						data={prop}
+						styles={headerStyles}
+					/>
 				{/*** ヘッダーエリア -- end -- ***/}
 
 				{/*** メインビジュアルエリア -- start -- ***/}
-					{this.state.selectedFW !== "profile" && (
+					{prop.state.selectedFW !== "profile" && (
 						<div className="main-visual-area">
-							{/** メニューガイド-- start -- **/}
+
+							{/** メニューガイド -- start -- **/}
 								<p className={mainVisualStyles.swipeGuide}>
 									{"< Slide Menu"}
 								</p>
-							{/** メニューガイド-- end -- **/}
-							<div className="main-visual-area-wrap">
-								<Swiper
-									id="main" // メインのSwiperを明示する
-									thumbs={{swiper: this.state.swiper}} // id="thumbs"が付いているSwiperコンポーネントとリンクさせる
-									tag="section" // 「swiper-container」クラスのTag設定
-									wrapperTag="ul" // 「swiper-wrapper」クラスのTag設定
-									loop // スライドのループ設定
-									speed={600} // 前後のスライドに移動する時の速度設定
-									centeredSlides // アクティブスライドを中央にする設定
-									initialSlide={this.state.imgIndex} // 初期表示スライドの設定
-									spaceBetween={0} //スライド間のスペース設定
-									slidesPerView={3} // スライドを一度に表示する個数設定
-									effect="coverflow" // スライドのエフェクト設定（'coverflow', 'fade', 'flip', 'slide', 'cube）'
-									slideToClickedSlide // クリックしたスライドに移動する
-									breakpoints={{ // 画面幅ごとの詳細設定
-										320: {slidesPerView: 1}, // 画面幅が320pxより大きい場合
-										640: {slidesPerView: 2}, // 画面幅が640pxより大きい場合
-										980: {slidesPerView: 3}, // 画面幅が980pxより大きい場合
-									}}
-									direction='horizontal' // スライドの並ぶ方向設定（'vertical', 'horizontal'）
-									pagination // ページネーションの表示設定（・・・・・）
-								>
-									{this.PAGE_INFO.map(fw => (
-										<React.Fragment key={`mainVisual${fw.FW}`}>
-											{fw.Page.map(pg => (
-												<SwiperSlide
-													tag="li" // 「swiper-slide」クラスのTag設定
-													className={mainVisualStyles.swiperSlide} key={pg.ID}
-												>
-													<Link href={pg.URL}>
-														<img
-															src={`/${pg.ID}.png`} onClick={pg.Func}
-															className={`
-																${mainVisualStyles.swiperSlideImg}
-																${this.state.selectedPage === pg.State && mainVisualStyles.swiperSlideImgSelected}
-															`}
-														/>
-													</Link>
-												</SwiperSlide>
-											))}
-										</React.Fragment>
-									))}
-								</Swiper>
-							</div>
+							{/** メニューガイド -- end -- **/}
+
+							{/** メインスワイパーエリア -- start -- **/}
+								<div className="main-visual-area-wrap">
+									<Swiper
+										id="main" // メインのSwiperを明示する
+										thumbs={{swiper: prop.state.swiper}} // id="thumbs"が付いているSwiperコンポーネントとリンクさせる
+										tag="section" // 「swiper-container」クラスのTag設定
+										wrapperTag="ul" // 「swiper-wrapper」クラスのTag設定
+										loop // スライドのループ設定
+										speed={600} // 前後のスライドに移動する時の速度設定
+										centeredSlides // アクティブスライドを中央にする設定
+										initialSlide={prop.state.imgIndex} // 初期表示スライドの設定
+										spaceBetween={0} //スライド間のスペース設定
+										slidesPerView={3} // スライドを一度に表示する個数設定
+										effect="coverflow" // スライドのエフェクト設定（'coverflow', 'fade', 'flip', 'slide', 'cube）'
+										slideToClickedSlide // クリックしたスライドに移動する
+										breakpoints={{ // 画面幅ごとの詳細設定
+											320: {slidesPerView: 1}, // 画面幅が320pxより大きい場合
+											640: {slidesPerView: 2}, // 画面幅が640pxより大きい場合
+											980: {slidesPerView: 3}, // 画面幅が980pxより大きい場合
+										}}
+										direction='horizontal' // スライドの並ぶ方向設定（'vertical', 'horizontal'）
+										pagination // ページネーションの表示設定（・・・・・）
+									>
+										{prop.info.map(fw => (
+											<React.Fragment key={`mainVisual${fw.FW}`}>
+
+												{/* イメージリスト -- start -- */}
+													{fw.Page.map(pg => (
+														<SwiperSlide
+															tag="li" // 「swiper-slide」クラスのTag設定
+															className={mainVisualStyles.swiperSlide}
+															key={pg.ID}
+														>
+															<Link href={pg.URL}>
+																<img
+																	src={`/${pg.ID}.png`}
+																	onClick={pg.Func}
+																	className={`
+																		${mainVisualStyles.swiperSlideImg}
+																		${prop.state.selectedPage === pg.State && mainVisualStyles.swiperSlideImgSelected}
+																	`}
+																/>
+															</Link>
+														</SwiperSlide>
+													))}
+												{/* イメージリスト -- end -- */}
+
+											</React.Fragment>
+										))}
+									</Swiper>
+								</div>
+							{/** メインスワイパーエリア -- end -- **/}
+
 						</div>
 					)}
 				{/*** メインビジュアルエリア -- end -- ***/}
@@ -211,49 +221,93 @@ class Layout extends React.Component {
 					<div className="contents-area flex-space-around flex-remove-sp">
 
 						{/** サイドエリア -- start -- **/}
-							<aside className={`contents-aside ${this.state.selectedFW === "profile" && "contents-aside-PC"}`}>
-							<div className={`contents-aside-wrap ${this.state.selectedFW === "profile" && "contents-aside-wrap-PC"}`}>
-							<div className={`contents-aside-swipe-wrapper ${this.state.selectedFW === "profile" && "contents-aside-swipe-wrapper-PC"}`}>
-								<h1 className={asideStyles.sectionTitle}>
-									Production List
-								</h1>
-								<Swiper id="thumbs"　direction="vertical" tag="section"　wrapperTag="ul" effect="slide" slideToClickedSlide　slidesPerView={0} initialSlide={this.state.imgIndex} onSwiper={(swiper) => this.setState({swiper: swiper})}>
-									{this.PAGE_INFO.map(fw => (
-										<React.Fragment key={`sidelist${fw.State}`}>
-											{/** 作成サイトリスト -- start -- **/}
-												{fw.Page.map(pg => (
-													<SwiperSlide tag="li" className={asideStyles.swiperSlide} key={`sidelistItem${pg.ID}`}>
-														<Link href={pg.URL} key={`pagelist${pg.URL}`}>
-															<p onClick={pg.Func} className={`${asideStyles.list} ${this.state.selectedPage === pg.State && asideStyles.listSelected}`}>
-																<img src={fw.Img} alt="icon" className={asideStyles.sectionTitleImg}/>
-																{pg.Title}
-																<span className={asideStyles.listSubText}>
-																	{fw.FW} / {pg.CreateDate} 〜
-																</span>
-															</p>
-														</Link>
-													</SwiperSlide>
+							<aside
+								className={`
+									contents-aside
+									${prop.state.selectedFW === "profile" && "contents-aside-PC"}
+								`}
+							>
+								<div
+									className={`
+										contents-aside-wrap
+										${prop.state.selectedFW === "profile" && "contents-aside-wrap-PC"}
+									`}
+								>
+									<div
+										className={`
+											contents-aside-swipe-wrapper
+											${prop.state.selectedFW === "profile" && "contents-aside-swipe-wrapper-PC"}
+										`}
+									>
+										<h1 className={asideStyles.sectionTitle}>
+											Production List
+										</h1>
+
+										{/* サムスワイプエリア -- start -- */}
+											<Swiper
+												id="thumbs"
+												direction="vertical"
+												tag="section"
+												wrapperTag="ul"
+												effect="slide"
+												slideToClickedSlide
+												slidesPerView={0}
+												initialSlide={prop.state.imgIndex}
+												onSwiper={(swiper) => this.setState({swiper: swiper})}
+											>
+												{prop.info.map(fw => (
+													<React.Fragment key={`sidelist${fw.State}`}>
+
+														{/** プロダクションリスト -- start -- **/}
+															{fw.Page.map(pg => (
+																<SwiperSlide
+																	tag="li"
+																	className={asideStyles.swiperSlide}
+																	key={`sidelistItem${pg.ID}`}
+																>
+																	<Link href={pg.URL}>
+																		<p
+																			onClick={pg.Func}
+																			className={`
+																				${asideStyles.list}
+																				${prop.state.selectedPage === pg.State && asideStyles.listSelected}
+																			`}
+																		>
+																			<img
+																				src={fw.Img}
+																				alt="icon"
+																				className={asideStyles.sectionTitleImg}
+																			/>
+																			{pg.Title}
+																			<span className={asideStyles.listSubText}>
+																				{fw.FW} / {pg.CreateDate} 〜
+																			</span>
+																		</p>
+																	</Link>
+																</SwiperSlide>
+															))}
+														{/** プロダクションリスト -- end -- **/}
+
+													</React.Fragment>
 												))}
-											{/** 作成サイトリスト -- end -- **/}
-										</React.Fragment>
-									))}
-								</Swiper>
-							</div>
-							</div>
+											</Swiper>
+										{/* サムスワイプエリア -- end -- */}
+
+									</div>
+								</div>
 							</aside>
 						{/** サイドエリア -- end -- **/}
 
 						{/** メインエリア -- start -- **/}
 							<main className="contents-main">
-								{this.state.selectedFW === "profile" ? (
-									<div className="contents-main-wrap" style={{marginTop: "100px"}}>
-										{newChildren}
-									</div>
-								):(
-									<div className="contents-main-wrap">
-										{newChildren}
-									</div>
-								)}
+								<div
+									className={`
+										contents-main-wrap
+										${prop.state.selectedFW === "profile" && "contents-main-no-sidearea"}
+									`}
+								>
+									{newChildren}
+								</div>
 							</main>
 						{/** メインエリア -- end -- **/}
 
