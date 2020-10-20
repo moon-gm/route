@@ -43,17 +43,6 @@ const Header = ({data, styles}) => {
 							</li>
 						{/** トップボタン　-- end -- **/}
 
-						{/** サイドメニュー表示ボタン　-- start -- **/}
-						{data.state.selectedFW !== "top" && (
-							<li
-								onClick={data.func.showSideList}
-								className={styles.menuBtn}
-							>
-								{data.state.sideList ? "×" : "≡"}
-							</li>
-						)}
-						{/** サイドメニュー表示ボタン　-- end -- **/}
-
 					</ul>
 				{/*** トップリスト -- end -- ***/}
 

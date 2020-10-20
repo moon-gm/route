@@ -5,27 +5,8 @@
 
 @mixin selectedEffect {
 	color: $blue;
-	/* 2-1-1.テキスト設定 */
-	.listText {
-		// ボーダー用インナーラッパー設定
-		.innerWrap {
-			padding: 5px 30px;
-			transition: padding 0.3s;
-			@media screen and (max-width: $sp-max-width){
-				padding: 5px 60px;
-			}
-		}
-	}
-
-	/* 2-1-2.リストアイコン設定 */
-	.icon {
-		filter: drop-shadow(20px 0px 5px $yellow-skelton);
-	}
-
-	/* 2-1-3.追加アイコン設定 */
-	.additionalIcon {
-		filter: drop-shadow(0px 0px 10px $white);
-	}
+	background: $white-skelton;
+	border-bottom: 2px solid $blue;
 }
 
 /*** 1.セクションタイトル設定 ***/
@@ -33,8 +14,8 @@
 	color: $white;
 	font-size: 25px;
 	line-height: 1;
-	padding: 8px;
-	margin-bottom: 20px;
+	padding: 10px;
+	margin-bottom: 10px;
 	border-bottom: 2px solid $white;
 	@media screen and (max-width: $sp-max-width){
 		font-size: 20px;
@@ -43,76 +24,39 @@
 
 	/** 1-1.選択時設定 **/
 	&Checked {
-		border-bottom: 3px solid $blue;
-		background: $white-skelton;
 		color: $blue;
 	}
 
 	/** 1-2.画像アイコン設定 **/
 	&Img {
-		width: 20px;
+		width: 1em;
 		margin-right: 7px;
 	}
 }
 
 /*** 2.リスト設定 ***/
 .list {
-	color: $black;
+	color: $white;
+	font-size: 16px;
+	border-bottom: 1px dotted $white;
 	padding: 10px;
 
 	/** 2-1.ホバー時設定 **/
 	&:hover {
 		cursor: pointer;
-		@include selectedEffect;
-
+		background: $white-skelton;
 	}
 
-	/** 2-2.リストアイコン設定 **/
-	.icon {
-		width: 30px;
-		height: auto;
-		margin-right: 5px;
-	}
-
-	/** 2-3.追加アイコン設定 **/
-	.additionalIcon {
-		width: 25px;
-		height: auto;
-	}
-
-	/** 2-4.テキスト設定 **/
-	.listText {
-		background: linear-gradient(
-			to left,
-			$black-skelton-thin,
-			$white-skelton,
-			$white,
-			$white-skelton,
-			$black-skelton-thin
-		);
-		border-top: 2px solid $black;
-		border-bottom: 2px solid $black;
-		border-left: 4px solid $black;
-		border-right: 4px solid $black;
-
-		/* 2-4-1.ボーダー用ミドルラッパー設定 */
-		.middleWrap {
-			display: block;
-			border-top: 6px dashed $black;
-			border-bottom: 6px dashed $black;
-		}
-
-		/* 2-4-2.ボーダー用インナーラッパー設定 */
-		.innerWrap {
-			display: block;
-			border-top: 2px solid $black;
-			border-bottom: 2px solid $black;
-			padding: 5px 15px;
-		}
-	}
-
-	/** 2-5.選択時設定 **/
+	/** 2-2.選択時設定 **/
 	&Selected {
 		@include selectedEffect;
 	}
+
+	/** 2-3.サブテキスト設定 **/
+	&SubText {
+		display: block;
+		padding-left: 1.9em;
+		font-size: 12px;
+	}
 }
+

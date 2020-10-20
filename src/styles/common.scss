@@ -97,4 +97,19 @@
 				}
 			}
 		}
+
+		/** 3-4.swiper.jsのCSS追加設定 **/
+		// コンテナ設定
+		.swiper-container {
+			width: 100%;
+			padding-top: 20px;
+			padding-bottom: 45px;
+		}
+		// pagenation設定
+		.swiper-pagination {
+			// アクティブドットの設定
+			&-bullet-active {
+				background: $blue;
+			}
+		}
 }

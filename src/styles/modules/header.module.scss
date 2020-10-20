@@ -37,21 +37,6 @@
 			transition: text-shadow 0.3s;
 		}
 	}
-
-	/** 1-3.「≡(メニュー)」ボタン設定 **/
-	.menuBtn {
-		display: none;
-		@media screen and (max-width: $sp-max-width) {
-			cursor: pointer;
-			display: block;
-			font-size: 20px;
-		}
-
-		/* 1-3-1.ホバー時設定 */
-		&:hover {
-			color: $blue;
-		}
-	}
 }
 
 /*** 2.タブリスト設定 ***/
