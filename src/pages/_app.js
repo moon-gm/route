@@ -211,9 +211,9 @@ class Layout extends React.Component {
 					<div className="contents-area flex-space-around flex-remove-sp">
 
 						{/** サイドエリア -- start -- **/}
-							<aside className="contents-aside">
-							<div className="contents-aside-wrap">
-							<div className="contents-aside-swipe-wrapper">
+							<aside className={`contents-aside ${this.state.selectedFW === "profile" && "contents-aside-PC"}`}>
+							<div className={`contents-aside-wrap ${this.state.selectedFW === "profile" && "contents-aside-wrap-PC"}`}>
+							<div className={`contents-aside-swipe-wrapper ${this.state.selectedFW === "profile" && "contents-aside-swipe-wrapper-PC"}`}>
 								<h1 className={asideStyles.sectionTitle}>
 									Production List
 								</h1>
