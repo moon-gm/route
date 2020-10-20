@@ -54,12 +54,9 @@
 
 	/** 2-3.サブテキスト設定 **/
 	&SubText {
+		display: block;
 		padding-left: 1.9em;
 		font-size: 12px;
 	}
 }
 
-/*** 3.非表示設定 ***/
-.none {
-	display: none;
-}
