@@ -3,11 +3,11 @@
 **********************/
 
 /**** SP時のサイドエリアmixin設定 ****/
-@mixin contents-aside-sp {
+@mixin contents-aside-sp($height) {
 	width: 100%;
 	height: 100%;
 	position: fixed;
-	top: $header-height + 10px;
+	top: $header-height + $height;
 	left: 0;
 	z-index: $header;
 	overflow: scroll;
@@ -105,12 +105,12 @@
 				width: 30%;
 				padding: 20px;
 				@media screen and (max-width: $sp-max-width) {
-					@include contents-aside-sp;
+					@include contents-aside-sp(10px);
 				}
 
 				// プロフィール画面時の表示設定
 				&-PC {
-					@include contents-aside-sp;
+					@include contents-aside-sp(20px);
 				}
 
 				// コンテンツラッパー設定
