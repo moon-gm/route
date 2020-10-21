@@ -73,6 +73,16 @@
 			background: $white-skelton;
 			transition: background 0.5s;
 		}
+
+		/* 2-2-3.aリンク設定 */
+		&Link {
+			color: unset;
+			padding: 0;
+
+			&:hover {
+				text-decoration: none;
+			}
+		}
 	}
 
 }

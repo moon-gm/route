@@ -2,27 +2,6 @@
  レイアウト設定
 **********************/
 
-/**** SP時のサイドエリアmixin設定 ****/
-@mixin contents-aside-sp($height) {
-	width: 100%;
-	height: 100%;
-	position: fixed;
-	top: $header-height + $height;
-	left: 0;
-	z-index: $header;
-	overflow: scroll;
-}
-@mixin swipe-wrapper-sp {
-	width: 50%;
-	height: auto;
-	position: relative;
-	top: 0;
-	left: 100%;
-	background: $black-skelton;
-	backdrop-filter: blur(2px);
-	-webkit-backdrop-filter: blur(2px);
-}
-
 :global {
 	/**** コンテナ設定 ****/
 	.container {
@@ -92,6 +71,14 @@
 					);
 				}
 			}
+
+			/** 2-2.非表示設定 **/
+			&-hidden {
+				position: relative;
+				top: -1000px;
+				left: 0;
+				height: 0;
+			}
 		}
 
 		/*** 3.コンテンツエリア設定 ***/
@@ -105,12 +92,13 @@
 				width: 30%;
 				padding: 20px;
 				@media screen and (max-width: $sp-max-width) {
-					@include contents-aside-sp(10px);
-				}
-
-				// プロフィール画面時の表示設定
-				&-PC {
-					@include contents-aside-sp(20px);
+					width: 100%;
+					height: 100%;
+					position: fixed;
+					top: $header-height + 10px;
+					left: 0;
+					z-index: $header;
+					overflow: scroll;
 				}
 
 				// コンテンツラッパー設定
@@ -119,21 +107,18 @@
 						width: 150%;
 						height: 100%;
 					}
-					// プロフィール画面時の表示設定
-					&-PC {
-						width: 150%;
-						height: 100%;
-					}
 				}
 				// スワイプラッパー設定
 				&-swipe-wrapper {
 					@media screen and (max-width: $sp-max-width) {
-						@include swipe-wrapper-sp;
-					}
-
-					// プロフィール画面時の表示設定
-					&-PC {
-						@include swipe-wrapper-sp;
+						width: 50%;
+						height: auto;
+						position: relative;
+						top: 0;
+						left: 100%;
+						background: $black-skelton;
+						backdrop-filter: blur(2px);
+						-webkit-backdrop-filter: blur(2px);
 					}
 
 				}

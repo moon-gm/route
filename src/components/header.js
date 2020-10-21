@@ -63,14 +63,15 @@ const Header = ({prop}) => {
 									Profile
 								</li>
 							</Link>
-							<Link href={prop.info[prop.fw.React].Page[prop.pg.ReactLearning].URL}>
-								<li
-									onClick={prop.f.showProduction}
-									className={css.headerTab}
-								>
+							{/* スワイパーの問題でaタグにして一度最初から読み込ませる */}
+							<a
+								href={prop.info[prop.fw.React].Page[prop.pg.ReactLearning].URL}
+								className={css.headerTabLink}
+							>
+								<li className={css.headerTab}>
 									Production
 								</li>
-							</Link>
+							</a>
 						</ul>
 					</div>
 				{/*** ヘッダータブリスト -- end -- ***/}
