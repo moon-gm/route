@@ -63,6 +63,9 @@ class Layout extends React.Component {
 			showTop: this.changeFW.bind(this, STATE.selFW.Profile, 0),
 			showProduction: this.changeFW.bind(this, STATE.selFW.React, 0),
 
+			// スワイパーで使用
+			changeSwiper: this.changeSwiper.bind(this)
+
 		}
 
 		/*** ■ サイト情報設定 ***/
@@ -122,6 +125,14 @@ class Layout extends React.Component {
 
 	}
 
+	/*** ■ Production一覧押下時の処理 ***/
+	changeSwiper(swiper) {
+
+		// Stateをセットしてスワイパーを切替
+		this.setState({swipEL: swiper})
+
+	}
+
 
 	//-------------------------------- レンダリング設定 --------------------------------//
 
@@ -151,7 +162,7 @@ class Layout extends React.Component {
 				{/*** ヘッダーエリア -- end -- ***/}
 
 				{/*** メインビジュアルエリア -- start -- ***/}
-					{prop.st.selFW !== "profile" && (
+					{!cond && (
 						<div className="main-visual-area">
 
 							{/** メニューガイド -- start -- **/}
@@ -241,7 +252,7 @@ class Layout extends React.Component {
 												slideToClickedSlide
 												slidesPerView={0}
 												initialSlide={prop.st.imgIx}
-												onSwiper={(swiper) => this.setState({swipEL: swiper})}
+												onSwiper={(swiper) => prop.f.changeSwiper(swiper)}
 											>
 												{prop.info.map(fw => (
 													<React.Fragment key={`sidelist${fw.State}`}>
