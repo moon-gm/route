@@ -3,6 +3,7 @@
 **********************/
 html,
 body {
+	scroll-behavior: smooth;
 	min-width: $screen-min-width;
 	color: $black;
 	font-size: 15px;
