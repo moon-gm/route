@@ -4,7 +4,7 @@ export default function returnAllPage(State, Funcs) {
 		{//React
 			FW: "React",
 			URL: "/reactjs",
-			State: State.selectedFW.React,
+			State: State.selFW.React,
 			Img: "/icon/react.png",
 			Page: [
 				{
@@ -12,7 +12,7 @@ export default function returnAllPage(State, Funcs) {
 					URL: "/reactjs/react-learning",
 					ID: "react-learning",
 					Func: Funcs.ReactLearning,
-					State: State.imgIndex.ReactLearning,
+					State: State.imgIx.ReactLearning,
 					CreateDate: "2020.6.5",
 				},
 			],
@@ -20,7 +20,7 @@ export default function returnAllPage(State, Funcs) {
 		{// Next
 			FW: "Next.js",
 			URL: "/nextjs",
-			State: State.selectedFW.Next,
+			State: State.selFW.Next,
 			Img: "/icon/next.png",
 			Page: [
 				{
@@ -28,7 +28,7 @@ export default function returnAllPage(State, Funcs) {
 					URL: "/nextjs/portfolio-show",
 					ID: "portfolio-show",
 					Func: Funcs.PortfolioShow,
-					State: State.imgIndex.PortfolioShow,
+					State: State.imgIx.PortfolioShow,
 					CreateDate: "2020.8.3",
 				},
 				{
@@ -36,7 +36,7 @@ export default function returnAllPage(State, Funcs) {
 					URL: "/nextjs/next-learning",
 					ID: "next-learning",
 					Func: Funcs.NextLearning,
-					State: State.imgIndex.NextLearning,
+					State: State.imgIx.NextLearning,
 					CreateDate: "2020.7.21",
 				},
 				{
@@ -44,7 +44,7 @@ export default function returnAllPage(State, Funcs) {
 					URL: "/nextjs/national-flags",
 					ID: "national-flags",
 					Func: Funcs.NationalFlags,
-					State: State.imgIndex.NationalFlags,
+					State: State.imgIx.NationalFlags,
 					CreateDate: "2020.8.26",
 				},
 			],
@@ -52,7 +52,7 @@ export default function returnAllPage(State, Funcs) {
 		{// Gatsby
 			FW: "Gatsby.js",
 			URL: "/gatsbyjs",
-			State: State.selectedFW.Gatsby,
+			State: State.selFW.Gatsby,
 			Img: "/icon/gatsby.png",
 			Page: [
 				{
@@ -60,7 +60,7 @@ export default function returnAllPage(State, Funcs) {
 					URL: "/gatsbyjs/atelier-k",
 					ID: "atelier-k",
 					Func: Funcs.AtelierK,
-					State: State.imgIndex.AtelierK,
+					State: State.imgIx.AtelierK,
 					CreateDate: "2020.5.6",
 				},
 				{
@@ -68,7 +68,7 @@ export default function returnAllPage(State, Funcs) {
 					URL: "/gatsbyjs/gatsby-learning",
 					ID: "gatsby-learning",
 					Func: Funcs.GatsbyLearning,
-					State: State.imgIndex.GatsbyLearning,
+					State: State.imgIx.GatsbyLearning,
 					CreateDate: "2020.7.23",
 				},
 			],
@@ -77,14 +77,14 @@ export default function returnAllPage(State, Funcs) {
 			FW: "Laravel",
 			URL: "/laravel",
 			Img: "/icon/laravel.png",
-			State: State.selectedFW.Laravel,
+			State: State.selFW.Laravel,
 			Page: [
 				{
 					Title: "テキーラ全書",
 					URL:  "/laravel/tequipedia",
 					ID: "tequipedia",
 					Func: Funcs.Tequipedia,
-					State: State.imgIndex.Tequipedia,
+					State: State.imgIx.Tequipedia,
 					CreateDate: "2020.2.18",
 				},
 			],

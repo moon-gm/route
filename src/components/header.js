@@ -1,7 +1,7 @@
 import Link from 'next/link';
-// 「styles」は「styles.headerTabSelected」をjQueryで使うため、_app.jsでimportしている
+import css from '../styles/modules/header.module.scss'
 
-const Header = ({data, styles}) => {
+const Header = ({prop}) => {
 
 	// Topに戻るボタンの処理
 	function scrollToTop() {
@@ -13,21 +13,21 @@ const Header = ({data, styles}) => {
 			<div className="header-area-wrap">
 
 				{/*** トップリスト -- start -- ***/}
-					<ul className={`${styles.topList} flex-space-between`}>
+					<ul className={`${css.topList} flex-space-between`}>
 
 						{/** トップロゴ　-- start -- **/}
 							<Link href="/">
 								<li
-									onClick={data.func.showTop}
+									onClick={prop.f.showTop}
 									className={`
-										${styles.topLogo}
+										${css.topLogo}
 										flex-space-between
 										align-items-center
 									`}
 								>
 									<img
 										src="/github-logo.png"
-										className={styles.topLogoImg}
+										className={css.topLogoImg}
 									/>
 									<span>Portfolio Show</span>
 								</li>
@@ -37,7 +37,7 @@ const Header = ({data, styles}) => {
 						{/** トップボタン　-- start -- **/}
 							<li
 								onClick={scrollToTop}
-								className={styles.topBtn}
+								className={css.topBtn}
 							>
 								⬆︎Top
 							</li>
@@ -47,26 +47,26 @@ const Header = ({data, styles}) => {
 				{/*** トップリスト -- end -- ***/}
 
 				{/*** ヘッダータブリスト -- start -- ***/}
-					<div className={styles.tabList}>
+					<div className={css.tabList}>
 						<ul
 							className={`
-								${styles.tabListWrap}
+								${css.tabListWrap}
 								flex-space-around
 								align-items-center
 							`}
 						>
 							<Link href="/">
 								<li
-									onClick={data.func.showTop}
-									className={styles.headerTab}
+									onClick={prop.f.showTop}
+									className={css.headerTab}
 								>
 									Profile
 								</li>
 							</Link>
-							<Link href={data.info[data.fw.React].Page[data.pg.ReactLearning].URL}>
+							<Link href={prop.info[prop.fw.React].Page[prop.pg.ReactLearning].URL}>
 								<li
-									onClick={data.func.showProduction}
-									className={styles.headerTab}
+									onClick={prop.f.showProduction}
+									className={css.headerTab}
 								>
 									Production
 								</li>
