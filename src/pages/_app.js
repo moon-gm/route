@@ -33,7 +33,7 @@ class Layout extends React.Component {
 		this.state = {
 			selFW: STATE.selFW.Profile, // 表示ページのFWの選択設定
 			selPG: undefined, // 表示ページの画像とリストの選択設定
-			imgIx: STATE.imgIx.ReactLearning, // MainVisualのスクロール画像のindex設定
+			imgIx: undefined, // MainVisualのスクロール画像のindex設定
 			swipEL: null, // スワイパー(Element)の設定
 		}
 
@@ -169,7 +169,9 @@ class Layout extends React.Component {
 				{/*** メインビジュアルエリア -- start -- ***/}
 					{!cond && (
 						<div className="main-visual-area">
-							<Swipers.MainSwiper prop={prop}/>
+							<div className="main-visual-area-wrap">
+								<Swipers.MainSwiper prop={prop}/>
+							</div>
 						</div>
 					)}
 				{/*** メインビジュアルエリア -- end -- ***/}
