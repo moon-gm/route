@@ -100,6 +100,7 @@
 					z-index: $header;
 					padding: 0;
 					transition: left 1s;
+					overflow: scroll;
 				}
 
 				// コンテンツラッパー設定
@@ -108,7 +109,7 @@
 						background: $black-skelton;
 						backdrop-filter: blur(2px);
 						-webkit-backdrop-filter: blur(2px);
-						height: 100%;
+						height: auto;
 					}
 				}
 			}
