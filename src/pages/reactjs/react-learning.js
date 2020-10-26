@@ -7,6 +7,9 @@ const ReactJS = ({info, fw, pg}) => {
 
 		// サイトタイトル
 		title: info[fw.React].Page[pg.ReactLearning].Title,
+		logo: info[fw.React].Img,
+
+		// 作成日
 		createDate: info[fw.React].Page[pg.ReactLearning].CreateDate,
 
 		// 概要

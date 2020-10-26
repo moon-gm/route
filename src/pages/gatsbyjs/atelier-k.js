@@ -7,6 +7,9 @@ const AtelierK = ({info, fw, pg}) => {
 
 		// サイトタイトル
 		title: info[fw.Gatsby].Page[pg.AtelierK].Title,
+		logo: info[fw.Gatsby].Img,
+
+		// 作成日
 		createDate: info[fw.Gatsby].Page[pg.AtelierK].CreateDate,
 
 		// 概要

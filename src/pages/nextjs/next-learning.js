@@ -7,6 +7,9 @@ const NextJS = ({info, fw, pg}) => {
 
 		// サイトタイトル
 		title: info[fw.Next].Page[pg.NextLearning].Title,
+		logo: info[fw.Next].Img,
+
+		// 作成日
 		createDate: info[fw.Next].Page[pg.NextLearning].CreateDate,
 
 		// 概要

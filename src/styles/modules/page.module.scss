@@ -74,12 +74,25 @@
 		}
 	}
 
+	/** 2-4.ロゴ設定 **/
+	.logo {
+		width: 25px;
+		margin-right: 7px;
+		@media screen and (max-width: $sp-max-width){
+			width: 18px;
+		}
+	}
+
 	/*** 3.画像ボックス設定 ***/
 	.imgBox {
 		@include layout;
 		img {
 			width: 100px;
 			height: auto;
+			@media screen and (max-width: $sp-max-width){
+				max-width: 75px;
+				width: 25%;
+			}
 		}
 	}
 

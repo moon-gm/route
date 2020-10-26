@@ -7,6 +7,9 @@ const PortfolioShow = ({info, fw, pg}) => {
 
 		// サイトタイトル
 		title: info[fw.Next].Page[pg.PortfolioShow].Title,
+		logo: info[fw.Next].Img,
+
+		// 作成日
 		createDate: info[fw.Next].Page[pg.PortfolioShow].CreateDate,
 
 		// 概要

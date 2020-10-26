@@ -7,6 +7,9 @@ const Tequipedia = ({info, fw, pg}) => {
 
 		// サイトタイトル
 		title: info[fw.Laravel].Page[pg.Tequipedia].Title,
+		logo: info[fw.Laravel].Img,
+
+		// 作成日
 		createDate: info[fw.Laravel].Page[pg.Tequipedia].CreateDate,
 
 		// 概要

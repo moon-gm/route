@@ -7,6 +7,9 @@ const GatsbyJS = ({info, fw, pg}) => {
 
 		// サイトタイトル
 		title: info[fw.Gatsby].Page[pg.GatsbyLearning].Title,
+		logo: info[fw.Gatsby].Img,
+
+		// 作成日
 		createDate: info[fw.Gatsby].Page[pg.GatsbyLearning].CreateDate,
 
 		// 概要

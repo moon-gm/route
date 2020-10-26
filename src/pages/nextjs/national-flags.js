@@ -7,6 +7,9 @@ const NationalFlags = ({info, fw, pg}) => {
 
 		// サイトタイトル
 		title: info[fw.Next].Page[pg.NationalFlags].Title,
+		logo: info[fw.Next].Img,
+
+		// 作成日
 		createDate: info[fw.Next].Page[pg.NationalFlags].CreateDate,
 
 		// 概要

@@ -14,14 +14,6 @@ const PageLayout = ({pageData}) => {
 			title: "概要",
 			content: "作成したサイトが主に果たす役割・機能のあらまし。",
 		},
-		site: {
-			title: "サイトリンク",
-			content: "作成したサイトへのリンク。主に「Github Pages」や「Vercel」でデプロイしている。",
-		},
-		source: {
-			title: "Githubソース",
-			content: "ソースは全てGithubにpushしており、リンクは対象リポジトリのトップを表示。",
-		},
 		contents: {
 			title: "内容",
 			content: "作成したサイトが果たす主な役割・機能の詳細。このサイトで何ができるのかなど。",
@@ -77,10 +69,13 @@ const PageLayout = ({pageData}) => {
 
 				{/*** サイトタイトル -- start -- ***/}
 					<h1 className={styles.h1}>
+						<img src={pageData.logo} className={styles.logo}/>
 						{pageData.title}
 					</h1>
 					<p className={styles.p}>
-						作成：{pageData.createDate} 〜
+						作成日：{pageData.createDate} 〜<br/>
+						サイト：<a href={pageData.link.site} target="_blank">{pageData.title}</a><br/>
+						ソース：<a href={pageData.link.source} target="_blank">Github</a>
 					</p>
 				{/*** サイトタイトル -- end -- ***/}
 
@@ -94,38 +89,6 @@ const PageLayout = ({pageData}) => {
 						</p>
 					</Section>
 				{/*** セクション__概要 -- end --***/}
-
-				{/*** セクション__サイトリンク -- start --***/}
-					<Section
-						title={modalData.site.title}
-						modalContent={modalData.site.content}
-					>
-						<p className={styles.p}>
-							<a
-								href={pageData.link.site}
-								target="_blank"
-							>
-								{pageData.link.site}
-							</a>
-						</p>
-					</Section>
-				{/*** セクション__サイトリンク -- end --***/}
-
-				{/*** セクション__Githubソース -- start --***/}
-					<Section
-						title={modalData.source.title}
-						modalContent={modalData.source.content}
-					>
-						<p className={styles.p}>
-							<a
-								href={pageData.link.source}
-								target="_blank"
-							>
-								{pageData.link.source}
-							</a>
-						</p>
-					</Section>
-				{/*** セクション__Githubソース -- end --***/}
 
 				{/*** セクション__内容 -- start --***/}
 					<Section
