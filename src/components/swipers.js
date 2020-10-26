@@ -4,6 +4,7 @@ import cssA from '../styles/modules/aside.module.scss'
 
 // Component
 import Link from 'next/link';
+import {useRouter} from 'next/router';
 
 // Swiper設定
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -13,61 +14,72 @@ SwiperCore.use([Pagination, Thumbs, EffectCoverflow]) // Swiperで使用する�
 // メインビジュアルの画像スワイパー
 const MainSwiper = ({prop}) => {
 
+	// ルーター設定
+	const router = useRouter()
+
+	// スライド変更時の処理
+	function onSlideChange(swiper) {
+		// アクティブスライドを取得
+		const active = swiper.activeIndex
+		// アクティブスライドに合わせて選択状態を変更・遷移
+		prop.info.map(fw => {
+			fw.Page.map(pg => {
+				if(active === pg.State) {
+					pg.Func()
+					router.push(pg.URL)
+				}
+			})
+		})
+	}
+
+	// メインスワイパー
 	return (
-		<>
-			{/** メインスワイパーエリア -- start -- **/}
-				<div className="main-visual-area-wrap">
-					<Swiper
-						id="main" // メインのSwiperを明示する
-						thumbs={{swiper: prop.st.swipEL}} // id="thumbs"が付いているSwiperコンポーネントとリンクさせる
-						tag="section" // 「swiper-container」クラスのTag設定
-						wrapperTag="ul" // 「swiper-wrapper」クラスのTag設定
-						loop // スライドのループ設定
-						speed={600} // 前後のスライドに移動する時の速度設定
-						centeredSlides // アクティブスライドを中央にする設定
-						initialSlide={prop.st.imgIx} // 初期表示スライドの設定
-						spaceBetween={0} //スライド間のスペース設定
-						slidesPerView={3} // スライドを一度に表示する個数設定
-						effect="coverflow" // スライドのエフェクト設定（'coverflow', 'fade', 'flip', 'slide', 'cube）'
-						slideToClickedSlide // クリックしたスライドに移動する
-						breakpoints={{ // 画面幅ごとの詳細設定
-							320: {slidesPerView: 1}, // 画面幅が320pxより大きい場合
-							640: {slidesPerView: 2}, // 画面幅が640pxより大きい場合
-							980: {slidesPerView: 3}, // 画面幅が980pxより大きい場合
-						}}
-						direction='horizontal' // スライドの並ぶ方向設定（'vertical', 'horizontal'）
-						pagination // ページネーションの表示設定（・・・・・）
-					>
-						{prop.info.map(fw => (
-							<React.Fragment key={`mainVisual${fw.FW}`}>
+		<Swiper
+			id="main" // メインのSwiperを明示する
+			thumbs={{swiper: prop.st.swipEL}} // id="thumbs"が付いているSwiperコンポーネントとリンクさせる
+			tag="section" // 「swiper-container」クラスのTag設定
+			wrapperTag="ul" // 「swiper-wrapper」クラスのTag設定
+			speed={600} // 前後のスライドに移動する時の速度設定
+			centeredSlides // アクティブスライドを中央にする設定
+			initialSlide={prop.st.imgIx} // 初期表示スライドの設定
+			spaceBetween={0} //スライド間のスペース設定
+			slidesPerView={3} // スライドを一度に表示する個数設定
+			effect="coverflow" // スライドのエフェクト設定（'coverflow', 'fade', 'flip', 'slide', 'cube）'
+			slideToClickedSlide // クリックしたスライドに移動する
+			breakpoints={{ // 画面幅ごとの詳細設定
+				320: {slidesPerView: 1}, // 画面幅が320pxより大きい場合
+				640: {slidesPerView: 2}, // 画面幅が640pxより大きい場合
+				980: {slidesPerView: 3}, // 画面幅が980pxより大きい場合
+			}}
+			direction='horizontal' // スライドの並ぶ方向設定（'vertical', 'horizontal'）
+			pagination // ページネーションの表示設定（・・・・・）
+			onSlideChange={(swiper) => onSlideChange(swiper)} // スライド変更時の処理
+		>
+			{prop.info.map(fw => (
+				<React.Fragment key={`mainVisual${fw.FW}`}>
 
-								{/* イメージリスト -- start -- */}
-									{fw.Page.map(pg => (
-										<SwiperSlide
-											tag="li" // 「swiper-slide」クラスのTag設定
-											className={cssMV.swiperSlide}
-											key={pg.ID}
-										>
-											<Link href={pg.URL}>
-												<img
-													src={`/${pg.ID}.png`}
-													onClick={pg.Func}
-													className={`
-														${cssMV.swiperSlideImg}
-														${prop.st.selPG === pg.State && cssMV.swiperSlideImgSelected}
-													`}
-												/>
-											</Link>
-										</SwiperSlide>
-									))}
-								{/* イメージリスト -- end -- */}
-
-							</React.Fragment>
+					{/* イメージリスト -- start -- */}
+						{fw.Page.map(pg => (
+							<SwiperSlide
+								tag="li" // 「swiper-slide」クラスのTag設定
+								className={cssMV.swiperSlide}
+								key={pg.ID}
+							>
+								<img
+									src={`/${pg.ID}.png`}
+									onClick={pg.Func}
+									className={`
+										${cssMV.swiperSlideImg}
+										${prop.st.selPG === pg.State && cssMV.swiperSlideImgSelected}
+									`}
+								/>
+							</SwiperSlide>
 						))}
-					</Swiper>
-				</div>
-			{/** メインスワイパーエリア -- end -- **/}
-		</>
+					{/* イメージリスト -- end -- */}
+
+				</React.Fragment>
+			))}
+		</Swiper>
 	)
 }
 
