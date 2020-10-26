@@ -35,23 +35,3 @@
 	}
 }
 
-/** 2.スワイプガイドメッセージ設定 **/
-.swipeGuide {
-	@media screen and (max-width: $sp-max-width){
-		color: $white;
-		font-size: 13px;
-		font-weight: normal;
-		padding: 5px;
-		position: absolute;
-		top: $header-height + 30px;
-		right: 20px;
-		@keyframes slide {
-			0% { right: 0; }
-			100% { right: 20px; }
-		}
-		animation-name: slide;
-		animation-duration: 1s;
-		animation-timing-function: linear;
-		animation-iteration-count: infinite;
-	}
-}

@@ -115,6 +115,16 @@ class Layout extends React.Component {
 			selPG: index
 		})
 
+		// ユーザーエージェント設定
+		const ua = navigator.userAgent.toLowerCase();
+		const isiPhone = (ua.indexOf('iphone') > -1) // iPhone
+		const isiPad = (ua.indexOf('ipad') > -1) // iPad
+		const isAndroid = (ua.indexOf('android') > -1) && (ua.indexOf('mobile') > -1) // Android
+		const isAndroidTablet = (ua.indexOf('android') > -1) && (ua.indexOf('mobile') == -1) // Android Tablet
+
+		// SP時のみボタン押下時にサイドエリアを非表示
+		const cond = (!isiPhone || !isiPad || !isAndroid || !isAndroidTablet)
+		cond && (document.getElementById('contents-aside').style.left = "768px")
 	}
 
 	/*** ■ Production一覧押下時の処理 ***/
@@ -150,7 +160,10 @@ class Layout extends React.Component {
 			<div id="top" className="container">
 
 				{/*** ヘッダーエリア -- start -- ***/}
-					<Header prop={prop}/>
+					<Header
+						prop={prop}
+						cond={cond}
+					/>
 				{/*** ヘッダーエリア -- end -- ***/}
 
 				{/*** メインビジュアルエリア -- start -- ***/}
@@ -166,11 +179,12 @@ class Layout extends React.Component {
 
 						{/** サイドエリア -- start -- **/}
 							{!cond && (
-								<aside className="contents-aside">
+								<aside
+									id="contents-aside"
+									className="contents-aside"
+								>
 									<div className="contents-aside-wrap">
-										<div className="contents-aside-swipe-wrapper">
-											<Swipers.ThumbSwiper prop={prop}/>
-										</div>
+										<Swipers.ThumbSwiper prop={prop}/>
 									</div>
 								</aside>
 							)}

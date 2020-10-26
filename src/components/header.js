@@ -1,11 +1,15 @@
 import Link from 'next/link';
 import css from '../styles/modules/header.module.scss'
 
-const Header = ({prop}) => {
+const Header = ({prop, cond}) => {
 
 	// Topに戻るボタンの処理
 	function scrollToTop() {
-		window.scrollTo(0, 0);
+		window.scrollTo(0, 0)
+	}
+	// メニューボタンの処理
+	function showSideArea() {
+		document.getElementById('contents-aside').style.left = "0"
 	}
 
 	return(
@@ -42,6 +46,17 @@ const Header = ({prop}) => {
 								⬆︎Top
 							</li>
 						{/** トップボタン　-- end -- **/}
+
+						{/** メニューボタン -- start -- **/}
+							{!cond && (
+								<li
+									onClick={showSideArea}
+									className={css.menuBtn}
+								>
+									<img src="/menu.svg" alt="メニューアイコン"/>
+								</li>
+							)}
+						{/** メニューボタン -- end -- **/}
 
 					</ul>
 				{/*** トップリスト -- end -- ***/}

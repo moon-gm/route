@@ -3,14 +3,14 @@
 **********************/
 @import '../variables';
 
+// エリア内共通
 @mixin selectedEffect {
 	color: $blue;
 	background: $white-skelton;
 	border-bottom: 2px solid $blue;
 }
 
-/*** 1.セクションタイトル設定 ***/
-.sectionTitle {
+@mixin sectionTitle {
 	color: $white;
 	font-size: 25px;
 	line-height: 1;
@@ -21,6 +21,11 @@
 		font-size: 20px;
 		margin-bottom: 10px;
 	}
+}
+
+/*** 1.セクションタイトル設定 ***/
+.sectionTitle {
+	@include sectionTitle;
 
 	/** 1-1.選択時設定 **/
 	&Checked {
@@ -60,6 +65,12 @@
 	}
 }
 
-.none {
+/*** 3.閉じるボタン設定 ***/
+.closeBtn {
+	@include sectionTitle;
 	display: none;
+	@media screen and (max-width: $sp-max-width){
+		border-bottom: none;
+		display: block;
+	}
 }

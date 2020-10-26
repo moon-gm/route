@@ -15,12 +15,6 @@ const MainSwiper = ({prop}) => {
 
 	return (
 		<>
-			{/** メニューガイド -- start -- **/}
-				<p className={cssMV.swipeGuide}>
-					{"< Slide Menu"}
-				</p>
-			{/** メニューガイド -- end -- **/}
-
 			{/** メインスワイパーエリア -- start -- **/}
 				<div className="main-visual-area-wrap">
 					<Swiper
@@ -79,13 +73,32 @@ const MainSwiper = ({prop}) => {
 
 // サイドエリアのサムスワイパー
 const ThumbSwiper = ({prop}) => {
+
+	// サイドエリアを閉じる処理（SP時）
+	function onCloseBtn() {
+		document.getElementById('contents-aside').style.left = "768px"
+	}
+
 	return (
 		<>
-			{/* プロダクションリストタイトル -- start -- */}
-				<h1 className={cssA.sectionTitle}>
-					Production List
-				</h1>
-			{/* プロダクションリストタイトル -- end -- */}
+			{/* フレックスボックス -- start -- */}
+				<div className="flex-space-between">
+					{/* プロダクションリストタイトル -- start -- */}
+						<h1 className={cssA.sectionTitle}>
+							Production List
+						</h1>
+					{/* プロダクションリストタイトル -- end -- */}
+
+					{/* プロダクションリストタイトル -- start -- */}
+						<h1
+							onClick={onCloseBtn}
+							className={cssA.closeBtn}
+						>
+							×
+						</h1>
+					{/* プロダクションリストタイトル -- end -- */}
+				</div>
+			{/* フレックスボックス -- end -- */}
 
 			{/* サムスワイプエリア -- start -- */}
 				<Swiper
