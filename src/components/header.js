@@ -80,7 +80,7 @@ const Header = ({prop, cond}) => {
 							</Link>
 							{/* スワイパーの問題でaタグにして一度最初から読み込ませる */}
 							<a
-								href={prop.info[prop.fw.React].Page[prop.pg.ReactLearning].URL}
+								href={prop.info[prop.fw.Next].Page[prop.pg.NationalFlags].URL}
 								className={css.headerTabLink}
 							>
 								<li className={css.headerTab}>
