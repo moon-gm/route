@@ -109,6 +109,10 @@
 	/*** 5.　段落設定 ***/
 	.p {
 		@include layout;
+		.link {
+			width: 13px;
+			margin-left: 3px;
+		}
 	}
 }
 

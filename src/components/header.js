@@ -43,7 +43,7 @@ const Header = ({prop, cond}) => {
 								onClick={scrollToTop}
 								className={css.topBtn}
 							>
-								⬆︎Top
+								<img src="/top.svg" alt="トップに戻るアイコン"/>
 							</li>
 						{/** トップボタン　-- end -- **/}
 

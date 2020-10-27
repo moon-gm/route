@@ -74,8 +74,8 @@ const PageLayout = ({pageData}) => {
 					</h1>
 					<p className={styles.p}>
 						作成日：{pageData.createDate} 〜<br/>
-						サイト：<a href={pageData.link.site} target="_blank">{pageData.title}</a><br/>
-						ソース：<a href={pageData.link.source} target="_blank">Github</a>
+						サイト：<a href={pageData.link.site} target="_blank">{pageData.title}<img src="/external-link.svg" className={styles.link}/></a><br/>
+						ソース：<a href={pageData.link.source} target="_blank">Github<img src="/external-link.svg" className={styles.link}/></a>
 					</p>
 				{/*** サイトタイトル -- end -- ***/}
 
