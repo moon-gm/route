@@ -4,16 +4,9 @@ import styles from '../styles/modules/page.module.scss'
 
 const PageLayout = ({pageData}) => {
 
-	// 使用フレームワークの最後の配列を取得
-	const lastArray = pageData.FW.slice(-1)[0];
-
 	// モーダルの値設定
 	const openBtn = "?"
 	const modalData = {
-		summary: {
-			title: "概要",
-			content: "作成したサイトが主に果たす役割・機能のあらまし。",
-		},
 		contents: {
 			title: "内容",
 			content: "作成したサイトが果たす主な役割・機能の詳細。このサイトで何ができるのかなど。",
@@ -22,12 +15,8 @@ const PageLayout = ({pageData}) => {
 			title: "作成方法",
 			content: "使用したフレームワークなどをどのように活用しているか、また、どのようなシステムにしているかなどの説明。",
 		},
-		FW: {
-			title: "使用フレームワーク・言語",
-			content: "実際に使用したフレームワークを全て記載。フレームワーク使用にあたって基本となる言語は省略（HTMLなど）。Node.jsは主にプロジェクトを導入する際に使用（npm）。",
-		},
 		skill: {
-			title: "使用技術",
+			title: "使用技術・FW",
 			content: "各言語・フレームワーク内で実際に使用した技術を記載。",
 		},
 		iframe: {
@@ -46,12 +35,12 @@ const PageLayout = ({pageData}) => {
 					align-items-center
 				`}>
 					{title}
-					<Modal
-						openBtn={openBtn}
-						title={title}
-						content={modalContent}
-					/>
 				</h2>
+				<Modal
+					openBtn={openBtn}
+					title={title}
+					content={modalContent}
+				/>
 				{children}
 			</section>
 		)
@@ -68,27 +57,22 @@ const PageLayout = ({pageData}) => {
 			<div className={styles.contentsBox}>
 
 				{/*** サイトタイトル -- start -- ***/}
-					<h1 className={styles.h1}>
-						<img src={pageData.logo} className={styles.logo}/>
-						{pageData.title}
-					</h1>
-					<p className={styles.p}>
-						作成日：{pageData.createDate} 〜<br/>
-						サイト：<a href={pageData.link.site} target="_blank">{pageData.title}<img src="/external-link.svg" className={styles.link}/></a><br/>
-						ソース：<a href={pageData.link.source} target="_blank">Github<img src="/external-link.svg" className={styles.link}/></a>
-					</p>
-				{/*** サイトタイトル -- end -- ***/}
-
-				{/*** セクション__概要 -- start --***/}
-					<Section
-						title={modalData.summary.title}
-						modalContent={modalData.summary.content}
-					>
+					<div className={styles.titleBox}>
+						<h1 className={styles.h1}>
+							<img src={pageData.logo} className={styles.logo}/>
+							{pageData.title}
+						</h1>
+						<p className={styles.p}>
+							作成日 {pageData.createDate}<br/>
+							更新日 {pageData.upDate}<br/>
+							サイト <a href={pageData.link.site} target="_blank">{pageData.title}<img src="/external-link.svg" className={styles.link}/></a><br/>
+							ソース <a href={pageData.link.source} target="_blank">Github<img src="/external-link.svg" className={styles.link}/></a>
+						</p>
 						<p className={styles.p}>
 							{pageData.summary}
 						</p>
-					</Section>
-				{/*** セクション__概要 -- end --***/}
+					</div>
+				{/*** サイトタイトル -- end -- ***/}
 
 				{/*** セクション__内容 -- start --***/}
 					<Section
@@ -112,67 +96,44 @@ const PageLayout = ({pageData}) => {
 					</Section>
 				{/*** セクション__作成方法 -- end --***/}
 
-				{/*** セクション__使用フレームワーク・言語 -- start --***/}
-					<Section
-						title={modalData.FW.title}
-						modalContent={modalData.FW.content}
-					>
-						<>
-
-							{/** テキスト -- start -- **/}
-								<p className={styles.p}>
-									{pageData.FW.map(items => {
-										if (items === lastArray) {
-											// 配列の最後の値の場合
-											return (
-												<span key={`FW-text${items.text}`}>
-													{items.text}
-												</span>
-											)
-										} else {
-											// 配列の最後の値以外の場合
-											return (
-												<span key={`FW-text${items.text}`}>
-													{`${items.text} / `}
-												</span>
-											)
-										}
-									})}
-								</p>
-							{/** テキスト -- start -- **/}
-
-							{/** 画像 -- start -- **/}
-								<div className={styles.imgBox}>
-									{pageData.FW.map(items => {
-										return (
-											<img
-												src={`/${items.image}`}
-												alt={items.text}
-												key={`FW-image${items.text}`}
-											/>
-										)
-									})}
-								</div>
-							{/** 画像 -- end -- **/}
-						</>
-					</Section>
-				{/*** セクション__使用フレームワーク・言語 -- end --***/}
-
-				{/*** セクション__使用技術 -- start --***/}
+				{/*** セクション__使用技術・FW -- start --***/}
 					<Section
 						title={modalData.skill.title}
 						modalContent={modalData.skill.content}
 					>
+						{/** 画像 -- start -- **/}
+							<div className={styles.imgBox}>
+								{pageData.skill.map(skill => {
+									return (
+										<img
+											src={`/${skill.image}`}
+											alt={skill.title}
+											key={`FW-image${skill.title}`}
+										/>
+									)
+								})}
+							</div>
+						{/** 画像 -- end -- **/}
 						{pageData.skill.map(skill => {
 							return (
 								<ul key={`FW-text${skill.title}`} className="list-box">
-									<li className="li">
+									{/* SPでは非表示 */}
+										<img
+											src={`/${skill.image}`}
+											className="img"
+										/>
+									{/* SPでは非表示 */}
+									<li className="li" style={{display:"inline-block"}}>
 										<span className="li-text">{skill.title}</span>
 										{skill.contents.map(item => {
 											return (
-												<p className="li-note" key={item}>
-													・{item}
-												</p>
+												<React.Fragment key={item}>
+													{item !== "" && (
+														<p className="li-note">
+															{item}
+														</p>
+													)}
+												</React.Fragment>
 											)
 										})}
 									</li>
@@ -180,7 +141,7 @@ const PageLayout = ({pageData}) => {
 							)
 						})}
 					</Section>
-				{/*** セクション__使用技術 -- end --***/}
+				{/*** セクション__使用技術・FW -- end --***/}
 
 				{/*** セクション__画面イメージ -- start --***/}
 					<Section

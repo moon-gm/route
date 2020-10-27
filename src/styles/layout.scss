@@ -14,6 +14,7 @@
 			// カラー設定
 			background: $white-skelton;
 			backdrop-filter: blur(30px);
+			-webkit-backdrop-filter: blur(30px);
 
 			// レイアウト設定
 			height: $header-height;
@@ -59,17 +60,6 @@
 					$white-skelton,
 					$black-skelton-thin
 				);
-				backdrop-filter: blur(30px);
-				@media screen and (max-width: $sp-max-width) {
-					background: linear-gradient(
-						to left,
-						$black-skelton-thin,
-						$white-skelton,
-						$white,
-						$white-skelton,
-						$black-skelton-thin
-					);
-				}
 			}
 
 			/** 2-2.非表示設定 **/
@@ -127,7 +117,8 @@
 				/* 3-2-1.コンテンツラッパー設定 */
 				&-wrap {
 					// カラー設定
-					background: $white-skelton-thick;
+					border-left: 1px solid $white;
+					border-right: 1px solid $white;
 
 					// レイアウト設定
 					padding: 20px;

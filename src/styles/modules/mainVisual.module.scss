@@ -6,13 +6,18 @@
 /** 1.スワイプスライド設定 **/
 .swiperSlide {
 	text-align: center;
+	height: 230px;
 	max-width: 640px;
 	margin: 0 auto;
+	@media screen and (max-width: $sp-max-width) {
+		height: 200px;
+	}
 
 	/* 1-1.スワイプする画像設定 */
 	&Img {
+		border-radius: 8px;
 		width: 380px;
-		height: auto;
+		height: 100%;
 		@media screen and (max-width: $sp-max-width) {
 			width: 90%;
 			max-width: 375px;
@@ -22,10 +27,14 @@
 		&:hover {
 			cursor: pointer;
 			width: 370px;
+			height: 100%;
 			padding: 5px;
 			transition: width 0.5s, padding 0.5s;
 			background: $black-skelton;
 			border: 5px groove $blue;
+			@media screen and (max-width: $sp-max-width) {
+				width: 90%;
+			}
 		}
 
 		// 1-1-2.選択時設定

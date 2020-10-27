@@ -43,13 +43,13 @@
 .list {
 	color: $white;
 	font-size: 16px;
-	border-bottom: 1px dotted $white;
 	padding: 10px;
 
 	/** 2-1.ホバー時設定 **/
 	&:hover {
 		cursor: pointer;
 		background: $white-skelton;
+		color: $blue;
 	}
 
 	/** 2-2.選択時設定 **/
@@ -60,6 +60,7 @@
 	/** 2-3.サブテキスト設定 **/
 	&SubText {
 		display: block;
+		color: $grey;
 		padding-left: 1.9em;
 		font-size: 12px;
 	}

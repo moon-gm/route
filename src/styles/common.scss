@@ -60,19 +60,19 @@
 		/** 3-3.リスト設定 **/
 		.list-box {
 			padding: 5px;
-			margin-bottom: 20px;
+			margin-bottom: 10px;
+			background: $dark-grey;
 
 			/* 3-3-1.リスト項目設定 */
 			.li {
 				padding-bottom: 5px;
 				text-indent: -1em;
 				padding-left: 1em;
-				margin-bottom: 10px;
+				margin-bottom: 0px;
 
 				// リストテキストの設定
 				&-text {
 					padding: 5px;
-					color: $black;
 					font-weight: bold;
 				}
 
@@ -80,7 +80,7 @@
 				&:before {
 					content: "☑︎";
 					padding-right: 5px;
-					color: $black;
+					color: $yellow;
 				}
 
 				// 最後のリスト項目の設定
@@ -92,8 +92,24 @@
 				&-note {
 					padding-left: 1em;
 					font-size: 14px;
-					color: $black;
 					margin-bottom: 5px;
+					color: $grey;
+
+					&:before {
+						content: "・";
+						padding-right: 5px;
+						color: $yellow;
+					}
+				}
+			}
+
+			/* 3-3-2.リスト内画像設定 */
+			.img {
+				width: 100px;
+				vertical-align: top;
+				margin-right: 10px;
+				@media screen and (max-width: $sp-max-width){
+					display: none;
 				}
 			}
 		}

@@ -8,12 +8,16 @@
 .openModal {
 	cursor: pointer;
 	font-size: 12px;
-	padding: 4px;
-	color: $blue;
+	padding: 5px 10px;
+	color: $link-blue;
+	margin-left: 10px;
+	background: $light-black;
+	border-radius: 50%;
 
 	// ホバー時設定
 	&:hover {
-		color: $white;
+		color: $blue;
+		background: $white-skelton;
 	}
 }
 
