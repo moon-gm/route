@@ -19,8 +19,10 @@ const MainSwiper = ({prop}) => {
 
 	// スライド変更時の処理
 	function onSlideChange(swiper) {
+
 		// アクティブスライドを取得
 		const active = swiper.activeIndex
+
 		// アクティブスライドに合わせて選択状態を変更・遷移
 		prop.info.map(fw => {
 			fw.Page.map(pg => {
@@ -30,6 +32,7 @@ const MainSwiper = ({prop}) => {
 				}
 			})
 		})
+
 	}
 
 	// メインスワイパー
@@ -122,7 +125,7 @@ const ThumbSwiper = ({prop}) => {
 					slideToClickedSlide
 					slidesPerView={0}
 					initialSlide={prop.st.imgIx}
-					onSwiper={(swiper) => prop.f.changeSwiper(swiper)}
+					onSwiper={(swiper) => prop.f.changeSwiper(swiper)} // スワイプ時の処理
 				>
 					{prop.info.map(fw => (
 						<React.Fragment key={`sidelist${fw.State}`}>

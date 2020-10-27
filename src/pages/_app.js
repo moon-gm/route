@@ -32,13 +32,10 @@ class Layout extends React.Component {
 		/*** ■ Stateの初期値設定 ***/
 		this.state = {
 			selFW: STATE.selFW.Profile, // 表示ページのFWの選択設定
-			selPG: undefined, // 表示ページの画像とリストの選択設定
-			imgIx: undefined, // MainVisualのスクロール画像のindex設定
+			selPG: null, // 表示ページの画像とリストの選択設定
+			imgIx: null, // MainVisualのスクロール画像のindex設定
 			swipEL: null, // スワイパー(Element)の設定
 		}
-
-		/*** ■ state.imgIxの最大値設定 ***/
-		this.MAX_INDEX = 6
 
 		/*** ■ Function設定 ***/
 		const FUNC = this.ALL_FUNC = {
@@ -94,7 +91,7 @@ class Layout extends React.Component {
 				fw.Page.map(pg =>{
 
 					// ページ選択切替
-					const cond =  (pathName === pg.URL)
+					const cond = (pathName === pg.URL)
 					cond && (this.setState({selPG: pg.State, imgIx: pg.State}))
 
 				})
@@ -123,8 +120,9 @@ class Layout extends React.Component {
 		const isAndroidTablet = (ua.indexOf('android') > -1) && (ua.indexOf('mobile') == -1) // Android Tablet
 
 		// SP時のみボタン押下時にサイドエリアを非表示
-		const cond = (!isiPhone || !isiPad || !isAndroid || !isAndroidTablet)
-		cond && (document.getElementById('contents-aside').style.left = "768px")
+		const cond1 = (!isiPhone || !isiPad || !isAndroid || !isAndroidTablet)
+		const cond2 = (this.state.selFW === "profile")
+		cond1 && !cond2 && (document.getElementById('contents-aside').style.left = "768px")
 	}
 
 	/*** ■ Production一覧押下時の処理 ***/
@@ -194,9 +192,7 @@ class Layout extends React.Component {
 
 						{/** メインエリア -- start -- **/}
 							<main className={`contents-main ${cond && "contents-main-no-sidearea"}`}>
-								<div className="contents-main-wrap">
-									{newChildren}
-								</div>
+								{newChildren}
 							</main>
 						{/** メインエリア -- end -- **/}
 

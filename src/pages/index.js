@@ -38,7 +38,9 @@ const Home = () => {
 							</h3>
 							<ul　className={styles.listBox}>
 								<li className={styles.li}>
-									<span className={styles.listText}>楽器店勤務</span>
+									<span className={styles.listText}>
+										楽器店勤務
+									</span>
 									<p className={styles.liNote}>
 										ベースの販売・リペア・通販担当
 									</p>
@@ -53,13 +55,17 @@ const Home = () => {
 							</h3>
 							<ul　className={styles.listBox}>
 								<li className={styles.li}>
-									<span className={styles.liText}>銀行関連の現場で勤務（SES）</span>
+									<span className={styles.liText}>
+										銀行関連の現場で勤務（SES）
+									</span>
 									<p className={styles.liNote}>
 										Excel Macro、コマンド（バッチファイル ）やJCL（Job Control Language）を学習・使用
 									</p>
 								</li>
 								<li className={styles.li}>
-									<span className={styles.liText}>証券会社の口座申込フォーム作成（本社受託開発）</span>
+									<span className={styles.liText}>
+										証券会社の口座申込フォーム作成（本社受託開発）
+									</span>
 									<p className={styles.liNote}>
 										Laravelを用いてフォームのフロント・一部サーバーサイド処理を実装
 									</p>
@@ -68,7 +74,9 @@ const Home = () => {
 									</p>
 								</li>
 								<li className={styles.li}>
-									<span className={styles.liText}>株アプリの作成（本社受託開発）</span>
+									<span className={styles.liText}>
+										株アプリの作成（本社受託開発）
+									</span>
 									<p className={styles.liNote}>
 										「Android Studio・Xcode」で「Kotlin・Swift」を学習しながら、ソースをもとに詳細設計書の書き起こし
 									</p>
@@ -77,19 +85,25 @@ const Home = () => {
 									</p>
 								</li>
 								<li className={styles.li}>
-									<span className={styles.liText}>就職関連のLPページ作成（本社受託開発）</span>
+									<span className={styles.liText}>
+										就職関連のLPページ作成（本社受託開発）
+									</span>
 									<p className={styles.liNote}>
 										HTMLの枠組みからSassを使用してのデザインまで担当・作成
 									</p>
 								</li>
 								<li className={styles.li}>
-									<span className={styles.liText}>ファンクラブアプリの作成（本社受託開発）</span>
+									<span className={styles.liText}>
+										ファンクラブアプリの作成（本社受託開発）
+									</span>
 									<p className={styles.liNote}>
 										ほんの一部だが、画面遷移図・画面一覧の作成程度の上流工程を経験
 									</p>
 								</li>
 								<li className={styles.li}>
-									<span className={styles.liText}>口座開設サイトの保守（本社受託開発）</span>
+									<span className={styles.liText}>
+										口座開設サイトの保守（本社受託開発）
+									</span>
 									<p className={styles.liNote}>
 										ログをチェックし、バッチファイル作成で該当箇所を抽出
 									</p>
@@ -98,7 +112,9 @@ const Home = () => {
 									</p>
 								</li>
 								<li className={styles.li}>
-									<span className={styles.liText}>クレジットカード集計システムの保守（本社受託開発）</span>
+									<span className={styles.liText}>
+										クレジットカード集計システムの保守（本社受託開発）
+									</span>
 									<p className={styles.liNote}>
 										システムの本番DBにssh接続、カード登録店舗情報などをSQLのINSERT文で追加
 									</p>

@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Modal from './modal'
-import styles from '../styles/modules/page.module.scss'
+import css from '../styles/modules/page.module.scss'
 
 const PageLayout = ({pageData}) => {
 
@@ -28,10 +28,10 @@ const PageLayout = ({pageData}) => {
 	// セクション共通部分のコンポーネント
 	const Section = ({title, modalContent, children}) => {
 		return (
-			<section className={styles.sectionBox}>
-				<div className={styles.sectionTitle}>
+			<section className={css.sectionBox}>
+				<div className={css.sectionTitle}>
 					<h2 className={`
-						${styles.h2}
+						${css.h2}
 						flex-start
 						align-items-center
 					`}>
@@ -56,32 +56,32 @@ const PageLayout = ({pageData}) => {
 				</Head>
 			{/*** <head>の<title>設定 -- end -- ***/}
 
-			<div className={styles.contentsBox}>
+			<div className={css.contentsBox}>
 
-				{/*** サイトタイトル -- start -- ***/}
-					<div className={styles.titleBox}>
-						<h1 className={styles.h1}>
-							<img src={pageData.logo} className={styles.logo}/>
+				{/*** セクション__タイトル -- start -- ***/}
+					<section className={css.titleBox}>
+						<h1 className={css.h1}>
+							<img src={pageData.logo} className={css.logo}/>
 							{pageData.title}
 						</h1>
-						<p className={styles.p}>
+						<p className={css.p}>
 							作成日 {pageData.createDate}<br/>
 							更新日 {pageData.upDate}<br/>
-							サイト <a href={pageData.link.site} target="_blank">{pageData.title}<img src="/external-link.svg" className={styles.link}/></a><br/>
-							ソース <a href={pageData.link.source} target="_blank">Github<img src="/external-link.svg" className={styles.link}/></a>
+							サイト <a href={pageData.link.site} target="_blank">{pageData.title}<img src="/external-link.svg" className={css.link}/></a><br/>
+							ソース <a href={pageData.link.source} target="_blank">Github<img src="/external-link.svg" className={css.link}/></a>
 						</p>
-						<p className={styles.p}>
+						<p className={css.p}>
 							{pageData.summary}
 						</p>
-					</div>
-				{/*** サイトタイトル -- end -- ***/}
+					</section>
+				{/*** セクション__タイトル -- end -- ***/}
 
 				{/*** セクション__内容 -- start --***/}
 					<Section
 						title={modalData.contents.title}
 						modalContent={modalData.contents.content}
 					>
-						<p className={styles.p}>
+						<p className={css.p}>
 							{pageData.contents}
 						</p>
 					</Section>
@@ -92,7 +92,7 @@ const PageLayout = ({pageData}) => {
 						title={modalData.wayToMake.title}
 						modalContent={modalData.wayToMake.content}
 					>
-						<p className={styles.p}>
+						<p className={css.p}>
 							{pageData.wayToMake}
 						</p>
 					</Section>
@@ -103,45 +103,41 @@ const PageLayout = ({pageData}) => {
 						title={modalData.skill.title}
 						modalContent={modalData.skill.content}
 					>
-						{/** 画像 -- start -- **/}
-							<div className={styles.imgBox}>
-								{pageData.skill.map(skill => {
-									return (
-										<img
-											src={`/${skill.image}`}
-											alt={skill.title}
-											key={`FW-image${skill.title}`}
-										/>
-									)
-								})}
+						{/* 画像：PCでは非表示 -- start -- */}
+							<div className={css.imgBox}>
+								{pageData.skill.map(skill => (
+									<img
+										src={`/${skill.image}`}
+										alt={skill.title}
+										key={`FW-image${skill.title}`}
+									/>
+								))}
 							</div>
-						{/** 画像 -- end -- **/}
-						{pageData.skill.map(skill => {
-							return (
-								<ul key={`FW-text${skill.title}`} className={styles.listBox}>
-									{/* SPでは非表示 */}
-										<img
-											src={`/${skill.image}`}
-											className={styles.img}
-										/>
-									{/* SPでは非表示 */}
-									<li className={`${styles.li} ${styles.liOnlyProduction}`}>
-										<span className={styles.liText}>{skill.title}</span>
-										{skill.contents.map(item => {
-											return (
-												<React.Fragment key={item}>
-													{item !== "" && (
-														<p className={styles.liNote}>
-															{item}
-														</p>
-													)}
-												</React.Fragment>
-											)
-										})}
-									</li>
-								</ul>
-							)
-						})}
+						{/* 画像：PCでは非表示 -- end -- */}
+						{pageData.skill.map(skill => (
+							<ul key={`FW-text${skill.title}`} className={css.listBox}>
+								{/* 画像：SPでは非表示 -- start -- */}
+									<img
+										src={`/${skill.image}`}
+										className={css.img}
+									/>
+								{/* 画像：SPでは非表示 -- end -- */}
+								<li className={`${css.li} ${css.liOnlyProduction}`}>
+									<span className={css.liText}>
+										{skill.title}
+									</span>
+									{skill.contents.map(item => (
+										<React.Fragment key={item}>
+											{item !== "" && (
+												<p className={css.liNote}>
+													{item}
+												</p>
+											)}
+										</React.Fragment>
+									))}
+								</li>
+							</ul>
+						))}
 					</Section>
 				{/*** セクション__使用技術・FW -- end --***/}
 
@@ -151,7 +147,7 @@ const PageLayout = ({pageData}) => {
 						modalContent={modalData.iframe.content}
 					>
 						<iframe
-							className={styles.iframe}
+							className={css.iframe}
 							src={pageData.link.site}
 						/>
 					</Section>
