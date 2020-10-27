@@ -29,18 +29,20 @@ const PageLayout = ({pageData}) => {
 	const Section = ({title, modalContent, children}) => {
 		return (
 			<section className={styles.sectionBox}>
-				<h2 className={`
-					${styles.h2}
-					flex-start
-					align-items-center
-				`}>
-					{title}
-				</h2>
-				<Modal
-					openBtn={openBtn}
-					title={title}
-					content={modalContent}
-				/>
+				<div className={styles.sectionTitle}>
+					<h2 className={`
+						${styles.h2}
+						flex-start
+						align-items-center
+					`}>
+						{title}
+					</h2>
+					<Modal
+						openBtn={openBtn}
+						title={title}
+						content={modalContent}
+					/>
+				</div>
 				{children}
 			</section>
 		)
@@ -116,20 +118,20 @@ const PageLayout = ({pageData}) => {
 						{/** 画像 -- end -- **/}
 						{pageData.skill.map(skill => {
 							return (
-								<ul key={`FW-text${skill.title}`} className="list-box">
+								<ul key={`FW-text${skill.title}`} className={styles.listBox}>
 									{/* SPでは非表示 */}
 										<img
 											src={`/${skill.image}`}
-											className="img"
+											className={styles.img}
 										/>
 									{/* SPでは非表示 */}
-									<li className="li" style={{display:"inline-block"}}>
-										<span className="li-text">{skill.title}</span>
+									<li className={`${styles.li} ${styles.liOnlyProduction}`}>
+										<span className={styles.liText}>{skill.title}</span>
 										{skill.contents.map(item => {
 											return (
 												<React.Fragment key={item}>
 													{item !== "" && (
-														<p className="li-note">
+														<p className={styles.liNote}>
 															{item}
 														</p>
 													)}

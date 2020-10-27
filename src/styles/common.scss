@@ -25,103 +25,22 @@
 		}
 
 	/*** 2.SP設定 ***/
-		/** 2-1.SP非表示設定 **/
-		.hide-sp {
-			@media screen and (max-width: $sp-max-width){
-				display: none;
-			}
-		}
-
-		/** 2-2.SPフレックス解除設定 **/
+		/** 2-1.SPフレックス解除設定 **/
 		.flex-remove-sp {
 			@media screen and (max-width: $sp-max-width){
 				display: block;
 			}
 		}
 
-	/*** 3.パーツ設定 ***/
-		/** 3-1.段落設定 **/
-		.p {
-			padding: 5px;
-			margin-bottom: 15px;
-		}
-
-		/** 3-2.注意書き設定 **/
-		.alert {
-			color: $blue;
-			background: $white-skelton-thick;
-			border-radius: 4px;
-			border: 1px solid $blue;
-			padding: 5px;
-			margin-bottom: 15px;
-
-		}
-
-		/** 3-3.リスト設定 **/
-		.list-box {
-			padding: 5px;
-			margin-bottom: 10px;
-			background: $dark-grey;
-
-			/* 3-3-1.リスト項目設定 */
-			.li {
-				padding-bottom: 5px;
-				text-indent: -1em;
-				padding-left: 1em;
-				margin-bottom: 0px;
-
-				// リストテキストの設定
-				&-text {
-					padding: 5px;
-					font-weight: bold;
-				}
-
-				// リストアイコンの設定
-				&:before {
-					content: "☑︎";
-					padding-right: 5px;
-					color: $yellow;
-				}
-
-				// 最後のリスト項目の設定
-				&:last-child {
-					padding-bottom: 0;
-				}
-
-				// リストの注釈設定
-				&-note {
-					padding-left: 1em;
-					font-size: 14px;
-					margin-bottom: 5px;
-					color: $grey;
-
-					&:before {
-						content: "・";
-						padding-right: 5px;
-						color: $yellow;
-					}
-				}
-			}
-
-			/* 3-3-2.リスト内画像設定 */
-			.img {
-				width: 100px;
-				vertical-align: top;
-				margin-right: 10px;
-				@media screen and (max-width: $sp-max-width){
-					display: none;
-				}
-			}
-		}
-
-		/** 3-4.swiper.jsのCSS追加設定 **/
-		// コンテナ設定
+	/*** 3.swiper.jsのCSS追加設定 ***/
+		/** 3-1.コンテナ設定 **/
 		.swiper-container {
 			width: 100%;
 			padding-top: 20px;
 			padding-bottom: 45px;
 		}
-		// pagenation設定
+
+		/** 3-2.pagenation設定 **/
 		.swiper-pagination {
 			// アクティブドットの設定
 			&-bullet-active {

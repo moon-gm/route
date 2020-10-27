@@ -3,7 +3,7 @@
 **********************/
 @import '../variables';
 
-/**** 共通レイアウト設定 ****/
+/**** エリア内共通設定 ****/
 @mixin layout {
 	padding: 3px;
 	margin-bottom: 5px;
@@ -27,110 +27,182 @@
 	}
 }
 
-/**** タイトルボックス設定 ****/
-.titleBox {
-	margin-bottom: 50px;
-}
-
 /**** コンテンツボックス設定 ****/
 .contentsBox {
 
-	/*** 1.セクションボックス設定 ***/
-	.sectionBox {
-		animation: slideIn 0.5s linear;
-		margin-bottom: 30px;
-	}
+	/*** 1.ボックス設定 ***/
+		/** 1-1.セクションボックス設定 **/
+		.sectionBox {
+			animation: slideIn 0.5s linear;
+			margin-bottom: 30px;
 
-	/*** 2.見出し設定 ***/
-	/** 2-1.大見出し設定 **/
-	.h1 {
-		@include layout;
-		animation: roll 0.5s linear;
-		font-size: 30px;
-		@media screen and (max-width: $sp-max-width){
-			font-size: 20px;
-		}
-	}
-
-	/** 2-2.中見出し設定 **/
-	.h2 {
-		@include layout;
-		display: inline;
-		font-size: 12px;
-		background: $light-blue;
-		border-radius: 2px;
-		padding: 6px 10px;
-		font-weight: normal;
-		&:before {
-			content: "▶︎";
-			font-size: 16px;
-			padding-right: 7px;
-		}
-	}
-
-	/** 2-3.小見出し設定 **/
-	.h3 {
-		@include layout;
-		font-size: 14px;
-		&:before {
-			content: "-";
-			padding-right: 5px;
-		}
-		&:after {
-			content: "-";
-			padding-left: 5px;
-		}
-	}
-
-	/** 2-4.ロゴ設定 **/
-	.logo {
-		width: 25px;
-		margin-right: 7px;
-		@media screen and (max-width: $sp-max-width){
-			width: 18px;
-		}
-	}
-
-	/*** 3.画像ボックス設定 ***/
-	.imgBox {
-		@include layout;
-		display: none;
-		@media screen and (max-width: $sp-max-width){
-			display: block;
-		}
-
-		img {
-			width: 100px;
-			height: auto;
-			@media screen and (max-width: $sp-max-width){
-				max-width: 75px;
-				width: 25%;
+			/* 1-1-1.セクションタイトル設定 */
+			.sectionTitle {
+				margin-bottom: 15px;
 			}
 		}
-	}
+
+		/** 1-2.タイトルボックス設定 **/
+		.titleBox {
+			margin-bottom: 50px;
+		}
+
+	/*** 2.見出し設定 ***/
+		/** 2-1.大見出し設定 **/
+		.h1 {
+			@include layout;
+			animation: roll 0.5s linear;
+			font-size: 30px;
+			@media screen and (max-width: $sp-max-width){
+				font-size: 20px;
+			}
+		}
+
+		/** 2-2.中見出し設定 **/
+		.h2 {
+			@include layout;
+			display: inline;
+			font-size: 12px;
+			background: $light-blue;
+			border-radius: 2px;
+			padding: 6px 10px;
+			font-weight: normal;
+			&:before {
+				content: "▶︎";
+				font-size: 16px;
+				padding-right: 7px;
+			}
+		}
+
+		/** 2-3.小見出し設定 **/
+		.h3 {
+			@include layout;
+			font-size: 14px;
+			&:before {
+				content: "-";
+				padding-right: 5px;
+			}
+			&:after {
+				content: "-";
+				padding-left: 5px;
+			}
+		}
+
+		/** 2-4.ロゴ設定 **/
+		.logo {
+			width: 25px;
+			margin-right: 7px;
+			@media screen and (max-width: $sp-max-width){
+				width: 18px;
+			}
+		}
+
+	/*** 3.画像ボックス設定 ***/
+		.imgBox {
+			@include layout;
+			display: none;
+			@media screen and (max-width: $sp-max-width){
+				display: block;
+			}
+
+			// 画像設定
+			img {
+				width: 100px;
+				height: auto;
+				@media screen and (max-width: $sp-max-width){
+					max-width: 75px;
+					width: 25%;
+				}
+			}
+		}
 
 	/*** 4.iframe設定 ***/
-	.iframe {
-		@include layout;
-		background: $white;
-		width: 100%;
-		height: 600px;
-		border: none;
-		@media screen and (max-width: $sp-max-width){
-			height: 500px;
+		.iframe {
+			@include layout;
+			background: $white;
+			width: 100%;
+			height: 600px;
+			border: none;
+			@media screen and (max-width: $sp-max-width){
+				height: 500px;
+			}
 		}
-	}
 
-	/*** 5.　段落設定 ***/
-	.p {
-		@include layout;
-		background: $dark-grey;
-		color: $grey;
-		.link {
-			width: 13px;
-			margin-left: 5px;
+	/*** 5.段落設定 ***/
+		.p {
+			@include layout;
+			background: $dark-grey;
+			color: $grey;
+
+			// 段落内リンク設定
+			.link {
+				width: 13px;
+				margin-left: 5px;
+			}
 		}
-	}
+
+	/*** 6.リスト設定 ***/
+		.listBox {
+			padding: 5px;
+			margin-bottom: 10px;
+			background: $dark-grey;
+
+			/** 6-1.リスト項目設定 **/
+			.li {
+				padding-bottom: 5px;
+				text-indent: -1em;
+				padding-left: 1em;
+				margin-bottom: 0px;
+
+				/* 6-1-1.リストアイコンの設定 */
+				&:before {
+					content: "☑︎";
+					padding-right: 5px;
+					color: $yellow;
+				}
+
+				/* 6-1-2.最後のリスト項目の設定 */
+				&:last-child {
+					padding-bottom: 0;
+				}
+
+				/* 6-1-3.リストテキストの設定 */
+				&Text {
+					padding: 5px;
+					font-weight: bold;
+				}
+
+				/* 6-1-4.リストの注釈設定 */
+				&Note {
+					padding-left: 1em;
+					font-size: 14px;
+					margin-bottom: 5px;
+					color: $grey;
+
+					// リスト内アイコン設定
+					&:before {
+						content: "・";
+						padding-right: 5px;
+						color: $yellow;
+					}
+				}
+
+				/* 6-1-5.Productionページ時のみの設定 */
+				&OnlyProduction {
+					display: inline-block;
+				}
+			}
+
+			/** 6-2.リスト内画像設定 **/
+			.img {
+				width: 100px;
+				vertical-align: top;
+				margin-right: 10px;
+				@media screen and (max-width: $sp-max-width){
+					display: none;
+				}
+			}
+		}
 }
 
 
