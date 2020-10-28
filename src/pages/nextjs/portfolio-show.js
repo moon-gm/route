@@ -11,7 +11,7 @@ const PortfolioShow = ({info, fw, pg}) => {
 
 		// 作成日・更新日
 		createDate: info[fw.Next].Page[pg.PortfolioShow].CreateDate,
-		upDate: "2020.10.27",
+		upDate: "2020.10.28",
 
 		// 概要
 		summary: "Next.jsで作成の当サイト。他に作成したものをまとめたポートフォリオサイト。",
@@ -31,9 +31,10 @@ const PortfolioShow = ({info, fw, pg}) => {
 		// 使用技術・FW
 		skill: [
 			{title: "Next", image: "nextjs.png", contents: ["API Routes"]},
-			{title: "React", image: "react.png", contents: ["スワイプ（react-swipeable-views）", "モーダルウィンドウ（react-modal）", "Hooks（useState, useEffect）"]},
+			{title: "React", image: "react.png", contents: ["モーダルウィンドウ（react-modal）", "Hooks（useState, useEffect）"]},
 			{title: "Node.js", image: "nodejs.png", contents: ["npm"]},
-			{title: "JavaScript", image: "javascript.png", contents: ["sessionStorage"]},
+			{title: "Swiper.js", image: "swiperjs.svg", contents: ["coverflow", "Swiper React Component"]},
+			{title: "JavaScript", image: "javascript.png", contents: ["Object操作（配列含む）", "map", "JSON"]},
 			{title: "Sass(css)", image: "sass.png", contents: ["@mixin", "@Keyframes", "animation", "レスポンシブ"]},
 		]
 	}
