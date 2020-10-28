@@ -27,7 +27,7 @@
 	/*** 2.SP設定 ***/
 		/** 2-1.SPフレックス解除設定 **/
 		.flex-remove-sp {
-			@media screen and (max-width: $sp-max-width){
+			@media screen and (max-width: $sp_max_width){
 				display: block;
 			}
 		}
@@ -40,11 +40,8 @@
 			padding-bottom: 45px;
 		}
 
-		/** 3-2.pagenation設定 **/
-		.swiper-pagination {
-			// アクティブドットの設定
-			&-bullet-active {
-				background: $blue;
-			}
+		/** 3-2.pagenationのアクティブドット設定 **/
+		.swiper-pagination-bullet-active {
+			background: $blue;
 		}
 }

@@ -148,7 +148,7 @@ const ThumbSwiper = ({prop}) => {
 												<img
 													src={fw.Img}
 													alt="icon"
-													className={cssA.sectionTitleImg}
+													className={cssA.listImg}
 												/>
 												{pg.Title}
 												<span className={cssA.listSubText}>

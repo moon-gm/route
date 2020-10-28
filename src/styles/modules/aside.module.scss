@@ -3,75 +3,63 @@
 **********************/
 @import '../variables';
 
-// エリア内共通
-@mixin selectedEffect {
-	color: $blue;
-	background: $white-skelton;
-	border-bottom: 2px solid $blue;
-}
-
+/**** エリア内共通設定 ****/
 @mixin sectionTitle {
-	color: $white;
 	font-size: 25px;
 	line-height: 1;
 	padding: 10px;
 	margin-bottom: 10px;
 	border-bottom: 2px solid $white;
-	@media screen and (max-width: $sp-max-width){
+	@media screen and (max-width: $sp_max_width){
 		font-size: 20px;
 		margin-bottom: 10px;
 	}
 }
 
-/*** 1.セクションタイトル設定 ***/
+/**** セクションタイトル設定 ****/
 .sectionTitle {
 	@include sectionTitle;
+}
 
-	/** 1-1.選択時設定 **/
-	&Checked {
-		color: $blue;
+/**** リスト設定 ****/
+.list {
+	font-size: 16px;
+	padding: 10px;
+
+	/*** 1.ホバー時設定 ***/
+	&:hover {
+		@include commonHover;
+		cursor: pointer;
 	}
 
-	/** 1-2.画像アイコン設定 **/
+	/*** 2.選択時設定 ***/
+	&Selected {
+		color: $blue;
+		background: $white__clear;
+		border-bottom: 2px solid $blue;
+	}
+
+	/*** 3.サブテキスト設定 ***/
+	&SubText {
+		color: $grey;
+		font-size: 12px;
+		display: block;
+		padding-left: 1.9em;
+	}
+
+	/*** 4.画像アイコン設定 ***/
 	&Img {
 		width: 1em;
 		margin-right: 7px;
 	}
 }
 
-/*** 2.リスト設定 ***/
-.list {
-	color: $white;
-	font-size: 16px;
-	padding: 10px;
-
-	/** 2-1.ホバー時設定 **/
-	&:hover {
-		cursor: pointer;
-		background: $white-skelton;
-		color: $blue;
-	}
-
-	/** 2-2.選択時設定 **/
-	&Selected {
-		@include selectedEffect;
-	}
-
-	/** 2-3.サブテキスト設定 **/
-	&SubText {
-		display: block;
-		color: $grey;
-		padding-left: 1.9em;
-		font-size: 12px;
-	}
-}
-
-/*** 3.閉じるボタン設定 ***/
+/**** 閉じるボタン設定 ****/
 .closeBtn {
 	@include sectionTitle;
 	display: none;
-	@media screen and (max-width: $sp-max-width){
-		border-bottom: none;
+	@media screen and (max-width: $sp_max_width){
 		display: block;
+		border-bottom: none;
 	}
 }

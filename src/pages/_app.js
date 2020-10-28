@@ -167,9 +167,7 @@ class Layout extends React.Component {
 				{/*** メインビジュアルエリア -- start -- ***/}
 					{!cond && (
 						<div className="main-visual-area">
-							<div className="main-visual-area-wrap">
-								<Swipers.MainSwiper prop={prop}/>
-							</div>
+							<Swipers.MainSwiper prop={prop}/>
 						</div>
 					)}
 				{/*** メインビジュアルエリア -- end -- ***/}

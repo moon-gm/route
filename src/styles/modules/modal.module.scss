@@ -1,65 +1,65 @@
 /**********************
  モーダルパーツ設定
 **********************/
-// 変数設定
 @import './../variables';
 
-/*** 1.モーダルを開くボタン ***/
+/**** モーダルを開くボタン ****/
 .openModal {
-	cursor: pointer;
 	font-size: 12px;
-	padding: 5px 10px;
-	color: $link-blue;
-	margin-left: 10px;
-	background: $light-black;
+	color: $blue__link;
+	background: $black__light;
 	border-radius: 50%;
-
-	// ホバー時設定
-	&:hover {
-		color: $blue;
-		background: $white-skelton;
-	}
-}
-
-/*** 2.モーダルウィンドウ ***/
-/** 2-1.モーダルタイトル **/
-.title {
-	font-weight: bold;
-	border-bottom: 2px dotted $white;
-
-	// 接頭文字設定
-	&:before {
-		content: "?";
-		padding-right: 0.5em;
-	}
-}
-
-/** 2-2.モーダルコンテンツ **/
-.content {
-	font-size: 14px;
-	padding: 20px 0;
-	color: $white;
-	max-width: 500px;
-}
-
-/** 2-3.モーダルクローズボタン **/
-.closeModal {
+	padding: 5px 10px;
+	margin-left: 10px;
 	cursor: pointer;
-	outline: none;
-	width: 100px;
-	display: flex;
-	justify-content: center;
-	margin: 0 auto;
-	border-radius: 4px;
-	background: $black-skelton-thin;
-	color: $white;
-	border: 2px solid $white-skelton;
-	padding: 2px;
 
-	// ホバー時設定
+	/*** 1.ホバー時設定 ***/
 	&:hover {
 		color: $blue;
-		background: $white-skelton;
-		border: 2px solid $blue;
+		background: $white__clear;
+	}
+}
+
+/**** モーダルウィンドウ ****/
+.modalWindow {
+
+	/*** 1.タイトル設定 ***/
+	.title {
+		font-weight: bold;
+		border-bottom: 2px dotted $white;
+
+		/** 1-1.接頭文字設定 **/
+		&:before {
+			content: "?";
+			padding-right: 0.5em;
+		}
+	}
+
+	/*** 2.コンテンツ設定 ***/
+	.content {
+		font-size: 14px;
+		padding: 20px 0;
+		max-width: 500px;
+	}
+
+	/*** 3.閉じるボタン設定 ***/
+	.closeModal {
+		color: $white;
+		background: $black__clear_thin;
+		border: 2px solid $white__clear;
+		border-radius: 4px;
+		display: flex;
+		justify-content: center;
+		width: 100px;
+		padding: 2px;
+		margin: 0 auto;
+		cursor: pointer;
+		outline: none;
+
+		/** 3-1.ホバー時設定 **/
+		&:hover {
+			@include commonHover;
+			border: 2px solid $blue;
+		}
 	}
 }

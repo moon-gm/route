@@ -57,24 +57,26 @@ const ModalWindow = ({title, content, openBtn}) => {
 				onRequestClose={closeModal}
 				style={customStyles}
 			>
-				<h2
-					id="title"
-					className={css.title}
-				>
-					{title}
-				</h2>
-				<p
-					id="content"
-					className={css.content}
-				>
-					{content}
-				</p>
-				<button
-					onClick={closeModal}
-					className={css.closeModal}
-				>
-					Close
-				</button>
+				<div className={css.modalWindow}>
+					<h2
+						id="title"
+						className={css.title}
+					>
+						{title}
+					</h2>
+					<p
+						id="content"
+						className={css.content}
+					>
+						{content}
+					</p>
+					<button
+						onClick={closeModal}
+						className={css.closeModal}
+					>
+						Close
+					</button>
+				</div>
 			</Modal>
 		</span>
 	);

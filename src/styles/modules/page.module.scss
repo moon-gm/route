@@ -29,11 +29,14 @@
 
 /**** コンテンツボックス設定 ****/
 .contentsBox {
+	border-left: 1px solid $white;
+	border-right: 1px solid $white;
+	padding: 20px;
+	animation: slideIn 0.5s linear;
 
 	/*** 1.ボックス設定 ***/
 		/** 1-1.セクションボックス設定 **/
 		.sectionBox {
-			animation: slideIn 0.5s linear;
 			margin-bottom: 30px;
 
 			/* 1-1-1.セクションタイトル設定 */
@@ -53,8 +56,8 @@
 			@include layout;
 			animation: roll 0.5s linear;
 			font-size: 30px;
-			@media screen and (max-width: $sp-max-width){
-				font-size: 20px;
+			@media screen and (max-width: $sp_max_width){
+				font-size: 25px;
 			}
 		}
 
@@ -63,7 +66,7 @@
 			@include layout;
 			display: inline;
 			font-size: 12px;
-			background: $light-blue;
+			background: $blue__light;
 			border-radius: 2px;
 			padding: 6px 10px;
 			font-weight: normal;
@@ -92,7 +95,7 @@
 		.logo {
 			width: 25px;
 			margin-right: 7px;
-			@media screen and (max-width: $sp-max-width){
+			@media screen and (max-width: $sp_max_width){
 				width: 18px;
 			}
 		}
@@ -101,15 +104,15 @@
 		.imgBox {
 			@include layout;
 			display: none;
-			@media screen and (max-width: $sp-max-width){
+			@media screen and (max-width: $sp_max_width){
 				display: block;
 			}
 
-			// 画像設定
+			/** 3-1.画像設定 **/
 			img {
 				width: 100px;
 				height: auto;
-				@media screen and (max-width: $sp-max-width){
+				@media screen and (max-width: $sp_max_width){
 					max-width: 75px;
 					width: 25%;
 				}
@@ -123,7 +126,7 @@
 			width: 100%;
 			height: 600px;
 			border: none;
-			@media screen and (max-width: $sp-max-width){
+			@media screen and (max-width: $sp_max_width){
 				height: 500px;
 			}
 		}
@@ -131,10 +134,10 @@
 	/*** 5.段落設定 ***/
 		.p {
 			@include layout;
-			background: $dark-grey;
+			background: $grey__dark;
 			color: $grey;
 
-			// 段落内リンク設定
+			/** 5-1.段落内リンク設定 **/
 			.link {
 				width: 13px;
 				margin-left: 5px;
@@ -143,9 +146,8 @@
 
 	/*** 6.リスト設定 ***/
 		.listBox {
-			padding: 5px;
-			margin-bottom: 10px;
-			background: $dark-grey;
+			@include layout;
+			background: $grey__dark;
 
 			/** 6-1.リスト項目設定 **/
 			.li {
@@ -198,7 +200,7 @@
 				width: 100px;
 				vertical-align: top;
 				margin-right: 10px;
-				@media screen and (max-width: $sp-max-width){
+				@media screen and (max-width: $sp_max_width){
 					display: none;
 				}
 			}
