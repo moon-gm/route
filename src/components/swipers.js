@@ -27,7 +27,7 @@ const MainSwiper = ({prop}) => {
 		prop.info.map(fw => {
 			fw.Page.map(pg => {
 				if(active === pg.State) {
-					pg.Func()
+					prop.f.changeFW(fw.State, pg.State)
 					router.push(pg.URL)
 				}
 			})
@@ -70,7 +70,7 @@ const MainSwiper = ({prop}) => {
 							>
 								<img
 									src={`/${pg.ID}.png`}
-									onClick={pg.Func}
+									onClick={() => prop.f.changeFW(fw.State, pg.State)}
 									className={`
 										${cssMV.swiperSlideImg}
 										${prop.st.selPG === pg.State && cssMV.swiperSlideImgSelected}
@@ -139,7 +139,7 @@ const ThumbSwiper = ({prop}) => {
 									>
 										<Link href={pg.URL}>
 											<p
-												onClick={pg.Func}
+												onClick={() => prop.f.changeFW(fw.State, pg.State)}
 												className={`
 													${cssA.list}
 													${prop.st.selPG === pg.State && cssA.listSelected}

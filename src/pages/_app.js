@@ -7,7 +7,7 @@ import Header from '../components/header'
 import Swipers from '../components/swipers'
 
 // Data
-import getPages from '../data/page'
+import page from '../data/page'
 import turn from '../data/turn.json'
 import state from '../data/state.json'
 
@@ -28,15 +28,8 @@ const Layout = ({children}) => {
 	}
 
 	/*** ■ Function設定 ***/
-	const ALL_FUNC = {
-		// ページで使用
-		'ReactLearning': changeFW.bind(this, state.selFW.React, state.imgIx.ReactLearning),
-		'PortfolioShow': changeFW.bind(this, state.selFW.Next, state.imgIx.PortfolioShow),
-		'NextLearning': changeFW.bind(this, state.selFW.Next, state.imgIx.NextLearning),
-		'NationalFlags': changeFW.bind(this, state.selFW.Next, state.imgIx.NationalFlags),
-		'AtelierK': changeFW.bind(this, state.selFW.Gatsby, state.imgIx.AtelierK),
-		'GatsbyLearning': changeFW.bind(this, state.selFW.Gatsby, state.imgIx.GatsbyLearning),
-		'Tequipedia': changeFW.bind(this, state.selFW.Laravel, state.imgIx.Tequipedia),
+	const FUNC = {
+		'changeFW': changeFW,　// ページで使用
 		'showTop': changeFW.bind(this, state.selFW.Profile, 0), // ヘッダーで使用
 		'changeSwiper': setSwipEL, // スワイパーで使用
 	}
@@ -46,9 +39,9 @@ const Layout = ({children}) => {
 
 	/*** ■ 共通Propsの設定 ***/
 	const PROP = {
-		'info': getPages(state, ALL_FUNC), // 全ページ情報
+		'info': page, // 全ページ情報
 		'st': STATE, // 全state情報
-		'f': ALL_FUNC, // 全Function
+		'f': FUNC, // 全Function
 		'fw': turn.FW, // フレームワークの順序 => page.jsで設定の順番（※この番号を変更したらpage.jsの順序も入れ替える）
 		'pg': turn.PG, // ページの順序 => page.jsで設定の順番（※この番号を変更したらpage.jsの順序も入れ替える）
 	}
