@@ -2,115 +2,70 @@
 import '../styles/globals.scss'
 
 // Component
+import { useState, useEffect } from 'react'
 import Header from '../components/header'
 import Swipers from '../components/swipers'
 
 // Data
-import Page from '../data/page'
+import getPages from '../data/page'
+import turn from '../data/turn.json'
+import state from '../data/state.json'
 
-class Layout extends React.Component {
+const Layout = ({children}) => {
 
-	//-------------------------------- 初期値設定 --------------------------------//
+	//-------------------------------- 初期定義 --------------------------------//
 
-	constructor(props) {
-		super(props)
+	/*** ■ State設定 ***/
+	const [selFW, setSelFW] = useState(state.selFW.Profile) // 表示ページのFWの選択設定
+	const [selPG, setSelPG] = useState() // 表示ページの画像とリストの選択設定
+	const [imgIx, setImgIx] = useState() // MainVisualのスクロール画像のindex設定
+	const [swipEL, setSwipEL] = useState() // スワイパー(Element)の設定
 
-		/*** ■ State設定 ***/
-		const STATE = {
-			selFW: {
-				Profile: "profile", React: "reactjs", Next: "nextjs",
-				Gatsby: "gatsbyjs", Laravel: "laravel",
-			},
-			imgIx: {
-				/* React */ ReactLearning: 0,
-				/* Next */ PortfolioShow: 1, NextLearning: 2, NationalFlags: 3,
-				/* Gatsby */ AtelierK: 4, GatsbyLearning: 5,
-				/* Laravel */ Tequipedia: 6,
-			}
-		}
-
-		/*** ■ Stateの初期値設定 ***/
-		this.state = {
-			selFW: STATE.selFW.Profile, // 表示ページのFWの選択設定
-			selPG: null, // 表示ページの画像とリストの選択設定
-			imgIx: null, // MainVisualのスクロール画像のindex設定
-			swipEL: null, // スワイパー(Element)の設定
-		}
-
-		/*** ■ Function設定 ***/
-		const FUNC = this.ALL_FUNC = {
-
-			// ページで使用
-			ReactLearning: this.changeFW.bind(this, STATE.selFW.React, STATE.imgIx.ReactLearning),
-			PortfolioShow: this.changeFW.bind(this, STATE.selFW.Next, STATE.imgIx.PortfolioShow),
-			NextLearning: this.changeFW.bind(this, STATE.selFW.Next, STATE.imgIx.NextLearning),
-			NationalFlags: this.changeFW.bind(this, STATE.selFW.Next, STATE.imgIx.NationalFlags),
-			AtelierK: this.changeFW.bind(this, STATE.selFW.Gatsby, STATE.imgIx.AtelierK),
-			GatsbyLearning: this.changeFW.bind(this, STATE.selFW.Gatsby, STATE.imgIx.GatsbyLearning),
-			Tequipedia: this.changeFW.bind(this, STATE.selFW.Laravel, STATE.imgIx.Tequipedia),
-
-			// ヘッダーで使用
-			showTop: this.changeFW.bind(this, STATE.selFW.Profile, 0),
-
-			// スワイパーで使用
-			changeSwiper: this.changeSwiper.bind(this),
-
-		}
-
-		/*** ■ サイト情報設定 ***/
-		this.PAGE_INFO = Page(STATE, FUNC)
-		// 以下はpage.jsで設定の順番（※この番号を変更したらpage.jsの順序も入れ替える）
-		this.FW_NUM = { React: 0, Next: 1, Gatsby: 2, Laravel: 3, }
-		this.PAGE_NUM = {
-			/* React */ ReactLearning: 0,
-			/* Next */ PortfolioShow: 0, NextLearning: 1, NationalFlags: 2,
-			/* Gatsby */ AtelierK: 0, GatsbyLearning: 1,
-			/* Laravel */ Tequipedia: 0,
-		}
-
+	/*** ■ 全てのStateををSTATEに格納 ***/
+	const STATE = {
+		'selFW': selFW, 'selPG': selPG,
+		'imgIx': imgIx, 'swipEL': swipEL
 	}
+
+	/*** ■ Function設定 ***/
+	const ALL_FUNC = {
+		// ページで使用
+		'ReactLearning': changeFW.bind(this, state.selFW.React, state.imgIx.ReactLearning),
+		'PortfolioShow': changeFW.bind(this, state.selFW.Next, state.imgIx.PortfolioShow),
+		'NextLearning': changeFW.bind(this, state.selFW.Next, state.imgIx.NextLearning),
+		'NationalFlags': changeFW.bind(this, state.selFW.Next, state.imgIx.NationalFlags),
+		'AtelierK': changeFW.bind(this, state.selFW.Gatsby, state.imgIx.AtelierK),
+		'GatsbyLearning': changeFW.bind(this, state.selFW.Gatsby, state.imgIx.GatsbyLearning),
+		'Tequipedia': changeFW.bind(this, state.selFW.Laravel, state.imgIx.Tequipedia),
+		'showTop': changeFW.bind(this, state.selFW.Profile, 0), // ヘッダーで使用
+		'changeSwiper': setSwipEL, // スワイパーで使用
+	}
+
+	/*** ■ 条件設定 ***/
+	const COND_FW = (STATE.selFW === "profile")　// プロフィールページの表示条件
+
+	/*** ■ 共通Propsの設定 ***/
+	const PROP = {
+		'info': getPages(state, ALL_FUNC), // 全ページ情報
+		'st': STATE, // 全state情報
+		'f': ALL_FUNC, // 全Function
+		'fw': turn.FW, // フレームワークの順序 => page.jsで設定の順番（※この番号を変更したらpage.jsの順序も入れ替える）
+		'pg': turn.PG, // ページの順序 => page.jsで設定の順番（※この番号を変更したらpage.jsの順序も入れ替える）
+	}
+
+	/*** ■ 子要素を再生成してPropsを渡す設定 ***/
+	const NEW_CHILDREN = React.cloneElement(children, PROP)
 
 
 	//-------------------------------- メソッド設定 --------------------------------//
 
-	/*** ■ レンダー後の処理 ***/
-	componentDidMount(){
-
-		// 画像・リストの表示条件設定
-		const pathName = window.location.pathname
-		const pathSplit = pathName.split("/")
-		const info = this.PAGE_INFO
-		info.map(fw => {
-
-			// URLに合わせてStateを変更
-			const cond =  ("/" + pathSplit[1] === fw.URL)
-			cond && (
-
-				// FW切替
-				this.setState({selFW: fw.State}),
-				fw.Page.map(pg =>{
-
-					// ページ選択切替
-					const cond = (pathName === pg.URL)
-					cond && (this.setState({selPG: pg.State, imgIx: pg.State}))
-
-				})
-
-			)
-
-		})
-
-	}
-
 	/*** ■ Productionの各サイト一覧押下時の処理 ***/
-	changeFW(selFW, index) {
+	function changeFW(selectedFW, index) {
 
 		// Stateをセットしてページを切替
-		this.setState({
-			selFW: selFW,
-			imgIx: index,
-			selPG: index
-		})
+		setSelFW(selectedFW)
+		setSelPG(index)
+		setImgIx(index)
 
 		// ユーザーエージェント設定
 		const ua = navigator.userAgent.toLowerCase();
@@ -120,86 +75,90 @@ class Layout extends React.Component {
 		const isAndroidTablet = (ua.indexOf('android') > -1) && (ua.indexOf('mobile') == -1) // Android Tablet
 
 		// SP時のみボタン押下時にサイドエリアを非表示
-		const cond1 = (!isiPhone || !isiPad || !isAndroid || !isAndroidTablet)
-		const cond2 = (this.state.selFW === "profile")
-		cond1 && !cond2 && (document.getElementById('contents-aside').style.left = "768px")
-	}
-
-	/*** ■ Production一覧押下時の処理 ***/
-	changeSwiper(swiper) {
-
-		// Stateをセットしてスワイパーを切替
-		this.setState({swipEL: swiper})
-
+		const cond = (!isiPhone || !isiPad || !isAndroid || !isAndroidTablet)
+		cond && !COND_FW && (document.getElementById('contents-aside').style.left = "768px")
 	}
 
 
 	//-------------------------------- レンダリング設定 --------------------------------//
 
-	render() {
+	// レンダー後処理
+	useEffect(()=>{
 
-		// 共通Propsの設定
-		const prop = {
-			info: this.PAGE_INFO,
-			st: this.state,
-			f: this.ALL_FUNC,
-			fw: this.FW_NUM,
-			pg: this.PAGE_NUM,
-		}
+		// 画像・リストの表示条件設定
+		const pathName = window.location.pathname
+		const pathSplit = pathName.split("/")
+		PROP.info.map(fw => {
 
-		// プロフィールページの表示条件
-		const cond = (prop.st.selFW === "profile")
+			// URLに合わせてStateを変更
+			const cond =  ("/" + pathSplit[1] === fw.URL)
+			cond && (
 
-		// 子要素を再生成してPropsを渡す設定
-		const newChildren = React.cloneElement(this.props.children, prop)
+				// FW切替
+				setSelFW(fw.State),
+				fw.Page.map(pg =>{
 
-		// レイアウト設定
-		return (
-			<div id="top" className="container">
+					// ページ選択切替
+					const cond = (pathName === pg.URL)
+					cond && (
+						setSelPG(pg.State),
+						setImgIx(pg.State)
+					)
 
-				{/*** ヘッダーエリア -- start -- ***/}
-					<Header
-						prop={prop}
-						cond={cond}
-					/>
-				{/*** ヘッダーエリア -- end -- ***/}
+				})
 
-				{/*** メインビジュアルエリア -- start -- ***/}
-					{!cond && (
-						<div className="main-visual-area">
-							<Swipers.MainSwiper prop={prop}/>
-						</div>
-					)}
-				{/*** メインビジュアルエリア -- end -- ***/}
+			)
 
-				{/*** コンテンツエリア -- start -- ***/}
-					<div className="contents-area flex-space-around flex-remove-sp">
+		})
 
-						{/** サイドエリア -- start -- **/}
-							{!cond && (
-								<aside
-									id="contents-aside"
-									className="contents-aside"
-								>
-									<div className="contents-aside-wrap">
-										<Swipers.ThumbSwiper prop={prop}/>
-									</div>
-								</aside>
-							)}
-						{/** サイドエリア -- end -- **/}
+	}, [])
 
-						{/** メインエリア -- start -- **/}
-							<main className={`contents-main ${cond && "contents-main-no-sidearea"}`}>
-								{newChildren}
-							</main>
-						{/** メインエリア -- end -- **/}
+	// 通常レンダー
+	return (
+		<div id="top" className="container">
 
+			{/*** ヘッダーエリア -- start -- ***/}
+				<Header
+					prop={PROP}
+					cond={COND_FW}
+				/>
+			{/*** ヘッダーエリア -- end -- ***/}
+
+			{/*** メインビジュアルエリア -- start -- ***/}
+				{!COND_FW && (
+					<div className="main-visual-area">
+						<Swipers.MainSwiper prop={PROP}/>
 					</div>
-				{/*** コンテンツエリア -- end -- ***/}
+				)}
+			{/*** メインビジュアルエリア -- end -- ***/}
 
-			</div>
-		);
-	}
+			{/*** コンテンツエリア -- start -- ***/}
+				<div className="contents-area flex-space-around flex-remove-sp">
+
+					{/** サイドエリア -- start -- **/}
+						{!COND_FW && (
+							<aside
+								id="contents-aside"
+								className="contents-aside"
+							>
+								<div className="contents-aside-wrap">
+									<Swipers.ThumbSwiper prop={PROP}/>
+								</div>
+							</aside>
+						)}
+					{/** サイドエリア -- end -- **/}
+
+					{/** メインエリア -- start -- **/}
+						<main className={`contents-main ${COND_FW && "contents-main-no-sidearea"}`}>
+							{NEW_CHILDREN}
+						</main>
+					{/** メインエリア -- end -- **/}
+
+				</div>
+			{/*** コンテンツエリア -- end -- ***/}
+
+		</div>
+	)
 }
 
 function MyApp({ Component, pageProps }) {

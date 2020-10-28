@@ -1,0 +1,14 @@
+{
+	"FW": {
+		"React": 0,
+		"Next": 1,
+		"Gatsby": 2,
+		"Laravel": 3
+	},
+	"PG": {
+		"ReactLearning": 0,
+		"PortfolioShow": 0, "NextLearning": 1, "NationalFlags": 2,
+		"AtelierK": 0, "GatsbyLearning": 1,
+		"Tequipedia": 0
+	}
+}
