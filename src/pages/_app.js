@@ -15,38 +15,50 @@ const Layout = ({children}) => {
 
 	//-------------------------------- 初期定義 --------------------------------//
 
-	/*** ■ State設定 ***/
+	/*** State設定 ***/
 	const [selFW, setSelFW] = useState(state.selFW.Profile) // 表示ページのFWの選択設定
 	const [selPG, setSelPG] = useState() // 表示ページの画像とリストの選択設定
 	const [imgIx, setImgIx] = useState() // MainVisualのスクロール画像のindex設定
 	const [swipEL, setSwipEL] = useState() // スワイパー(Element)の設定
+	const [ua, setUA] = useState() // ユーザーエージェント設定
 
-	/*** ■ 全てのStateををSTATEに格納 ***/
-	const STATE = {
-		'selFW': selFW, 'selPG': selPG,
-		'imgIx': imgIx, 'swipEL': swipEL
-	}
+	/*** ユーザーエージェント条件設定 ***/
+	const isiPhone = ua && (ua.indexOf('iphone') > -1) // iPhone判定
+	const isiPad = ua && (ua.indexOf('ipad') > -1) // iPad判定
+	const isAndroid = ua && (ua.indexOf('android') > -1) && (ua.indexOf('mobile') > -1) // Android判定
+	const isAndroidTablet = ua && (ua.indexOf('android') > -1) && (ua.indexOf('mobile') == -1) // Android Tablet判定
 
-	/*** ■ Function設定 ***/
-	const FUNC = {
-		'changeFW': changeFW,　// ページで使用
-		'showTop': changeFW.bind(this, state.selFW.Profile, 0), // ヘッダーで使用
-		'changeSwiper': setSwipEL, // スワイパーで使用
-	}
-
-	/*** ■ 条件設定 ***/
-	const COND_FW = (STATE.selFW === "profile")　// プロフィールページの表示条件
-
-	/*** ■ 共通Propsの設定 ***/
+	/*** 共通Propsの設定 ***/
 	const PROP = {
-		'info': page, // 全ページ情報
-		'st': STATE, // 全state情報
-		'f': FUNC, // 全Function
-		'fw': turn.FW, // フレームワークの順序 => page.jsで設定の順番（※この番号を変更したらpage.jsの順序も入れ替える）
-		'pg': turn.PG, // ページの順序 => page.jsで設定の順番（※この番号を変更したらpage.jsの順序も入れ替える）
+		// 全ページ情報
+		'info': page,
+
+		// フレームワークの順序 => page.jsで設定の順番（※この番号を変更したらpage.jsの順序も入れ替える）
+		'fw': turn.FW,
+
+		// ページの順序 => page.jsで設定の順番（※この番号を変更したらpage.jsの順序も入れ替える）
+		'pg': turn.PG,
+
+		// 必要なstate情報
+		'st': {
+			'selFW': selFW, 'selPG': selPG, 'imgIx': imgIx, 'swipEL': swipEL
+		},
+
+		// 全Function
+		'f': {
+			'changeFW': changeFW,　// ページ変更で使用
+			'changeSwiper': setSwipEL, // スワイパーで使用
+		},
+
+		// 条件
+		'if': {
+			isProfile: (selFW === "profile"),　// プロフィールページの表示条件
+			isPC: (!isiPhone && !isiPad && !isAndroid && !isAndroidTablet), //PC判定
+			isSP: (isiPhone || isiPad || isAndroid || isAndroidTablet), //SP判定
+		},
 	}
 
-	/*** ■ 子要素を再生成してPropsを渡す設定 ***/
+	/*** 子要素を再生成してPropsを渡す設定 ***/
 	const NEW_CHILDREN = React.cloneElement(children, PROP)
 
 
@@ -60,16 +72,10 @@ const Layout = ({children}) => {
 		setSelPG(index)
 		setImgIx(index)
 
-		// ユーザーエージェント設定
-		const ua = navigator.userAgent.toLowerCase();
-		const isiPhone = (ua.indexOf('iphone') > -1) // iPhone
-		const isiPad = (ua.indexOf('ipad') > -1) // iPad
-		const isAndroid = (ua.indexOf('android') > -1) && (ua.indexOf('mobile') > -1) // Android
-		const isAndroidTablet = (ua.indexOf('android') > -1) && (ua.indexOf('mobile') == -1) // Android Tablet
-
 		// SP時のみボタン押下時にサイドエリアを非表示
-		const cond = (!isiPhone || !isiPad || !isAndroid || !isAndroidTablet)
-		cond && !COND_FW && (document.getElementById('contents-aside').style.left = "768px")
+		if (PROP.if.isSP && !PROP.if.isProfile) {
+			document.getElementById('contents-aside').style.left = "768px"
+		}
 	}
 
 
@@ -84,25 +90,27 @@ const Layout = ({children}) => {
 		PROP.info.map(fw => {
 
 			// URLに合わせてStateを変更
-			const cond =  ("/" + pathSplit[1] === fw.URL)
-			cond && (
+			if ("/" + pathSplit[1] === fw.URL) {
 
-				// FW切替
-				setSelFW(fw.State),
+				// フレームワーク選択切替
+				setSelFW(fw.State)
 				fw.Page.map(pg =>{
 
 					// ページ選択切替
-					const cond = (pathName === pg.URL)
-					cond && (
+					if (pathName === pg.URL) {
 						setSelPG(pg.State),
 						setImgIx(pg.State)
-					)
+					}
 
 				})
 
-			)
+			}
 
 		})
+
+		// ユーザーエージェント設定
+		const userAgent = navigator.userAgent.toLowerCase()
+		setUA(userAgent)
 
 	}, [])
 
@@ -111,14 +119,11 @@ const Layout = ({children}) => {
 		<div id="top" className="container">
 
 			{/*** ヘッダーエリア -- start -- ***/}
-				<Header
-					prop={PROP}
-					cond={COND_FW}
-				/>
+				<Header prop={PROP}/>
 			{/*** ヘッダーエリア -- end -- ***/}
 
 			{/*** メインビジュアルエリア -- start -- ***/}
-				{!COND_FW && (
+				{!PROP.if.isProfile && (
 					<div className="main-visual-area">
 						<Swipers.MainSwiper prop={PROP}/>
 					</div>
@@ -129,7 +134,7 @@ const Layout = ({children}) => {
 				<div className="contents-area flex-space-around flex-remove-sp">
 
 					{/** サイドエリア -- start -- **/}
-						{!COND_FW && (
+						{!PROP.if.isProfile && (
 							<aside
 								id="contents-aside"
 								className="contents-aside"
@@ -142,7 +147,7 @@ const Layout = ({children}) => {
 					{/** サイドエリア -- end -- **/}
 
 					{/** メインエリア -- start -- **/}
-						<main className={`contents-main ${COND_FW && "contents-main-no-sidearea"}`}>
+						<main className={`contents-main ${PROP.if.isProfile && "contents-main-no-sidearea"}`}>
 							{NEW_CHILDREN}
 						</main>
 					{/** メインエリア -- end -- **/}

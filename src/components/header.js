@@ -1,7 +1,8 @@
 import Link from 'next/link';
+import state from '../data/state.json'
 import css from '../styles/modules/header.module.scss'
 
-const Header = ({prop, cond}) => {
+const Header = ({prop}) => {
 
 	// Topに戻るボタンの処理
 	function scrollToTop() {
@@ -22,7 +23,7 @@ const Header = ({prop, cond}) => {
 						{/** トップロゴ　-- start -- **/}
 							<Link href="/">
 								<li
-									onClick={prop.f.showTop}
+									onClick={() => prop.f.changeFW(state.selFW.Profile, 0)}
 									className={`
 										${css.topLogo}
 										flex-space-between
@@ -48,7 +49,7 @@ const Header = ({prop, cond}) => {
 						{/** トップボタン　-- end -- **/}
 
 						{/** メニューボタン -- start -- **/}
-							{!cond && (
+							{!prop.if.isProfile && (
 								<li
 									onClick={showSideArea}
 									className={css.menuBtn}
@@ -72,7 +73,7 @@ const Header = ({prop, cond}) => {
 						>
 							<Link href="/">
 								<li
-									onClick={prop.f.showTop}
+									onClick={() => prop.f.changeFW(state.selFW.Profile, 0)}
 									className={css.headerTab}
 								>
 									Profile
