@@ -34,6 +34,7 @@ const ReactJS = ({info, fw, pg}) => {
 			{title: "Node.js", image: "nodejs.png", contents: ["npm"]},
 			{title: "JavaScript", image: "javascript.png", contents: ["sessionStorage"]},
 			{title: "Sass(css)", image: "sass.png", contents: ["@mixin", "@Keyframes", "animation", "レスポンシブ"]},
+			{title: "Github", image: "github.png", contents: ["Gitリポジトリ", "Github Pages"]},
 		]
 	}
 	return <PageLayout pageData={pageData}/>

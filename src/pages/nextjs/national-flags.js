@@ -37,6 +37,8 @@ const NationalFlags = ({info, fw, pg}) => {
 			{title: "Node.js", image: "nodejs.png", contents: ["formidable(formData操作)", "fs（ファイルシステム）", "util（ユーティリティ）"]},
 			{title: "JavaScript", image: "javascript.png", contents: ["dataURL, Base64", "sessionStorage", "fetch", "ユーザーエージェント判定", "Form-Data", "promptを用いたパスワード設定"]},
 			{title: "Sass(css)", image: "sass.png", contents: ["@mixin", "レスポンシブ"]},
+			{title: "Github", image: "github.png", contents: ["Gitリポジトリ"]},
+			{title: "Vercel", image: "vercel.png", contents: ["ホスティングサーバ", "Secret Key", "vercel-cli"]},
 		]
 	}
 	return <PageLayout pageData={pageData}/>

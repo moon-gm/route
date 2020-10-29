@@ -11,7 +11,7 @@ const PortfolioShow = ({info, fw, pg}) => {
 
 		// 作成日・更新日
 		createDate: info[fw.Next].Page[pg.PortfolioShow].CreateDate,
-		upDate: "2020.10.28",
+		upDate: "2020.10.30",
 
 		// 概要
 		summary: "Next.jsで作成の当サイト。他に作成したものをまとめたポートフォリオサイト。",
@@ -36,6 +36,8 @@ const PortfolioShow = ({info, fw, pg}) => {
 			{title: "Swiper.js", image: "swiperjs.svg", contents: ["coverflow", "Swiper React Component"]},
 			{title: "JavaScript", image: "javascript.png", contents: ["Object操作（配列含む）", "map", "JSON"]},
 			{title: "Sass(css)", image: "sass.png", contents: ["@mixin", "@Keyframes", "animation", "レスポンシブ"]},
+			{title: "Github", image: "github.png", contents: ["Gitリポジトリ"]},
+			{title: "Vercel", image: "vercel.png", contents: ["ホスティングサーバ"]},
 		]
 	}
 	return <PageLayout pageData={pageData}/>

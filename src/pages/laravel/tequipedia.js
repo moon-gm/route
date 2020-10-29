@@ -36,6 +36,7 @@ const Tequipedia = ({info, fw, pg}) => {
 			{title: "Node.js", image: "nodejs.png", contents: ["npm"]},
 			{title: "Sass(css)", image: "sass.png", contents: ["@mixin", "レスポンシブ"]},
 			{title: "Mysql(SQL)", image: "mysql.png", contents: ["DB系（show, drop, create）", "テーブル系（show, drop, create, alter, desc）", "レコード系（select, insert, delete, update）"]},
+			{title: "Github", image: "github.png", contents: ["Gitリポジトリ"]},
 		]
 	}
 	return <PageLayout pageData={pageData}/>

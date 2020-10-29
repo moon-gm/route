@@ -36,6 +36,8 @@ const NextJS = ({info, fw, pg}) => {
 			{title: "jQuery", image: "jquery.png", contents: [""]},
 			{title: "JavaScript", image: "javascript.png", contents: [""]},
 			{title: "Sass(css)", image: "sass.png", contents: ["@mixin", "@Keyframes", "animation", "レスポンシブ"]},
+			{title: "Github", image: "github.png", contents: ["Gitリポジトリ"]},
+			{title: "Vercel", image: "vercel.png", contents: ["ホスティングサーバ"]},
 		]
 	}
 	return <PageLayout pageData={pageData}/>

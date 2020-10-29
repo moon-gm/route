@@ -36,6 +36,7 @@ const AtelierK = ({info, fw, pg}) => {
 			{title: "GarphQL", image: "graphql.png", contents: ["gatsby-graphql"]},
 			{title: "JavaScript", image: "javascript.png", contents: ["sessionStorage"]},
 			{title: "Sass(css)", image: "sass.png", contents: ["@mixin", "レスポンシブ"]},
+			{title: "Github", image: "github.png", contents: ["Gitリポジトリ", "Github Pages"]},
 		]
 	}
 	return <PageLayout pageData={pageData}/>
