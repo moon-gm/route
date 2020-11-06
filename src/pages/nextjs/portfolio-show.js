@@ -11,7 +11,7 @@ const PortfolioShow = ({info, fw, pg}) => {
 
 		// 作成日・更新日
 		createDate: info[fw.Next].Page[pg.PortfolioShow].CreateDate,
-		upDate: "2020.10.30",
+		upDate: "2020.11.06",
 
 		// 概要
 		summary: "Next.jsで作成の当サイト。他に作成したものをまとめたポートフォリオサイト。",

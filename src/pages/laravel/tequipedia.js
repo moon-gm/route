@@ -11,22 +11,22 @@ const Tequipedia = ({info, fw, pg}) => {
 
 		// 作成日・更新日
 		createDate: info[fw.Laravel].Page[pg.Tequipedia].CreateDate,
-		upDate: "2020.10.27",
+		upDate: "2020.11.06",
 
 		// 概要
 		summary: "テキーラを題材にした物品紹介サイト。",
 
 		// サイトリンク・Githubソース・画面イメージ
 		link: {
-			site: "https://moon-gm.github.io/tequipedia/",
+			site: "http://ec2-54-250-241-251.ap-northeast-1.compute.amazonaws.com/",
 			source: "https://github.com/moon-gm/tequila",
 		},
 
 		// 内容
-		contents: "各テキーラ商品をコンポーネント化し、ブランド別・蒸留所別など用途に合わせて出し分けてコンテンツを紹介する。動的に商品登録のできるページを作成済だが、現在、サーバを準備中のため、閲覧のみとなっている。",
+		contents: "各テキーラ商品をコンポーネント化し、ブランド別・蒸留所別など用途に合わせて出し分けてコンテンツを紹介する。AWSのEC2を利用し、Phpで動的に商品登録のできるページを作成済だが、ログインなどのセキュリティの実装をしていないため、導線は用意していない。（URLを直入力でアクセス可能。パスは「/form-input」）",
 
 		// 作成方法
-		wayToMake: "PHPフレームワークのLaravelで作成。商品紹介ページでは、Mysqlで作成のDBからLaravelのMigrationで接続し表示し、jQueryで表示切替処理をする。 CSSはNode.jsを使用してSassをコンパイル。",
+		wayToMake: "PHPフレームワークのLaravelで作成。商品紹介ページでは、Mysqlで作成のDBからLaravelのMigrationで接続し表示し、jQueryで表示切替処理をする。 CSSはNode.jsを使用してSassをコンパイル。AWSのEC2にデプロイしている。",
 
 		// 使用技術・FW
 		skill: [
@@ -37,6 +37,7 @@ const Tequipedia = ({info, fw, pg}) => {
 			{title: "Sass(css)", image: "sass.png", contents: ["@mixin", "レスポンシブ"]},
 			{title: "Mysql(SQL)", image: "mysql.png", contents: ["DB系（show, drop, create）", "テーブル系（show, drop, create, alter, desc）", "レコード系（select, insert, delete, update）"]},
 			{title: "Github", image: "github.png", contents: ["Gitリポジトリ"]},
+			{title: "AWS", image: "aws.png", contents: ["EC2", "サーバにSSH接続"]},
 		]
 	}
 	return <PageLayout pageData={pageData}/>
