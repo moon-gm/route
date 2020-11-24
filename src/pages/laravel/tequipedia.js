@@ -11,7 +11,7 @@ const Tequipedia = ({info, fw, pg}) => {
 
 		// 作成日・更新日
 		createDate: info[fw.Laravel].Page[pg.Tequipedia].CreateDate,
-		upDate: "2020.11.06",
+		upDate: "2020.11.25",
 
 		// 概要
 		summary: "テキーラを題材にした物品紹介サイト。",
