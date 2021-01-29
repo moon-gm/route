@@ -113,13 +113,19 @@ const Home = () => {
 								</li>
 								<li className={styles.li}>
 									<span className={styles.liText}>
-										クレジットカード集計システムの保守（本社受託開発）
+										クレジットカード集計システムの開発・保守（SES）
 									</span>
 									<p className={styles.liNote}>
-										システムの本番DBにssh接続、カード登録店舗情報などをSQLのINSERT文で追加
+										データ集計システムの開発で、見積もりからリリースまで主に技術面を担当
 									</p>
 									<p className={styles.liNote}>
-										上記作業の試験項目・作業手順書などを作成し、試験を実施
+										CakePHPを使用したシステムで、ソース内に記述の複雑に入り組んだSQLを操作・修正
+									</p>
+									<p className={styles.liNote}>
+										膨大なローデータ・集計データの集計をするバッチのSQLの不具合調査・修正
+									</p>
+									<p className={styles.liNote}>
+										集計されたデータを複雑な条件で表示させるController部分のSQLも修正
 									</p>
 								</li>
 							</ul>
