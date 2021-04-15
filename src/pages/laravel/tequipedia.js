@@ -38,6 +38,7 @@ const Tequipedia = ({info, fw, pg}) => {
 			{title: "Mysql(SQL)", image: "mysql.png", contents: ["DB系（show, drop, create）", "テーブル系（show, drop, create, alter, desc）", "レコード系（select, insert, delete, update）"]},
 			{title: "Github", image: "github.png", contents: ["Gitリポジトリ"]},
 			{title: "AWS", image: "aws.png", contents: ["EC2(インスタンス)", "Route53(ドメイン取得)", "Elastic IP"]},
+			{title: "Google Analytics", image: "google-analytics.png", contents: ["アクセスデータ分析"]},
 		]
 	}
 	return <PageLayout pageData={pageData}/>
