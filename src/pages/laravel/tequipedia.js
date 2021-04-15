@@ -18,7 +18,7 @@ const Tequipedia = ({info, fw, pg}) => {
 
 		// サイトリンク・Githubソース・画面イメージ
 		link: {
-			site: "http://ec2-54-250-241-251.ap-northeast-1.compute.amazonaws.com/",
+			site: "http://www.tequipedia.com",
 			source: "https://github.com/moon-gm/tequila",
 		},
 
