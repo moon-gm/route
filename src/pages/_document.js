@@ -25,8 +25,8 @@ export default class MyDocument extends Document {
 			<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png"/>
 			<link rel="icon" href="/favicon.ico" />
 			{/* swiper.js導入 */}
-			<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css"/>
-			<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+			<link rel="stylesheet" href="https://unpkg.com/swiper@6.3.3/swiper-bundle.css"/>
+			<link rel="stylesheet" href="https://unpkg.com/swiper@6.3.3/swiper-bundle.min.css"/>
 
         </Head>
         <body>
