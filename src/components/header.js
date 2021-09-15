@@ -77,7 +77,7 @@ const Header = ({prop}) => {
 							</Link>
 							{/* スワイパーの問題でaタグにして一度最初から読み込ませる */}
 							<a
-								href={prop.info[prop.fw.Next].Page[prop.pg.NationalFlags].URL}
+								href={prop.info[prop.fw.Laravel].Page[prop.pg.Tequipedia].URL}
 								className={css.headerTabLink}
 							>
 								<li className={css.headerTab}>

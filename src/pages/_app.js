@@ -8,21 +8,30 @@ import { useState, useEffect } from 'react'
 import Header from '../components/header'
 import Swipers from '../components/swipers'
 
-// Data
+// Page Data
 import { profile, production } from '../data/page.json'
+let pgState = 0
+production.map((fw, fwIdx) => {
+	fw.Page.map((pg, pgIdx) => {
+		production[fwIdx].Page[pgIdx].State = pgState
+		pgState++
+	})
+})
+
+// Order Data
 const order = { FW: {}, PG: {} }
 production.map((fw, fwIdx) => {
 	order.FW[fw.ID] = fwIdx
 	fw.Page.map((pg, pgIdx) => order.PG[pg.ID] = pgIdx)
 })
-const state = { selFW: {}, imgIx: {} }
+
+// State Data
+const state = { selFW: {}, selPG: {} }
 production.map(fw => {
 	state.selFW[fw.ID] = fw.State
-	fw.Page.map(pg => state.imgIx[pg.ID] = pg.State)
+	fw.Page.map(pg => state.selPG[pg.ID] = pg.State)
 })
-profile.map(fw => {
-	state.selFW[fw.ID] = fw.State
-})
+profile.map(fw => state.selFW[fw.ID] = fw.State)
 
 const Layout = ({children}) => {
 
@@ -31,7 +40,6 @@ const Layout = ({children}) => {
 	/*** State設定 ***/
 	const [selFW, setSelFW] = useState(state.selFW.Profile) // 表示ページのFWの選択設定
 	const [selPG, setSelPG] = useState() // 表示ページの画像とリストの選択設定
-	const [imgIx, setImgIx] = useState() // MainVisualのスクロール画像のindex設定
 	const [swipEL, setSwipEL] = useState() // スワイパー(Element)の設定
 	const [ua, setUA] = useState() // ユーザーエージェント設定
 
@@ -43,7 +51,7 @@ const Layout = ({children}) => {
 
 	/*** 共通Propsの設定 ***/
 	const PROP = {
-		// 全ページ情報
+		// 全Productionページ情報
 		'info': production,
 
 		// フレームワーク番号 => page.jsonで設定の順番
@@ -54,7 +62,7 @@ const Layout = ({children}) => {
 
 		// 必要なstate情報
 		'st': {
-			'selFW': selFW, 'selPG': selPG, 'imgIx': imgIx, 'swipEL': swipEL, "all": state
+			'selFW': selFW, 'selPG': selPG, 'swipEL': swipEL, "all": state
 		},
 
 		// 全Function
@@ -65,9 +73,9 @@ const Layout = ({children}) => {
 
 		// 条件
 		'if': {
-			isProfile: (selFW === state.selFW.Profile),　// プロフィールページの表示条件
-			isPC: (!isiPhone && !isiPad && !isAndroid && !isAndroidTablet), //PC判定
-			isSP: (isiPhone || isiPad || isAndroid || isAndroidTablet), //SP判定
+			'isProfile': (selFW === state.selFW.Profile),　// プロフィールページの表示条件
+			'isPC': (!isiPhone && !isiPad && !isAndroid && !isAndroidTablet), //PC判定
+			'isSP': (isiPhone || isiPad || isAndroid || isAndroidTablet), //SP判定
 		},
 	}
 
@@ -82,10 +90,7 @@ const Layout = ({children}) => {
 
 		// Stateをセットしてページを切替
 		setSelFW(fwIdx)
-		if (pgIdx) {
-			setSelPG(pgIdx)
-			setImgIx(pgIdx)
-		}
+		if (pgIdx || pgIdx === 0) setSelPG(pgIdx)
 
 		// SP時のみボタン押下時にサイドエリアを非表示
 		if (PROP.if.isSP && !PROP.if.isProfile) {
@@ -112,10 +117,7 @@ const Layout = ({children}) => {
 				fw.Page.map(pg =>{
 
 					// ページ選択切替
-					if (pathName === pg.URL) {
-						setSelPG(pg.State),
-						setImgIx(pg.State)
-					}
+					(pathName === pg.URL) && setSelPG(pg.State)
 
 				})
 

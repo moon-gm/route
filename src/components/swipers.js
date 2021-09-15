@@ -44,7 +44,7 @@ const MainSwiper = ({prop}) => {
 			wrapperTag="ul" // 「swiper-wrapper」クラスのTag設定
 			speed={600} // 前後のスライドに移動する時の速度設定
 			centeredSlides // アクティブスライドを中央にする設定
-			initialSlide={prop.st.imgIx} // 初期表示スライドの設定
+			initialSlide={prop.st.selPG} // 初期表示スライドの設定
 			spaceBetween={0} //スライド間のスペース設定
 			slidesPerView={3} // スライドを一度に表示する個数設定
 			effect="coverflow" // スライドのエフェクト設定（'coverflow', 'fade', 'flip', 'slide', 'cube）'
@@ -124,7 +124,7 @@ const ThumbSwiper = ({prop}) => {
 					effect="slide"
 					slideToClickedSlide
 					slidesPerView={0}
-					initialSlide={prop.st.imgIx}
+					initialSlide={prop.st.selPG}
 					onSwiper={(swiper) => prop.f.changeSwiper(swiper)} // スワイプ時の処理
 				>
 					{prop.info.map(fw => (

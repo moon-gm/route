@@ -18,7 +18,7 @@
 					"ID": "ReactLearning",
 					"Title": "React Learning",
 					"URL": "/reactjs/react-learning",
-					"State": 0,
+					"State": null,
 					"CreateDate": "2020.6.5"
 				}
 			]
@@ -34,21 +34,21 @@
 					"ID": "PortfolioShow",
 					"Title": "Portfolio Show",
 					"URL": "/nextjs/portfolio-show",
-					"State": 1,
+					"State": null,
 					"CreateDate": "2021.9.15"
 				},
 				{
 					"ID": "NextLearning",
 					"Title": "Next Learning",
 					"URL": "/nextjs/next-learning",
-					"State": 2,
+					"State": null,
 					"CreateDate": "2020.7.21"
 				},
 				{
 					"ID": "NationalFlags",
 					"Title": "National Flags",
 					"URL": "/nextjs/national-flags",
-					"State": 3,
+					"State": null,
 					"CreateDate": "2020.8.26"
 				}
 			]
@@ -64,14 +64,14 @@
 					"ID": "AtelierK",
 					"Title": "Atelier K",
 					"URL": "/gatsbyjs/atelier-k",
-					"State": 4,
+					"State": null,
 					"CreateDate": "2020.5.6"
 				},
 				{
 					"Title": "Gatsby Learning",
 					"URL": "/gatsbyjs/gatsby-learning",
 					"ID": "GatsbyLearning",
-					"State": 5,
+					"State": null,
 					"CreateDate": "2020.7.23"
 				}
 			]
@@ -87,7 +87,7 @@
 					"ID": "Tequipedia",
 					"Title": "テキーラ全書",
 					"URL":  "/laravel/tequipedia",
-					"State": 6,
+					"State": null,
 					"CreateDate": "2020.2.18"
 				}
 			]
