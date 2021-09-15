@@ -69,7 +69,7 @@ const MainSwiper = ({prop}) => {
 								key={pg.ID}
 							>
 								<img
-									src={`/${pg.ID}.png`}
+									src={`/swiper/${pg.ID}.png`}
 									onClick={() => prop.f.changeFW(fw.State, pg.State)}
 									className={`
 										${cssMV.swiperSlideImg}

@@ -67,8 +67,8 @@ const PageLayout = ({pageData}) => {
 						<p className={css.p}>
 							作成日 {pageData.createDate}<br/>
 							更新日 {pageData.upDate}<br/>
-							サイト <a href={pageData.link.site} target="_blank">{pageData.title}<img src="/external-link.svg" className={css.link}/></a><br/>
-							ソース <a href={pageData.link.source} target="_blank">Github<img src="/external-link.svg" className={css.link}/></a>
+							サイト <a href={pageData.link.site} target="_blank">{pageData.title}<img src="/icon/external-link.svg" className={css.link}/></a><br/>
+							ソース <a href={pageData.link.source} target="_blank">Github<img src="/icon/external-link.svg" className={css.link}/></a>
 						</p>
 						<p className={css.p}>
 							{pageData.summary}
@@ -107,7 +107,7 @@ const PageLayout = ({pageData}) => {
 							<div className={css.imgBox}>
 								{pageData.skill.map(skill => (
 									<img
-										src={`/${skill.image}`}
+										src={`/main/${skill.image}`}
 										alt={skill.title}
 										key={`FW-image${skill.title}`}
 									/>
@@ -118,7 +118,7 @@ const PageLayout = ({pageData}) => {
 							<ul key={`FW-text${skill.title}`} className={css.listBox}>
 								{/* 画像：SPでは非表示 -- start -- */}
 									<img
-										src={`/${skill.image}`}
+										src={`/main/${skill.image}`}
 										className={css.img}
 									/>
 								{/* 画像：SPでは非表示 -- end -- */}

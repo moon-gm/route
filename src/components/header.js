@@ -1,17 +1,13 @@
 import Link from 'next/link';
-import state from '../data/state.json'
 import css from '../styles/modules/header.module.scss'
 
 const Header = ({prop}) => {
 
 	// Topに戻るボタンの処理
-	function scrollToTop() {
-		window.scrollTo(0, 0)
-	}
+	function scrollToTop() { window.scrollTo(0, 0) }
+
 	// メニューボタンの処理
-	function showSideArea() {
-		document.getElementById('contents-aside').style.left = "0"
-	}
+	function showSideArea() { document.getElementById('contents-aside').style.left = "0" }
 
 	return(
 		<header className="header-area">
@@ -23,7 +19,7 @@ const Header = ({prop}) => {
 						{/** トップロゴ　-- start -- **/}
 							<Link href="/">
 								<li
-									onClick={() => prop.f.changeFW(state.selFW.Profile, 0)}
+									onClick={() => prop.f.changeFW(prop.st.all.selFW.Profile)}
 									className={`
 										${css.topLogo}
 										flex-space-between
@@ -31,7 +27,7 @@ const Header = ({prop}) => {
 									`}
 								>
 									<img
-										src="/github-logo.png"
+										src="/logo/top-logo.png"
 										className={css.topLogoImg}
 									/>
 									<span>Portfolio Show</span>
@@ -44,7 +40,7 @@ const Header = ({prop}) => {
 								onClick={scrollToTop}
 								className={css.topBtn}
 							>
-								<img src="/top.svg" alt="トップに戻るアイコン"/>
+								<img src="/icon/top.svg" alt="トップに戻るアイコン"/>
 							</li>
 						{/** トップボタン　-- end -- **/}
 
@@ -54,7 +50,7 @@ const Header = ({prop}) => {
 									onClick={showSideArea}
 									className={css.menuBtn}
 								>
-									<img src="/menu.svg" alt="メニューアイコン"/>
+									<img src="/icon/menu.svg" alt="メニューアイコン"/>
 								</li>
 							)}
 						{/** メニューボタン -- end -- **/}
@@ -73,7 +69,7 @@ const Header = ({prop}) => {
 						>
 							<Link href="/">
 								<li
-									onClick={() => prop.f.changeFW(state.selFW.Profile, 0)}
+									onClick={() => prop.f.changeFW(prop.st.all.selFW.Profile)}
 									className={css.headerTab}
 								>
 									Profile

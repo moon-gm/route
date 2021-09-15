@@ -1,15 +1,28 @@
 // Style
 import '../styles/globals.scss'
 
-// Component
+// React Hooks
 import { useState, useEffect } from 'react'
+
+// Component
 import Header from '../components/header'
 import Swipers from '../components/swipers'
 
 // Data
-import page from '../data/page'
-import turn from '../data/turn.json'
-import state from '../data/state.json'
+import { profile, production } from '../data/page.json'
+const order = { FW: {}, PG: {} }
+production.map((fw, fwIdx) => {
+	order.FW[fw.ID] = fwIdx
+	fw.Page.map((pg, pgIdx) => order.PG[pg.ID] = pgIdx)
+})
+const state = { selFW: {}, imgIx: {} }
+production.map(fw => {
+	state.selFW[fw.ID] = fw.State
+	fw.Page.map(pg => state.imgIx[pg.ID] = pg.State)
+})
+profile.map(fw => {
+	state.selFW[fw.ID] = fw.State
+})
 
 const Layout = ({children}) => {
 
@@ -31,17 +44,17 @@ const Layout = ({children}) => {
 	/*** 共通Propsの設定 ***/
 	const PROP = {
 		// 全ページ情報
-		'info': page,
+		'info': production,
 
-		// フレームワークの順序 => page.jsで設定の順番（※この番号を変更したらpage.jsの順序も入れ替える）
-		'fw': turn.FW,
+		// フレームワーク番号 => page.jsonで設定の順番
+		'fw': order.FW,
 
-		// ページの順序 => page.jsで設定の順番（※この番号を変更したらpage.jsの順序も入れ替える）
-		'pg': turn.PG,
+		// ページ番号 => page.jsonで設定の順番
+		'pg': order.PG,
 
 		// 必要なstate情報
 		'st': {
-			'selFW': selFW, 'selPG': selPG, 'imgIx': imgIx, 'swipEL': swipEL
+			'selFW': selFW, 'selPG': selPG, 'imgIx': imgIx, 'swipEL': swipEL, "all": state
 		},
 
 		// 全Function
@@ -52,7 +65,7 @@ const Layout = ({children}) => {
 
 		// 条件
 		'if': {
-			isProfile: (selFW === "profile"),　// プロフィールページの表示条件
+			isProfile: (selFW === state.selFW.Profile),　// プロフィールページの表示条件
 			isPC: (!isiPhone && !isiPad && !isAndroid && !isAndroidTablet), //PC判定
 			isSP: (isiPhone || isiPad || isAndroid || isAndroidTablet), //SP判定
 		},
@@ -65,12 +78,14 @@ const Layout = ({children}) => {
 	//-------------------------------- メソッド設定 --------------------------------//
 
 	/*** ■ Productionの各サイト一覧押下時の処理 ***/
-	function changeFW(selectedFW, index) {
+	function changeFW(fwIdx, pgIdx) {
 
 		// Stateをセットしてページを切替
-		setSelFW(selectedFW)
-		setSelPG(index)
-		setImgIx(index)
+		setSelFW(fwIdx)
+		if (pgIdx) {
+			setSelPG(pgIdx)
+			setImgIx(pgIdx)
+		}
 
 		// SP時のみボタン押下時にサイドエリアを非表示
 		if (PROP.if.isSP && !PROP.if.isProfile) {
