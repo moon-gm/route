@@ -44,7 +44,7 @@ const ModalWindow = ({title, content, openBtn}) => {
 	}
 
 	return (
-		<span>
+		<>
 			<span
 				onClick={openModal}
 				className={css.openModal}
@@ -78,7 +78,7 @@ const ModalWindow = ({title, content, openBtn}) => {
 					</button>
 				</div>
 			</Modal>
-		</span>
+		</>
 	);
 }
 export default ModalWindow;

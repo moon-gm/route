@@ -4,7 +4,7 @@ import cssA from '../styles/modules/aside.module.scss'
 
 // Component
 import Link from 'next/link';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 
 // Swiper設定
 import { Swiper, SwiperSlide } from 'swiper/react'
