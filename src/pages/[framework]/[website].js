@@ -1,8 +1,10 @@
 import Head from 'next/head'
-import Modal from './modal'
-import css from '../styles/modules/page.module.scss'
+import { useRouter } from 'next/router'
+import Modal from '../../components/modal'
+import Loading from '../../components/loading'
+import css from '../../styles/modules/page.module.scss'
 
-const PageLayout = ({pageData}) => {
+const PageLayout = ({ pageData }) => {
 
 	// モーダルの値設定
 	const openBtn = "?"
@@ -82,7 +84,7 @@ const PageLayout = ({pageData}) => {
 						modalContent={modalData.contents.content}
 					>
 						<p className={css.p}>
-							{pageData.contents}
+							{pageData.description}
 						</p>
 					</Section>
 				{/*** セクション__内容 -- end --***/}
@@ -157,4 +159,34 @@ const PageLayout = ({pageData}) => {
 		</>
 	)
 }
-export default PageLayout
+
+const PageContents = ({ info, fw, pg }) => {
+
+	// URLパラメータ取得
+	const router = useRouter()
+	const { framework, website } = router.query
+
+	// ページ内容設定
+	let pageData = undefined
+	if (framework && website) {
+		const fwData = info[fw[framework]]
+		const pgData = fwData.Page[pg[website]]
+		pageData = {
+			head: fwData.FW, // ヘッドタイトル	
+			title: pgData.Title, // ページタイトル
+			logo: fwData.Img,　// タイトルロゴ
+			createDate: pgData.CreateDate,　// 作成日
+			upDate: pgData.UpDate,　// 更新日
+			summary: pgData.Summary,　// 概要
+			link: {
+				site: pgData.Link.Site, // サイトリンク・画面イメージ
+				source: pgData.Link.Source, // Githubソース
+			},	
+			description: pgData.Description, // 内容			
+			wayToMake: pgData.WayToMake, // 作成方法
+			skill: pgData.Skill, // 使用技術・FW
+		}
+	}
+	return pageData === undefined ? <Loading/> : <PageLayout pageData={pageData}/>
+}
+export default PageContents

@@ -10,85 +10,209 @@
 		{
 			"ID": "React",
 			"FW": "React",
-			"URL": "/reactjs",
+			"URL": "/React",
 			"State": "reactjs",
 			"Img": "/logo/react.png",
 			"Page": [
 				{
 					"ID": "ReactLearning",
 					"Title": "React Learning",
-					"URL": "/reactjs/react-learning",
+					"URL": "/React/ReactLearning",
 					"State": null,
-					"CreateDate": "2020.6.5"
+					"CreateDate": "2020.6.5",
+					"UpDate": "2020.7.24",
+					"Summary": "Reactの学習内容をそのまま反映させていく学習サイト。",
+					"Link": {
+						"Site": "https://moon-gm.github.io/react-learning",
+						"Source": "https://github.com/moon-gm/react-learning"
+					},
+					"Description": "現在、独学で学んでいるReactで学んだことをそのままサイトにして自身でも活用できるように作成。",
+					"WayToMake": "JavascriptのフレームワークのReactで作成。学んだことを項目ごとにコンポーネント化してボタン操作でページを書き換え、素早くアクセスできるようReactの良さを出していく。CSSはnode-sassを使用してSassをそのままコンポーネントにインポートして使用。",
+					"Skill": [
+						{"title": "React", "image": "react.png", "contents": ["スワイプ（react-swipeable-views）", "モーダルウィンドウ（react-modal）", "コードハイライト（react-syntax-highlighter）", "ファイルドロップ（react-dropzone）", "アイテムドラッグ（react-draggable）", "型チェック（prop-types）", "ルーター（react-router-dom）", "範囲外クリック（react-onclickoutside）"]},
+						{"title": "Node.js", "image": "nodejs.png", "contents": ["npm"]},
+						{"title": "JavaScript", "image": "javascript.png", "contents": ["sessionStorage"]},
+						{"title": "Sass(css)", "image": "sass.png", "contents": ["@mixin", "@Keyframes", "animation", "レスポンシブ"]},
+						{"title": "Github", "image": "github.png", "contents": ["Gitリポジトリ", "Github Pages"]}
+					]
 				}
 			]
 		},
 		{
 			"ID": "Next",
 			"FW": "Next.js",
-			"URL": "/nextjs",
+			"URL": "/Next",
 			"State": "nextjs",
 			"Img": "/logo/next.png",
 			"Page": [
 				{
 					"ID": "PortfolioShow",
 					"Title": "Portfolio Show",
-					"URL": "/nextjs/portfolio-show",
+					"URL": "/Next/PortfolioShow",
 					"State": null,
-					"CreateDate": "2021.9.15"
+					"CreateDate": "2020.9.15",
+					"UpDate": "2021.9.15",
+					"Summary": "Next.jsで作成の当サイト。他に作成したものをまとめたポートフォリオサイト。",
+					"Link": {
+						"Site": "https://route-eight.vercel.app/",
+						"Source": "https://github.com/moon-gm/route"
+					},
+					"Description": "自身で作成したサイトを取りまとめ、サイトごとにどのように作成したかなどを記載している。",
+					"WayToMake": "ReactのフレームワークのNext.jsで作成。ヘッダーの「Production」タブをクリックで、FW別に全ての作成サイトリストを表示。リストまたは画像をクリックで詳細を表示。一部jQueryと連携して画面内での描画操作をしている。アニメーションは全てCSSのみで付与している（条件をJavaScriptで制御）",
+					"Skill": [
+						{"title": "Next", "image": "nextjs.png", "contents": ["API Routes"]},
+						{"title": "React", "image": "react.png", "contents": ["モーダルウィンドウ（react-modal）", "Hooks（useState, useEffect）"]},
+						{"title": "Node.js", "image": "nodejs.png", "contents": ["npm"]},
+						{"title": "Swiper.js", "image": "swiperjs.svg", "contents": ["coverflow", "Swiper React Component"]},
+						{"title": "JavaScript", "image": "javascript.png", "contents": ["Object操作（配列含む）", "map", "JSON"]},
+						{"title": "Sass(css)", "image": "sass.png", "contents": ["@mixin", "@Keyframes", "animation", "レスポンシブ"]},
+						{"title": "Github", "image": "github.png", "contents": ["Gitリポジトリ"]},
+						{"title": "Vercel", "image": "vercel.png", "contents": ["ホスティングサーバ"]}
+					]
 				},
 				{
 					"ID": "NextLearning",
 					"Title": "Next Learning",
-					"URL": "/nextjs/next-learning",
+					"URL": "/Next/NextLearning",
 					"State": null,
-					"CreateDate": "2020.7.21"
+					"CreateDate": "2020.7.21",
+					"UpDate": "2020.8.17",
+					"Summary": "Next.jsの学習内容をそのまま反映させていく学習サイト。",
+					"Link": {
+						"Site": "https://next-learning-teal.vercel.app/",
+						"Source": "https://github.com/moon-gm/next-learning"
+					},
+					"Description": "現在、独学で学んでいるNext.jsで、学習内容をそのままサイトにして自身でも活用できるように作成。React.jsでは実現させていなかったURLのパスを付与したサイトとなっている。",
+					"WayToMake": "ReactのフレームワークのNext.jsで作成。学んだことを項目ごとにコンポーネント化してボタン操作でページを書き換え、素早くアクセスできるようReactの良さを出していく。CSSはnode-sassを使用してSassをそのままコンポーネントにインポートして使用。",
+					"Skill": [
+						{"title": "Next", "image": "nextjs.png", "contents": ["API Routes"]},
+						{"title": "React", "image": "react.png", "contents": ["スワイプ（react-swipeable-views）", "Hooks（useState, useEffect）"]},
+						{"title": "Node.js", "image": "nodejs.png", "contents": ["npm"]},
+						{"title": "JavaScript", "image": "javascript.png", "contents": [""]},
+						{"title": "Sass(css)", "image": "sass.png", "contents": ["@mixin", "@Keyframes", "animation", "レスポンシブ"]},
+						{"title": "Github", "image": "github.png", "contents": ["Gitリポジトリ"]},
+						{"title": "Vercel", "image": "vercel.png", "contents": ["ホスティングサーバ"]}
+					]
 				},
 				{
 					"ID": "NationalFlags",
 					"Title": "National Flags",
-					"URL": "/nextjs/national-flags",
+					"URL": "/Next/NationalFlags",
 					"State": null,
-					"CreateDate": "2020.8.26"
+					"CreateDate": "2020.8.26",
+					"UpDate": "2020.10.13",
+					"Summary": "Next.jsとFaunaDBで作成した、国旗を軸とした国データ検索・登録アプリケーション。Node.jsで画像アップロード処理を実装。",
+					"Link": {
+						"Site": "https://national-flags.vercel.app/",
+						"Source": "https://github.com/moon-gm/national-flags"
+					},
+					"Description": "全世界または、エリアごとに国データを表示したり、人口や面積などでランキング表示させたりする。また、検索画面で表示データに基づいた値の入力で、ヒットした国を表示させる。データ編集画面からは新規データ登録・既存のデータ編集ができる。",
+					"WayToMake": "ReactのフレームワークのNext.jsとクラウドデータベースのFaunaDBで作成。トップ画面からは、エリアのボタンを押すとサーバーサイドでAPIを実行し、DBからAPIに基づいたデータを取ってくる。各エリアの画面に移動すると、「国名一覧」から選択した国へジャンプ、「ランキング」からは、JS制御による値に基づいたソートができる。データ編集の管理画面へは簡易的にパスワード(register_access)を設定してアクセス制限をしている。また、画像はAjaxでアップロードしてプレビュー表示し、formidable,fs,utilなどのプラグインを用いてサーバにアップロード。",
+					"Skill": [
+						{"title": "Next", "image": "nextjs.png", "contents": ["API Routesでサーバアクセス", "next-router"]},
+						{"title": "FaunaDB(FQL)", "image": "faunadb.png", "contents": ["配列関連（Map, Paginate, Lambda）", "レコード・テーブル関連（Index, Collection, Ref, Match）", "CRUD関連（Create, Get, Update, Delete）"]},
+						{"title": "React", "image": "react.png", "contents": ["Hooks（useState, useEffect）"]},
+						{"title": "jQuery", "image": "jquery.png", "contents": ["Ajax"]},
+						{"title": "Node.js", "image": "nodejs.png", "contents": ["formidable(formData操作)", "fs（ファイルシステム）", "util（ユーティリティ）"]},
+						{"title": "JavaScript", "image": "javascript.png", "contents": ["dataURL, Base64", "sessionStorage", "fetch", "ユーザーエージェント判定", "Form-Data", "promptを用いたパスワード設定"]},
+						{"title": "Sass(css)", "image": "sass.png", "contents": ["@mixin", "レスポンシブ"]},
+						{"title": "Github", "image": "github.png", "contents": ["Gitリポジトリ"]},
+						{"title": "Vercel", "image": "vercel.png", "contents": ["ホスティングサーバ", "Secret Key", "vercel-cli"]}
+					]
 				}
 			]
 		},
 		{
 			"ID": "Gatsby",
 			"FW": "Gatsby.js",
-			"URL": "/gatsbyjs",
+			"URL": "/Gatsby",
 			"State": "gatsbyjs",
 			"Img": "/logo/gatsby.png",
 			"Page": [
 				{
 					"ID": "AtelierK",
 					"Title": "Atelier K",
-					"URL": "/gatsbyjs/atelier-k",
+					"URL": "/Gatsby/AtelierK",
 					"State": null,
-					"CreateDate": "2020.5.6"
+					"CreateDate": "2020.5.6",
+					"UpDate": "2020.6.30",
+					"Summary": "飼い猫を題材にした写真ギャラリーサイト。",
+					"Link": {
+						"Site": "https://moon-gm.github.io/atelier-k",
+						"Source": "https://github.com/moon-gm/atelier-k"
+					},
+					"Description": "写真を年代別に一覧表示し、月別に表示。画像を押下で原寸サイズを表示。英語の復習も兼ねて全編英語で作成。Gatsby.jsで初めて作成したサイト。",
+					"WayToMake": "ReactフレームワークのGatsby.jsで作成。GraphQLでデータやファイルを取得し、Reactコンポーネントにデータを渡してレンダリング。画像は、プラグインの「gatsby-image」を使うことで最適化され、遅延のない快適な画面表示。CSSは、プラグインの「gatsby-plugin-sass」、CSSモジュールを使用の上、Sassで記述。",
+					"Skill": [
+						{"title": "Gatsby", "image": "gatsby.png", "contents": ["Routes", "gatsby-image", "Gatsby-GraphQL"]},
+						{"title": "React", "image": "react.png", "contents": [""]},
+						{"title": "Node.js", "image": "nodejs.png", "contents": ["npm"]},
+						{"title": "GarphQL", "image": "graphql.png", "contents": ["gatsby-graphql"]},
+						{"title": "JavaScript", "image": "javascript.png", "contents": ["sessionStorage"]},
+						{"title": "Sass(css)", "image": "sass.png", "contents": ["@mixin", "レスポンシブ"]},
+						{"title": "Github", "image": "github.png", "contents": ["Gitリポジトリ", "Github Pages"]}
+					]
+
 				},
 				{
-					"Title": "Gatsby Learning",
-					"URL": "/gatsbyjs/gatsby-learning",
 					"ID": "GatsbyLearning",
+					"Title": "Gatsby Learning",
+					"URL": "/Gatsby/GatsbyLearning",
 					"State": null,
-					"CreateDate": "2020.7.23"
+					"CreateDate": "2020.7.23",
+					"UpDate": "2020.7.30",
+					"Summary": "Gatsby.jsの学習内容をそのまま反映させていく学習サイト。",
+					"Link": {
+						"Site": "https://gatsby-learning-bay.vercel.app/",
+						"Source": "https://github.com/moon-gm/gatsby-learning"
+					},
+					"Description": "現在、独学で学んでいるGatsby.jsで、学習内容をそのままサイトにして自身でも活用できるように作成。ページごとにURLのパスを付与されるGatsby.jsの仕様にのっとったサイトとなっている。",
+					"WayToMake": "ReactのフレームワークのGatsby.jsで作成。学んだことを項目ごとにコンポーネント化してボタン操作でページを書き換え、素早くアクセスできるようReactの良さを出していく。CSSはnode-sassを使用してSassをそのままコンポーネントにインポートして使用。Gatsby.jsの魅力のGraphQLを用い、データの取得を行う。",
+					"Skill": [
+						{"title": "Gatsby", "image": "gatsby.png", "contents": ["Routes", "Gatsby-GraphQL"]},
+						{"title": "React", "image": "react.png", "contents": ["スワイプ（react-swipeable-views）"]},
+						{"title": "GarphQL", "image": "graphql.png", "contents": ["gatsby-graphql"]},
+						{"title": "Node.js", "image": "nodejs.png", "contents": ["npm"]},
+						{"title": "JavaScript", "image": "javascript.png", "contents": ["sessionStorage"]},
+						{"title": "Sass(css)", "image": "sass.png", "contents": ["@mixin", "@Keyframes", "animation", "レスポンシブ"]},
+						{"title": "Github", "image": "github.png", "contents": ["Gitリポジトリ"]},
+						{"title": "Vercel", "image": "vercel.png", "contents": ["ホスティングサーバ"]}
+					]
 				}
 			]
 		},
 		{
 			"ID": "Laravel",
 			"FW": "Laravel",
-			"URL": "/laravel",
+			"URL": "/Laravel",
 			"Img": "/logo/laravel.png",
 			"State": "laravel",
 			"Page": [
 				{
 					"ID": "Tequipedia",
 					"Title": "テキーラ全書",
-					"URL":  "/laravel/tequipedia",
+					"URL":  "/Laravel/Tequipedia",
 					"State": null,
-					"CreateDate": "2020.2.18"
+					"CreateDate": "2020.2.18",
+					"UpDate": "2021.9.15",
+					"Summary": "テキーラを題材にした物品紹介サイト。",
+					"Link": {
+						"Site": "http://www.tequipedia.com",
+						"Source": "https://github.com/moon-gm/tequila"
+					},
+					"Description": "各テキーラ商品をコンポーネント化し、ブランド別・蒸留所別など用途に合わせて出し分けてコンテンツを紹介する。AWSのEC2を利用し、Phpで動的に商品登録のできるページを作成済だが、ログインなどのセキュリティの実装をしていないため、導線は用意していない。（URLを直入力でアクセス可能。パスは「/form-input」）",
+					"WayToMake": "PHPフレームワークのLaravelで作成。商品紹介ページでは、Mysqlで作成のDBからLaravelのMigrationで接続し表示し、jQueryで表示切替処理をする。 CSSはNode.jsを使用してSassをコンパイル。AWSのEC2にデプロイしている。",
+					"Skill": [
+						{"title": "Laravel", "image": "laravel.png", "contents": ["コマンド系（artisan）", "MVC（主にController）", "ファサード（DBやStorage、Logなど）"]},
+						{"title": "Php", "image": "php.jpg", "contents": ["配列関連（array_filter, array_key_exists, array_merge, asort...）"]},
+						{"title": "jQuery", "image": "jquery.png", "contents": ["アニメーション系（toggle, slideIn, fadeOut）"]},
+						{"title": "Node.js", "image": "nodejs.png", "contents": ["npm"]},
+						{"title": "Sass(css)", "image": "sass.png", "contents": ["@mixin", "レスポンシブ"]},
+						{"title": "Mysql(SQL)", "image": "mysql.png", "contents": ["DB系（show, drop, create）", "テーブル系（show, drop, create, alter, desc）", "レコード系（select, insert, delete, update）"]},
+						{"title": "Github", "image": "github.png", "contents": ["Gitリポジトリ"]},
+						{"title": "AWS", "image": "aws.png", "contents": ["EC2(インスタンス)", "Route53(ドメイン取得)", "Elastic IP"]},
+						{"title": "Google Analytics", "image": "google-analytics.png", "contents": ["アクセスデータ分析"]}
+					]
 				}
 			]
 		}
