@@ -10,36 +10,36 @@ import Swipers from '../components/swipers'
 
 // Page Data
 import { profile, production } from '../data/page.json'
-let pgState = 0
+let wsState = 0
 production.map((fw, fwIdx) => {
-	fw.Page.map((pg, pgIdx) => {
-		production[fwIdx].Page[pgIdx].State = pgState
-		pgState++
+	fw.Page.map((ws, wsIdx) => {
+		production[fwIdx].Page[wsIdx].State = wsState
+		wsState++
 	})
 })
 
 // Order Data
-const order = { FW: {}, PG: {} }
+const order = { framework: {}, website: {} }
 production.map((fw, fwIdx) => {
-	order.FW[fw.ID] = fwIdx
-	fw.Page.map((pg, pgIdx) => order.PG[pg.ID] = pgIdx)
+	order.framework[fw.ID] = fwIdx
+	fw.Page.map((ws, wsIdx) => order.website[ws.ID] = wsIdx)
 })
 
 // State Data
-const state = { selFW: {}, selPG: {} }
+const state = { category: {}, selWS: {} }
 production.map(fw => {
-	state.selFW[fw.ID] = fw.State
-	fw.Page.map(pg => state.selPG[pg.ID] = pg.State)
+	state.category[fw.ID] = fw.State
+	fw.Page.map(ws => state.selWS[ws.ID] = ws.State)
 })
-profile.map(fw => state.selFW[fw.ID] = fw.State)
+profile.map(pf => state.category[pf.ID] = pf.State)
 
 const Layout = ({children}) => {
 
 	//-------------------------------- 初期定義 --------------------------------//
 
 	/*** State設定 ***/
-	const [selFW, setSelFW] = useState(state.selFW.Profile) // 表示ページのFWの選択設定
-	const [selPG, setSelPG] = useState() // 表示ページの画像とリストの選択設定
+	const [category, setCategory] = useState(state.category.Profile) // 表示ページのFWの選択設定
+	const [selWS, setSelWS] = useState() // 表示ページの画像とリストの選択設定
 	const [swipEL, setSwipEL] = useState() // スワイパー(Element)の設定
 	const [ua, setUA] = useState() // ユーザーエージェント設定
 
@@ -55,14 +55,14 @@ const Layout = ({children}) => {
 		'info': production,
 
 		// フレームワーク番号 => page.jsonで設定の順番
-		'fw': order.FW,
+		'fw': order.framework,
 
 		// ページ番号 => page.jsonで設定の順番
-		'pg': order.PG,
+		'ws': order.website,
 
 		// 必要なstate情報
 		'st': {
-			'selFW': selFW, 'selPG': selPG, 'swipEL': swipEL, "all": state
+			'category': category, 'selWS': selWS, 'swipEL': swipEL, "all": state
 		},
 
 		// 全Function
@@ -73,7 +73,7 @@ const Layout = ({children}) => {
 
 		// 条件
 		'if': {
-			'isProfile': (selFW === state.selFW.Profile),　// プロフィールページの表示条件
+			'isProfile': (category === state.category.Profile),　// プロフィールページの表示条件
 			'isPC': (!isiPhone && !isiPad && !isAndroid && !isAndroidTablet), //PC判定
 			'isSP': (isiPhone || isiPad || isAndroid || isAndroidTablet), //SP判定
 		},
@@ -86,11 +86,11 @@ const Layout = ({children}) => {
 	//-------------------------------- メソッド設定 --------------------------------//
 
 	/*** ■ Productionの各サイト一覧押下時の処理 ***/
-	function changeFW(fwIdx, pgIdx) {
+	function changeFW(fwIdx, wsIdx) {
 
 		// Stateをセットしてページを切替
-		setSelFW(fwIdx)
-		if (pgIdx || pgIdx === 0) setSelPG(pgIdx)
+		if (fwIdx) setCategory(fwIdx)
+		if (wsIdx || wsIdx === 0) setSelWS(wsIdx)
 
 		// SP時のみボタン押下時にサイドエリアを非表示
 		if (PROP.if.isSP && !PROP.if.isProfile) {
@@ -107,19 +107,17 @@ const Layout = ({children}) => {
 		// 画像・リストの表示条件設定
 		const pathName = window.location.pathname
 		const pathSplit = pathName.split("/")
-		PROP.info.map(fw => {
 
+		// カテゴリー選択切替
+		pathName === '/' ? setCategory(state.category.Profile) : setCategory()
+
+		PROP.info.map(fw => {
+			
 			// URLに合わせてStateを変更
 			if ("/" + pathSplit[1] === fw.URL) {
-
-				// フレームワーク選択切替
-				setSelFW(fw.State)
-				fw.Page.map(pg =>{
-
-					// ページ選択切替
-					(pathName === pg.URL) && setSelPG(pg.State)
-
-				})
+				
+				// ページ選択切替
+				fw.Page.map(ws => (pathName === ws.URL) && setSelWS(ws.State))
 
 			}
 

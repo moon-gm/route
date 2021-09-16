@@ -25,10 +25,10 @@ const MainSwiper = ({prop}) => {
 
 		// アクティブスライドに合わせて選択状態を変更・遷移
 		prop.info.map(fw => {
-			fw.Page.map(pg => {
-				if(active === pg.State) {
-					prop.f.changeFW(fw.State, pg.State)
-					router.push(pg.URL)
+			fw.Page.map(ws => {
+				if(active === ws.State) {
+					prop.f.changeFW(fw.State, ws.State)
+					router.push(ws.URL)
 				}
 			})
 		})
@@ -44,7 +44,7 @@ const MainSwiper = ({prop}) => {
 			wrapperTag="ul" // 「swiper-wrapper」クラスのTag設定
 			speed={600} // 前後のスライドに移動する時の速度設定
 			centeredSlides // アクティブスライドを中央にする設定
-			initialSlide={prop.st.selPG} // 初期表示スライドの設定
+			initialSlide={prop.st.selWS} // 初期表示スライドの設定
 			spaceBetween={0} //スライド間のスペース設定
 			slidesPerView={3} // スライドを一度に表示する個数設定
 			effect="coverflow" // スライドのエフェクト設定（'coverflow', 'fade', 'flip', 'slide', 'cube）'
@@ -62,18 +62,18 @@ const MainSwiper = ({prop}) => {
 				<React.Fragment key={`mainVisual${fw.FW}`}>
 
 					{/* イメージリスト -- start -- */}
-						{fw.Page.map(pg => (
+						{fw.Page.map(ws => (
 							<SwiperSlide
 								tag="li" // 「swiper-slide」クラスのTag設定
 								className={cssMV.swiperSlide}
-								key={pg.ID}
+								key={ws.ID}
 							>
 								<img
-									src={`/swiper/${pg.ID}.png`}
-									onClick={() => prop.f.changeFW(fw.State, pg.State)}
+									src={`/swiper/${ws.ID}.png`}
+									onClick={() => prop.f.changeFW(fw.State, ws.State)}
 									className={`
 										${cssMV.swiperSlideImg}
-										${prop.st.selPG === pg.State && cssMV.swiperSlideImgSelected}
+										${prop.st.selWS === ws.State && cssMV.swiperSlideImgSelected}
 									`}
 								/>
 							</SwiperSlide>
@@ -124,25 +124,25 @@ const ThumbSwiper = ({prop}) => {
 					effect="slide"
 					slideToClickedSlide
 					slidesPerView={0}
-					initialSlide={prop.st.selPG}
+					initialSlide={prop.st.selWS}
 					onSwiper={(swiper) => prop.f.changeSwiper(swiper)} // スワイプ時の処理
 				>
 					{prop.info.map(fw => (
 						<React.Fragment key={`sidelist${fw.State}`}>
 
 							{/** プロダクションリスト -- start -- **/}
-								{fw.Page.map(pg => (
+								{fw.Page.map(ws => (
 									<SwiperSlide
 										tag="li"
 										className={cssA.swiperSlide}
-										key={`sidelistItem${pg.ID}`}
+										key={`sidelistItem${ws.ID}`}
 									>
-										<Link href={pg.URL}>
+										<Link href={ws.URL}>
 											<p
-												onClick={() => prop.f.changeFW(fw.State, pg.State)}
+												onClick={() => prop.f.changeFW(fw.State, ws.State)}
 												className={`
 													${cssA.list}
-													${prop.st.selPG === pg.State && cssA.listSelected}
+													${prop.st.selWS === ws.State && cssA.listSelected}
 												`}
 											>
 												<img
@@ -150,9 +150,9 @@ const ThumbSwiper = ({prop}) => {
 													alt="icon"
 													className={cssA.listImg}
 												/>
-												{pg.Title}
+												{ws.Title}
 												<span className={cssA.listSubText}>
-													{fw.FW} / {pg.CreateDate} 〜
+													{fw.FW} / {ws.CreateDate} 〜
 												</span>
 											</p>
 										</Link>

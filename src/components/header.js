@@ -19,7 +19,7 @@ const Header = ({prop}) => {
 						{/** トップロゴ　-- start -- **/}
 							<Link href="/">
 								<li
-									onClick={() => prop.f.changeFW(prop.st.all.selFW.Profile)}
+									onClick={() => prop.f.changeFW(prop.st.all.category.Profile)}
 									className={`
 										${css.topLogo}
 										flex-space-between
@@ -69,7 +69,7 @@ const Header = ({prop}) => {
 						>
 							<Link href="/">
 								<li
-									onClick={() => prop.f.changeFW(prop.st.all.selFW.Profile)}
+									onClick={() => prop.f.changeFW(prop.st.all.category.Profile)}
 									className={css.headerTab}
 								>
 									Profile
@@ -77,7 +77,7 @@ const Header = ({prop}) => {
 							</Link>
 							{/* スワイパーの問題でaタグにして一度最初から読み込ませる */}
 							<a
-								href={prop.info[prop.fw.Laravel].Page[prop.pg.Tequipedia].URL}
+								href={prop.info[prop.fw.Laravel].Page[prop.ws.Tequipedia].URL}
 								className={css.headerTabLink}
 							>
 								<li className={css.headerTab}>

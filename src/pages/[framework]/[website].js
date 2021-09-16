@@ -160,7 +160,7 @@ const PageLayout = ({ pageData }) => {
 	)
 }
 
-const PageContents = ({ info, fw, pg }) => {
+const PageContents = ({ info, fw, ws }) => {
 
 	// URLパラメータ取得
 	const router = useRouter()
@@ -169,22 +169,22 @@ const PageContents = ({ info, fw, pg }) => {
 	// ページ内容設定
 	let pageData = undefined
 	if (framework && website) {
-		const fwData = info[fw[framework]]
-		const pgData = fwData.Page[pg[website]]
+		const frameworkData = info[fw[framework]]
+		const websiteData = frameworkData.Page[ws[website]]
 		pageData = {
-			head: fwData.FW, // ヘッドタイトル	
-			title: pgData.Title, // ページタイトル
-			logo: fwData.Img,　// タイトルロゴ
-			createDate: pgData.CreateDate,　// 作成日
-			upDate: pgData.UpDate,　// 更新日
-			summary: pgData.Summary,　// 概要
+			head: frameworkData.FW, // ヘッドタイトル	
+			title: websiteData.Title, // ページタイトル
+			logo: frameworkData.Img,　// タイトルロゴ
+			createDate: websiteData.CreateDate,　// 作成日
+			upDate: websiteData.UpDate,　// 更新日
+			summary: websiteData.Summary,　// 概要
 			link: {
-				site: pgData.Link.Site, // サイトリンク・画面イメージ
-				source: pgData.Link.Source, // Githubソース
+				site: websiteData.Link.Site, // サイトリンク・画面イメージ
+				source: websiteData.Link.Source, // Githubソース
 			},	
-			description: pgData.Description, // 内容			
-			wayToMake: pgData.WayToMake, // 作成方法
-			skill: pgData.Skill, // 使用技術・FW
+			description: websiteData.Description, // 内容			
+			wayToMake: websiteData.WayToMake, // 作成方法
+			skill: websiteData.Skill, // 使用技術・FW
 		}
 	}
 	return pageData === undefined ? <Loading/> : <PageLayout pageData={pageData}/>
