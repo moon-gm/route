@@ -9,7 +9,7 @@ import Header from '../components/header'
 import Swipers from '../components/swipers'
 
 // Page Data
-import { profile, production } from '../data/page.json'
+import { profile, production } from '../data/index.json'
 let wsState = 0
 production.map((fw, fwIdx) => {
 	fw.Page.map((ws, wsIdx) => {
@@ -40,7 +40,7 @@ const Layout = ({children}) => {
 	/*** State設定 ***/
 	const [category, setCategory] = useState(state.category.Profile) // 表示ページのFWの選択設定
 	const [selWS, setSelWS] = useState() // 表示ページの画像とリストの選択設定
-	const [swipEL, setSwipEL] = useState() // スワイパー(Element)の設定
+	const [swipeElement, setSwipeElement] = useState() // スワイパーエレメントの設定
 	const [ua, setUA] = useState() // ユーザーエージェント設定
 
 	/*** ユーザーエージェント条件設定 ***/
@@ -50,32 +50,30 @@ const Layout = ({children}) => {
 	const isAndroidTablet = ua && (ua.indexOf('android') > -1) && (ua.indexOf('mobile') == -1) // Android Tablet判定
 
 	/*** 共通Propsの設定 ***/
-	const PROP = {
-		// 全Productionページ情報
-		'info': production,
-
-		// フレームワーク番号 => page.jsonで設定の順番
-		'fw': order.framework,
-
-		// ページ番号 => page.jsonで設定の順番
-		'ws': order.website,
-
-		// 必要なstate情報
-		'st': {
-			'category': category, 'selWS': selWS, 'swipEL': swipEL, "all": state
+	const PROP = {	
+		data: production, // 全Productionページ情報
+		order: order, // コンテンツの順序
+		state: {
+			store: { category, selWS, swipeElement }, // state : 保存値
+			set: state, // state : 設定値
 		},
-
-		// 全Function
-		'f': {
-			'changeFW': changeFW,　// ページ変更で使用
-			'changeSwiper': setSwipEL, // スワイパーで使用
+		methods: {
+			setSwipeElement,
+			updateScreen(caName, wsIdx) {
+				// Stateをセットしてページを切替
+				if (caName) setCategory(caName)
+				if (wsIdx || wsIdx === 0) setSelWS(wsIdx)
+		
+				// SP時のみボタン押下時にサイドエリアを非表示
+				if (PROP.if.isSP && !PROP.if.isProfile) {
+					document.getElementById('contents-aside').style.left = '768px'
+				}
+			}
 		},
-
-		// 条件
-		'if': {
-			'isProfile': (category === state.category.Profile),　// プロフィールページの表示条件
-			'isPC': (!isiPhone && !isiPad && !isAndroid && !isAndroidTablet), //PC判定
-			'isSP': (isiPhone || isiPad || isAndroid || isAndroidTablet), //SP判定
+		if: {
+			isProfile: (category === state.category.Profile),　// Profileページの表示判定
+			isPC: (!isiPhone && !isiPad && !isAndroid && !isAndroidTablet), //PC判定
+			isSP: (isiPhone || isiPad || isAndroid || isAndroidTablet), //SP判定
 		},
 	}
 
@@ -83,49 +81,18 @@ const Layout = ({children}) => {
 	const NEW_CHILDREN = React.cloneElement(children, PROP)
 
 
-	//-------------------------------- メソッド設定 --------------------------------//
-
-	/*** ■ Productionの各サイト一覧押下時の処理 ***/
-	function changeFW(fwIdx, wsIdx) {
-
-		// Stateをセットしてページを切替
-		if (fwIdx) setCategory(fwIdx)
-		if (wsIdx || wsIdx === 0) setSelWS(wsIdx)
-
-		// SP時のみボタン押下時にサイドエリアを非表示
-		if (PROP.if.isSP && !PROP.if.isProfile) {
-			document.getElementById('contents-aside').style.left = "768px"
-		}
-	}
-
-
 	//-------------------------------- レンダリング設定 --------------------------------//
 
 	// レンダー後処理
 	useEffect(()=>{
 
-		// 画像・リストの表示条件設定
+		// URLに合わせて表示切替
 		const pathName = window.location.pathname
-		const pathSplit = pathName.split("/")
-
-		// カテゴリー選択切替
-		pathName === '/' ? setCategory(state.category.Profile) : setCategory()
-
-		PROP.info.map(fw => {
-			
-			// URLに合わせてStateを変更
-			if ("/" + pathSplit[1] === fw.URL) {
-				
-				// ページ選択切替
-				fw.Page.map(ws => (pathName === ws.URL) && setSelWS(ws.State))
-
-			}
-
-		})
+		pathName === '/' ? setCategory(PROP.state.set.category.Profile) : setCategory() // カテゴリー切替
+		PROP.data.map(fw => { fw.Page.map(ws => pathName === ws.URL && setSelWS(ws.State) ) }) // ウェブサイト切替
 
 		// ユーザーエージェント設定
-		const userAgent = navigator.userAgent.toLowerCase()
-		setUA(userAgent)
+		setUA(navigator.userAgent.toLowerCase())
 
 	}, [])
 

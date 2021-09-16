@@ -24,10 +24,10 @@ const MainSwiper = ({prop}) => {
 		const active = swiper.activeIndex
 
 		// アクティブスライドに合わせて選択状態を変更・遷移
-		prop.info.map(fw => {
+		prop.data.map(fw => {
 			fw.Page.map(ws => {
 				if(active === ws.State) {
-					prop.f.changeFW(fw.State, ws.State)
+					prop.methods.updateScreen(fw.State, ws.State)
 					router.push(ws.URL)
 				}
 			})
@@ -39,12 +39,12 @@ const MainSwiper = ({prop}) => {
 	return (
 		<Swiper
 			id="main" // メインのSwiperを明示する
-			thumbs={{swiper: prop.st.swipEL}} // id="thumbs"が付いているSwiperコンポーネントとリンクさせる
+			thumbs={{swiper: prop.state.store.swipeElement}} // id="thumbs"が付いているSwiperコンポーネントとリンクさせる
 			tag="section" // 「swiper-container」クラスのTag設定
 			wrapperTag="ul" // 「swiper-wrapper」クラスのTag設定
 			speed={600} // 前後のスライドに移動する時の速度設定
 			centeredSlides // アクティブスライドを中央にする設定
-			initialSlide={prop.st.selWS} // 初期表示スライドの設定
+			initialSlide={prop.state.store.selWS} // 初期表示スライドの設定
 			spaceBetween={0} //スライド間のスペース設定
 			slidesPerView={3} // スライドを一度に表示する個数設定
 			effect="coverflow" // スライドのエフェクト設定（'coverflow', 'fade', 'flip', 'slide', 'cube）'
@@ -58,7 +58,7 @@ const MainSwiper = ({prop}) => {
 			pagination // ページネーションの表示設定（・・・・・）
 			onSlideChange={(swiper) => onSlideChange(swiper)} // スライド変更時の処理
 		>
-			{prop.info.map(fw => (
+			{prop.data.map(fw => (
 				<React.Fragment key={`mainVisual${fw.FW}`}>
 
 					{/* イメージリスト -- start -- */}
@@ -70,10 +70,10 @@ const MainSwiper = ({prop}) => {
 							>
 								<img
 									src={`/swiper/${ws.ID}.png`}
-									onClick={() => prop.f.changeFW(fw.State, ws.State)}
+									onClick={() => prop.methods.updateScreen(fw.State, ws.State)}
 									className={`
 										${cssMV.swiperSlideImg}
-										${prop.st.selWS === ws.State && cssMV.swiperSlideImgSelected}
+										${prop.state.store.selWS === ws.State && cssMV.swiperSlideImgSelected}
 									`}
 								/>
 							</SwiperSlide>
@@ -124,10 +124,10 @@ const ThumbSwiper = ({prop}) => {
 					effect="slide"
 					slideToClickedSlide
 					slidesPerView={0}
-					initialSlide={prop.st.selWS}
-					onSwiper={(swiper) => prop.f.changeSwiper(swiper)} // スワイプ時の処理
+					initialSlide={prop.state.store.selWS}
+					onSwiper={(swiper) => prop.methods.setSwipeElement(swiper)} // スワイプ時の処理
 				>
-					{prop.info.map(fw => (
+					{prop.data.map(fw => (
 						<React.Fragment key={`sidelist${fw.State}`}>
 
 							{/** プロダクションリスト -- start -- **/}
@@ -139,10 +139,10 @@ const ThumbSwiper = ({prop}) => {
 									>
 										<Link href={ws.URL}>
 											<p
-												onClick={() => prop.f.changeFW(fw.State, ws.State)}
+												onClick={() => prop.methods.updateScreen(fw.State, ws.State)}
 												className={`
 													${cssA.list}
-													${prop.st.selWS === ws.State && cssA.listSelected}
+													${prop.state.store.selWS === ws.State && cssA.listSelected}
 												`}
 											>
 												<img

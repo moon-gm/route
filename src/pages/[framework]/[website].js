@@ -160,7 +160,7 @@ const PageLayout = ({ pageData }) => {
 	)
 }
 
-const PageContents = ({ info, fw, ws }) => {
+const PageContents = ({ data, order }) => {
 
 	// URLパラメータ取得
 	const router = useRouter()
@@ -169,8 +169,8 @@ const PageContents = ({ info, fw, ws }) => {
 	// ページ内容設定
 	let pageData = undefined
 	if (framework && website) {
-		const frameworkData = info[fw[framework]]
-		const websiteData = frameworkData.Page[ws[website]]
+		const frameworkData = data[order.framework[framework]]
+		const websiteData = frameworkData.Page[order.website[website]]
 		pageData = {
 			head: frameworkData.FW, // ヘッドタイトル	
 			title: websiteData.Title, // ページタイトル
