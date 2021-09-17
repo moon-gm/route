@@ -66,8 +66,7 @@ const Layout = ({children}) => {
 		methods: {
 			setSwipeElement,
 			scrollToTop() { window.scrollTo(0, 0) },
-			showSideArea(condition) {
-				// SP時サイドエリアの表示処理
+			showSideAreaSP(condition) {
 				const spWidth = condition ? '0' : '768px'
 				document.getElementById('contents-aside').style.left = spWidth
 			},
@@ -77,14 +76,13 @@ const Layout = ({children}) => {
 				if (wsIdx || wsIdx === 0) setSelWS(wsIdx)
 				PROP.router.push(url)
 		
-				// SP時のみボタン押下時にサイドエリアを非表示
-				if (PROP.if.isSP && !PROP.if.isProfile) {
-					PROP.methods.showSideArea(false)
+				if (PROP.if.isSP && PROP.if.isProduction) {
+					PROP.methods.showSideAreaSP(false)
 				}
 			}
 		},
 		if: {
-			isProfile: (category === state.category.profile),　// Profileページの表示判定
+			isProduction: (category === state.category.production),　// Productionページ判定
 			isPC: (!isiPhone && !isiPad && !isAndroid && !isAndroidTablet), //PC判定
 			isSP: (isiPhone || isiPad || isAndroid || isAndroidTablet), //SP判定
 		},
@@ -102,8 +100,15 @@ const Layout = ({children}) => {
 
 		// URLに合わせて表示切替
 		const pathName = window.location.pathname
-		pathName === '/' ? setCategory(PROP.state.set.category.profile) : setCategory() // カテゴリー切替
-		PROP.dataset.map(fw => { fw.Page.map(ws => pathName === ws.URL && setSelWS(ws.State) ) }) // ウェブサイト切替
+		const firstPath = '/' + pathName.split('/')[1]
+		// カテゴリー切替
+		const categoryArray = [
+			{url: PROP.category.PROFILE.URL, state: PROP.state.set.category.profile},
+			{url: PROP.category.PRODUCTION.URL, state: PROP.state.set.category.production},
+		]
+		categoryArray.map(cat => firstPath === cat.url && setCategory(cat.state) )
+		// ウェブサイト切替
+		PROP.dataset.map(fw => { fw.Page.map(ws => pathName === ws.URL && setSelWS(ws.State) ) })
 
 		// ユーザーエージェント設定
 		setUA(navigator.userAgent.toLowerCase())
@@ -119,7 +124,7 @@ const Layout = ({children}) => {
 			{/*** ヘッダーエリア -- end -- ***/}
 
 			{/*** メインビジュアルエリア -- start -- ***/}
-				{!PROP.if.isProfile && (
+				{PROP.if.isProduction && (
 					<div className="main-visual-area">
 						<Swipers.MainSwiper prop={PROP}/>
 					</div>
@@ -130,7 +135,7 @@ const Layout = ({children}) => {
 				<div className="contents-area flex-space-around flex-remove-sp">
 
 					{/** サイドエリア -- start -- **/}
-						{!PROP.if.isProfile && (
+						{PROP.if.isProduction && (
 							<aside
 								id="contents-aside"
 								className="contents-aside"
@@ -143,7 +148,7 @@ const Layout = ({children}) => {
 					{/** サイドエリア -- end -- **/}
 
 					{/** メインエリア -- start -- **/}
-						<main className={`contents-main ${PROP.if.isProfile && "contents-main-no-sidearea"}`}>
+						<main className={`contents-main ${!PROP.if.isProduction && "contents-main-no-sidearea"}`}>
 							{NEW_CHILDREN}
 						</main>
 					{/** メインエリア -- end -- **/}

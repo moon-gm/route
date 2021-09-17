@@ -21,7 +21,7 @@
 					{
 						"ID": "ReactLearning",
 						"Title": "React Learning",
-						"URL": "/React/ReactLearning",
+						"URL": "/production/React/ReactLearning",
 						"State": null,
 						"CreateDate": "2020.6.5",
 						"UpDate": "2020.7.24",
@@ -52,7 +52,7 @@
 					{
 						"ID": "PortfolioShow",
 						"Title": "Portfolio Show",
-						"URL": "/Next/PortfolioShow",
+						"URL": "/production/Next/PortfolioShow",
 						"State": null,
 						"CreateDate": "2020.9.15",
 						"UpDate": "2021.9.15",
@@ -77,7 +77,7 @@
 					{
 						"ID": "NextLearning",
 						"Title": "Next Learning",
-						"URL": "/Next/NextLearning",
+						"URL": "/production/Next/NextLearning",
 						"State": null,
 						"CreateDate": "2020.7.21",
 						"UpDate": "2020.8.17",
@@ -101,7 +101,7 @@
 					{
 						"ID": "NationalFlags",
 						"Title": "National Flags",
-						"URL": "/Next/NationalFlags",
+						"URL": "/production/Next/NationalFlags",
 						"State": null,
 						"CreateDate": "2020.8.26",
 						"UpDate": "2020.10.13",
@@ -136,7 +136,7 @@
 					{
 						"ID": "AtelierK",
 						"Title": "Atelier K",
-						"URL": "/Gatsby/AtelierK",
+						"URL": "/production/Gatsby/AtelierK",
 						"State": null,
 						"CreateDate": "2020.5.6",
 						"UpDate": "2020.6.30",
@@ -161,7 +161,7 @@
 					{
 						"ID": "GatsbyLearning",
 						"Title": "Gatsby Learning",
-						"URL": "/Gatsby/GatsbyLearning",
+						"URL": "/production/Gatsby/GatsbyLearning",
 						"State": null,
 						"CreateDate": "2020.7.23",
 						"UpDate": "2020.7.30",
@@ -195,7 +195,7 @@
 					{
 						"ID": "Tequipedia",
 						"Title": "テキーラ全書",
-						"URL":  "/Laravel/Tequipedia",
+						"URL":  "/production/Laravel/Tequipedia",
 						"State": null,
 						"CreateDate": "2020.2.18",
 						"UpDate": "2021.9.15",

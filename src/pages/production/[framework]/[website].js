@@ -1,7 +1,7 @@
 import Head from 'next/head'
-import Modal from '../../components/modal'
-import Loading from '../../components/loading'
-import css from '../../styles/modules/page.module.scss'
+import Modal from '../../../components/modal'
+import Loading from '../../../components/loading'
+import css from '../../../styles/modules/page.module.scss'
 
 const PageLayout = ({ pageData, siteTitle }) => {
 

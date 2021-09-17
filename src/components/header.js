@@ -35,9 +35,9 @@ const Header = ({prop}) => {
 						{/** トップボタン　-- end -- **/}
 
 						{/** メニューボタン -- start -- **/}
-							{!prop.if.isProfile && (
+							{prop.if.isProduction && (
 								<li
-									onClick={() => prop.methods.showSideArea(true)}
+									onClick={() => prop.methods.showSideAreaSP(true)}
 									className={css.menuBtn}
 								>
 									<img src="/icon/menu.svg" alt="メニューアイコン"/>

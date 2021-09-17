@@ -83,13 +83,13 @@ const ThumbSwiper = ({prop}) => {
 				<div className="flex-space-between">
 					{/* プロダクションリストタイトル -- start -- */}
 						<h1 className={cssA.sectionTitle}>
-							Production List
+							{prop.category.PRODUCTION.NAME} List
 						</h1>
 					{/* プロダクションリストタイトル -- end -- */}
 
 					{/* プロダクションリストタイトル -- start -- */}
 						<h1
-							onClick={() => prop.methods.showSideArea(false)}
+							onClick={() => prop.methods.showSideAreaSP(false)}
 							className={cssA.closeBtn}
 						>
 							×
