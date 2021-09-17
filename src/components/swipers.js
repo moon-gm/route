@@ -17,7 +17,7 @@ const MainSwiper = ({prop}) => {
 		prop.dataset.map(fw => {
 			fw.PAGES.map(ws => {
 				if(swiper.activeIndex === ws.STATE) {
-					prop.methods.linkTo(ws.URL, prop.state.set.category.production, ws.STATE)
+					prop.methods.linkTo(ws.URL, prop.category.PRODUCTION.STATE, ws.STATE)
 				}
 			})
 		})
@@ -28,12 +28,12 @@ const MainSwiper = ({prop}) => {
 	return (
 		<Swiper
 			id="main" // メインのSwiperを明示する
-			thumbs={{swiper: prop.state.store.swipeElement}} // id="thumbs"が付いているSwiperコンポーネントとリンクさせる
+			thumbs={{swiper: prop.state.swipeElement}} // id="thumbs"が付いているSwiperコンポーネントとリンクさせる
 			tag="section" // 「swiper-container」クラスのTag設定
 			wrapperTag="ul" // 「swiper-wrapper」クラスのTag設定
 			speed={600} // 前後のスライドに移動する時の速度設定
 			centeredSlides // アクティブスライドを中央にする設定
-			initialSlide={prop.state.store.selWS} // 初期表示スライドの設定
+			initialSlide={prop.state.selWS} // 初期表示スライドの設定
 			spaceBetween={0} //スライド間のスペース設定
 			slidesPerView={3} // スライドを一度に表示する個数設定
 			effect="coverflow" // スライドのエフェクト設定（'coverflow', 'fade', 'flip', 'slide', 'cube'）
@@ -59,10 +59,10 @@ const MainSwiper = ({prop}) => {
 							>
 								<img
 									src={`/swiper/${ws.ID}.png`}
-									onClick={() => prop.methods.linkTo(ws.URL, prop.state.set.category.production, ws.STATE)}
+									onClick={() => prop.methods.linkTo(ws.URL, prop.category.PRODUCTION.STATE, ws.STATE)}
 									className={`
 										${cssMV.swiperSlideImg}
-										${prop.state.store.selWS === ws.STATE && cssMV.swiperSlideImgSelected}
+										${prop.state.selWS === ws.STATE && cssMV.swiperSlideImgSelected}
 									`}
 								/>
 							</SwiperSlide>
@@ -107,7 +107,7 @@ const ThumbSwiper = ({prop}) => {
 					effect="slide"
 					slideToClickedSlide
 					slidesPerView={0}
-					initialSlide={prop.state.store.selWS}
+					initialSlide={prop.state.selWS}
 					onSwiper={(swiper) => prop.methods.setSwipeElement(swiper)} // スワイプ時の処理
 				>
 					{prop.dataset.map(fw => (
@@ -122,12 +122,12 @@ const ThumbSwiper = ({prop}) => {
 									>
 										<div
 											onClick={() => 
-												prop.methods.linkTo(ws.URL, prop.state.set.category.production, ws.STATE),
+												prop.methods.linkTo(ws.URL, prop.category.PRODUCTION.STATE, ws.STATE),
 												prop.methods.scrollToTop()
 											}
 											className={`
 												${cssA.list}
-												${prop.state.store.selWS === ws.STATE && cssA.listSelected}
+												${prop.state.selWS === ws.STATE && cssA.listSelected}
 											`}
 										>
 											<img

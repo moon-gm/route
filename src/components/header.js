@@ -10,7 +10,7 @@ const Header = ({prop}) => {
 
 						{/** トップロゴ　-- start -- **/}
 							<li
-								onClick={() => prop.methods.linkTo(prop.category.PROFILE.URL, prop.state.set.category.profile)}
+								onClick={() => prop.methods.linkTo(prop.category.HOME.URL, prop.category.HOME.STATE)}
 								className={`
 									${css.topLogo}
 									flex-space-between
@@ -58,14 +58,14 @@ const Header = ({prop}) => {
 							`}
 						>
 							<li
-								onClick={() => prop.methods.linkTo(prop.category.PROFILE.URL, prop.state.set.category.profile)}
+								onClick={() => prop.methods.linkTo(prop.category.PROFILE.URL, prop.category.PROFILE.STATE)}
 								className={css.headerTab}
 							>
 								{prop.category.PROFILE.NAME}
 							</li>
 							{/* Swiperの問題でaタグでリンクして１から表示させる */}
 							<a
-								href={prop.dataset[prop.order.framework.Laravel].PAGES[prop.order.website.Tequipedia].URL}
+								href={prop.category.PRODUCTION.DATASET[prop.order.framework.Laravel].PAGES[prop.order.website.Tequipedia].URL}
 								className={css.headerTabLink}
 							>
 								<li className={css.headerTab}>

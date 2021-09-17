@@ -12,37 +12,34 @@ import Swipers from '../components/swipers'
 // Global Data
 import GLOBAL from '../data/global.json'
 
-// Page Data
-import { PROFILE, PRODUCTION } from '../data/index.json'
+// Category Data
+import { HOME, PROFILE, PRODUCTION } from '../data/index.json'
+
+/*** Category Data設定 ***/
+// STATEとURLはID等から動的に設定
+const order = { framework: {}, website: {} }
 let wsState = 0
 PRODUCTION.DATASET.map((fw, fwIdx) => {
+	fw.STATE = fw.ID
+	order.framework[fw.ID] = fwIdx
 	fw.PAGES.map((ws, wsIdx) => {
-		PRODUCTION.DATASET[fwIdx].PAGES[wsIdx].STATE = wsState
+		ws.STATE = wsState
+		ws.URL = '/' + PRODUCTION.ID + '/' + fw.ID + '/' + ws.ID
+		order.website[ws.ID] = wsIdx
 		wsState++
 	})
 })
-
-// Order Data
-const order = { framework: {}, website: {} }
-PRODUCTION.DATASET.map((fw, fwIdx) => {
-	order.framework[fw.ID] = fwIdx
-	fw.PAGES.map((ws, wsIdx) => order.website[ws.ID] = wsIdx)
-})
-
-// State Data
-const state = { category: {}, selWS: {} }
-PRODUCTION.DATASET.map(fw => {
-	fw.PAGES.map(ws => state.selWS[ws.ID] = ws.STATE)
-})
-state.category[PROFILE.ID] = PROFILE.ID
-state.category[PRODUCTION.ID] = PRODUCTION.ID
+PROFILE.STATE = PROFILE.ID
+PROFILE.URL = '/' + PROFILE.ID
+PRODUCTION.STATE = PRODUCTION.ID
+PRODUCTION.URL = '/' + PRODUCTION.ID
 
 const Layout = ({children}) => {
 
 	//-------------------------------- 初期定義 --------------------------------//
 
 	/*** State設定 ***/
-	const [category, setCategory] = useState(state.category.profile) // 表示ページのFWの選択設定
+	const [category, setCategory] = useState(PROFILE.STATE) // 表示ページのFWの選択設定
 	const [selWS, setSelWS] = useState() // 表示ページの画像とリストの選択設定
 	const [swipeElement, setSwipeElement] = useState() // スワイパーエレメントの設定
 	const [ua, setUA] = useState() // ユーザーエージェント設定
@@ -56,13 +53,10 @@ const Layout = ({children}) => {
 	/*** 共通Propsの設定 ***/
 	const PROP = {	
 		siteTitle: GLOBAL.SITE_TITLE,
-		dataset: PRODUCTION.DATASET, // Productionページ情報
-		category: { PROFILE, PRODUCTION }, // Category情報
+		dataset: PRODUCTION.DATASET, // ページ情報
+		category: { HOME, PROFILE, PRODUCTION }, // Category全情報
 		order: order, // コンテンツの順序
-		state: {
-			store: { category, selWS, swipeElement }, // state : 保存値
-			set: state, // state : 設定値
-		},
+		state: { category, selWS, swipeElement }, // state保存値
 		methods: {
 			setSwipeElement,
 			scrollToTop() { window.scrollTo(0, 0) },
@@ -82,7 +76,7 @@ const Layout = ({children}) => {
 			}
 		},
 		if: {
-			isProduction: (category === state.category.production),　// Productionページ判定
+			isProduction: (category === PRODUCTION.STATE),　// Productionページ判定
 			isPC: (!isiPhone && !isiPad && !isAndroid && !isAndroidTablet), //PC判定
 			isSP: (isiPhone || isiPad || isAndroid || isAndroidTablet), //SP判定
 		},
@@ -103,8 +97,8 @@ const Layout = ({children}) => {
 		const firstPath = '/' + pathName.split('/')[1]
 		// カテゴリー切替
 		const categoryArray = [
-			{url: PROP.category.PROFILE.URL, state: PROP.state.set.category.profile},
-			{url: PROP.category.PRODUCTION.URL, state: PROP.state.set.category.production},
+			{url: PROP.category.PROFILE.URL, state: PROP.category.PROFILE.STATE},
+			{url: PROP.category.PRODUCTION.URL, state: PROP.category.PRODUCTION.STATE},
 		]
 		categoryArray.map(cat => firstPath === cat.url && setCategory(cat.state) )
 		// ウェブサイト切替
