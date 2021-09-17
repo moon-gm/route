@@ -36,7 +36,7 @@ const MainSwiper = ({prop}) => {
 			initialSlide={prop.state.store.selWS} // 初期表示スライドの設定
 			spaceBetween={0} //スライド間のスペース設定
 			slidesPerView={3} // スライドを一度に表示する個数設定
-			effect="coverflow" // スライドのエフェクト設定（'coverflow', 'fade', 'flip', 'slide', 'cube）'
+			effect="coverflow" // スライドのエフェクト設定（'coverflow', 'fade', 'flip', 'slide', 'cube'）
 			slideToClickedSlide // クリックしたスライドに移動する
 			breakpoints={{ // 画面幅ごとの詳細設定
 				320: {slidesPerView: 1}, // 画面幅が320pxより大きい場合
@@ -77,12 +77,6 @@ const MainSwiper = ({prop}) => {
 
 // サイドエリアのサムスワイパー
 const ThumbSwiper = ({prop}) => {
-
-	// サイドエリアを閉じる処理（SP時）
-	const onCloseBtn = () => {
-		document.getElementById('contents-aside').style.left = "768px"
-	}
-
 	return (
 		<>
 			{/* フレックスボックス -- start -- */}
@@ -95,7 +89,7 @@ const ThumbSwiper = ({prop}) => {
 
 					{/* プロダクションリストタイトル -- start -- */}
 						<h1
-							onClick={onCloseBtn}
+							onClick={() => prop.methods.showSideArea(false)}
 							className={cssA.closeBtn}
 						>
 							×

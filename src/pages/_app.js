@@ -66,16 +66,21 @@ const Layout = ({children}) => {
 		methods: {
 			setSwipeElement,
 			scrollToTop() { window.scrollTo(0, 0) },
+			showSideArea(condition) {
+				// SP時サイドエリアの表示処理
+				const spWidth = condition ? '0' : '768px'
+				document.getElementById('contents-aside').style.left = spWidth
+			},
 			linkTo(url, caName, wsIdx){
 				// Stateをセットしてページを切替
 				if (caName) setCategory(caName)
 				if (wsIdx || wsIdx === 0) setSelWS(wsIdx)
+				PROP.router.push(url)
 		
 				// SP時のみボタン押下時にサイドエリアを非表示
 				if (PROP.if.isSP && !PROP.if.isProfile) {
-					document.getElementById('contents-aside').style.left = '768px'
+					PROP.methods.showSideArea(false)
 				}
-				PROP.router.push(url)
 			}
 		},
 		if: {

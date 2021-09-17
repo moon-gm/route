@@ -1,11 +1,7 @@
 import css from '../styles/modules/header.module.scss'
 
 const Header = ({prop}) => {
-
-	// メニューボタンの処理
-	const showSideArea = () => { document.getElementById('contents-aside').style.left = "0" }
-
-	return(
+	return (
 		<header className="header-area">
 			<div className="header-area-wrap">
 
@@ -41,7 +37,7 @@ const Header = ({prop}) => {
 						{/** メニューボタン -- start -- **/}
 							{!prop.if.isProfile && (
 								<li
-									onClick={showSideArea}
+									onClick={() => prop.methods.showSideArea(true)}
 									className={css.menuBtn}
 								>
 									<img src="/icon/menu.svg" alt="メニューアイコン"/>
@@ -82,6 +78,6 @@ const Header = ({prop}) => {
 
 			</div>
 		</header>
-	);
+	)
 }
 export default Header
