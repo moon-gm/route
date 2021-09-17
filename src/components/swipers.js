@@ -2,10 +2,6 @@
 import cssMV from '../styles/modules/mainVisual.module.scss'
 import cssA from '../styles/modules/aside.module.scss'
 
-// Component
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-
 // Swiper設定
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Pagination, Thumbs, EffectCoverflow } from 'swiper'// CSSは_document.jsのlinkで設定
@@ -14,21 +10,14 @@ SwiperCore.use([Pagination, Thumbs, EffectCoverflow]) // Swiperで使用する�
 // メインビジュアルの画像スワイパー
 const MainSwiper = ({prop}) => {
 
-	// ルーター設定
-	const router = useRouter()
-
 	// スライド変更時の処理
-	function onSlideChange(swiper) {
+	const onSlideChange = (swiper) => {
 
-		// アクティブスライドを取得
-		const active = swiper.activeIndex
-
-		// アクティブスライドに合わせて選択状態を変更・遷移
+		// アクティブスライドに合わせて選択状態を変更・遷移(スワイプ時)
 		prop.dataset.map(fw => {
 			fw.Page.map(ws => {
-				if(active === ws.State) {
-					prop.methods.updateScreen(fw.State, ws.State)
-					router.push(ws.URL)
+				if(swiper.activeIndex === ws.State) {
+					prop.methods.linkTo(ws.URL, prop.state.set.category.production, ws.State)
 				}
 			})
 		})
@@ -70,7 +59,7 @@ const MainSwiper = ({prop}) => {
 							>
 								<img
 									src={`/swiper/${ws.ID}.png`}
-									onClick={() => prop.methods.updateScreen(prop.category.PRODUCTION.ID, ws.State)}
+									onClick={() => prop.methods.linkTo(ws.URL, prop.state.set.category.production, ws.State)}
 									className={`
 										${cssMV.swiperSlideImg}
 										${prop.state.store.selWS === ws.State && cssMV.swiperSlideImgSelected}
@@ -90,7 +79,7 @@ const MainSwiper = ({prop}) => {
 const ThumbSwiper = ({prop}) => {
 
 	// サイドエリアを閉じる処理（SP時）
-	function onCloseBtn() {
+	const onCloseBtn = () => {
 		document.getElementById('contents-aside').style.left = "768px"
 	}
 
@@ -137,25 +126,26 @@ const ThumbSwiper = ({prop}) => {
 										className={cssA.swiperSlide}
 										key={`sidelistItem${ws.ID}`}
 									>
-										<Link href={ws.URL}>
-											<p
-												onClick={() => prop.methods.updateScreen(prop.category.PRODUCTION.ID, ws.State)}
-												className={`
-													${cssA.list}
-													${prop.state.store.selWS === ws.State && cssA.listSelected}
-												`}
-											>
-												<img
-													src={fw.Img}
-													alt="icon"
-													className={cssA.listImg}
-												/>
-												{ws.Title}
-												<span className={cssA.listSubText}>
-													{fw.FW} / {ws.CreateDate} 〜
-												</span>
-											</p>
-										</Link>
+										<div
+											onClick={() => 
+												prop.methods.linkTo(ws.URL, prop.state.set.category.production, ws.State),
+												prop.methods.scrollToTop()
+											}
+											className={`
+												${cssA.list}
+												${prop.state.store.selWS === ws.State && cssA.listSelected}
+											`}
+										>
+											<img
+												src={fw.Img}
+												alt="icon"
+												className={cssA.listImg}
+											/>
+											{ws.Title}
+											<span className={cssA.listSubText}>
+												{fw.FW} / {ws.CreateDate} 〜
+											</span>
+										</div>
 									</SwiperSlide>
 								))}
 							{/** プロダクションリスト -- end -- **/}

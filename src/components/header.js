@@ -1,13 +1,9 @@
-import Link from 'next/link';
 import css from '../styles/modules/header.module.scss'
 
 const Header = ({prop}) => {
 
-	// Topに戻るボタンの処理
-	function scrollToTop() { window.scrollTo(0, 0) }
-
 	// メニューボタンの処理
-	function showSideArea() { document.getElementById('contents-aside').style.left = "0" }
+	const showSideArea = () => { document.getElementById('contents-aside').style.left = "0" }
 
 	return(
 		<header className="header-area">
@@ -17,27 +13,25 @@ const Header = ({prop}) => {
 					<ul className={`${css.topList} flex-space-between`}>
 
 						{/** トップロゴ　-- start -- **/}
-							<Link href="/">
-								<li
-									onClick={() => prop.methods.updateScreen(prop.state.set.category.profile)}
-									className={`
-										${css.topLogo}
-										flex-space-between
-										align-items-center
-									`}
-								>
-									<img
-										src="/logo/top-logo.png"
-										className={css.topLogoImg}
-									/>
-									<span>{prop.siteTitle}</span>
-								</li>
-							</Link>
+							<li
+								onClick={() => prop.methods.linkTo(prop.category.PROFILE.URL, prop.state.set.category.profile)}
+								className={`
+									${css.topLogo}
+									flex-space-between
+									align-items-center
+								`}
+							>
+								<img
+									src="/logo/top-logo.png"
+									className={css.topLogoImg}
+								/>
+								<span>{prop.siteTitle}</span>
+							</li>
 						{/** トップロゴ　-- end -- **/}
 
 						{/** トップボタン　-- start -- **/}
 							<li
-								onClick={scrollToTop}
+								onClick={() => prop.methods.scrollToTop()}
 								className={css.topBtn}
 							>
 								<img src="/icon/top.svg" alt="トップに戻るアイコン"/>
@@ -67,15 +61,13 @@ const Header = ({prop}) => {
 								align-items-center
 							`}
 						>
-							<Link href={prop.category.PROFILE.URL}>
-								<li
-									onClick={() => prop.methods.updateScreen(prop.state.set.category.profile)}
-									className={css.headerTab}
-								>
-									{prop.category.PROFILE.NAME}
-								</li>
-							</Link>
-							{/* スワイパーの問題でaタグにして一度最初から読み込ませる */}
+							<li
+								onClick={() => prop.methods.linkTo(prop.category.PROFILE.URL, prop.state.set.category.profile)}
+								className={css.headerTab}
+							>
+								{prop.category.PROFILE.NAME}
+							</li>
+							{/* Swiperの問題でaタグでリンクして１から表示させる */}
 							<a
 								href={prop.dataset[prop.order.framework.Laravel].Page[prop.order.website.Tequipedia].URL}
 								className={css.headerTabLink}

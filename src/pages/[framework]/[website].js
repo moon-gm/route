@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import Modal from '../../components/modal'
 import Loading from '../../components/loading'
 import css from '../../styles/modules/page.module.scss'
@@ -160,10 +159,9 @@ const PageLayout = ({ pageData, siteTitle }) => {
 	)
 }
 
-const PageContents = ({ dataset, order, siteTitle }) => {
+const PageContents = ({ dataset, order, siteTitle, router }) => {
 
 	// URLパラメータ取得
-	const router = useRouter()
 	const { framework, website } = router.query
 
 	// ページ内容設定

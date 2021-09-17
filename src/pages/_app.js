@@ -3,6 +3,7 @@ import '../styles/globals.scss'
 
 // React Hooks
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router';
 
 // Component
 import Header from '../components/header'
@@ -64,7 +65,8 @@ const Layout = ({children}) => {
 		},
 		methods: {
 			setSwipeElement,
-			updateScreen(caName, wsIdx) {
+			scrollToTop() { window.scrollTo(0, 0) },
+			linkTo(url, caName, wsIdx){
 				// Stateをセットしてページを切替
 				if (caName) setCategory(caName)
 				if (wsIdx || wsIdx === 0) setSelWS(wsIdx)
@@ -73,6 +75,7 @@ const Layout = ({children}) => {
 				if (PROP.if.isSP && !PROP.if.isProfile) {
 					document.getElementById('contents-aside').style.left = '768px'
 				}
+				PROP.router.push(url)
 			}
 		},
 		if: {
@@ -80,6 +83,7 @@ const Layout = ({children}) => {
 			isPC: (!isiPhone && !isiPad && !isAndroid && !isAndroidTablet), //PC判定
 			isSP: (isiPhone || isiPad || isAndroid || isAndroidTablet), //SP判定
 		},
+		router: useRouter()
 	}
 
 	/*** 子要素を再生成してPropsを渡す設定 ***/
