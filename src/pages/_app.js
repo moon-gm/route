@@ -16,8 +16,8 @@ import GLOBAL from '../data/global.json'
 import { PROFILE, PRODUCTION } from '../data/index.json'
 let wsState = 0
 PRODUCTION.DATASET.map((fw, fwIdx) => {
-	fw.Page.map((ws, wsIdx) => {
-		PRODUCTION.DATASET[fwIdx].Page[wsIdx].State = wsState
+	fw.PAGES.map((ws, wsIdx) => {
+		PRODUCTION.DATASET[fwIdx].PAGES[wsIdx].STATE = wsState
 		wsState++
 	})
 })
@@ -26,13 +26,13 @@ PRODUCTION.DATASET.map((fw, fwIdx) => {
 const order = { framework: {}, website: {} }
 PRODUCTION.DATASET.map((fw, fwIdx) => {
 	order.framework[fw.ID] = fwIdx
-	fw.Page.map((ws, wsIdx) => order.website[ws.ID] = wsIdx)
+	fw.PAGES.map((ws, wsIdx) => order.website[ws.ID] = wsIdx)
 })
 
 // State Data
 const state = { category: {}, selWS: {} }
 PRODUCTION.DATASET.map(fw => {
-	fw.Page.map(ws => state.selWS[ws.ID] = ws.State)
+	fw.PAGES.map(ws => state.selWS[ws.ID] = ws.STATE)
 })
 state.category[PROFILE.ID] = PROFILE.ID
 state.category[PRODUCTION.ID] = PRODUCTION.ID
@@ -108,7 +108,7 @@ const Layout = ({children}) => {
 		]
 		categoryArray.map(cat => firstPath === cat.url && setCategory(cat.state) )
 		// ウェブサイト切替
-		PROP.dataset.map(fw => { fw.Page.map(ws => pathName === ws.URL && setSelWS(ws.State) ) })
+		PROP.dataset.map(fw => { fw.PAGES.map(ws => pathName === ws.URL && setSelWS(ws.STATE) ) })
 
 		// ユーザーエージェント設定
 		setUA(navigator.userAgent.toLowerCase())

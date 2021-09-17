@@ -12,7 +12,7 @@ const PageLayout = ({ pageData, siteTitle }) => {
 			title: "内容",
 			content: "作成したサイトが果たす主な役割・機能の詳細。このサイトで何ができるのかなど。",
 		},
-		wayToMake: {
+		howToMake: {
 			title: "作成方法",
 			content: "使用したフレームワークなどをどのように活用しているか、また、どのようなシステムにしているかなどの説明。",
 		},
@@ -90,11 +90,11 @@ const PageLayout = ({ pageData, siteTitle }) => {
 
 				{/*** セクション__作成方法 -- start --***/}
 					<Section
-						title={modalData.wayToMake.title}
-						modalContent={modalData.wayToMake.content}
+						title={modalData.howToMake.title}
+						modalContent={modalData.howToMake.content}
 					>
 						<p className={css.p}>
-							{pageData.wayToMake}
+							{pageData.howToMake}
 						</p>
 					</Section>
 				{/*** セクション__作成方法 -- end --***/}
@@ -168,21 +168,21 @@ const PageContents = ({ dataset, order, siteTitle, router }) => {
 	let pageData = undefined
 	if (framework && website) {
 		const frameworkData = dataset[order.framework[framework]]
-		const websiteData = frameworkData.Page[order.website[website]]
+		const websiteData = frameworkData.PAGES[order.website[website]]
 		pageData = {
-			head: frameworkData.FW, // ヘッドタイトル	
-			title: websiteData.Title, // ページタイトル
-			logo: frameworkData.Img,　// タイトルロゴ
-			createDate: websiteData.CreateDate,　// 作成日
-			upDate: websiteData.UpDate,　// 更新日
-			summary: websiteData.Summary,　// 概要
+			head: frameworkData.NAME, // ヘッドタイトル	
+			title: websiteData.NAME, // ページタイトル
+			logo: frameworkData.IMG,　// タイトルロゴ
+			createDate: websiteData.CREATE_DATE,　// 作成日
+			upDate: websiteData.UPDATE_DATE,　// 更新日
+			summary: websiteData.SUMMARY,　// 概要
 			link: {
-				site: websiteData.Link.Site, // サイトリンク・画面イメージ
-				source: websiteData.Link.Source, // Githubソース
+				site: websiteData.LINK.SITE, // サイトリンク・画面イメージ
+				source: websiteData.LINK.SOURCE, // Githubソース
 			},	
-			description: websiteData.Description, // 内容			
-			wayToMake: websiteData.WayToMake, // 作成方法
-			skill: websiteData.Skill, // 使用技術・FW
+			description: websiteData.DESCRIPTION, // 内容			
+			howToMake: websiteData.HOW_TO_MAKE, // 作成方法
+			skill: websiteData.SKILL, // 使用技術・FW
 		}
 	}
 	return pageData === undefined ? <Loading/> : <PageLayout pageData={pageData} siteTitle={siteTitle}/>

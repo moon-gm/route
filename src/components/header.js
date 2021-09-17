@@ -65,7 +65,7 @@ const Header = ({prop}) => {
 							</li>
 							{/* Swiperの問題でaタグでリンクして１から表示させる */}
 							<a
-								href={prop.dataset[prop.order.framework.Laravel].Page[prop.order.website.Tequipedia].URL}
+								href={prop.dataset[prop.order.framework.Laravel].PAGES[prop.order.website.Tequipedia].URL}
 								className={css.headerTabLink}
 							>
 								<li className={css.headerTab}>

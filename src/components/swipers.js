@@ -15,9 +15,9 @@ const MainSwiper = ({prop}) => {
 
 		// アクティブスライドに合わせて選択状態を変更・遷移(スワイプ時)
 		prop.dataset.map(fw => {
-			fw.Page.map(ws => {
-				if(swiper.activeIndex === ws.State) {
-					prop.methods.linkTo(ws.URL, prop.state.set.category.production, ws.State)
+			fw.PAGES.map(ws => {
+				if(swiper.activeIndex === ws.STATE) {
+					prop.methods.linkTo(ws.URL, prop.state.set.category.production, ws.STATE)
 				}
 			})
 		})
@@ -48,10 +48,10 @@ const MainSwiper = ({prop}) => {
 			onSlideChange={(swiper) => onSlideChange(swiper)} // スライド変更時の処理
 		>
 			{prop.dataset.map(fw => (
-				<React.Fragment key={`mainVisual${fw.FW}`}>
+				<React.Fragment key={`mainVisual${fw.NAME}`}>
 
 					{/* イメージリスト -- start -- */}
-						{fw.Page.map(ws => (
+						{fw.PAGES.map(ws => (
 							<SwiperSlide
 								tag="li" // 「swiper-slide」クラスのTag設定
 								className={cssMV.swiperSlide}
@@ -59,10 +59,10 @@ const MainSwiper = ({prop}) => {
 							>
 								<img
 									src={`/swiper/${ws.ID}.png`}
-									onClick={() => prop.methods.linkTo(ws.URL, prop.state.set.category.production, ws.State)}
+									onClick={() => prop.methods.linkTo(ws.URL, prop.state.set.category.production, ws.STATE)}
 									className={`
 										${cssMV.swiperSlideImg}
-										${prop.state.store.selWS === ws.State && cssMV.swiperSlideImgSelected}
+										${prop.state.store.selWS === ws.STATE && cssMV.swiperSlideImgSelected}
 									`}
 								/>
 							</SwiperSlide>
@@ -111,10 +111,10 @@ const ThumbSwiper = ({prop}) => {
 					onSwiper={(swiper) => prop.methods.setSwipeElement(swiper)} // スワイプ時の処理
 				>
 					{prop.dataset.map(fw => (
-						<React.Fragment key={`sidelist${fw.State}`}>
+						<React.Fragment key={`sidelist${fw.STATE}`}>
 
 							{/** プロダクションリスト -- start -- **/}
-								{fw.Page.map(ws => (
+								{fw.PAGES.map(ws => (
 									<SwiperSlide
 										tag="li"
 										className={cssA.swiperSlide}
@@ -122,22 +122,22 @@ const ThumbSwiper = ({prop}) => {
 									>
 										<div
 											onClick={() => 
-												prop.methods.linkTo(ws.URL, prop.state.set.category.production, ws.State),
+												prop.methods.linkTo(ws.URL, prop.state.set.category.production, ws.STATE),
 												prop.methods.scrollToTop()
 											}
 											className={`
 												${cssA.list}
-												${prop.state.store.selWS === ws.State && cssA.listSelected}
+												${prop.state.store.selWS === ws.STATE && cssA.listSelected}
 											`}
 										>
 											<img
-												src={fw.Img}
+												src={fw.IMG}
 												alt="icon"
 												className={cssA.listImg}
 											/>
-											{ws.Title}
+											{ws.NAME}
 											<span className={cssA.listSubText}>
-												{fw.FW} / {ws.CreateDate} 〜
+												{fw.NAME} / {ws.CREATE_DATE} 〜
 											</span>
 										</div>
 									</SwiperSlide>
