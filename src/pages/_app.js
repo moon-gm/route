@@ -8,37 +8,40 @@ import { useState, useEffect } from 'react'
 import Header from '../components/header'
 import Swipers from '../components/swipers'
 
+// Global Data
+import GLOBAL from '../data/global.json'
+
 // Page Data
-import { profile, production } from '../data/index.json'
+import { PROFILE, PRODUCTION } from '../data/index.json'
 let wsState = 0
-production.map((fw, fwIdx) => {
+PRODUCTION.DATASET.map((fw, fwIdx) => {
 	fw.Page.map((ws, wsIdx) => {
-		production[fwIdx].Page[wsIdx].State = wsState
+		PRODUCTION.DATASET[fwIdx].Page[wsIdx].State = wsState
 		wsState++
 	})
 })
 
 // Order Data
 const order = { framework: {}, website: {} }
-production.map((fw, fwIdx) => {
+PRODUCTION.DATASET.map((fw, fwIdx) => {
 	order.framework[fw.ID] = fwIdx
 	fw.Page.map((ws, wsIdx) => order.website[ws.ID] = wsIdx)
 })
 
 // State Data
 const state = { category: {}, selWS: {} }
-production.map(fw => {
-	state.category[fw.ID] = fw.State
+PRODUCTION.DATASET.map(fw => {
 	fw.Page.map(ws => state.selWS[ws.ID] = ws.State)
 })
-profile.map(pf => state.category[pf.ID] = pf.State)
+state.category[PROFILE.ID] = PROFILE.ID
+state.category[PRODUCTION.ID] = PRODUCTION.ID
 
 const Layout = ({children}) => {
 
 	//-------------------------------- 初期定義 --------------------------------//
 
 	/*** State設定 ***/
-	const [category, setCategory] = useState(state.category.Profile) // 表示ページのFWの選択設定
+	const [category, setCategory] = useState(state.category.profile) // 表示ページのFWの選択設定
 	const [selWS, setSelWS] = useState() // 表示ページの画像とリストの選択設定
 	const [swipeElement, setSwipeElement] = useState() // スワイパーエレメントの設定
 	const [ua, setUA] = useState() // ユーザーエージェント設定
@@ -51,7 +54,9 @@ const Layout = ({children}) => {
 
 	/*** 共通Propsの設定 ***/
 	const PROP = {	
-		data: production, // 全Productionページ情報
+		siteTitle: GLOBAL.SITE_TITLE,
+		dataset: PRODUCTION.DATASET, // Productionページ情報
+		category: { PROFILE, PRODUCTION }, // Category情報
 		order: order, // コンテンツの順序
 		state: {
 			store: { category, selWS, swipeElement }, // state : 保存値
@@ -71,7 +76,7 @@ const Layout = ({children}) => {
 			}
 		},
 		if: {
-			isProfile: (category === state.category.Profile),　// Profileページの表示判定
+			isProfile: (category === state.category.profile),　// Profileページの表示判定
 			isPC: (!isiPhone && !isiPad && !isAndroid && !isAndroidTablet), //PC判定
 			isSP: (isiPhone || isiPad || isAndroid || isAndroidTablet), //SP判定
 		},
@@ -88,8 +93,8 @@ const Layout = ({children}) => {
 
 		// URLに合わせて表示切替
 		const pathName = window.location.pathname
-		pathName === '/' ? setCategory(PROP.state.set.category.Profile) : setCategory() // カテゴリー切替
-		PROP.data.map(fw => { fw.Page.map(ws => pathName === ws.URL && setSelWS(ws.State) ) }) // ウェブサイト切替
+		pathName === '/' ? setCategory(PROP.state.set.category.profile) : setCategory() // カテゴリー切替
+		PROP.dataset.map(fw => { fw.Page.map(ws => pathName === ws.URL && setSelWS(ws.State) ) }) // ウェブサイト切替
 
 		// ユーザーエージェント設定
 		setUA(navigator.userAgent.toLowerCase())

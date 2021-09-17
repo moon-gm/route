@@ -19,7 +19,7 @@ const Header = ({prop}) => {
 						{/** トップロゴ　-- start -- **/}
 							<Link href="/">
 								<li
-									onClick={() => prop.methods.updateScreen(prop.state.set.category.Profile)}
+									onClick={() => prop.methods.updateScreen(prop.state.set.category.profile)}
 									className={`
 										${css.topLogo}
 										flex-space-between
@@ -30,7 +30,7 @@ const Header = ({prop}) => {
 										src="/logo/top-logo.png"
 										className={css.topLogoImg}
 									/>
-									<span>Portfolio Show</span>
+									<span>{prop.siteTitle}</span>
 								</li>
 							</Link>
 						{/** トップロゴ　-- end -- **/}
@@ -67,21 +67,21 @@ const Header = ({prop}) => {
 								align-items-center
 							`}
 						>
-							<Link href="/">
+							<Link href={prop.category.PROFILE.URL}>
 								<li
-									onClick={() => prop.methods.updateScreen(prop.state.set.category.Profile)}
+									onClick={() => prop.methods.updateScreen(prop.state.set.category.profile)}
 									className={css.headerTab}
 								>
-									Profile
+									{prop.category.PROFILE.NAME}
 								</li>
 							</Link>
 							{/* スワイパーの問題でaタグにして一度最初から読み込ませる */}
 							<a
-								href={prop.data[prop.order.framework.Laravel].Page[prop.order.website.Tequipedia].URL}
+								href={prop.dataset[prop.order.framework.Laravel].Page[prop.order.website.Tequipedia].URL}
 								className={css.headerTabLink}
 							>
 								<li className={css.headerTab}>
-									Production
+									{prop.category.PRODUCTION.NAME}
 								</li>
 							</a>
 						</ul>

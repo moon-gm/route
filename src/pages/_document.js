@@ -1,4 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
+import GLOBAL from '../data/global.json'
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -11,10 +12,10 @@ export default class MyDocument extends Document {
       <Html>
         <Head>
 			<meta charset="UTF-8"/>
-			<meta name="description" content="Portfolio Show"/>
-			<meta property="og:url" content="https://route-eight.vercel.app/"/>
-			<meta property="og:title" content="Portfolio Show"/>
-			<meta property="og:description" content="各種フレームワークを用いて学習しながら作成"/>
+			<meta name="description" content={GLOBAL.SITE_TITLE}/>
+			<meta property="og:url" content={GLOBAL.SITE_URL}/>
+			<meta property="og:title" content={GLOBAL.SITE_TITLE}/>
+			<meta property="og:description" content={GLOBAL.SITE_DESCRIPTION}/>
 			<meta property="og:image" content="/github-logo.png"/>
 			<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
 			<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png"/>

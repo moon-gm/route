@@ -4,7 +4,7 @@ import Modal from '../../components/modal'
 import Loading from '../../components/loading'
 import css from '../../styles/modules/page.module.scss'
 
-const PageLayout = ({ pageData }) => {
+const PageLayout = ({ pageData, siteTitle }) => {
 
 	// モーダルの値設定
 	const openBtn = "?"
@@ -54,7 +54,7 @@ const PageLayout = ({ pageData }) => {
 		<>
 			{/*** <head>の<title>設定 -- start -- ***/}
 				<Head>
-					<title>{pageData.head} | Portfolio Show</title>
+					<title>{pageData.head} | {siteTitle}</title>
 				</Head>
 			{/*** <head>の<title>設定 -- end -- ***/}
 
@@ -160,7 +160,7 @@ const PageLayout = ({ pageData }) => {
 	)
 }
 
-const PageContents = ({ data, order }) => {
+const PageContents = ({ dataset, order, siteTitle }) => {
 
 	// URLパラメータ取得
 	const router = useRouter()
@@ -169,7 +169,7 @@ const PageContents = ({ data, order }) => {
 	// ページ内容設定
 	let pageData = undefined
 	if (framework && website) {
-		const frameworkData = data[order.framework[framework]]
+		const frameworkData = dataset[order.framework[framework]]
 		const websiteData = frameworkData.Page[order.website[website]]
 		pageData = {
 			head: frameworkData.FW, // ヘッドタイトル	
@@ -187,6 +187,6 @@ const PageContents = ({ data, order }) => {
 			skill: websiteData.Skill, // 使用技術・FW
 		}
 	}
-	return pageData === undefined ? <Loading/> : <PageLayout pageData={pageData}/>
+	return pageData === undefined ? <Loading/> : <PageLayout pageData={pageData} siteTitle={siteTitle}/>
 }
 export default PageContents

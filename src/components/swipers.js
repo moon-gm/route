@@ -24,7 +24,7 @@ const MainSwiper = ({prop}) => {
 		const active = swiper.activeIndex
 
 		// アクティブスライドに合わせて選択状態を変更・遷移
-		prop.data.map(fw => {
+		prop.dataset.map(fw => {
 			fw.Page.map(ws => {
 				if(active === ws.State) {
 					prop.methods.updateScreen(fw.State, ws.State)
@@ -58,7 +58,7 @@ const MainSwiper = ({prop}) => {
 			pagination // ページネーションの表示設定（・・・・・）
 			onSlideChange={(swiper) => onSlideChange(swiper)} // スライド変更時の処理
 		>
-			{prop.data.map(fw => (
+			{prop.dataset.map(fw => (
 				<React.Fragment key={`mainVisual${fw.FW}`}>
 
 					{/* イメージリスト -- start -- */}
@@ -70,7 +70,7 @@ const MainSwiper = ({prop}) => {
 							>
 								<img
 									src={`/swiper/${ws.ID}.png`}
-									onClick={() => prop.methods.updateScreen(fw.State, ws.State)}
+									onClick={() => prop.methods.updateScreen(prop.category.PRODUCTION.ID, ws.State)}
 									className={`
 										${cssMV.swiperSlideImg}
 										${prop.state.store.selWS === ws.State && cssMV.swiperSlideImgSelected}
@@ -127,7 +127,7 @@ const ThumbSwiper = ({prop}) => {
 					initialSlide={prop.state.store.selWS}
 					onSwiper={(swiper) => prop.methods.setSwipeElement(swiper)} // スワイプ時の処理
 				>
-					{prop.data.map(fw => (
+					{prop.dataset.map(fw => (
 						<React.Fragment key={`sidelist${fw.State}`}>
 
 							{/** プロダクションリスト -- start -- **/}
@@ -139,7 +139,7 @@ const ThumbSwiper = ({prop}) => {
 									>
 										<Link href={ws.URL}>
 											<p
-												onClick={() => prop.methods.updateScreen(fw.State, ws.State)}
+												onClick={() => prop.methods.updateScreen(prop.category.PRODUCTION.ID, ws.State)}
 												className={`
 													${cssA.list}
 													${prop.state.store.selWS === ws.State && cssA.listSelected}
@@ -169,10 +169,4 @@ const ThumbSwiper = ({prop}) => {
 	)
 }
 
-// SwipersにObjectとして格納
-const Swipers = {
-	MainSwiper: MainSwiper,
-	ThumbSwiper: ThumbSwiper,
-}
-
-export default Swipers
+export default { MainSwiper, ThumbSwiper }

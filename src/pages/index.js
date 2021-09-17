@@ -2,12 +2,12 @@ import Head from 'next/head'
 import Modal from './../components/modal'
 import styles from '../styles/modules/page.module.scss'
 
-const Home = () => {
+const Home = ({category, siteTitle}) => {
 	return (
 		<>
 			{/***  ヘッド設定 -- start -- ***/}
 				<Head>
-					<title>Home | Portfolio Show</title>
+					<title>{category.PROFILE.NAME} | {siteTitle}</title>
 				</Head>
 			{/***  ヘッド設定 -- end -- ***/}
 
