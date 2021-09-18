@@ -1,19 +1,7 @@
-import Link from 'next/link';
-import state from '../data/state.json'
 import css from '../styles/modules/header.module.scss'
 
 const Header = ({prop}) => {
-
-	// Topに戻るボタンの処理
-	function scrollToTop() {
-		window.scrollTo(0, 0)
-	}
-	// メニューボタンの処理
-	function showSideArea() {
-		document.getElementById('contents-aside').style.left = "0"
-	}
-
-	return(
+	return (
 		<header className="header-area">
 			<div className="header-area-wrap">
 
@@ -21,40 +9,38 @@ const Header = ({prop}) => {
 					<ul className={`${css.topList} flex-space-between`}>
 
 						{/** トップロゴ　-- start -- **/}
-							<Link href="/">
-								<li
-									onClick={() => prop.f.changeFW(state.selFW.Profile, 0)}
-									className={`
-										${css.topLogo}
-										flex-space-between
-										align-items-center
-									`}
-								>
-									<img
-										src="/github-logo.png"
-										className={css.topLogoImg}
-									/>
-									<span>Portfolio Show</span>
-								</li>
-							</Link>
+							<li
+								onClick={() => prop.methods.linkTo(prop.category.HOME.URL, prop.category.HOME.STATE)}
+								className={`
+									${css.topLogo}
+									flex-space-between
+									align-items-center
+								`}
+							>
+								<img
+									src="/logo/top-logo.png"
+									className={css.topLogoImg}
+								/>
+								<span>{prop.siteTitle}</span>
+							</li>
 						{/** トップロゴ　-- end -- **/}
 
 						{/** トップボタン　-- start -- **/}
 							<li
-								onClick={scrollToTop}
+								onClick={() => prop.methods.scrollToTop()}
 								className={css.topBtn}
 							>
-								<img src="/top.svg" alt="トップに戻るアイコン"/>
+								<img src="/icon/top.svg" alt="トップに戻るアイコン"/>
 							</li>
 						{/** トップボタン　-- end -- **/}
 
 						{/** メニューボタン -- start -- **/}
-							{!prop.if.isProfile && (
+							{prop.if.isProduction && (
 								<li
-									onClick={showSideArea}
+									onClick={() => prop.methods.showSideAreaSP(true)}
 									className={css.menuBtn}
 								>
-									<img src="/menu.svg" alt="メニューアイコン"/>
+									<img src="/icon/menu.svg" alt="メニューアイコン"/>
 								</li>
 							)}
 						{/** メニューボタン -- end -- **/}
@@ -71,21 +57,19 @@ const Header = ({prop}) => {
 								align-items-center
 							`}
 						>
-							<Link href="/">
-								<li
-									onClick={() => prop.f.changeFW(state.selFW.Profile, 0)}
-									className={css.headerTab}
-								>
-									Profile
-								</li>
-							</Link>
-							{/* スワイパーの問題でaタグにして一度最初から読み込ませる */}
+							<li
+								onClick={() => prop.methods.linkTo(prop.category.PROFILE.URL, prop.category.PROFILE.STATE)}
+								className={css.headerTab}
+							>
+								{prop.category.PROFILE.NAME}
+							</li>
+							{/* Swiperの問題でaタグでリンクして１から表示させる */}
 							<a
-								href={prop.info[prop.fw.Next].Page[prop.pg.NationalFlags].URL}
+								href={prop.category.PRODUCTION.DATASET[prop.order.framework.Laravel].PAGES[prop.order.website.Tequipedia].URL}
 								className={css.headerTabLink}
 							>
 								<li className={css.headerTab}>
-									Production
+									{prop.category.PRODUCTION.NAME}
 								</li>
 							</a>
 						</ul>
@@ -94,6 +78,6 @@ const Header = ({prop}) => {
 
 			</div>
 		</header>
-	);
+	)
 }
 export default Header

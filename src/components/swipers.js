@@ -2,10 +2,6 @@
 import cssMV from '../styles/modules/mainVisual.module.scss'
 import cssA from '../styles/modules/aside.module.scss'
 
-// Component
-import Link from 'next/link';
-import {useRouter} from 'next/router';
-
 // Swiper設定
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Pagination, Thumbs, EffectCoverflow } from 'swiper'// CSSは_document.jsのlinkで設定
@@ -14,21 +10,14 @@ SwiperCore.use([Pagination, Thumbs, EffectCoverflow]) // Swiperで使用する�
 // メインビジュアルの画像スワイパー
 const MainSwiper = ({prop}) => {
 
-	// ルーター設定
-	const router = useRouter()
-
 	// スライド変更時の処理
-	function onSlideChange(swiper) {
+	const onSlideChange = (swiper) => {
 
-		// アクティブスライドを取得
-		const active = swiper.activeIndex
-
-		// アクティブスライドに合わせて選択状態を変更・遷移
-		prop.info.map(fw => {
-			fw.Page.map(pg => {
-				if(active === pg.State) {
-					prop.f.changeFW(fw.State, pg.State)
-					router.push(pg.URL)
+		// アクティブスライドに合わせて選択状態を変更・遷移(スワイプ時)
+		prop.dataset.map(fw => {
+			fw.PAGES.map(ws => {
+				if(swiper.activeIndex === ws.STATE) {
+					prop.methods.linkTo(ws.URL, prop.category.PRODUCTION.STATE, ws.STATE)
 				}
 			})
 		})
@@ -39,15 +28,15 @@ const MainSwiper = ({prop}) => {
 	return (
 		<Swiper
 			id="main" // メインのSwiperを明示する
-			thumbs={{swiper: prop.st.swipEL}} // id="thumbs"が付いているSwiperコンポーネントとリンクさせる
+			thumbs={{swiper: prop.state.swipeElement}} // id="thumbs"が付いているSwiperコンポーネントとリンクさせる
 			tag="section" // 「swiper-container」クラスのTag設定
 			wrapperTag="ul" // 「swiper-wrapper」クラスのTag設定
 			speed={600} // 前後のスライドに移動する時の速度設定
 			centeredSlides // アクティブスライドを中央にする設定
-			initialSlide={prop.st.imgIx} // 初期表示スライドの設定
+			initialSlide={prop.state.selWS} // 初期表示スライドの設定
 			spaceBetween={0} //スライド間のスペース設定
 			slidesPerView={3} // スライドを一度に表示する個数設定
-			effect="coverflow" // スライドのエフェクト設定（'coverflow', 'fade', 'flip', 'slide', 'cube）'
+			effect="coverflow" // スライドのエフェクト設定（'coverflow', 'fade', 'flip', 'slide', 'cube'）
 			slideToClickedSlide // クリックしたスライドに移動する
 			breakpoints={{ // 画面幅ごとの詳細設定
 				320: {slidesPerView: 1}, // 画面幅が320pxより大きい場合
@@ -58,22 +47,22 @@ const MainSwiper = ({prop}) => {
 			pagination // ページネーションの表示設定（・・・・・）
 			onSlideChange={(swiper) => onSlideChange(swiper)} // スライド変更時の処理
 		>
-			{prop.info.map(fw => (
-				<React.Fragment key={`mainVisual${fw.FW}`}>
+			{prop.dataset.map(fw => (
+				<React.Fragment key={`mainVisual${fw.NAME}`}>
 
 					{/* イメージリスト -- start -- */}
-						{fw.Page.map(pg => (
+						{fw.PAGES.map(ws => (
 							<SwiperSlide
 								tag="li" // 「swiper-slide」クラスのTag設定
 								className={cssMV.swiperSlide}
-								key={pg.ID}
+								key={ws.ID}
 							>
 								<img
-									src={`/${pg.ID}.png`}
-									onClick={() => prop.f.changeFW(fw.State, pg.State)}
+									src={`/swiper/${ws.ID}.png`}
+									onClick={() => prop.methods.linkTo(ws.URL, prop.category.PRODUCTION.STATE, ws.STATE)}
 									className={`
 										${cssMV.swiperSlideImg}
-										${prop.st.selPG === pg.State && cssMV.swiperSlideImgSelected}
+										${prop.state.selWS === ws.STATE && cssMV.swiperSlideImgSelected}
 									`}
 								/>
 							</SwiperSlide>
@@ -88,25 +77,19 @@ const MainSwiper = ({prop}) => {
 
 // サイドエリアのサムスワイパー
 const ThumbSwiper = ({prop}) => {
-
-	// サイドエリアを閉じる処理（SP時）
-	function onCloseBtn() {
-		document.getElementById('contents-aside').style.left = "768px"
-	}
-
 	return (
 		<>
 			{/* フレックスボックス -- start -- */}
 				<div className="flex-space-between">
 					{/* プロダクションリストタイトル -- start -- */}
 						<h1 className={cssA.sectionTitle}>
-							Production List
+							{prop.category.PRODUCTION.NAME} List
 						</h1>
 					{/* プロダクションリストタイトル -- end -- */}
 
 					{/* プロダクションリストタイトル -- start -- */}
 						<h1
-							onClick={onCloseBtn}
+							onClick={() => prop.methods.showSideAreaSP(false)}
 							className={cssA.closeBtn}
 						>
 							×
@@ -124,38 +107,39 @@ const ThumbSwiper = ({prop}) => {
 					effect="slide"
 					slideToClickedSlide
 					slidesPerView={0}
-					initialSlide={prop.st.imgIx}
-					onSwiper={(swiper) => prop.f.changeSwiper(swiper)} // スワイプ時の処理
+					initialSlide={prop.state.selWS}
+					onSwiper={(swiper) => prop.methods.setSwipeElement(swiper)} // スワイプ時の処理
 				>
-					{prop.info.map(fw => (
-						<React.Fragment key={`sidelist${fw.State}`}>
+					{prop.dataset.map(fw => (
+						<React.Fragment key={`sidelist${fw.STATE}`}>
 
 							{/** プロダクションリスト -- start -- **/}
-								{fw.Page.map(pg => (
+								{fw.PAGES.map(ws => (
 									<SwiperSlide
 										tag="li"
 										className={cssA.swiperSlide}
-										key={`sidelistItem${pg.ID}`}
+										key={`sidelistItem${ws.ID}`}
 									>
-										<Link href={pg.URL}>
-											<p
-												onClick={() => prop.f.changeFW(fw.State, pg.State)}
-												className={`
-													${cssA.list}
-													${prop.st.selPG === pg.State && cssA.listSelected}
-												`}
-											>
-												<img
-													src={fw.Img}
-													alt="icon"
-													className={cssA.listImg}
-												/>
-												{pg.Title}
-												<span className={cssA.listSubText}>
-													{fw.FW} / {pg.CreateDate} 〜
-												</span>
-											</p>
-										</Link>
+										<div
+											onClick={() => 
+												prop.methods.linkTo(ws.URL, prop.category.PRODUCTION.STATE, ws.STATE),
+												prop.methods.scrollToTop()
+											}
+											className={`
+												${cssA.list}
+												${prop.state.selWS === ws.STATE && cssA.listSelected}
+											`}
+										>
+											<img
+												src={fw.IMG}
+												alt="icon"
+												className={cssA.listImg}
+											/>
+											{ws.NAME}
+											<span className={cssA.listSubText}>
+												{fw.NAME} / {ws.CREATE_DATE} 〜
+											</span>
+										</div>
 									</SwiperSlide>
 								))}
 							{/** プロダクションリスト -- end -- **/}
@@ -169,10 +153,4 @@ const ThumbSwiper = ({prop}) => {
 	)
 }
 
-// SwipersにObjectとして格納
-const Swipers = {
-	MainSwiper: MainSwiper,
-	ThumbSwiper: ThumbSwiper,
-}
-
-export default Swipers
+export default { MainSwiper, ThumbSwiper }

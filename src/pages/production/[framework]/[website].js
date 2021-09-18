@@ -1,17 +1,43 @@
 import Head from 'next/head'
-import Modal from './modal'
-import css from '../styles/modules/page.module.scss'
+import Modal from '../../../components/modal'
+import Loading from '../../../components/loading'
+import css from '../../../styles/modules/page.module.scss'
 
-const PageLayout = ({pageData}) => {
+const PageLayout = ({ dataset, order, siteTitle, router }) => {
+
+	// URLパラメータ取得
+	const { framework, website } = router.query
+
+	// ページ内容設定
+	let pageData = undefined
+	if (framework && website) {
+		const frameworkData = dataset[order.framework[framework]]
+		const websiteData = frameworkData.PAGES[order.website[website]]
+		pageData = {
+			head: frameworkData.NAME, // ヘッドタイトル	
+			title: websiteData.NAME, // ページタイトル
+			logo: frameworkData.IMG,　// タイトルロゴ
+			createDate: websiteData.CREATE_DATE,　// 作成日
+			upDate: websiteData.UPDATE_DATE,　// 更新日
+			summary: websiteData.SUMMARY,　// 概要
+			link: {
+				site: websiteData.LINK.SITE, // サイトリンク・画面イメージ
+				source: websiteData.LINK.SOURCE, // Githubソース
+			},	
+			description: websiteData.DESCRIPTION, // 内容			
+			howToMake: websiteData.HOW_TO_MAKE, // 作成方法
+			skill: websiteData.SKILL, // 使用技術・FW
+		}
+	}
 
 	// モーダルの値設定
 	const openBtn = "?"
 	const modalData = {
-		contents: {
+		description: {
 			title: "内容",
 			content: "作成したサイトが果たす主な役割・機能の詳細。このサイトで何ができるのかなど。",
 		},
-		wayToMake: {
+		howToMake: {
 			title: "作成方法",
 			content: "使用したフレームワークなどをどのように活用しているか、また、どのようなシステムにしているかなどの説明。",
 		},
@@ -48,11 +74,11 @@ const PageLayout = ({pageData}) => {
 		)
 	}
 
-	return (
+	return pageData === undefined ? <Loading/> : (
 		<>
 			{/*** <head>の<title>設定 -- start -- ***/}
 				<Head>
-					<title>{pageData.head} | Portfolio Show</title>
+					<title>{pageData.head} | {siteTitle}</title>
 				</Head>
 			{/*** <head>の<title>設定 -- end -- ***/}
 
@@ -67,8 +93,8 @@ const PageLayout = ({pageData}) => {
 						<p className={css.p}>
 							作成日 {pageData.createDate}<br/>
 							更新日 {pageData.upDate}<br/>
-							サイト <a href={pageData.link.site} target="_blank">{pageData.title}<img src="/external-link.svg" className={css.link}/></a><br/>
-							ソース <a href={pageData.link.source} target="_blank">Github<img src="/external-link.svg" className={css.link}/></a>
+							サイト <a href={pageData.link.site} target="_blank">{pageData.title}<img src="/icon/external-link.svg" className={css.link}/></a><br/>
+							ソース <a href={pageData.link.source} target="_blank">Github<img src="/icon/external-link.svg" className={css.link}/></a>
 						</p>
 						<p className={css.p}>
 							{pageData.summary}
@@ -78,22 +104,22 @@ const PageLayout = ({pageData}) => {
 
 				{/*** セクション__内容 -- start --***/}
 					<Section
-						title={modalData.contents.title}
-						modalContent={modalData.contents.content}
+						title={modalData.description.title}
+						modalContent={modalData.description.content}
 					>
 						<p className={css.p}>
-							{pageData.contents}
+							{pageData.description}
 						</p>
 					</Section>
 				{/*** セクション__内容 -- end --***/}
 
 				{/*** セクション__作成方法 -- start --***/}
 					<Section
-						title={modalData.wayToMake.title}
-						modalContent={modalData.wayToMake.content}
+						title={modalData.howToMake.title}
+						modalContent={modalData.howToMake.content}
 					>
 						<p className={css.p}>
-							{pageData.wayToMake}
+							{pageData.howToMake}
 						</p>
 					</Section>
 				{/*** セクション__作成方法 -- end --***/}
@@ -107,7 +133,7 @@ const PageLayout = ({pageData}) => {
 							<div className={css.imgBox}>
 								{pageData.skill.map(skill => (
 									<img
-										src={`/${skill.image}`}
+										src={`/main/${skill.image}`}
 										alt={skill.title}
 										key={`FW-image${skill.title}`}
 									/>
@@ -118,7 +144,7 @@ const PageLayout = ({pageData}) => {
 							<ul key={`FW-text${skill.title}`} className={css.listBox}>
 								{/* 画像：SPでは非表示 -- start -- */}
 									<img
-										src={`/${skill.image}`}
+										src={`/main/${skill.image}`}
 										className={css.img}
 									/>
 								{/* 画像：SPでは非表示 -- end -- */}
