@@ -16,10 +16,15 @@ import GLOBAL from '../data/global.json'
 import { HOME, PROFILE, PRODUCTION } from '../data/index.json'
 
 /*** Category Data設定 ***/
-// STATEとURLはID等から動的に設定
+const categoryArray = [ PROFILE, PRODUCTION ]
+categoryArray.map(cat => {
+	cat.STATE = cat.ID
+	cat.URL = '/' + cat.ID
+})
 const order = { framework: {}, website: {} }
 let wsState = 0
 PRODUCTION.DATASET.map((fw, fwIdx) => {
+	// STATEとURLはID等から動的に設定
 	fw.STATE = fw.ID
 	order.framework[fw.ID] = fwIdx
 	fw.PAGES.map((ws, wsIdx) => {
@@ -29,10 +34,6 @@ PRODUCTION.DATASET.map((fw, fwIdx) => {
 		wsState++
 	})
 })
-PROFILE.STATE = PROFILE.ID
-PROFILE.URL = '/' + PROFILE.ID
-PRODUCTION.STATE = PRODUCTION.ID
-PRODUCTION.URL = '/' + PRODUCTION.ID
 
 const Layout = ({children}) => {
 
@@ -96,11 +97,7 @@ const Layout = ({children}) => {
 		const pathName = window.location.pathname
 		const firstPath = '/' + pathName.split('/')[1]
 		// カテゴリー切替
-		const categoryArray = [
-			{url: PROP.category.PROFILE.URL, state: PROP.category.PROFILE.STATE},
-			{url: PROP.category.PRODUCTION.URL, state: PROP.category.PRODUCTION.STATE},
-		]
-		categoryArray.map(cat => firstPath === cat.url && setCategory(cat.state) )
+		categoryArray.map(cat => firstPath === cat.URL && setCategory(cat.STATE) )
 		// ウェブサイト切替
 		PROP.dataset.map(fw => { fw.PAGES.map(ws => pathName === ws.URL && setSelWS(ws.STATE) ) })
 

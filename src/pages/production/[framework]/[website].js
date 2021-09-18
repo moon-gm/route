@@ -3,12 +3,37 @@ import Modal from '../../../components/modal'
 import Loading from '../../../components/loading'
 import css from '../../../styles/modules/page.module.scss'
 
-const PageLayout = ({ pageData, siteTitle }) => {
+const PageLayout = ({ dataset, order, siteTitle, router }) => {
+
+	// URLパラメータ取得
+	const { framework, website } = router.query
+
+	// ページ内容設定
+	let pageData = undefined
+	if (framework && website) {
+		const frameworkData = dataset[order.framework[framework]]
+		const websiteData = frameworkData.PAGES[order.website[website]]
+		pageData = {
+			head: frameworkData.NAME, // ヘッドタイトル	
+			title: websiteData.NAME, // ページタイトル
+			logo: frameworkData.IMG,　// タイトルロゴ
+			createDate: websiteData.CREATE_DATE,　// 作成日
+			upDate: websiteData.UPDATE_DATE,　// 更新日
+			summary: websiteData.SUMMARY,　// 概要
+			link: {
+				site: websiteData.LINK.SITE, // サイトリンク・画面イメージ
+				source: websiteData.LINK.SOURCE, // Githubソース
+			},	
+			description: websiteData.DESCRIPTION, // 内容			
+			howToMake: websiteData.HOW_TO_MAKE, // 作成方法
+			skill: websiteData.SKILL, // 使用技術・FW
+		}
+	}
 
 	// モーダルの値設定
 	const openBtn = "?"
 	const modalData = {
-		contents: {
+		description: {
 			title: "内容",
 			content: "作成したサイトが果たす主な役割・機能の詳細。このサイトで何ができるのかなど。",
 		},
@@ -49,7 +74,7 @@ const PageLayout = ({ pageData, siteTitle }) => {
 		)
 	}
 
-	return (
+	return pageData === undefined ? <Loading/> : (
 		<>
 			{/*** <head>の<title>設定 -- start -- ***/}
 				<Head>
@@ -79,8 +104,8 @@ const PageLayout = ({ pageData, siteTitle }) => {
 
 				{/*** セクション__内容 -- start --***/}
 					<Section
-						title={modalData.contents.title}
-						modalContent={modalData.contents.content}
+						title={modalData.description.title}
+						modalContent={modalData.description.content}
 					>
 						<p className={css.p}>
 							{pageData.description}
@@ -158,33 +183,4 @@ const PageLayout = ({ pageData, siteTitle }) => {
 		</>
 	)
 }
-
-const PageContents = ({ dataset, order, siteTitle, router }) => {
-
-	// URLパラメータ取得
-	const { framework, website } = router.query
-
-	// ページ内容設定
-	let pageData = undefined
-	if (framework && website) {
-		const frameworkData = dataset[order.framework[framework]]
-		const websiteData = frameworkData.PAGES[order.website[website]]
-		pageData = {
-			head: frameworkData.NAME, // ヘッドタイトル	
-			title: websiteData.NAME, // ページタイトル
-			logo: frameworkData.IMG,　// タイトルロゴ
-			createDate: websiteData.CREATE_DATE,　// 作成日
-			upDate: websiteData.UPDATE_DATE,　// 更新日
-			summary: websiteData.SUMMARY,　// 概要
-			link: {
-				site: websiteData.LINK.SITE, // サイトリンク・画面イメージ
-				source: websiteData.LINK.SOURCE, // Githubソース
-			},	
-			description: websiteData.DESCRIPTION, // 内容			
-			howToMake: websiteData.HOW_TO_MAKE, // 作成方法
-			skill: websiteData.SKILL, // 使用技術・FW
-		}
-	}
-	return pageData === undefined ? <Loading/> : <PageLayout pageData={pageData} siteTitle={siteTitle}/>
-}
-export default PageContents
+export default PageLayout
