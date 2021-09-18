@@ -191,6 +191,40 @@
 				]
 			},
 			{
+				"ID": "Nuxt",
+				"NAME": "Nuxt.js",
+				"STATE": null,
+				"IMG": "/logo/nuxt.png",
+				"PAGES": [
+					{
+						"ID": "Tequipedia2",
+						"NAME": "Tequipedia",
+						"URL": null,
+						"STATE": null,
+						"CREATE_DATE": "2021.9.15",
+						"UPDATE_DATE": "2021.9.20",
+						"SUMMARY": "テキーラを題材にした商品検索・情報サイト",
+						"LINK": {
+							"SITE": "https://tequipedia.vercel.app/",
+							"SOURCE": "https://github.com/moon-gm/tequipedia"
+						},
+						"DESCRIPTION": "NuxtとVuetifyを利用して既にLaravelで作成している「テキーラ全書」をリニューアル",
+						"HOW_TO_MAKE": "VueフレームワークのNuxt.jsで作成。データはEC2に配置しているデータベースを利用",
+						"SKILL": [
+							{"title": "Nuxt", "image": "nuxt.png", "contents": ["Routing", "API"]},
+							{"title": "Vue", "image": "vue.png", "contents": [""]},
+							{"title": "Vuetify", "image": "vuetify.png", "contents": ["要素は全てVuetifyコンポーネント利用"]},
+							{"title": "Node.js", "image": "nodejs.png", "contents": ["express", "axios", "serverless-mysql"]},
+							{"title": "JavaScript", "image": "javascript.png", "contents": [""]},
+							{"title": "Mysql", "image": "mysql.png", "contents": ["EC2サーバーに配置"]},
+							{"title": "Github", "image": "github.png", "contents": ["Gitリポジトリ"]},
+							{"title": "Vercel", "image": "vercel.png", "contents": ["ホスティング"]}
+						]
+	
+					}
+				]
+			},
+			{
 				"ID": "Laravel",
 				"NAME": "Laravel",
 				"STATE": null,
