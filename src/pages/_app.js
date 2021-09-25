@@ -10,10 +10,10 @@ import Header from '../components/header'
 import Swipers from '../components/swipers'
 
 // Global Data
-import GLOBAL from '../data/global.json'
+import GLOBAL from '../config/global.json'
 
 // Category Data
-import { HOME, PROFILE, PRODUCTION } from '../data/index.json'
+import { HOME, PROFILE, PRODUCTION } from '../config/index.json'
 
 /*** Category Data設定 ***/
 const categoryArray = [ PROFILE, PRODUCTION ]

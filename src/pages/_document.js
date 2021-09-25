@@ -1,5 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import GLOBAL from '../data/global.json'
+import GLOBAL from '../config/global.json'
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
