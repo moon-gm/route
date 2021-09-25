@@ -26,6 +26,30 @@
 				"IMG": "/logo/react.png",
 				"PAGES": [
 					{
+						"ID": "CatGallery",
+						"NAME": "Cat Gallery",
+						"URL": null,
+						"STATE": null,
+						"CREATE_DATE": "2021.9.25",
+						"UPDATE_DATE": "2021.9.25",
+						"SUMMARY": "飼い猫を題材にした写真ギャラリーサイト。",
+						"LINK": {
+							"SITE": "https://cat-gallery.vercel.app/",
+							"SOURCE": "https://github.com/moon-gm/cat-gallery"
+						},
+						"DESCRIPTION": "写真を年代毎に選択して月毎にアルバム表示。Viewを押下で原寸サイズを表示。英語の復習も兼ねて全編英語で作成。",
+						"HOW_TO_MAKE": "Create React App + Material UIで作成。",
+						"SKILL": [
+							{"title": "React", "image": "react.png", "contents": ["create-react-app", "react-router"]},
+							{"title": "Node.js", "image": "nodejs.png", "contents": ["npm"]},
+							{"title": "JavaScript", "image": "javascript.png", "contents": ["sessionStorage"]},
+							{"title": "Material UI", "image": "material-ui.png", "contents": ["コンポーネント"]},
+							{"title": "Windows Bat", "image": "windows.png", "contents": ["バッチで画像配置"]},
+							{"title": "Vercel", "image": "vercel.png", "contents": ["ホスティングサービス"]}
+						]
+	
+					},
+					{
 						"ID": "ReactLearning",
 						"NAME": "React Learning",
 						"URL": null,
@@ -81,30 +105,6 @@
 						]
 					},
 					{
-						"ID": "NextLearning",
-						"NAME": "Next Learning",
-						"URL": null,
-						"STATE": null,
-						"CREATE_DATE": "2020.7.21",
-						"UPDATE_DATE": "2020.8.17",
-						"SUMMARY": "Next.jsの学習内容をそのまま反映させていく学習サイト。",
-						"LINK": {
-							"SITE": "https://next-learning-teal.vercel.app/",
-							"SOURCE": "https://github.com/moon-gm/next-learning"
-						},
-						"DESCRIPTION": "現在、独学で学んでいるNext.jsで、学習内容をそのままサイトにして自身でも活用できるように作成。React.jsでは実現させていなかったURLのパスを付与したサイトとなっている。",
-						"HOW_TO_MAKE": "ReactのフレームワークのNext.jsで作成。学んだことを項目ごとにコンポーネント化してボタン操作でページを書き換え、素早くアクセスできるようReactの良さを出していく。CSSはnode-sassを使用してSassをそのままコンポーネントにインポートして使用。",
-						"SKILL": [
-							{"title": "Next", "image": "nextjs.png", "contents": ["API Routes"]},
-							{"title": "React", "image": "react.png", "contents": ["スワイプ（react-swipeable-views）", "Hooks（useState, useEffect）"]},
-							{"title": "Node.js", "image": "nodejs.png", "contents": ["npm"]},
-							{"title": "JavaScript", "image": "javascript.png", "contents": [""]},
-							{"title": "Sass(css)", "image": "sass.png", "contents": ["@mixin", "@Keyframes", "animation", "レスポンシブ"]},
-							{"title": "Github", "image": "github.png", "contents": ["Gitリポジトリ"]},
-							{"title": "Vercel", "image": "vercel.png", "contents": ["ホスティングサーバ"]}
-						]
-					},
-					{
 						"ID": "NationalFlags",
 						"NAME": "National Flags",
 						"URL": null,
@@ -128,6 +128,30 @@
 							{"title": "Sass(css)", "image": "sass.png", "contents": ["@mixin", "レスポンシブ"]},
 							{"title": "Github", "image": "github.png", "contents": ["Gitリポジトリ"]},
 							{"title": "Vercel", "image": "vercel.png", "contents": ["ホスティングサーバ", "Secret Key", "vercel-cli"]}
+						]
+					},
+					{
+						"ID": "NextLearning",
+						"NAME": "Next Learning",
+						"URL": null,
+						"STATE": null,
+						"CREATE_DATE": "2020.7.21",
+						"UPDATE_DATE": "2020.8.17",
+						"SUMMARY": "Next.jsの学習内容をそのまま反映させていく学習サイト。",
+						"LINK": {
+							"SITE": "https://next-learning-teal.vercel.app/",
+							"SOURCE": "https://github.com/moon-gm/next-learning"
+						},
+						"DESCRIPTION": "現在、独学で学んでいるNext.jsで、学習内容をそのままサイトにして自身でも活用できるように作成。React.jsでは実現させていなかったURLのパスを付与したサイトとなっている。",
+						"HOW_TO_MAKE": "ReactのフレームワークのNext.jsで作成。学んだことを項目ごとにコンポーネント化してボタン操作でページを書き換え、素早くアクセスできるようReactの良さを出していく。CSSはnode-sassを使用してSassをそのままコンポーネントにインポートして使用。",
+						"SKILL": [
+							{"title": "Next", "image": "nextjs.png", "contents": ["API Routes"]},
+							{"title": "React", "image": "react.png", "contents": ["スワイプ（react-swipeable-views）", "Hooks（useState, useEffect）"]},
+							{"title": "Node.js", "image": "nodejs.png", "contents": ["npm"]},
+							{"title": "JavaScript", "image": "javascript.png", "contents": [""]},
+							{"title": "Sass(css)", "image": "sass.png", "contents": ["@mixin", "@Keyframes", "animation", "レスポンシブ"]},
+							{"title": "Github", "image": "github.png", "contents": ["Gitリポジトリ"]},
+							{"title": "Vercel", "image": "vercel.png", "contents": ["ホスティングサーバ"]}
 						]
 					}
 				]
