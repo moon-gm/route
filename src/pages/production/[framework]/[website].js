@@ -16,7 +16,7 @@ const PageLayout = ({ dataset, order, siteTitle, router }) => {
 		pageData = {
 			head: frameworkData.NAME, // ヘッドタイトル	
 			title: websiteData.NAME, // ページタイトル
-			logo: frameworkData.IMG,　// タイトルロゴ
+			logo: websiteData.IMG,　// タイトルロゴ
 			createDate: websiteData.CREATE_DATE,　// 作成日
 			upDate: websiteData.UPDATE_DATE,　// 更新日
 			summary: websiteData.SUMMARY,　// 概要

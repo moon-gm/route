@@ -131,12 +131,17 @@ const ThumbSwiper = ({prop}) => {
 											`}
 										>
 											<img
-												src={fw.IMG}
+												src={ws.IMG}
 												alt="icon"
 												className={cssA.listImg}
 											/>
 											{ws.NAME}
 											<span className={cssA.listSubText}>
+												<img
+													src={fw.IMG}
+													alt="icon"
+													className={cssA.listImg}
+												/>
 												{fw.NAME} / {ws.CREATE_DATE} 〜
 											</span>
 										</div>
