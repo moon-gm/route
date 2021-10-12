@@ -1,6 +1,6 @@
 import css from '../styles/modules/header.module.scss'
 
-const Header = ({prop}) => {
+const Header = ({ prop }) => {
 	return (
 		<header className="header-area">
 			<div className="header-area-wrap">

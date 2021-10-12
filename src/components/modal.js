@@ -1,47 +1,39 @@
-import { useState } from 'react';
-import Modal from 'react-modal';
+import { useState } from 'react'
+import Modal from 'react-modal'
 import css from '../styles/modules/modal.module.scss'
 
 // モーダルウィンドウのCSS設定
 const customStyles = {
 	// 背景のCSS設定
-	overlay : {
-
-	},
-	// モーダルウィンドウのCSS設定
+	overlay : {},
+	// ウィンドウのCSS設定
 	content : {
-		top                   : '50%',
-		left                  : '50%',
-		right                 : 'auto',
-		bottom                : 'auto',
-		marginRight           : '-50%',
-		transform             : 'translate(-50%, -50%)',
-		background            : 'rgba(0, 0, 0, 0.7)',
+		top: '50%',
+		left: '50%',
+		right: 'auto',
+		bottom: 'auto',
+		marginRight: '-50%',
+		transform: 'translate(-50%, -50%)',
+		background: 'rgba(0, 0, 0, 0.7)',
 	}
 };
 
-// 任意のアプリを設定する　create-react-appなら#root
-Modal.setAppElement('#__next');
+// 任意のアプリを設定する
+Modal.setAppElement('#__next')
 
-const ModalWindow = ({title, content, openBtn}) => {
+const ModalWindow = ({ title, content, openBtn }) => {
 
 	// State設定
-	const [modalIsOpen, setModalIsOpen] = useState(false);
+	const [modalIsOpen, setModalIsOpen] = useState(false)
 
 	// モーダル表示時の処理
-	function openModal() {
-		setModalIsOpen(true);
-	}
+	const openModal = () => setModalIsOpen(true)
 
 	// モーダル表示後の処理
-	function afterOpenModal() {
-		document.getElementById('title').style.color = 'white';
-	}
+	const afterOpenModal = () => document.getElementById('title').style.color = 'white'
 
 	// モーダル閉じた後の処理
-	function closeModal() {
-		setModalIsOpen(false);
-	}
+	const closeModal = () => setModalIsOpen(false)
 
 	return (
 		<>

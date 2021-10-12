@@ -8,7 +8,7 @@ import SwiperCore, { Pagination, Thumbs, EffectCoverflow } from 'swiper'// CSS�
 SwiperCore.use([Pagination, Thumbs, EffectCoverflow]) // Swiperで使用するコンポーネント設定
 
 // メインビジュアルの画像スワイパー
-const MainSwiper = ({prop}) => {
+const MainSwiper = ({ prop }) => {
 
 	// スライド変更時の処理
 	const onSlideChange = (swiper) => {
@@ -76,7 +76,7 @@ const MainSwiper = ({prop}) => {
 }
 
 // サイドエリアのサムスワイパー
-const ThumbSwiper = ({prop}) => {
+const ThumbSwiper = ({ prop }) => {
 	return (
 		<>
 			{/* フレックスボックス -- start -- */}

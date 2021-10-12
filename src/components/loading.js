@@ -1,5 +1,5 @@
 const Loading = () => {
-	return(
+	return (
 		<div style={{textAlign: 'center'}}>
 			Now Loading...
 		</div>

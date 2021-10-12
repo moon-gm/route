@@ -52,7 +52,7 @@ const PageLayout = ({ dataset, order, siteTitle, router }) => {
 	}
 
 	// セクション共通部分のコンポーネント
-	const Section = ({title, modalContent, children}) => {
+	const Section = ({ title, modalContent, children }) => {
 		return (
 			<section className={css.sectionBox}>
 				<div className={css.sectionTitle}>

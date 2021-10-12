@@ -35,13 +35,13 @@ PRODUCTION.DATASET.map((fw, fwIdx) => {
 	})
 })
 
-const Layout = ({children}) => {
+const Layout = ({ children }) => {
 
 	//-------------------------------- 初期定義 --------------------------------//
 
 	/*** State設定 ***/
-	const [category, setCategory] = useState(PROFILE.STATE) // 表示ページのFWの選択設定
-	const [selWS, setSelWS] = useState() // 表示ページの画像とリストの選択設定
+	const [category, setCategory] = useState(PROFILE.STATE) // 選択しているカテゴリ設定
+	const [selWS, setSelWS] = useState() // 選択しているサイト設定
 	const [swipeElement, setSwipeElement] = useState() // スワイパーエレメントの設定
 	const [ua, setUA] = useState() // ユーザーエージェント設定
 
@@ -56,7 +56,7 @@ const Layout = ({children}) => {
 		siteTitle: GLOBAL.SITE_TITLE,
 		dataset: PRODUCTION.DATASET, // ページ情報
 		category: { HOME, PROFILE, PRODUCTION }, // Category全情報
-		order: order, // コンテンツの順序
+		order, // コンテンツの順序
 		state: { category, selWS, swipeElement }, // state保存値
 		methods: {
 			setSwipeElement,
@@ -151,12 +151,12 @@ const Layout = ({children}) => {
 	)
 }
 
-function MyApp({ Component, pageProps }) {
+const MyApp = ({ Component, pageProps }) => {
 	return (
 		<Layout>
 			<Component {...pageProps} />
 		</Layout>
-	);
+	)
 }
 
 export default MyApp

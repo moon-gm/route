@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import styles from '../styles/modules/page.module.scss'
 
-const Home = ({category, siteTitle}) => {
+const Home = ({ category, siteTitle }) => {
 	return (
 		<>
 			{/***  ヘッド設定 -- start -- ***/}

@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Modal from '../../components/modal'
 import styles from '../../styles/modules/page.module.scss'
 
-const Profile = ({category, siteTitle}) => {
+const Profile = ({ category, siteTitle }) => {
 	return (
 		<>
 			{/***  ヘッド設定 -- start -- ***/}
