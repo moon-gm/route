@@ -1,6 +1,14 @@
 import css from '../styles/modules/header.module.scss'
 
 const Header = ({ prop }) => {
+
+	// propから使うものを抽出
+	const { siteTitle, judgments, order, category, methods } = prop
+	const { linkTo, scrollToTop, showSideAreaSP } = methods
+	const { HOME, PROFILE, PRODUCTION } = category
+	const { framework, website } = order
+	const { isProduction } = judgments
+
 	return (
 		<header className="header-area">
 			<div className="header-area-wrap">
@@ -10,7 +18,7 @@ const Header = ({ prop }) => {
 
 						{/** トップロゴ　-- start -- **/}
 							<li
-								onClick={() => prop.methods.linkTo(prop.category.HOME.URL, prop.category.HOME.STATE)}
+								onClick={() => linkTo(HOME.URL, HOME.STATE)}
 								className={`
 									${css.topLogo}
 									flex-space-between
@@ -21,13 +29,13 @@ const Header = ({ prop }) => {
 									src="/logo/top-logo.png"
 									className={css.topLogoImg}
 								/>
-								<span>{prop.siteTitle}</span>
+								<span>{siteTitle}</span>
 							</li>
 						{/** トップロゴ　-- end -- **/}
 
 						{/** トップボタン　-- start -- **/}
 							<li
-								onClick={() => prop.methods.scrollToTop()}
+								onClick={() => scrollToTop()}
 								className={css.topBtn}
 							>
 								<img src="/icon/top.svg" alt="トップに戻るアイコン"/>
@@ -35,9 +43,9 @@ const Header = ({ prop }) => {
 						{/** トップボタン　-- end -- **/}
 
 						{/** メニューボタン -- start -- **/}
-							{prop.if.isProduction && (
+							{isProduction && (
 								<li
-									onClick={() => prop.methods.showSideAreaSP(true)}
+									onClick={() => showSideAreaSP(true)}
 									className={css.menuBtn}
 								>
 									<img src="/icon/menu.svg" alt="メニューアイコン"/>
@@ -58,18 +66,18 @@ const Header = ({ prop }) => {
 							`}
 						>
 							<li
-								onClick={() => prop.methods.linkTo(prop.category.PROFILE.URL, prop.category.PROFILE.STATE)}
+								onClick={() => linkTo(PROFILE.URL, PROFILE.STATE)}
 								className={css.headerTab}
 							>
-								{prop.category.PROFILE.NAME}
+								{PROFILE.NAME}
 							</li>
 							{/* Swiperの問題でaタグでリンクして１から表示させる */}
 							<a
-								href={prop.category.PRODUCTION.DATASET[prop.order.framework.Nuxt].PAGES[prop.order.website.Tequipedia2].URL}
+								href={PRODUCTION.DATASET[framework.Nuxt].PAGES[website.Tequipedia2].URL}
 								className={css.headerTabLink}
 							>
 								<li className={css.headerTab}>
-									{prop.category.PRODUCTION.NAME}
+									{PRODUCTION.NAME}
 								</li>
 							</a>
 						</ul>

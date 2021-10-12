@@ -54,7 +54,6 @@ const Layout = ({ children }) => {
 	/*** 共通Propsの設定 ***/
 	const PROP = {	
 		siteTitle: GLOBAL.SITE_TITLE,
-		dataset: PRODUCTION.DATASET, // ページ情報
 		category: { HOME, PROFILE, PRODUCTION }, // Category全情報
 		order, // コンテンツの順序
 		state: { category, selWS, swipeElement }, // state保存値
@@ -71,12 +70,12 @@ const Layout = ({ children }) => {
 				if (wsIdx || wsIdx === 0) setSelWS(wsIdx)
 				PROP.router.push(url)
 		
-				if (PROP.if.isSP && PROP.if.isProduction) {
+				if (PROP.judgments.isSP && PROP.judgments.isProduction) {
 					PROP.methods.showSideAreaSP(false)
 				}
 			}
 		},
-		if: {
+		judgments: {
 			isProduction: (category === PRODUCTION.STATE),　// Productionページ判定
 			isPC: (!isiPhone && !isiPad && !isAndroid && !isAndroidTablet), //PC判定
 			isSP: (isiPhone || isiPad || isAndroid || isAndroidTablet), //SP判定
@@ -99,7 +98,7 @@ const Layout = ({ children }) => {
 		// カテゴリー切替
 		categoryArray.map(cat => firstPath === cat.URL && setCategory(cat.STATE) )
 		// ウェブサイト切替
-		PROP.dataset.map(fw => { fw.PAGES.map(ws => pathName === ws.URL && setSelWS(ws.STATE) ) })
+		PROP.category.PRODUCTION.DATASET.map(fw => { fw.PAGES.map(ws => pathName === ws.URL && setSelWS(ws.STATE) ) })
 
 		// ユーザーエージェント設定
 		setUA(navigator.userAgent.toLowerCase())
@@ -115,7 +114,7 @@ const Layout = ({ children }) => {
 			{/*** ヘッダーエリア -- end -- ***/}
 
 			{/*** メインビジュアルエリア -- start -- ***/}
-				{PROP.if.isProduction && (
+				{PROP.judgments.isProduction && (
 					<div className="main-visual-area">
 						<Swipers.MainSwiper prop={PROP}/>
 					</div>
@@ -126,7 +125,7 @@ const Layout = ({ children }) => {
 				<div className="contents-area flex-space-around flex-remove-sp">
 
 					{/** サイドエリア -- start -- **/}
-						{PROP.if.isProduction && (
+						{PROP.judgments.isProduction && (
 							<aside
 								id="contents-aside"
 								className="contents-aside"
@@ -139,7 +138,7 @@ const Layout = ({ children }) => {
 					{/** サイドエリア -- end -- **/}
 
 					{/** メインエリア -- start -- **/}
-						<main className={`contents-main ${!PROP.if.isProduction && "contents-main-no-sidearea"}`}>
+						<main className={`contents-main ${!PROP.judgments.isProduction && "contents-main-no-sidearea"}`}>
 							{NEW_CHILDREN}
 						</main>
 					{/** メインエリア -- end -- **/}

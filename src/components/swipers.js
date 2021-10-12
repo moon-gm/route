@@ -10,14 +10,19 @@ SwiperCore.use([Pagination, Thumbs, EffectCoverflow]) // Swiperで使用する�
 // メインビジュアルの画像スワイパー
 const MainSwiper = ({ prop }) => {
 
+	// propから使うものを抽出
+	const { state, methods, category } = prop
+	const { linkTo } = methods
+	const { PRODUCTION } = category
+
 	// スライド変更時の処理
 	const onSlideChange = (swiper) => {
 
 		// アクティブスライドに合わせて選択状態を変更・遷移(スワイプ時)
-		prop.dataset.map(fw => {
+		PRODUCTION.DATASET.map(fw => {
 			fw.PAGES.map(ws => {
 				if(swiper.activeIndex === ws.STATE) {
-					prop.methods.linkTo(ws.URL, prop.category.PRODUCTION.STATE, ws.STATE)
+					linkTo(ws.URL, PRODUCTION.STATE, ws.STATE)
 				}
 			})
 		})
@@ -28,12 +33,12 @@ const MainSwiper = ({ prop }) => {
 	return (
 		<Swiper
 			id="main" // メインのSwiperを明示する
-			thumbs={{swiper: prop.state.swipeElement}} // id="thumbs"が付いているSwiperコンポーネントとリンクさせる
+			thumbs={{swiper: state.swipeElement}} // id="thumbs"が付いているSwiperコンポーネントとリンクさせる
 			tag="section" // 「swiper-container」クラスのTag設定
 			wrapperTag="ul" // 「swiper-wrapper」クラスのTag設定
 			speed={600} // 前後のスライドに移動する時の速度設定
 			centeredSlides // アクティブスライドを中央にする設定
-			initialSlide={prop.state.selWS} // 初期表示スライドの設定
+			initialSlide={state.selWS} // 初期表示スライドの設定
 			spaceBetween={0} //スライド間のスペース設定
 			slidesPerView={3} // スライドを一度に表示する個数設定
 			effect="coverflow" // スライドのエフェクト設定（'coverflow', 'fade', 'flip', 'slide', 'cube'）
@@ -47,7 +52,7 @@ const MainSwiper = ({ prop }) => {
 			pagination // ページネーションの表示設定（・・・・・）
 			onSlideChange={(swiper) => onSlideChange(swiper)} // スライド変更時の処理
 		>
-			{prop.dataset.map(fw => (
+			{PRODUCTION.DATASET.map(fw => (
 				<React.Fragment key={`mainVisual${fw.NAME}`}>
 
 					{/* イメージリスト -- start -- */}
@@ -59,10 +64,10 @@ const MainSwiper = ({ prop }) => {
 							>
 								<img
 									src={`/swiper/${ws.ID}.png`}
-									onClick={() => prop.methods.linkTo(ws.URL, prop.category.PRODUCTION.STATE, ws.STATE)}
+									onClick={() => linkTo(ws.URL, PRODUCTION.STATE, ws.STATE)}
 									className={`
 										${cssMV.swiperSlideImg}
-										${prop.state.selWS === ws.STATE && cssMV.swiperSlideImgSelected}
+										${state.selWS === ws.STATE && cssMV.swiperSlideImgSelected}
 									`}
 								/>
 							</SwiperSlide>
@@ -77,19 +82,25 @@ const MainSwiper = ({ prop }) => {
 
 // サイドエリアのサムスワイパー
 const ThumbSwiper = ({ prop }) => {
+
+	// propから使うものを抽出
+	const { state, category, methods } = prop
+	const { linkTo, scrollToTop, showSideAreaSP, setSwipeElement } = methods
+	const { PRODUCTION } = category
+
 	return (
 		<>
 			{/* フレックスボックス -- start -- */}
 				<div className="flex-space-between">
 					{/* プロダクションリストタイトル -- start -- */}
 						<h1 className={cssA.sectionTitle}>
-							{prop.category.PRODUCTION.NAME} List
+							{PRODUCTION.NAME} List
 						</h1>
 					{/* プロダクションリストタイトル -- end -- */}
 
 					{/* プロダクションリストタイトル -- start -- */}
 						<h1
-							onClick={() => prop.methods.showSideAreaSP(false)}
+							onClick={() => showSideAreaSP(false)}
 							className={cssA.closeBtn}
 						>
 							×
@@ -107,10 +118,10 @@ const ThumbSwiper = ({ prop }) => {
 					effect="slide"
 					slideToClickedSlide
 					slidesPerView={0}
-					initialSlide={prop.state.selWS}
-					onSwiper={(swiper) => prop.methods.setSwipeElement(swiper)} // スワイプ時の処理
+					initialSlide={state.selWS}
+					onSwiper={(swiper) => setSwipeElement(swiper)} // スワイプ時の処理
 				>
-					{prop.dataset.map(fw => (
+					{PRODUCTION.DATASET.map(fw => (
 						<React.Fragment key={`sidelist${fw.STATE}`}>
 
 							{/** プロダクションリスト -- start -- **/}
@@ -122,12 +133,12 @@ const ThumbSwiper = ({ prop }) => {
 									>
 										<div
 											onClick={() => 
-												prop.methods.linkTo(ws.URL, prop.category.PRODUCTION.STATE, ws.STATE),
-												prop.methods.scrollToTop()
+												linkTo(ws.URL, PRODUCTION.STATE, ws.STATE),
+												scrollToTop()
 											}
 											className={`
 												${cssA.list}
-												${prop.state.selWS === ws.STATE && cssA.listSelected}
+												${state.selWS === ws.STATE && cssA.listSelected}
 											`}
 										>
 											<img

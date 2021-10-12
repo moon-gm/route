@@ -3,7 +3,7 @@ import Modal from '../../../components/modal'
 import Loading from '../../../components/loading'
 import css from '../../../styles/modules/page.module.scss'
 
-const PageLayout = ({ dataset, order, siteTitle, router }) => {
+const PageLayout = ({ category, order, siteTitle, router }) => {
 
 	// URLパラメータ取得
 	const { framework, website } = router.query
@@ -11,7 +11,7 @@ const PageLayout = ({ dataset, order, siteTitle, router }) => {
 	// ページ内容設定
 	let pageData = undefined
 	if (framework && website) {
-		const frameworkData = dataset[order.framework[framework]]
+		const frameworkData = category.PRODUCTION.DATASET[order.framework[framework]]
 		const websiteData = frameworkData.PAGES[order.website[website]]
 		pageData = {
 			head: frameworkData.NAME, // ヘッドタイトル	
