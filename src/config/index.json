@@ -92,11 +92,12 @@
 							"SITE": "https://route-eight.vercel.app/",
 							"SOURCE": "https://github.com/moon-gm/route"
 						},
-						"DESCRIPTION": "自身で作成したサイトをまとめて、どのように作成したかなどを記載。",
-						"HOW_TO_MAKE": "Next.jsで作成。Swiper.jsでカバーフロー表示",
+						"DESCRIPTION": "自身で作成したサイトをまとめて、どのように作成したかなどを記載当サイト。",
+						"HOW_TO_MAKE": "Next.js + TypeScriptで作成。Swiper.jsでカバーフロー表示",
 						"SKILL": [
 							{"title": "Next", "image": "nextjs.png", "contents": ["API Routes"]},
 							{"title": "React", "image": "react.png", "contents": ["モーダルウィンドウ（react-modal）", "Hooks"]},
+							{"title": "TypeScript", "image": "typescript.png", "contents": [""]},
 							{"title": "Swiper.js", "image": "swiperjs.svg", "contents": ["coverflow", "swiper-react-component"]},
 							{"title": "Sass", "image": "sass.png", "contents": ["animation", "レスポンシブ"]},
 							{"title": "Github", "image": "github.png", "contents": ["リポジトリ利用"]},
