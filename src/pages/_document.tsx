@@ -1,8 +1,8 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document'
 import GLOBAL from '../config/global.json'
 
 export default class MyDocument extends Document {
-  static async getInitialProps(ctx) {
+  static async getInitialProps(ctx: DocumentContext) {
     const initialProps = await Document.getInitialProps(ctx)
     return { ...initialProps }
   }
@@ -11,7 +11,7 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-			<meta charset="UTF-8"/>
+			<meta charSet="UTF-8"/>
 			<meta name="description" content={GLOBAL.SITE_TITLE}/>
 			<meta property="og:url" content={GLOBAL.SITE_URL}/>
 			<meta property="og:title" content={GLOBAL.SITE_TITLE}/>

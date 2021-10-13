@@ -1,33 +1,26 @@
-// Style
 import '../styles/globals.scss'
-
-// React Hooks
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router';
-
-// Component
+import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { CategoryArray, Category, Framework, Website, Order } from '../types/index'
 import Header from '../components/header'
 import Swipers from '../components/swipers'
-
-// Global Data
-import GLOBAL from '../config/global.json'
-
-// Category Data
-import { HOME, PROFILE, PRODUCTION } from '../config/index.json'
+import GLOBAL from '../config/global.json' // Global Data
+import { HOME, PROFILE, PRODUCTION } from '../config/index.json' // Category Data
 
 /*** Category Data設定 ***/
-const categoryArray = [ PROFILE, PRODUCTION ]
-categoryArray.map(cat => {
+const categoryArray: CategoryArray = [ PROFILE, PRODUCTION ]
+categoryArray.map((cat: Category) => {
 	cat.STATE = cat.ID
 	cat.URL = '/' + cat.ID
 })
-const order = { framework: {}, website: {} }
-let wsState = 0
-PRODUCTION.DATASET.map((fw, fwIdx) => {
+
+const order: Order = { framework: {}, website: {} }
+let wsState: number = 0
+PRODUCTION.DATASET.map((fw: Framework, fwIdx: number) => {
 	// STATEとURLはID等から動的に設定
 	fw.STATE = fw.ID
 	order.framework[fw.ID] = fwIdx
-	fw.PAGES.map((ws, wsIdx) => {
+	fw.PAGES.map((ws: Website, wsIdx: number) => {
 		ws.STATE = wsState
 		ws.URL = '/' + PRODUCTION.ID + '/' + fw.ID + '/' + ws.ID
 		order.website[ws.ID] = wsIdx
@@ -35,21 +28,21 @@ PRODUCTION.DATASET.map((fw, fwIdx) => {
 	})
 })
 
-const Layout = ({ children }) => {
+const Layout = ({ children }): JSX.Element => {
 
 	//-------------------------------- 初期定義 --------------------------------//
 
 	/*** State設定 ***/
 	const [category, setCategory] = useState(PROFILE.STATE) // 選択しているカテゴリ設定
-	const [selWS, setSelWS] = useState() // 選択しているサイト設定
+	const [selWS, setSelWS] = useState(Number()) // 選択しているサイト設定
 	const [swipeElement, setSwipeElement] = useState() // スワイパーエレメントの設定
-	const [ua, setUA] = useState() // ユーザーエージェント設定
+	const [ua, setUA] = useState(String()) // ユーザーエージェント設定
 
 	/*** ユーザーエージェント条件設定 ***/
-	const isiPhone = ua && (ua.indexOf('iphone') > -1) // iPhone判定
-	const isiPad = ua && (ua.indexOf('ipad') > -1) // iPad判定
-	const isAndroid = ua && (ua.indexOf('android') > -1) && (ua.indexOf('mobile') > -1) // Android判定
-	const isAndroidTablet = ua && (ua.indexOf('android') > -1) && (ua.indexOf('mobile') == -1) // Android Tablet判定
+	const isiPhone: boolean = ua && (ua.indexOf('iphone') > -1) // iPhone判定
+	const isiPad: boolean = ua && (ua.indexOf('ipad') > -1) // iPad判定
+	const isAndroid: boolean = ua && (ua.indexOf('android') > -1) && (ua.indexOf('mobile') > -1) // Android判定
+	const isAndroidTablet: boolean = ua && (ua.indexOf('android') > -1) && (ua.indexOf('mobile') == -1) // Android Tablet判定
 
 	/*** 共通Propsの設定 ***/
 	const PROP = {	
@@ -59,12 +52,12 @@ const Layout = ({ children }) => {
 		state: { category, selWS, swipeElement }, // state保存値
 		methods: {
 			setSwipeElement,
-			scrollToTop() { window.scrollTo(0, 0) },
-			showSideAreaSP(condition) {
-				const spWidth = condition ? '0' : '768px'
+			scrollToTop(): void { window.scrollTo(0, 0) },
+			showSideAreaSP(condition: boolean): void {
+				const spWidth: string = condition ? '0' : '768px'
 				document.getElementById('contents-aside').style.left = spWidth
 			},
-			linkTo(url, caName, wsIdx){
+			linkTo(url: string, caName: string, wsIdx: number): void {
 				// Stateをセットしてページを切替
 				if (caName) setCategory(caName)
 				if (wsIdx || wsIdx === 0) setSelWS(wsIdx)
@@ -84,21 +77,25 @@ const Layout = ({ children }) => {
 	}
 
 	/*** 子要素を再生成してPropsを渡す設定 ***/
-	const NEW_CHILDREN = React.cloneElement(children, PROP)
+	const NEW_CHILDREN: React.FunctionComponentElement<typeof PROP> = React.cloneElement(children, PROP)
 
 
 	//-------------------------------- レンダリング設定 --------------------------------//
 
 	// レンダー後処理
-	useEffect(()=>{
+	useEffect(() => {
 
 		// URLに合わせて表示切替
-		const pathName = window.location.pathname
-		const firstPath = '/' + pathName.split('/')[1]
+		const pathName: string = window.location.pathname
+		const firstPath: string = '/' + pathName.split('/')[1]
+
 		// カテゴリー切替
-		categoryArray.map(cat => firstPath === cat.URL && setCategory(cat.STATE) )
+		categoryArray.map((cat: Category) => firstPath === cat.URL && setCategory(cat.STATE))
+
 		// ウェブサイト切替
-		PROP.category.PRODUCTION.DATASET.map(fw => { fw.PAGES.map(ws => pathName === ws.URL && setSelWS(ws.STATE) ) })
+		PROP.category.PRODUCTION.DATASET.map((fw: Framework) => {
+			fw.PAGES.map((ws: Website) => pathName === ws.URL && setSelWS(ws.STATE))
+		})
 
 		// ユーザーエージェント設定
 		setUA(navigator.userAgent.toLowerCase())

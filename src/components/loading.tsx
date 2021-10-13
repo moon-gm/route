@@ -1,4 +1,4 @@
-const Loading = () => {
+const Loading = (): JSX.Element => {
 	return (
 		<div style={{textAlign: 'center'}}>
 			Now Loading...

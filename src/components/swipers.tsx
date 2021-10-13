@@ -1,14 +1,14 @@
-// Styles
+import React from 'react'
 import cssMV from '../styles/modules/mainVisual.module.scss'
 import cssA from '../styles/modules/aside.module.scss'
-
-// Swiper設定
+import { Framework, Website } from '../types/index'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Pagination, Thumbs, EffectCoverflow } from 'swiper'// CSSは_document.jsのlinkで設定
+
 SwiperCore.use([Pagination, Thumbs, EffectCoverflow]) // Swiperで使用するコンポーネント設定
 
 // メインビジュアルの画像スワイパー
-const MainSwiper = ({ prop }) => {
+const MainSwiper = ({ prop }): JSX.Element => {
 
 	// propから使うものを抽出
 	const { state, methods, category } = prop
@@ -16,11 +16,11 @@ const MainSwiper = ({ prop }) => {
 	const { PRODUCTION } = category
 
 	// スライド変更時の処理
-	const onSlideChange = (swiper) => {
+	const onSlideChange = (swiper: SwiperCore) => {
 
 		// アクティブスライドに合わせて選択状態を変更・遷移(スワイプ時)
-		PRODUCTION.DATASET.map(fw => {
-			fw.PAGES.map(ws => {
+		PRODUCTION.DATASET.map((fw: Framework) => {
+			fw.PAGES.map((ws: Website) => {
 				if(swiper.activeIndex === ws.STATE) {
 					linkTo(ws.URL, PRODUCTION.STATE, ws.STATE)
 				}
@@ -52,11 +52,11 @@ const MainSwiper = ({ prop }) => {
 			pagination // ページネーションの表示設定（・・・・・）
 			onSlideChange={(swiper) => onSlideChange(swiper)} // スライド変更時の処理
 		>
-			{PRODUCTION.DATASET.map(fw => (
+			{PRODUCTION.DATASET.map((fw: Framework)=> (
 				<React.Fragment key={`mainVisual${fw.NAME}`}>
 
 					{/* イメージリスト -- start -- */}
-						{fw.PAGES.map(ws => (
+						{fw.PAGES.map((ws: Website) => (
 							<SwiperSlide
 								tag="li" // 「swiper-slide」クラスのTag設定
 								className={cssMV.swiperSlide}
@@ -81,7 +81,7 @@ const MainSwiper = ({ prop }) => {
 }
 
 // サイドエリアのサムスワイパー
-const ThumbSwiper = ({ prop }) => {
+const ThumbSwiper = ({ prop }): JSX.Element => {
 
 	// propから使うものを抽出
 	const { state, category, methods } = prop
@@ -121,21 +121,21 @@ const ThumbSwiper = ({ prop }) => {
 					initialSlide={state.selWS}
 					onSwiper={(swiper) => setSwipeElement(swiper)} // スワイプ時の処理
 				>
-					{PRODUCTION.DATASET.map(fw => (
+					{PRODUCTION.DATASET.map((fw: Framework)=> (
 						<React.Fragment key={`sidelist${fw.STATE}`}>
 
 							{/** プロダクションリスト -- start -- **/}
-								{fw.PAGES.map(ws => (
+								{fw.PAGES.map((ws: Website) => (
 									<SwiperSlide
 										tag="li"
 										className={cssA.swiperSlide}
 										key={`sidelistItem${ws.ID}`}
 									>
 										<div
-											onClick={() => 
-												linkTo(ws.URL, PRODUCTION.STATE, ws.STATE),
+											onClick={() => {
+												linkTo(ws.URL, PRODUCTION.STATE, ws.STATE)
 												scrollToTop()
-											}
+											}}
 											className={`
 												${cssA.list}
 												${state.selWS === ws.STATE && cssA.listSelected}

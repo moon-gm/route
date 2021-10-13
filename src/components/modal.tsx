@@ -3,7 +3,7 @@ import Modal from 'react-modal'
 import css from '../styles/modules/modal.module.scss'
 
 // モーダルウィンドウのCSS設定
-const customStyles = {
+const customStyles: object = {
 	// 背景のCSS設定
 	overlay : {},
 	// ウィンドウのCSS設定
@@ -21,19 +21,19 @@ const customStyles = {
 // 任意のアプリを設定する
 Modal.setAppElement('#__next')
 
-const ModalWindow = ({ title, content, openBtn }) => {
+const ModalWindow = ({ title, content, openBtn }): JSX.Element => {
 
 	// State設定
 	const [modalIsOpen, setModalIsOpen] = useState(false)
 
 	// モーダル表示時の処理
-	const openModal = () => setModalIsOpen(true)
+	const openModal = (): void => setModalIsOpen(true)
 
 	// モーダル表示後の処理
-	const afterOpenModal = () => document.getElementById('title').style.color = 'white'
+	const afterOpenModal = (): string => document.getElementById('title').style.color = 'white'
 
 	// モーダル閉じた後の処理
-	const closeModal = () => setModalIsOpen(false)
+	const closeModal = (): void => setModalIsOpen(false)
 
 	return (
 		<>

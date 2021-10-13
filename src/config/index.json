@@ -9,27 +9,27 @@
 	"PROFILE" : {
 		"ID": "profile",
 		"NAME": "Profile",
-		"URL": null,
-		"STATE": null,
+		"URL": "",
+		"STATE": "",
 		"DATASET": []
 	},
 	"PRODUCTION" : {
 		"ID": "production",
 		"NAME": "Production",
-		"URL": null,
-		"STATE": null,
+		"URL": "",
+		"STATE": "",
 		"DATASET": [
 			{
 				"ID": "React",
 				"NAME": "React",
-				"STATE": null,
+				"STATE": "",
 				"IMG": "/logo/react.png",
 				"PAGES": [
 					{
 						"ID": "CatGallery",
 						"NAME": "Cat Gallery",
-						"URL": null,
-						"STATE": null,
+						"URL": "",
+						"STATE": 0,
 						"IMG": "/logo/cat-gallery.png",
 						"CREATE_DATE": "2021.9.25",
 						"UPDATE_DATE": "2021.9.25",
@@ -52,8 +52,8 @@
 					{
 						"ID": "ReactLearning",
 						"NAME": "React Learning",
-						"URL": null,
-						"STATE": null,
+						"URL": "",
+						"STATE": 0,
 						"IMG": "/logo/react.png",
 						"CREATE_DATE": "2020.6.5",
 						"UPDATE_DATE": "2020.7.24",
@@ -76,14 +76,14 @@
 			{
 				"ID": "Next",
 				"NAME": "Next.js",
-				"STATE": null,
+				"STATE": "",
 				"IMG": "/logo/next.png",
 				"PAGES": [
 					{
 						"ID": "PortfolioShow",
 						"NAME": "Portfolio Show",
-						"URL": null,
-						"STATE": null,
+						"URL": "",
+						"STATE": 0,
 						"IMG": "/logo/top-logo.png",
 						"CREATE_DATE": "2020.9.15",
 						"UPDATE_DATE": "2021.9.15",
@@ -106,8 +106,8 @@
 					{
 						"ID": "NationalFlags",
 						"NAME": "National Flags",
-						"URL": null,
-						"STATE": null,
+						"URL": "",
+						"STATE": 0,
 						"IMG": "/logo/national-flags.png",
 						"CREATE_DATE": "2020.8.26",
 						"UPDATE_DATE": "2020.10.13",
@@ -133,8 +133,8 @@
 					{
 						"ID": "NextLearning",
 						"NAME": "Next Learning",
-						"URL": null,
-						"STATE": null,
+						"URL": "",
+						"STATE": 0,
 						"IMG": "/logo/next.png",
 						"CREATE_DATE": "2020.7.21",
 						"UPDATE_DATE": "2020.8.17",
@@ -159,14 +159,14 @@
 			{
 				"ID": "Gatsby",
 				"NAME": "Gatsby.js",
-				"STATE": null,
+				"STATE": "",
 				"IMG": "/logo/gatsby.png",
 				"PAGES": [
 					{
 						"ID": "AtelierK",
 						"NAME": "Atelier K",
-						"URL": null,
-						"STATE": null,
+						"URL": "",
+						"STATE": 0,
 						"IMG": "/logo/cat-gallery.png",
 						"CREATE_DATE": "2020.5.6",
 						"UPDATE_DATE": "2020.6.30",
@@ -189,8 +189,8 @@
 					{
 						"ID": "GatsbyLearning",
 						"NAME": "Gatsby Learning",
-						"URL": null,
-						"STATE": null,
+						"URL": "",
+						"STATE": 0,
 						"IMG": "/logo/gatsby.png",
 						"CREATE_DATE": "2020.7.23",
 						"UPDATE_DATE": "2020.7.30",
@@ -216,14 +216,14 @@
 			{
 				"ID": "Nuxt",
 				"NAME": "Nuxt.js",
-				"STATE": null,
+				"STATE": "",
 				"IMG": "/logo/nuxt.png",
 				"PAGES": [
 					{
 						"ID": "Tequipedia2",
 						"NAME": "Tequipedia",
-						"URL": null,
-						"STATE": null,
+						"URL": "",
+						"STATE": 0,
 						"IMG": "/logo/tequipedia.png",
 						"CREATE_DATE": "2021.9.15",
 						"UPDATE_DATE": "2021.9.20",
@@ -250,14 +250,14 @@
 			{
 				"ID": "Laravel",
 				"NAME": "Laravel",
-				"STATE": null,
+				"STATE": "",
 				"IMG": "/logo/laravel.png",
 				"PAGES": [
 					{
 						"ID": "Tequipedia",
 						"NAME": "テキーラ全書",
-						"URL":  null,
-						"STATE": null,
+						"URL":  "",
+						"STATE": 0,
 						"IMG": "/logo/tequipedia.png",
 						"CREATE_DATE": "2020.2.18",
 						"UPDATE_DATE": "2021.9.15",

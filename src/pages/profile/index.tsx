@@ -1,3 +1,4 @@
+import React from 'react'
 import Head from 'next/head'
 import Modal from '../../components/modal'
 import styles from '../../styles/modules/page.module.scss'

@@ -1,6 +1,6 @@
 import css from '../styles/modules/header.module.scss'
 
-const Header = ({ prop }) => {
+const Header = ({ prop }): JSX.Element => {
 
 	// propから使うものを抽出
 	const { siteTitle, judgments, order, category, methods } = prop
