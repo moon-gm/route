@@ -1,47 +1,45 @@
 /**********************
  共通設定
 **********************/
-:global {
-	/*** 1.フレックス設定 ***/
-	@mixin set-flex($flex-type) {
-		display: flex;
-		justify-content: $flex-type;
+/*** 1.フレックス設定 ***/
+@mixin set-flex($flex-type) {
+	display: flex;
+	justify-content: $flex-type;
+}
+
+	/** 1-1.フレックス適用 **/
+	.flex-space-between {
+		@include set-flex(space-between);
+	}
+	.flex-space-around {
+		@include set-flex(space-around);
+	}
+	.flex-start {
+		@include set-flex(flex-start);
 	}
 
-		/** 1-1.フレックス適用 **/
-		.flex-space-between {
-			@include set-flex(space-between);
-		}
-		.flex-space-around {
-			@include set-flex(space-around);
-		}
-		.flex-start {
-			@include set-flex(flex-start);
-		}
+	/** 1-2.align-items設定 **/
+	.align-items-center {
+		align-items: center;
+	}
 
-		/** 1-2.align-items設定 **/
-		.align-items-center {
-			align-items: center;
+/*** 2.SP設定 ***/
+	/** 2-1.SPフレックス解除設定 **/
+	.flex-remove-sp {
+		@media screen and (max-width: $sp_max_width){
+			display: block;
 		}
+	}
 
-	/*** 2.SP設定 ***/
-		/** 2-1.SPフレックス解除設定 **/
-		.flex-remove-sp {
-			@media screen and (max-width: $sp_max_width){
-				display: block;
-			}
-		}
+/*** 3.swiper.jsのCSS追加設定 ***/
+	/** 3-1.コンテナ設定 **/
+	.swiper-container {
+		width: 100%;
+		padding-top: 20px;
+		padding-bottom: 45px;
+	}
 
-	/*** 3.swiper.jsのCSS追加設定 ***/
-		/** 3-1.コンテナ設定 **/
-		.swiper-container {
-			width: 100%;
-			padding-top: 20px;
-			padding-bottom: 45px;
-		}
-
-		/** 3-2.pagenationのアクティブドット設定 **/
-		.swiper-pagination-bullet-active {
-			background: $blue;
-		}
-}
+	/** 3-2.pagenationのアクティブドット設定 **/
+	.swiper-pagination-bullet-active {
+		background: $blue;
+	}

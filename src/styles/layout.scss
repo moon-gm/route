@@ -2,115 +2,114 @@
  レイアウト設定
 **********************/
 
-:global {
-	/**** コンテナ設定 ****/
-	.container {
+/**** コンテナ設定 ****/
+.container {
+	// レイアウト設定
+	max-width: $screen_max_width;
+	margin: 0 auto;
+
+	/*** 1.ヘッダーエリア設定 ***/
+	.header-area {
+		// カラー設定
+		background: $white__clear;
+		backdrop-filter: blur(30px);
+		-webkit-backdrop-filter: blur(30px);
+
 		// レイアウト設定
-		max-width: $screen_max_width;
-		margin: 0 auto;
+		height: $header_height;
+		padding: 10px;
+		line-height: 1;
 
-		/*** 1.ヘッダーエリア設定 ***/
-		.header-area {
-			// カラー設定
-			background: $white__clear;
-			backdrop-filter: blur(30px);
-			-webkit-backdrop-filter: blur(30px);
+		// ヘッダー固定設定
+		z-index: $header_z_index;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
 
+		/** 1-1.コンテンツラッパー設定 **/
+		&-wrap {
 			// レイアウト設定
-			height: $header_height;
-			padding: 10px;
-			line-height: 1;
-
-			// ヘッダー固定設定
-			z-index: $header_z_index;
-			position: fixed;
-			top: 0;
-			left: 0;
-			right: 0;
-
-			/** 1-1.コンテンツラッパー設定 **/
-			&-wrap {
-				// レイアウト設定
-				max-width: $screen_max_width;
-				margin: 0 auto;
-				padding: 0 20px;
-				@media screen and (max-width: $sp_max_width) {
-					padding: 0;
-				}
-			}
-		}
-
-		/*** 2.メインビジュアルエリア設定 ***/
-		.main-visual-area {
-			// カラー設定
-			background: linear-gradient(
-				to left,
-				$black__clear_thin,
-				$white__clear,
-				$white,
-				$white__clear,
-				$black__clear_thin
-			);
-
-			// レイアウト設定
-			margin-bottom: 20px;
-			margin-top: $header_height + 60px;
+			max-width: $screen_max_width;
+			margin: 0 auto;
+			padding: 0 20px;
 			@media screen and (max-width: $sp_max_width) {
-				margin-bottom: 0;
+				padding: 0;
 			}
+		}
+	}
 
+	/*** 2.メインビジュアルエリア設定 ***/
+	.main-visual-area {
+		// カラー設定
+		background: linear-gradient(
+			to left,
+			$black__clear_thin,
+			$white__clear,
+			$white,
+			$white__clear,
+			$black__clear_thin
+		);
+
+		// レイアウト設定
+		margin-bottom: 20px;
+		margin-top: $header_height + 60px;
+		@media screen and (max-width: $sp_max_width) {
+			margin-bottom: 0;
 		}
 
-		/*** 3.コンテンツエリア設定 ***/
-		.contents-area {
-			// レイアウト設定
-			padding: 20px 10px;
+	}
 
-			/** 3-1.サイドエリア設定 **/
-			.contents-aside {
-				// カラー設定
-				@media screen and (max-width: $sp_max_width) {
-					background: $black__clear;
-					backdrop-filter: blur(2px);
-					-webkit-backdrop-filter: blur(2px);
-				}
+	/*** 3.コンテンツエリア設定 ***/
+	.contents-area {
+		// レイアウト設定
+		padding: 20px 10px;
 
-				// レイアウト設定
-				width: 30%;
-				padding: 20px;
-				@media screen and (max-width: $sp_max_width) {
-					width: 100%;
-					height: 100%;
-					position: fixed;
-					top: 0;
-					left: $sp_max_width;
-					z-index: $header_z_index;
-					padding: 0;
-				}
-
-				// その他設定
-				@media screen and (max-width: $sp_max_width) {
-					transition: left 1s;
-					overflow: scroll;
-				}
+		/** 3-1.サイドエリア設定 **/
+		.contents-aside {
+			// カラー設定
+			@media screen and (max-width: $sp_max_width) {
+				background: $black__clear;
+				backdrop-filter: blur(2px);
+				-webkit-backdrop-filter: blur(2px);
 			}
 
-			/** 3-2.メインエリア設定 **/
-			.contents-main {
-				// レイアウト設定
-				width: 70%;
-				padding-right: 20px;
-				@media screen and (max-width: $sp_max_width) {
-					width: 100%;
-					padding-left: 20px;
-				}
+			// レイアウト設定
+			width: 30%;
+			padding: 20px;
+			@media screen and (max-width: $sp_max_width) {
+				width: 100%;
+				height: 100%;
+				position: fixed;
+				top: 0;
+				left: $sp_max_width;
+				z-index: $header_z_index;
+				padding: 0;
+			}
 
-				/* 3-2-1.サイドエリア非表示時のメインエリア設定 */
-				&-no-sidearea {
-					// レイアウト設定
-					margin-top: $header_height + 30px;
-				}
+			// その他設定
+			@media screen and (max-width: $sp_max_width) {
+				transition: left 1s;
+				overflow: scroll;
+			}
+		}
+
+		/** 3-2.メインエリア設定 **/
+		.contents-main {
+			// レイアウト設定
+			width: 70%;
+			padding-right: 20px;
+			@media screen and (max-width: $sp_max_width) {
+				width: 100%;
+				padding-left: 20px;
+			}
+
+			/* 3-2-1.サイドエリア非表示時のメインエリア設定 */
+			&-no-sidearea {
+				// レイアウト設定
+				margin-top: $header_height + 30px;
 			}
 		}
 	}
 }
+
