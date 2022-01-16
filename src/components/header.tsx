@@ -85,35 +85,37 @@ const Header = ({ app }): JSX.Element => {
 				{/*** Top List -- end -- ***/}
 
 				{/*** Header Tab List -- start -- ***/}
-					<ul
-						className={`
-							${styles.tabList}
-							flex-space-around
-							align-items-center
-						`}
-					>
-						{headerTabList.map(element => element.state ? (
-							<li
-								key={element.name}
-								className={styles.headerTab}
-								onClick={() => linkTo(element.url, element.state)}
-							>
-								{element.name}
-							</li>
-						) : (
-							<li
-								key={element.name}
-								className={styles.headerTab}
-							>
-								<a
-									href={element.url}
-									className={styles.headerTabLink}
+					<div className={styles.tabListWrap}>
+						<ul
+							className={`
+								${styles.tabList}
+								flex-space-around
+								align-items-center
+							`}
+						>
+							{headerTabList.map(element => element.state ? (
+								<li
+									key={element.name}
+									className={styles.headerTab}
+									onClick={() => linkTo(element.url, element.state)}
 								>
 									{element.name}
-								</a>
-							</li>
-						))}
-					</ul>
+								</li>
+							) : (
+								<li
+									key={element.name}
+									className={styles.headerTab}
+								>
+									<a
+										href={element.url}
+										className={styles.headerTabLink}
+									>
+										{element.name}
+									</a>
+								</li>
+							))}
+						</ul>
+					</div>
 				{/*** Header Tab List -- end -- ***/}
 
 			</div>

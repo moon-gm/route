@@ -82,8 +82,11 @@ $font_size__topList: 18px;
 	top: $header_height;
 	left: 0;
 	right: 0;
-	max-width: $screen_max_width;
-	margin: 0 auto;
+	
+	&Wrap {
+		max-width: $screen_max_width;
+		margin: 0 auto;
+	}
 
 	/*** 1.ヘッダータブ設定 ***/
 	.headerTab {
