@@ -103,10 +103,6 @@
 	/*** 3.画像ボックス設定 ***/
 		.imgBox {
 			@include layout;
-			display: none;
-			@media screen and (max-width: $sp_max_width){
-				display: block;
-			}
 
 			/** 3-1.画像設定 **/
 			img {
@@ -142,6 +138,18 @@
 			.link {
 				width: 13px;
 				margin-left: 5px;
+			}
+
+			/** 5-2.段落内テキスト設定 **/
+			.text {
+				line-height: 1.5;
+				display: block;
+				width: auto;
+			}
+
+			/** 5-3.段落内テキスト右スペース設定 **/
+			.rightSpace {
+				margin-right: 5px;
 			}
 		}
 
@@ -201,9 +209,6 @@
 				width: 100px;
 				vertical-align: top;
 				margin-right: 10px;
-				@media screen and (max-width: $sp_max_width){
-					display: none;
-				}
 			}
 		}
 }

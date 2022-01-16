@@ -3,21 +3,20 @@
 		"ID": "home",
 		"NAME": "Home",
 		"URL": "/",
-		"STATE": "home",
-		"IMG": "/logo/top-logo.png"
+		"STATE": "home"
 	},
 	"PROFILE" : {
 		"ID": "profile",
 		"NAME": "Profile",
-		"URL": "",
-		"STATE": "",
+		"URL": "/profile",
+		"STATE": "profile",
 		"DATASET": []
 	},
 	"PRODUCTION" : {
 		"ID": "production",
 		"NAME": "Production",
-		"URL": "",
-		"STATE": "",
+		"URL": "/production",
+		"STATE": "production",
 		"DATASET": [
 			{
 				"ID": "React",

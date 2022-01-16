@@ -1,7 +1,12 @@
 const Loading = (): JSX.Element => {
+	
+	const label = {
+		loading: 'Now Loading...'
+	}
+
 	return (
 		<div style={{textAlign: 'center'}}>
-			Now Loading...
+			{label.loading}
 		</div>
 	)
 }

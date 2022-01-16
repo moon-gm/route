@@ -1,88 +1,120 @@
-import css from '../styles/modules/header.module.scss'
+import styles from '../styles/modules/header.module.scss'
+import { TopList, HeaderTabList } from '../types/index'
 
-const Header = ({ prop }): JSX.Element => {
+const Header = ({ app }): JSX.Element => {
 
-	// propから使うものを抽出
-	const { siteTitle, judgments, order, category, methods } = prop
-	const { linkTo, scrollToTop, showSideAreaSP } = methods
-	const { HOME, PROFILE, PRODUCTION } = category
-	const { framework, website } = order
-	const { isProduction } = judgments
+	const { $siteData, $judgments, $productionOrder, $category, $methods } = app
+	const { linkTo, scrollToTop, showSideArea } = $methods
+	const { framework, website } = $productionOrder
+	const { isProduction } = $judgments	
+	const { HOME, PROFILE, PRODUCTION } = $category
+	const { SITE_TITLE, SITE_IMAGE } = $siteData	
+
+	const topList: TopList[] = [
+		{
+			name: 'logo',
+			className: `${styles.topLogo} flex-space-between align-items-center`,
+			method: () => linkTo(HOME.URL, HOME.STATE),
+			children: {
+				image: {
+					src: SITE_IMAGE.SRC,
+					alt: SITE_IMAGE.ALT,
+					className: styles.topLogoImg
+				},
+				etc: <span>{SITE_TITLE}</span>
+			},
+		},
+		{
+			name: 'topButton',
+			className: styles.topBtn,
+			method: () => scrollToTop(), 
+			children: {
+				image: {
+					src: '/icon/top.svg',
+					alt: 'トップに戻るアイコン',
+				},
+			}
+		},
+		{
+			name: 'menuButton',
+			className: styles.menuBtn,
+			method: () => showSideArea(true),
+			children: {
+				image: {
+					src: '/icon/menu.svg',
+					alt: 'メニューアイコン',
+				},
+			},
+			display: isProduction
+		}
+	]
+
+	const headerTabList: HeaderTabList[] = [
+		{
+			name: PROFILE.NAME,
+			url: PROFILE.URL,
+			state: PROFILE.STATE
+		},
+		{
+			name: PRODUCTION.NAME,
+			url: PRODUCTION.DATASET[framework.Nuxt].PAGES[website.Tequipedia2].URL
+		},
+	]
 
 	return (
 		<header className="header-area">
 			<div className="header-area-wrap">
 
-				{/*** トップリスト -- start -- ***/}
-					<ul className={`${css.topList} flex-space-between`}>
-
-						{/** トップロゴ　-- start -- **/}
+				{/*** Top List -- start -- ***/}
+					<ul className={`${styles.topList} flex-space-between`}>
+						{topList.map(element => element.display !== false && (
 							<li
-								onClick={() => linkTo(HOME.URL, HOME.STATE)}
-								className={`
-									${css.topLogo}
-									flex-space-between
-									align-items-center
-								`}
+								key={element.name}
+								className={element.className}
+								onClick={element.method}
 							>
 								<img
-									src="/logo/top-logo.png"
-									className={css.topLogoImg}
+									src={element.children.image.src}
+									alt={element.children.image.alt}
+									className={element.children.image.className ? element.children.image.className : ''}
 								/>
-								<span>{siteTitle}</span>
+								{element.children.etc && element.children.etc}
 							</li>
-						{/** トップロゴ　-- end -- **/}
-
-						{/** トップボタン　-- start -- **/}
-							<li
-								onClick={() => scrollToTop()}
-								className={css.topBtn}
-							>
-								<img src="/icon/top.svg" alt="トップに戻るアイコン"/>
-							</li>
-						{/** トップボタン　-- end -- **/}
-
-						{/** メニューボタン -- start -- **/}
-							{isProduction && (
-								<li
-									onClick={() => showSideAreaSP(true)}
-									className={css.menuBtn}
-								>
-									<img src="/icon/menu.svg" alt="メニューアイコン"/>
-								</li>
-							)}
-						{/** メニューボタン -- end -- **/}
-
+						))}
 					</ul>
-				{/*** トップリスト -- end -- ***/}
+				{/*** Top List -- end -- ***/}
 
-				{/*** ヘッダータブリスト -- start -- ***/}
-					<div className={css.tabList}>
-						<ul
-							className={`
-								${css.tabListWrap}
-								flex-space-around
-								align-items-center
-							`}
-						>
+				{/*** Header Tab List -- start -- ***/}
+					<ul
+						className={`
+							${styles.tabList}
+							flex-space-around
+							align-items-center
+						`}
+					>
+						{headerTabList.map(element => element.state ? (
 							<li
-								onClick={() => linkTo(PROFILE.URL, PROFILE.STATE)}
-								className={css.headerTab}
+								key={element.name}
+								className={styles.headerTab}
+								onClick={() => linkTo(element.url, element.state)}
 							>
-								{PROFILE.NAME}
+								{element.name}
 							</li>
-							{/* Swiperの問題でaタグでリンクして１から表示させる */}
-							<a
-								href={PRODUCTION.DATASET[framework.Nuxt].PAGES[website.Tequipedia2].URL}
-								className={css.headerTabLink}
+						) : (
+							<li
+								key={element.name}
+								className={styles.headerTab}
 							>
-								<li className={css.headerTab}>
-									{PRODUCTION.NAME}
-								</li>
-							</a>
-						</ul>
-					</div>
-				{/*** ヘッダータブリスト -- end -- ***/}
+								<a
+									href={element.url}
+									className={styles.headerTabLink}
+								>
+									{element.name}
+								</a>
+							</li>
+						))}
+					</ul>
+				{/*** Header Tab List -- end -- ***/}
 
 			</div>
 		</header>

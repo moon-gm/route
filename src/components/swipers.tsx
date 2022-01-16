@@ -1,115 +1,112 @@
-import React from 'react'
-import cssMV from '../styles/modules/mainVisual.module.scss'
-import cssA from '../styles/modules/aside.module.scss'
+import { Fragment } from 'react'
+import mainStyles from '../styles/modules/main-swiper.module.scss'
+import thumbStyles from '../styles/modules/thumb-swiper.module.scss'
 import { Framework, Website } from '../types/index'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Pagination, Thumbs, EffectCoverflow } from 'swiper'// CSSは_document.jsのlinkで設定
+import SwiperCore, { Pagination, Thumbs, EffectCoverflow } from 'swiper'// CSS in _document.tsx
 
-SwiperCore.use([Pagination, Thumbs, EffectCoverflow]) // Swiperで使用するコンポーネント設定
+SwiperCore.use([Pagination, Thumbs, EffectCoverflow]) // use Swiper Components
 
-// メインビジュアルの画像スワイパー
-const MainSwiper = ({ prop }): JSX.Element => {
+// ---------- Create Main Swiper Element ---------- //
+const MainSwiper = ({ app }): JSX.Element => {
 
-	// propから使うものを抽出
-	const { state, methods, category } = prop
-	const { linkTo } = methods
-	const { PRODUCTION } = category
+	const { $state, $methods, $category } = app
+	const { linkTo } = $methods
+	const { PRODUCTION } = $category
 
-	// スライド変更時の処理
-	const onSlideChange = (swiper: SwiperCore) => {
-
-		// アクティブスライドに合わせて選択状態を変更・遷移(スワイプ時)
-		PRODUCTION.DATASET.map((fw: Framework) => {
-			fw.PAGES.map((ws: Website) => {
-				if(swiper.activeIndex === ws.STATE) {
-					linkTo(ws.URL, PRODUCTION.STATE, ws.STATE)
-				}
-			})
-		})
-
+	// on change active slide
+	const onSlideChange = (swiper: SwiperCore): void => {
+		const activeCondition = (ws: Website): boolean => swiper.activeIndex === ws.STATE
+		const fw: Framework | undefined = PRODUCTION.DATASET.find((fw: Framework) => fw.PAGES.some(activeCondition))
+		const ws: Website | false = fw !== undefined && fw.PAGES.find(activeCondition)
+		ws && linkTo(ws.URL, PRODUCTION.STATE, ws.STATE)
 	}
 
-	// メインスワイパー
 	return (
 		<Swiper
-			id="main" // メインのSwiperを明示する
-			thumbs={{swiper: state.swipeElement}} // id="thumbs"が付いているSwiperコンポーネントとリンクさせる
-			tag="section" // 「swiper-container」クラスのTag設定
-			wrapperTag="ul" // 「swiper-wrapper」クラスのTag設定
-			speed={600} // 前後のスライドに移動する時の速度設定
-			centeredSlides // アクティブスライドを中央にする設定
-			initialSlide={state.selWS} // 初期表示スライドの設定
-			spaceBetween={0} //スライド間のスペース設定
-			slidesPerView={3} // スライドを一度に表示する個数設定
-			effect="coverflow" // スライドのエフェクト設定（'coverflow', 'fade', 'flip', 'slide', 'cube'）
-			slideToClickedSlide // クリックしたスライドに移動する
-			breakpoints={{ // 画面幅ごとの詳細設定
-				320: {slidesPerView: 1}, // 画面幅が320pxより大きい場合
-				640: {slidesPerView: 2}, // 画面幅が640pxより大きい場合
-				980: {slidesPerView: 3}, // 画面幅が980pxより大きい場合
+			id="main" // Main Swiper's id
+			thumbs={{swiper: $state.swipeElement}} // link to swiper with 'id="thumbs"'
+			tag="section" // set tag with 'class="swiper-container"'
+			wrapperTag="ul" // set tag with 'class="swiper-wrapper"'
+			speed={600} // set speed when go to prev or next slide
+			centeredSlides // centering active slide
+			initialSlide={$state.websiteIndex} // set slide when initial display
+			spaceBetween={0} // set space between slides
+			slidesPerView={3} // set number of slides when preview at one time
+			effect="coverflow" // set effect of slide view in 'coverflow', 'fade', 'flip', 'slide', 'cube'
+			slideToClickedSlide // go to clicked slide
+			breakpoints={{ // set break point by screen width
+				320: {slidesPerView: 1}, // set number of preview slides when screen width > 320px
+				640: {slidesPerView: 2}, // set number of preview slides when screen width > 640px
+				980: {slidesPerView: 3}, // set number of preview slides when screen width > 980px
 			}}
-			direction='horizontal' // スライドの並ぶ方向設定（'vertical', 'horizontal'）
-			pagination // ページネーションの表示設定（・・・・・）
-			onSlideChange={(swiper) => onSlideChange(swiper)} // スライド変更時の処理
+			direction='horizontal' // set direction of slides in 'vertical', 'horizontal'
+			pagination // display pagnation dot '・・・・・'
+			onSlideChange={(swiper) => onSlideChange(swiper)} // set action when slides change
 		>
 			{PRODUCTION.DATASET.map((fw: Framework)=> (
-				<React.Fragment key={`mainVisual${fw.NAME}`}>
+				<Fragment key={`mainVisual${fw.NAME}`}>
 
-					{/* イメージリスト -- start -- */}
+					{/* Image List -- start -- */}
 						{fw.PAGES.map((ws: Website) => (
 							<SwiperSlide
-								tag="li" // 「swiper-slide」クラスのTag設定
-								className={cssMV.swiperSlide}
+								tag="li" // set tag with 'class="swiper-slide"'
+								className={mainStyles.swiperSlide}
 								key={ws.ID}
 							>
 								<img
 									src={`/swiper/${ws.ID}.png`}
 									onClick={() => linkTo(ws.URL, PRODUCTION.STATE, ws.STATE)}
 									className={`
-										${cssMV.swiperSlideImg}
-										${state.selWS === ws.STATE && cssMV.swiperSlideImgSelected}
+										${mainStyles.swiperSlideImg}
+										${$state.websiteIndex === ws.STATE && mainStyles.swiperSlideImgSelected}
 									`}
 								/>
 							</SwiperSlide>
 						))}
-					{/* イメージリスト -- end -- */}
+					{/* Image List -- end -- */}
 
-				</React.Fragment>
+				</Fragment>
 			))}
 		</Swiper>
 	)
 }
 
-// サイドエリアのサムスワイパー
-const ThumbSwiper = ({ prop }): JSX.Element => {
+// ---------- Create Thumb Swiper Element ---------- //
+const ThumbSwiper = ({ app }): JSX.Element => {
 
-	// propから使うものを抽出
-	const { state, category, methods } = prop
-	const { linkTo, scrollToTop, showSideAreaSP, setSwipeElement } = methods
-	const { PRODUCTION } = category
+	const { $state, $category, $methods } = app
+	const { linkTo, scrollToTop, showSideArea, setSwipeElement } = $methods
+	const { PRODUCTION } = $category
+
+	const label = {
+		close: '×',
+		separate: '/',
+		fromTo: '～',
+	}
 
 	return (
 		<>
-			{/* フレックスボックス -- start -- */}
+			{/* Title Box -- start -- */}
 				<div className="flex-space-between">
-					{/* プロダクションリストタイトル -- start -- */}
-						<h1 className={cssA.sectionTitle}>
-							{PRODUCTION.NAME} List
+					{/* List Title -- start -- */}
+						<h1 className={thumbStyles.sectionTitle}>
+							{PRODUCTION.NAME}
 						</h1>
-					{/* プロダクションリストタイトル -- end -- */}
+					{/* List Title -- end -- */}
 
-					{/* プロダクションリストタイトル -- start -- */}
+					{/* Close Button -- start -- */}
 						<h1
-							onClick={() => showSideAreaSP(false)}
-							className={cssA.closeBtn}
+							onClick={() => showSideArea(false)}
+							className={thumbStyles.closeBtn}
 						>
-							×
+							{label.close}
 						</h1>
-					{/* プロダクションリストタイトル -- end -- */}
+					{/* Close Button -- end -- */}
 				</div>
-			{/* フレックスボックス -- end -- */}
+			{/* Title Box -- end -- */}
 
-			{/* サムスワイプエリア -- start -- */}
+			{/* Thumb Swiper -- start -- */}
 				<Swiper
 					id="thumbs"
 					direction="vertical"
@@ -118,17 +115,17 @@ const ThumbSwiper = ({ prop }): JSX.Element => {
 					effect="slide"
 					slideToClickedSlide
 					slidesPerView={0}
-					initialSlide={state.selWS}
-					onSwiper={(swiper) => setSwipeElement(swiper)} // スワイプ時の処理
+					initialSlide={$state.websiteIndex}
+					onSwiper={(swiper) => setSwipeElement(swiper)} // set action when slides change
 				>
 					{PRODUCTION.DATASET.map((fw: Framework)=> (
-						<React.Fragment key={`sidelist${fw.STATE}`}>
+						<Fragment key={`sidelist${fw.STATE}`}>
 
-							{/** プロダクションリスト -- start -- **/}
+							{/** Production List -- start -- **/}
 								{fw.PAGES.map((ws: Website) => (
 									<SwiperSlide
 										tag="li"
-										className={cssA.swiperSlide}
+										className={thumbStyles.swiperSlide}
 										key={`sidelistItem${ws.ID}`}
 									>
 										<div
@@ -137,33 +134,33 @@ const ThumbSwiper = ({ prop }): JSX.Element => {
 												scrollToTop()
 											}}
 											className={`
-												${cssA.list}
-												${state.selWS === ws.STATE && cssA.listSelected}
+												${thumbStyles.list}
+												${$state.websiteIndex === ws.STATE && thumbStyles.listSelected}
 											`}
 										>
 											<img
 												src={ws.IMG}
 												alt="icon"
-												className={cssA.listImg}
+												className={thumbStyles.listImg}
 											/>
 											{ws.NAME}
-											<span className={cssA.listSubText}>
+											<span className={thumbStyles.listSubText}>
 												<img
 													src={fw.IMG}
 													alt="icon"
-													className={cssA.listImg}
+													className={thumbStyles.listImg}
 												/>
-												{fw.NAME} / {ws.CREATE_DATE} 〜
+												{fw.NAME} {label.separate} {ws.CREATE_DATE} {label.fromTo}
 											</span>
 										</div>
 									</SwiperSlide>
 								))}
-							{/** プロダクションリスト -- end -- **/}
+							{/** Production List -- end -- **/}
 
-						</React.Fragment>
+						</Fragment>
 					))}
 				</Swiper>
-			{/* サムスワイプエリア -- end -- */}
+			{/* Thumb Swiper -- end -- */}
 
 		</>
 	)

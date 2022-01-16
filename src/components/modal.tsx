@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import Modal from 'react-modal'
-import css from '../styles/modules/modal.module.scss'
+import styles from '../styles/modules/modal.module.scss'
 
-// モーダルウィンドウのCSS設定
-const customStyles: object = {
-	// 背景のCSS設定
+Modal.setAppElement('#__next') // set modal to element in this app
+
+// set modal window style
+const customStyles = {
+	// set background
 	overlay : {},
-	// ウィンドウのCSS設定
+	// set window
 	content : {
 		top: '50%',
 		left: '50%',
@@ -16,32 +18,33 @@ const customStyles: object = {
 		transform: 'translate(-50%, -50%)',
 		background: 'rgba(0, 0, 0, 0.7)',
 	}
-};
+}
 
-// 任意のアプリを設定する
-Modal.setAppElement('#__next')
+const label = {
+	open: '?',
+	close: 'Close',
+}
 
-const ModalWindow = ({ title, content, openBtn }): JSX.Element => {
+const ModalWindow = ({ title, content }): JSX.Element => {
 
-	// State設定
 	const [modalIsOpen, setModalIsOpen] = useState(false)
 
-	// モーダル表示時の処理
+	// action when modal opens
 	const openModal = (): void => setModalIsOpen(true)
 
-	// モーダル表示後の処理
+	//action after modal displays
 	const afterOpenModal = (): string => document.getElementById('title').style.color = 'white'
 
-	// モーダル閉じた後の処理
+	// action when modal closes
 	const closeModal = (): void => setModalIsOpen(false)
 
 	return (
 		<>
 			<span
 				onClick={openModal}
-				className={css.openModal}
+				className={styles.openModal}
 			>
-				{openBtn}
+				{label.open}
 			</span>
 			<Modal
 				isOpen={modalIsOpen}
@@ -49,24 +52,24 @@ const ModalWindow = ({ title, content, openBtn }): JSX.Element => {
 				onRequestClose={closeModal}
 				style={customStyles}
 			>
-				<div className={css.modalWindow}>
+				<div className={styles.modalWindow}>
 					<h2
 						id="title"
-						className={css.title}
+						className={styles.title}
 					>
 						{title}
 					</h2>
 					<p
 						id="content"
-						className={css.content}
+						className={styles.content}
 					>
 						{content}
 					</p>
 					<button
 						onClick={closeModal}
-						className={css.closeModal}
+						className={styles.closeModal}
 					>
-						Close
+						{label.close}
 					</button>
 				</div>
 			</Modal>

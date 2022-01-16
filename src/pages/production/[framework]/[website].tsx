@@ -1,188 +1,179 @@
-import React from 'react'
-import Head from 'next/head'
+import { Fragment } from 'react'
+import $ from '../../../components/page-bundle'
 import Modal from '../../../components/modal'
 import Loading from '../../../components/loading'
-import css from '../../../styles/modules/page.module.scss'
-import { ProductPageData, ProductModalData, Framework, Website } from '../../../types/index'
+import { ProductPageData, Framework, Website, Skill } from '../../../types/index'
+import styles from '../../../styles/modules/page.module.scss'
 
-const PageLayout = ({ category, order, siteTitle, router }): JSX.Element => {
+const Production = ({ $state, $category, $productionOrder, $siteData, $router, $judgments }): JSX.Element => {
 
-	// URLパラメータ取得
-	const { framework, website } = router.query
+	const { PRODUCTION } = $category
+	const { SITE_TITLE } = $siteData
+	const { isPC, isSP } = $judgments
 
-	// ページ内容設定
+	// get parameter from URL
+	const { framework, website } = $router.query
+
+	// create page & section data
 	let pageData: ProductPageData
 	if (framework && website) {
-		const frameworkData: Framework = category.PRODUCTION.DATASET[order.framework[framework]]
-		const websiteData: Website = frameworkData.PAGES[order.website[website]]
+		const frameworkData: Framework = PRODUCTION.DATASET[$productionOrder.framework[framework]]
+		const websiteData: Website = frameworkData.PAGES[$productionOrder.website[website]]
 		pageData = {
-			head: frameworkData.NAME, // ヘッドタイトル	
-			title: websiteData.NAME, // ページタイトル
-			logo: websiteData.IMG,　// タイトルロゴ
-			createDate: websiteData.CREATE_DATE,　// 作成日
-			upDate: websiteData.UPDATE_DATE,　// 更新日
-			summary: websiteData.SUMMARY,　// 概要
-			link: {
-				site: websiteData.LINK.SITE, // サイトリンク・画面イメージ
-				source: websiteData.LINK.SOURCE, // Githubソース
-			},	
-			description: websiteData.DESCRIPTION, // 内容			
-			howToMake: websiteData.HOW_TO_MAKE, // 作成方法
-			skill: websiteData.SKILL, // 使用技術・FW
+			framework: frameworkData.NAME,
+			title: websiteData.NAME,
+			logo: websiteData.IMG,
+			summary: websiteData.SUMMARY,
+			baseData: [
+				{
+					id: 'createDate',
+					title: '作成日',
+					content: websiteData.CREATE_DATE,
+				},
+				{
+					id: 'updateDate',
+					title: '更新日',
+					content: websiteData.UPDATE_DATE,
+				},
+				{
+					id: 'site',
+					title: 'サイト',
+					content: websiteData.NAME,
+					url: websiteData.LINK.SITE,
+				},
+				{
+					id: 'source',
+					title: 'ソース',
+					content: 'Github',
+					url: websiteData.LINK.SOURCE,
+				}
+			],
+			sectionData: [
+				{
+					id: 'description',
+					name: '内容',
+					modal: '作成したサイトが果たす主な役割・機能の詳細。このサイトで何ができるのかなど。',
+					content: websiteData.DESCRIPTION
+				},
+				{
+					id: 'howToMake',
+					name: '作成方法',
+					modal: '使用したフレームワークなどをどのように活用しているか、また、どのようなシステムにしているかなどの説明。',
+					content: websiteData.HOW_TO_MAKE
+				},
+				{
+					id: 'skill',
+					name: '使用技術・FW',
+					modal: '各言語・フレームワーク内で実際に使用した技術を記載。',
+					content: websiteData.SKILL
+				},
+				{
+					id: 'image',
+					name: '画面イメージ',
+					modal: 'イメージとしているが、iframeで挿入しているため、実際のサイト同様に操作できる。',
+					content: websiteData.LINK.SITE
+				},
+			]
 		}
 	}
 
-	// モーダルの値設定
-	const openBtn: string = "?"
-	const modalData: ProductModalData = {
-		description: {
-			title: "内容",
-			content: "作成したサイトが果たす主な役割・機能の詳細。このサイトで何ができるのかなど。",
-		},
-		howToMake: {
-			title: "作成方法",
-			content: "使用したフレームワークなどをどのように活用しているか、また、どのようなシステムにしているかなどの説明。",
-		},
-		skill: {
-			title: "使用技術・FW",
-			content: "各言語・フレームワーク内で実際に使用した技術を記載。",
-		},
-		iframe: {
-			title: "画面イメージ",
-			content: "イメージとしているが、iframeで挿入しているため、実際のサイト同様に操作できる。",
-		},
-	}
-
-	// セクション共通部分のコンポーネント
-	const Section = ({ title, modalContent, children }): JSX.Element => {
-		return (
-			<section className={css.sectionBox}>
-				<div className={css.sectionTitle}>
-					<h2 className={`
-						${css.h2}
-						flex-start
-						align-items-center
-					`}>
-						{title}
-					</h2>
-					<Modal
-						openBtn={openBtn}
-						title={title}
-						content={modalContent}
-					/>
-				</div>
-				{children}
-			</section>
-		)
-	}
-
 	return pageData === undefined ? <Loading/> : (
-		<>
-			{/*** <head>の<title>設定 -- start -- ***/}
-				<Head>
-					<title>{pageData.head} | {siteTitle}</title>
-				</Head>
-			{/*** <head>の<title>設定 -- end -- ***/}
+		<$.Page
+			state={$state}
+			categoryState={PRODUCTION.STATE}
+			pageName={pageData.framework}
+			siteTitle={SITE_TITLE}
+		>
+			<$.BaseSection>
+				<$.H1>
+					<$.Image
+						src={pageData.logo}
+						alt={pageData.logo}
+						type='logo'
+					/>
+					{pageData.title}
+				</$.H1>
+				<$.P>
+					{pageData.baseData.map(base => (
+						<$.Text key={base.id}>
+							<$.Text right>
+								{base.title}
+							</$.Text>
+							<span>
+								{base.url ? (
+									<a href={base.url} target="_blank">
+										{base.content}
+										<$.Image
+											src="/icon/external-link.svg"
+											alt="外部リンクアイコン"
+											type='link'
+										/>
+									</a>
+								) : base.content}
+							</span>
+						</$.Text>
+					))}
+				</$.P>
+				<$.P>
+					{pageData.summary}
+				</$.P>
+			</$.BaseSection>
 
-			<div className={css.contentsBox}>
-
-				{/*** セクション__タイトル -- start -- ***/}
-					<section className={css.titleBox}>
-						<h1 className={css.h1}>
-							<img src={pageData.logo} className={css.logo}/>
-							{pageData.title}
-						</h1>
-						<p className={css.p}>
-							作成日 {pageData.createDate}<br/>
-							更新日 {pageData.upDate}<br/>
-							サイト <a href={pageData.link.site} target="_blank">{pageData.title}<img src="/icon/external-link.svg" className={css.link}/></a><br/>
-							ソース <a href={pageData.link.source} target="_blank">Github<img src="/icon/external-link.svg" className={css.link}/></a>
-						</p>
-						<p className={css.p}>
-							{pageData.summary}
-						</p>
-					</section>
-				{/*** セクション__タイトル -- end -- ***/}
-
-				{/*** セクション__内容 -- start --***/}
-					<Section
-						title={modalData.description.title}
-						modalContent={modalData.description.content}
-					>
-						<p className={css.p}>
-							{pageData.description}
-						</p>
-					</Section>
-				{/*** セクション__内容 -- end --***/}
-
-				{/*** セクション__作成方法 -- start --***/}
-					<Section
-						title={modalData.howToMake.title}
-						modalContent={modalData.howToMake.content}
-					>
-						<p className={css.p}>
-							{pageData.howToMake}
-						</p>
-					</Section>
-				{/*** セクション__作成方法 -- end --***/}
-
-				{/*** セクション__使用技術・FW -- start --***/}
-					<Section
-						title={modalData.skill.title}
-						modalContent={modalData.skill.content}
-					>
-						{/* 画像：PCでは非表示 -- start -- */}
-							<div className={css.imgBox}>
-								{pageData.skill.map(skill => (
-									<img
-										src={`/main/${skill.image}`}
-										alt={skill.title}
-										key={`FW-image${skill.title}`}
-									/>
-								))}
-							</div>
-						{/* 画像：PCでは非表示 -- end -- */}
-						{pageData.skill.map(skill => (
-							<ul key={`FW-text${skill.title}`} className={css.listBox}>
-								{/* 画像：SPでは非表示 -- start -- */}
-									<img
-										src={`/main/${skill.image}`}
-										className={css.img}
-									/>
-								{/* 画像：SPでは非表示 -- end -- */}
-								<li className={`${css.li} ${css.liOnlyProduction}`}>
-									<span className={css.liText}>
-										{skill.title}
-									</span>
-									{skill.contents.map(item => (
-										<React.Fragment key={item}>
-											{item !== "" && (
-												<p className={css.liNote}>
-													{item}
-												</p>
-											)}
-										</React.Fragment>
-									))}
-								</li>
-							</ul>
-						))}
-					</Section>
-				{/*** セクション__使用技術・FW -- end --***/}
-
-				{/*** セクション__画面イメージ -- start --***/}
-					<Section
-						title={modalData.iframe.title}
-						modalContent={modalData.iframe.content}
-					>
-						<iframe
-							className={css.iframe}
-							src={pageData.link.site}
+			{pageData.sectionData.map(section => (
+				<$.ContentSection key={section.id}>
+					<$.SectionTitle>
+						<$.H2 classNames={['flex-start', 'align-items-center']}>
+							{section.name}
+						</$.H2>
+						<Modal
+							title={section.name}
+							content={section.modal}
 						/>
-					</Section>
-				{/*** セクション__画面イメージ -- end --***/}
-
-			</div>
-		</>
+					</$.SectionTitle>
+					{section.id === 'skill' ? (
+						<>
+							{isSP && (
+								<$.ImageBox>
+									{(section.content as Skill[]).map(skill => (
+										<img
+											src={`/main/${skill.image}`}
+											alt={skill.title}
+											key={`FW-image${skill.title}`}
+										/>
+									))}
+								</$.ImageBox>
+							)}
+							{(section.content as Skill[]).map(skill => (
+								<$.ListBox key={`FW-text${skill.title}`}>
+									{isPC && (
+										<$.Image
+											src={`/main/${skill.image}`}
+											alt="ロゴ"
+										/>
+									)}
+									<$.List classNames={[styles.liOnlyProduction]}>
+										<$.ListText>
+											{skill.title}
+										</$.ListText>
+										{skill.contents.map(item => (
+											<Fragment key={item}>
+												{item !== '' && (
+													<$.ListNote>
+														{item}
+													</$.ListNote>
+												)}
+											</Fragment>
+										))}
+									</$.List>
+								</$.ListBox>
+							))}
+						</>
+					)
+					: section.id === 'image' ? <$.Iframe src={section.content as string}/>
+					: <$.P>{section.content as string}</$.P>}
+				</$.ContentSection>
+			))}
+		</$.Page>
 	)
 }
-export default PageLayout
+export default Production

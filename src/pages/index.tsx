@@ -1,38 +1,33 @@
-import Head from 'next/head'
-import styles from '../styles/modules/page.module.scss'
+import $ from '../components/page-bundle'
 
-const Home = ({ category, siteTitle }) => {
+const Home = ({ $state, $siteData, $category }): JSX.Element => {
+
+	const { SITE_TITLE, SITE_IMAGE } = $siteData
+	const { HOME } = $category
+
 	return (
-		<>
-			{/***  ヘッド設定 -- start -- ***/}
-				<Head>
-					<title>{category.HOME.NAME} | {siteTitle}</title>
-				</Head>
-			{/***  ヘッド設定 -- end -- ***/}
+		<$.Page
+			state={$state}
+			categoryState={HOME.STATE}
+			pageName={HOME.NAME}
+			siteTitle={SITE_TITLE}
+		>
+			<$.BaseSection>
+				<$.H1>
+					{SITE_TITLE}
+				</$.H1>
+			</$.BaseSection>
 
-			{/***  コンテンツボックス -- start -- ***/}
-				<div className={styles.contentsBox}>
-
-					{/*  タイトル（プロフィール） -- start -- */}
-						<h1 className={styles.h1}>
-							{siteTitle}
-						</h1>
-					{/*  タイトル（プロフィール） -- end -- */}
-
-					{/*  タイトル（プロフィール） -- start -- */}
-						<p className={styles.p} style={{textAlign: 'center'}}>
-							<img
-								src={category.HOME.IMG}
-								alt="TOP LOGO"
-								width="100%"
-								style={{maxWidth: '400px', textAlign: 'center'}}
-							/>
-						</p>
-					{/*  タイトル（プロフィール） -- end -- */}
-
-				</div>
-			{/***  コンテンツボックス -- end -- ***/}
-		</>
+			<$.ContentSection>
+				<$.P style={{textAlign: 'center'}}>
+					<img
+						src={SITE_IMAGE.SRC}
+						alt={SITE_IMAGE.ALT}
+						style={{maxWidth: '400px', textAlign: 'center', width: '100%'}}
+					/>
+				</$.P>
+			</$.ContentSection>
+		</$.Page>
 	)
 }
 export default Home

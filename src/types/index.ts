@@ -1,21 +1,39 @@
-import { PROFILE, PRODUCTION } from '../config/index.json'
-
-export type Order = {
-    framework: {},
-    website: {}
+export type TopList = {
+    name: string,
+    className: string,
+    method: () => void,
+    children: {
+        image: {
+            src: string,
+            alt: string,
+            className?: string
+        },
+        etc?: JSX.Element
+    },
+    display?: boolean
 }
 
-export type CategoryArray = [
-    typeof PROFILE,
-    typeof PRODUCTION
-]
+export type HeaderTabList = {
+    name: string,
+    url: string,
+    state?: string
+}
+
+export type ProductionOrder = {
+    framework: {
+        [key: string]: number
+    },
+    website: {
+        [key: string]: number
+    }
+}
 
 export type Category = {
     ID: string,
     NAME: string,
     URL: string,
     STATE: string,
-    DATASET: any[]
+    DATASET?: any[]
 }
 
 export type Framework = {
@@ -41,48 +59,47 @@ export type Website = {
     },
     DESCRIPTION: string,
     HOW_TO_MAKE: string,
-    SKILL: Array<{
-        title: string,
-        image: string,
-        contents: string[]
-    }>
+    SKILL: Skill[]
+}
+
+export type Skill = {
+    title: string,
+    image: string,
+    contents: string[]
 }
 
 export type ProductPageData = {
-    head: string,
+    framework: string,
     title: string,
     logo: string,
-    createDate: string,
-    upDate: string,
     summary: string,
-    link: {
-        site: string,
-        source: string,
-    },	
-    description: string,			
-    howToMake: string,
-    skill: Array<{
+    baseData: {
+        id: string,
         title: string,
-        image: string,
-        contents: string[]
-    }>
+        content: string,
+        url?: string
+    }[],
+    sectionData: {
+        id: string,
+        name: string,
+        modal: string,
+        content: string | Skill[]
+    }[]
 }
 
-export type ProductModalData = {
-    description: {
-        title: string,
-        content: string,
-    },
-    howToMake: {
-        title: string,
-        content: string,
-    },
-    skill: {
-        title: string,
-        content: string,
-    },
-    iframe: {
-        title: string,
-        content: string,
-    },
+export type ProfilePageData = {
+    sectionData: {
+        id: string,
+        name: string,
+        modal?: string,
+        contents: {
+            id: string,
+            title?: string,
+            lists: {
+                type?: string,
+                text: string,
+                note?: string[]
+            }[]
+        }[]
+    }[]
 }

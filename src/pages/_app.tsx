@@ -1,147 +1,160 @@
+import '../styles/swiper@6.3.3/swiper-bundle.min.css'
 import '../styles/globals.scss'
-import React, { useState, useEffect } from 'react'
+import { FunctionComponentElement, useState, useEffect, cloneElement } from 'react'
 import { useRouter } from 'next/router'
-import { CategoryArray, Category, Framework, Website, Order } from '../types/index'
+import { Category, ProductionOrder, Framework, Website } from '../types/index'
 import Header from '../components/header'
 import Swipers from '../components/swipers'
-import GLOBAL from '../config/global.json' // Global Data
-import { HOME, PROFILE, PRODUCTION } from '../config/index.json' // Category Data
+import META_DATA from '../config/meta-data.json'
+import CATEGORY, { HOME, PROFILE, PRODUCTION } from '../config/category.json'
 
-/*** Category Data設定 ***/
-const categoryArray: CategoryArray = [ PROFILE, PRODUCTION ]
-categoryArray.map((cat: Category) => {
-	cat.STATE = cat.ID
-	cat.URL = '/' + cat.ID
-})
-
-const order: Order = { framework: {}, website: {} }
-let wsState: number = 0
-PRODUCTION.DATASET.map((fw: Framework, fwIdx: number) => {
-	// STATEとURLはID等から動的に設定
+// ---------- Create Production Data ---------- //
+const productionOrder: ProductionOrder = { framework: {}, website: {} }
+let wsOrderIdx = 0
+for (const [fwIdx, fw] of PRODUCTION.DATASET.entries()) {
+	// ID => STATE & URL
 	fw.STATE = fw.ID
-	order.framework[fw.ID] = fwIdx
-	fw.PAGES.map((ws: Website, wsIdx: number) => {
-		ws.STATE = wsState
+	productionOrder.framework[fw.ID] = fwIdx
+	for (const [wsIdx, ws] of fw.PAGES.entries()) {
+		ws.STATE = wsOrderIdx
 		ws.URL = '/' + PRODUCTION.ID + '/' + fw.ID + '/' + ws.ID
-		order.website[ws.ID] = wsIdx
-		wsState++
-	})
-})
+		productionOrder.website[ws.ID] = wsIdx
+		wsOrderIdx++
+	}
+}
 
+// ---------- Create Element ---------- //
 const Layout = ({ children }): JSX.Element => {
 
-	//-------------------------------- 初期定義 --------------------------------//
+	/*** State ***/
+	const [categoryName, setCategoryName] = useState(PROFILE.STATE)
+	const [websiteIndex, setWebsiteIndex] = useState(Number())
+	const [swipeElement, setSwipeElement] = useState()
+	const [userAgent, setUserAgent] = useState(String())
 
-	/*** State設定 ***/
-	const [category, setCategory] = useState(PROFILE.STATE) // 選択しているカテゴリ設定
-	const [selWS, setSelWS] = useState(Number()) // 選択しているサイト設定
-	const [swipeElement, setSwipeElement] = useState() // スワイパーエレメントの設定
-	const [ua, setUA] = useState(String()) // ユーザーエージェント設定
+	/*** User Agent ***/
+	const is = (device: string): boolean => {
+		if (userAgent) {
+			if (['android', 'androidTablet'].includes(device)) {
+				const mobileIdx = userAgent.indexOf('mobile')
+				return userAgent.indexOf('android')> -1 && (
+					device === 'androidTablet' ? mobileIdx === -1 : mobileIdx > -1
+				)
+			} else {
+				return userAgent.indexOf(device) > -1
+			}
+		}
+		return false
+	}
 
-	/*** ユーザーエージェント条件設定 ***/
-	const isiPhone: boolean = ua && (ua.indexOf('iphone') > -1) // iPhone判定
-	const isiPad: boolean = ua && (ua.indexOf('ipad') > -1) // iPad判定
-	const isAndroid: boolean = ua && (ua.indexOf('android') > -1) && (ua.indexOf('mobile') > -1) // Android判定
-	const isAndroidTablet: boolean = ua && (ua.indexOf('android') > -1) && (ua.indexOf('mobile') == -1) // Android Tablet判定
-
-	/*** 共通Propsの設定 ***/
-	const PROP = {	
-		siteTitle: GLOBAL.SITE_TITLE,
-		category: { HOME, PROFILE, PRODUCTION }, // Category全情報
-		order, // コンテンツの順序
-		state: { category, selWS, swipeElement }, // state保存値
-		methods: {
+	/*** Common App ***/
+	const $next = {
+		$siteData: META_DATA,
+		$category: CATEGORY,
+		$productionOrder: productionOrder,
+		$state: { categoryName, websiteIndex, swipeElement },
+		$methods: {
 			setSwipeElement,
-			scrollToTop(): void { window.scrollTo(0, 0) },
-			showSideAreaSP(condition: boolean): void {
-				const spWidth: string = condition ? '0' : '768px'
+			scrollToTop(): void {
+				window.scrollTo(0, 0)
+			},
+			showSideArea(isPC: boolean): void {
+				const spWidth: string = isPC ? '0' : '768px'
 				document.getElementById('contents-aside').style.left = spWidth
 			},
-			linkTo(url: string, caName: string, wsIdx: number): void {
-				// Stateをセットしてページを切替
-				if (caName) setCategory(caName)
-				if (wsIdx || wsIdx === 0) setSelWS(wsIdx)
-				PROP.router.push(url)
+			linkTo(
+				url: string,
+				caName: string,
+				wsIdx?: number
+			): void {
+				if (caName) setCategoryName(caName)
+				if (wsIdx || wsIdx === 0) setWebsiteIndex(wsIdx)
+				$next.$router.push(url)
 		
-				if (PROP.judgments.isSP && PROP.judgments.isProduction) {
-					PROP.methods.showSideAreaSP(false)
+				if ($next.$judgments.isSP && $next.$judgments.isProduction) {
+					$next.$methods.showSideArea(false)
 				}
 			}
 		},
-		judgments: {
-			isProduction: (category === PRODUCTION.STATE),　// Productionページ判定
-			isPC: (!isiPhone && !isiPad && !isAndroid && !isAndroidTablet), //PC判定
-			isSP: (isiPhone || isiPad || isAndroid || isAndroidTablet), //SP判定
+		$judgments: {
+			isProduction: (categoryName === PRODUCTION.STATE),
+			isSP: (is('iphone') || is('ipad') || is('android') || is('androidTablet')),
+			isPC: (!is('iphone') && !is('ipad') && !is('android') && !is('androidTablet')),
 		},
-		router: useRouter()
+		$router: useRouter()
 	}
 
-	/*** 子要素を再生成してPropsを渡す設定 ***/
-	const NEW_CHILDREN: React.FunctionComponentElement<typeof PROP> = React.cloneElement(children, PROP)
+	/*** Prop of Parent => Children ***/
+	const $children: FunctionComponentElement<typeof $next> = cloneElement(children, $next)
 
-
-	//-------------------------------- レンダリング設定 --------------------------------//
-
-	// レンダー後処理
+	/*** Mounted Only First ***/
 	useEffect(() => {
 
-		// URLに合わせて表示切替
+		// get path name
 		const pathName: string = window.location.pathname
-		const firstPath: string = '/' + pathName.split('/')[1]
+		const categoryPath: string = '/' + pathName.split('/')[1]
 
-		// カテゴリー切替
-		categoryArray.map((cat: Category) => firstPath === cat.URL && setCategory(cat.STATE))
+		// set categoryName from path name
+		const categories: Category[] = [ HOME, PROFILE, PRODUCTION ]
+		const cat: Category | undefined = categories.find(cat => categoryPath === cat.URL)
+		cat !== undefined && setCategoryName(cat.STATE)
 
-		// ウェブサイト切替
-		PROP.category.PRODUCTION.DATASET.map((fw: Framework) => {
-			fw.PAGES.map((ws: Website) => pathName === ws.URL && setSelWS(ws.STATE))
-		})
+		// set websiteIndex from path name
+		const findPath = (ws: Website): boolean => pathName === ws.URL
+		const fw: Framework | undefined = $next.$category.PRODUCTION.DATASET.find(fw => fw.PAGES.some(findPath))
+		const ws: Website | false = fw !== undefined && fw.PAGES.find(findPath)
+		ws && setWebsiteIndex(ws.STATE)
 
-		// ユーザーエージェント設定
-		setUA(navigator.userAgent.toLowerCase())
+		// set user agent
+		setUserAgent(navigator.userAgent.toLowerCase())
 
 	}, [])
 
-	// 通常レンダー
+	/*** Render ***/
 	return (
 		<div id="top" className="container">
 
-			{/*** ヘッダーエリア -- start -- ***/}
-				<Header prop={PROP}/>
-			{/*** ヘッダーエリア -- end -- ***/}
+			{/*** Header Area -- start -- ***/}
+				<Header app={$next}/>
+			{/*** Header Area -- end -- ***/}
 
-			{/*** メインビジュアルエリア -- start -- ***/}
-				{PROP.judgments.isProduction && (
+			{/*** Main Swipe Area -- start -- ***/}
+				{$next.$judgments.isProduction && (
 					<div className="main-visual-area">
-						<Swipers.MainSwiper prop={PROP}/>
+						<Swipers.MainSwiper app={$next}/>
 					</div>
 				)}
-			{/*** メインビジュアルエリア -- end -- ***/}
+			{/*** Main Swipe Area -- end -- ***/}
 
-			{/*** コンテンツエリア -- start -- ***/}
+			{/*** Contents Area -- start -- ***/}
 				<div className="contents-area flex-space-around flex-remove-sp">
 
-					{/** サイドエリア -- start -- **/}
-						{PROP.judgments.isProduction && (
+					{/** Thumb Swipe Area -- start -- **/}
+						{$next.$judgments.isProduction && (
 							<aside
 								id="contents-aside"
 								className="contents-aside"
 							>
 								<div className="contents-aside-wrap">
-									<Swipers.ThumbSwiper prop={PROP}/>
+									<Swipers.ThumbSwiper app={$next}/>
 								</div>
 							</aside>
 						)}
-					{/** サイドエリア -- end -- **/}
+					{/** Thumb Swipe Area -- end -- **/}
 
-					{/** メインエリア -- start -- **/}
-						<main className={`contents-main ${!PROP.judgments.isProduction && "contents-main-no-sidearea"}`}>
-							{NEW_CHILDREN}
+					{/** Main Area -- start -- **/}
+						<main
+							className={`
+								contents-main
+								${!$next.$judgments.isProduction && "contents-main-no-sidearea"}
+							`}
+						>
+							{$children}
 						</main>
-					{/** メインエリア -- end -- **/}
+					{/** Main Area -- end -- **/}
 
 				</div>
-			{/*** コンテンツエリア -- end -- ***/}
+			{/*** Contents Area -- end -- ***/}
 
 		</div>
 	)

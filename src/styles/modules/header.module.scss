@@ -82,14 +82,10 @@ $font_size__topList: 18px;
 	top: $header_height;
 	left: 0;
 	right: 0;
+	max-width: $screen_max_width;
+	margin: 0 auto;
 
-	/*** 1.コンテンツラッパー設定 ***/
-	&Wrap {
-		max-width: $screen_max_width;
-		margin: 0 auto;
-	}
-
-	/*** 2.ヘッダータブ設定 ***/
+	/*** 1.ヘッダータブ設定 ***/
 	.headerTab {
 		text-align: center;
 		display: block;
@@ -97,16 +93,19 @@ $font_size__topList: 18px;
 		padding: 5px 0;
 		cursor: pointer;
 
-		/** 2-1.ホバー時設定 **/
+		/** 1-1.ホバー時設定 **/
 		&:hover {
 			@include commonHover;
 			transition: background 0.5s;
 		}
 
-		/** 2-2.aタグのリンク設定 **/
+		/** 1-2.aタグのリンク設定 **/
 		&Link {
 			color: unset;
 			padding: 0;
+			&:hover {
+				background: unset;
+			}
 		}
 	}
 
