@@ -1,32 +1,31 @@
 import styles from '../styles/modules/header.module.scss'
-import { TopList, HeaderTabList } from '../types/index'
+import { HomeList, TabList } from '../types/index'
 
 const Header = ({ app }): JSX.Element => {
 
 	const { $siteData, $judgments, $productionOrder, $category, $methods } = app
-	const { linkTo, scrollToTop, showSideArea } = $methods
+	const { linkTo, scrollToTop, showThumbSwiperOnSP } = $methods
 	const { framework, website } = $productionOrder
 	const { isProduction } = $judgments	
 	const { HOME, PROFILE, PRODUCTION } = $category
-	const { SITE_TITLE, SITE_IMAGE } = $siteData	
+	const { SITE_TITLE, SITE_IMAGE } = $siteData
 
-	const topList: TopList[] = [
+	const homeList: HomeList[] = [
 		{
-			name: 'logo',
-			className: `${styles.topLogo} flex-space-between align-items-center`,
+			name: 'homeButton',
+			className: `${styles.homeButton} flex-space-between align-items-center`,
 			method: () => linkTo(HOME.URL, HOME.STATE),
 			children: {
 				image: {
-					src: SITE_IMAGE.SRC,
+					src: '/logo/portfolio.png',
 					alt: SITE_IMAGE.ALT,
-					className: styles.topLogoImg
 				},
 				etc: <span>{SITE_TITLE}</span>
 			},
 		},
 		{
 			name: 'topButton',
-			className: styles.topBtn,
+			className: styles.topButton,
 			method: () => scrollToTop(), 
 			children: {
 				image: {
@@ -37,8 +36,8 @@ const Header = ({ app }): JSX.Element => {
 		},
 		{
 			name: 'menuButton',
-			className: styles.menuBtn,
-			method: () => showSideArea(true),
+			className: styles.menuButton,
+			method: () => showThumbSwiperOnSP(true),
 			children: {
 				image: {
 					src: '/icon/menu.svg',
@@ -49,7 +48,7 @@ const Header = ({ app }): JSX.Element => {
 		}
 	]
 
-	const headerTabList: HeaderTabList[] = [
+	const headerTabList: TabList[] = [
 		{
 			name: PROFILE.NAME,
 			url: PROFILE.URL,
@@ -61,63 +60,55 @@ const Header = ({ app }): JSX.Element => {
 		},
 	]
 
+	const layout: Record<string, string> = {
+		header: 'header-area',
+		homeList: `${styles.homeList} flex-space-between`,
+		tabList: `${styles.tabList} flex-space-around align-items-center`,
+	}
+
 	return (
-		<header className="header-area">
-			<div className="header-area-wrap">
-
-				{/*** Top List -- start -- ***/}
-					<ul className={`${styles.topList} flex-space-between`}>
-						{topList.map(element => element.display !== false && (
-							<li
-								key={element.name}
-								className={element.className}
-								onClick={element.method}
-							>
-								<img
-									src={element.children.image.src}
-									alt={element.children.image.alt}
-									className={element.children.image.className ? element.children.image.className : ''}
-								/>
-								{element.children.etc && element.children.etc}
-							</li>
-						))}
-					</ul>
-				{/*** Top List -- end -- ***/}
-
-				{/*** Header Tab List -- start -- ***/}
-					<div className={styles.tabListWrap}>
-						<ul
-							className={`
-								${styles.tabList}
-								flex-space-around
-								align-items-center
-							`}
+		<header className={layout.header}>
+			<div className={styles.homeListWrapper}>
+				<ul className={layout.homeList}>
+					{homeList.map(element => element.display !== false && (
+						<li
+							key={element.name}
+							className={element.className}
+							onClick={element.method}
 						>
-							{headerTabList.map(element => element.state ? (
-								<li
-									key={element.name}
-									className={styles.headerTab}
-									onClick={() => linkTo(element.url, element.state)}
-								>
-									{element.name}
-								</li>
-							) : (
-								<li
-									key={element.name}
-									className={styles.headerTab}
-								>
-									<a
-										href={element.url}
-										className={styles.headerTabLink}
-									>
-										{element.name}
-									</a>
-								</li>
-							))}
-						</ul>
-					</div>
-				{/*** Header Tab List -- end -- ***/}
-
+							<img
+								src={element.children.image.src}
+								alt={element.children.image.alt}
+							/>
+							{element.children.etc && element.children.etc}
+						</li>
+					))}
+				</ul>
+			</div>
+			<div className={styles.tabListWrapper}>
+				<ul className={layout.tabList}>
+					{headerTabList.map(element => element.state ? (
+						<li
+							key={element.name}
+							className={styles.tab}
+							onClick={() => linkTo(element.url, element.state)}
+						>
+							{element.name}
+						</li>
+					) : (
+						<li
+							key={element.name}
+							className={styles.tab}
+						>
+							<a
+								href={element.url}
+								className={styles.tabLink}
+							>
+								{element.name}
+							</a>
+						</li>
+					))}
+				</ul>
 			</div>
 		</header>
 	)

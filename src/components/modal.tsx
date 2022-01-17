@@ -4,7 +4,6 @@ import styles from '../styles/modules/modal.module.scss'
 
 Modal.setAppElement('#__next') // set modal to element in this app
 
-// set modal window style
 const customStyles = {
 	// set background
 	overlay : {},
@@ -25,49 +24,48 @@ const label = {
 	close: 'Close',
 }
 
+const modalTitleId = 'modalTitle'
+
 const ModalWindow = ({ title, content }): JSX.Element => {
 
-	const [modalIsOpen, setModalIsOpen] = useState(false)
+	const [modalDisplay, setModalDisplay] = useState(false)
 
 	// action when modal opens
-	const openModal = (): void => setModalIsOpen(true)
+	const onOpen = (): void => setModalDisplay(true)
 
 	//action after modal displays
-	const afterOpenModal = (): string => document.getElementById('title').style.color = 'white'
+	const onAfterOpen = (): string => document.getElementById(modalTitleId).style.color = 'white'
 
 	// action when modal closes
-	const closeModal = (): void => setModalIsOpen(false)
+	const onClose = (): void => setModalDisplay(false)
 
 	return (
 		<>
-			<span
-				onClick={openModal}
-				className={styles.openModal}
+			<button
+				className={styles.modalOpenButton}
+				onClick={onOpen}
 			>
 				{label.open}
-			</span>
+			</button>
 			<Modal
-				isOpen={modalIsOpen}
-				onAfterOpen={afterOpenModal}
-				onRequestClose={closeModal}
+				isOpen={modalDisplay}
+				onAfterOpen={onAfterOpen}
+				onRequestClose={onClose}
 				style={customStyles}
 			>
 				<div className={styles.modalWindow}>
 					<h2
-						id="title"
-						className={styles.title}
+						id={modalTitleId}
+						className={styles.modalTitle}
 					>
 						{title}
 					</h2>
-					<p
-						id="content"
-						className={styles.content}
-					>
+					<p className={styles.modalContent}>
 						{content}
 					</p>
 					<button
-						onClick={closeModal}
-						className={styles.closeModal}
+						className={styles.modalCloseButton}
+						onClick={onClose}
 					>
 						{label.close}
 					</button>

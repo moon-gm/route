@@ -1,39 +1,35 @@
 /**********************
- メインビジュアルエリア設定
+ Main Swiper module
 **********************/
 @import '../variables';
 
-/**** スワイプスライド設定 ****/
+/**** Swiper Slide ****/
 .swiperSlide {
 	text-align: center;
 	height: 230px;
-	@media screen and (max-width: $sp_max_width) {
+	@media screen and (max-width: $max-width-of-sp) {
 		height: 200px;
 	}
 
-	/*** 1.スワイプする画像設定 ***/
 	&Img {
 		width: 380px;
 		height: 100%;
 		border-radius: 8px;
-		@media screen and (max-width: $sp_max_width) {
+		@media screen and (max-width: $max-width-of-sp) {
 			width: 90%;
 			max-width: 380px;
 		}
-
-		/** 1-1.ホバー時設定 **/
 		&:hover {
-			background: $black__clear;
-			border: 3px solid $white;
+			background: $color-of-black-clear7;
+			border: 3px solid $color-of-white;
 			height: 100%;
 			padding: 5px;
 			cursor: pointer;
 			transition: padding 0.5s;
 		}
 
-		/** 1-2.選択時設定 **/
 		&Selected {
-			border: 5px solid $blue;
+			border: 5px solid $color-of-blue;
 		}
 	}
 }

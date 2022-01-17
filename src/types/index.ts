@@ -1,31 +1,21 @@
-export type TopList = {
+export type HomeList = {
     name: string,
     className: string,
     method: () => void,
     children: {
         image: {
             src: string,
-            alt: string,
-            className?: string
+            alt: string
         },
         etc?: JSX.Element
     },
     display?: boolean
 }
 
-export type HeaderTabList = {
+export type TabList = {
     name: string,
     url: string,
     state?: string
-}
-
-export type ProductionOrder = {
-    framework: {
-        [key: string]: number
-    },
-    website: {
-        [key: string]: number
-    }
 }
 
 export type Category = {
@@ -34,6 +24,11 @@ export type Category = {
     URL: string,
     STATE: string,
     DATASET?: any[]
+}
+
+export type ProductionOrder = {
+    framework: Record<string, number>,
+    website: Record<string, number>
 }
 
 export type Framework = {
@@ -71,7 +66,7 @@ export type Skill = {
 export type ProductPageData = {
     framework: string,
     title: string,
-    logo: string,
+    image: string,
     summary: string,
     baseData: {
         id: string,

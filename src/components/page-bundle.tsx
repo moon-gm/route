@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import Head from 'next/head'
 import Loading from './loading'
 import styles from '../styles/modules/page.module.scss'
+import { SITE_TITLE } from '../config/meta-data.json'
 
 interface Page {
 	state: {
@@ -9,8 +10,7 @@ interface Page {
 	},
 	categoryState: string,
 	pageName: string,
-	children: ReactNode,
-	siteTitle: string
+	children: ReactNode
 }
 
 interface Children {
@@ -36,16 +36,6 @@ interface Text {
 	right?: boolean
 }
 
-interface Image {
-	src: string,
-	alt: string,
-	classNames?: string[],
-	type?: string,
-	style?: {
-		[key: string]: string | number
-	}
-}
-
 interface Iframe {
 	src: string,
 	classNames?: string[]
@@ -55,15 +45,18 @@ const joinClassName = (
 	className: string,
 	classNames: string[]
 ): string => {
-	classNames.unshift(className)
-	return classNames.join(' ')
+	if (classNames.length !== 0) {
+		classNames.unshift(className)
+		className = classNames.join(' ')
+	}
+	return className
 }
 
-export const Page = ({ state, categoryState, pageName, children, siteTitle }: Page): JSX.Element => {
+export const Page = ({ state, categoryState, pageName, children }: Page): JSX.Element => {
 	return state.categoryName !== categoryState ? <Loading/> : (
 		<>
 			<Head>
-				<title>{pageName} | {siteTitle}</title>
+				<title>{pageName} | {SITE_TITLE}</title>
 			</Head>
 
 			<div className={styles.contentsBox}>
@@ -75,7 +68,7 @@ export const Page = ({ state, categoryState, pageName, children, siteTitle }: Pa
 
 export const BaseSection = ({ children }: Children): JSX.Element => {
 	return (
-		<section className={styles.titleBox}>
+		<section className={styles.baseSection}>
 			{children}
 		</section>
 	)
@@ -83,15 +76,15 @@ export const BaseSection = ({ children }: Children): JSX.Element => {
 
 export const ContentSection = ({ children }: Children): JSX.Element => {
 	return (
-		<section className={styles.sectionBox}>
+		<section className={styles.contentSection}>
 			{children}
 		</section>
 	)
 }
 
-export const SectionTitle = ({ children }: Children): JSX.Element => {
+export const ContentSectionTitle = ({ children }: Children): JSX.Element => {
 	return (
-		<div className={styles.sectionTitle}>
+		<div className={styles.contentSectionTitle}>
 			{children}
 		</div>
 	)
@@ -100,7 +93,7 @@ export const SectionTitle = ({ children }: Children): JSX.Element => {
 export const H1 = ({ children, classNames = [] }: ClassNames): JSX.Element => {
 	const className: string = styles.h1
 	return (
-		<h1 className={classNames.length !== 0 ? joinClassName(className, classNames) : className}>
+		<h1 className={joinClassName(className, classNames)}>
 			{children}
 		</h1>
 	)
@@ -109,7 +102,7 @@ export const H1 = ({ children, classNames = [] }: ClassNames): JSX.Element => {
 export const H2 = ({ children, classNames = [] }: ClassNames): JSX.Element => {
 	const className: string = styles.h2
 	return (
-		<h2 className={classNames.length !== 0  ? joinClassName(className, classNames) : className}>
+		<h2 className={joinClassName(className, classNames)}>
 			{children}
 		</h2>
 	)
@@ -118,7 +111,7 @@ export const H2 = ({ children, classNames = [] }: ClassNames): JSX.Element => {
 export const H3 = ({ children, classNames = [] }: ClassNames): JSX.Element => {
 	const className: string = styles.h3
 	return (
-		<h3 className={classNames.length !== 0  ? joinClassName(className, classNames) : className}>
+		<h3 className={joinClassName(className, classNames)}>
 			{children}
 		</h3>
 	)
@@ -128,7 +121,7 @@ export const P = ({ children, classNames = [], style = {} }: ClassNamesStyle): J
 	const className: string = styles.p
 	return (
 		<p
-			className={classNames.length !== 0  ? joinClassName(className, classNames) : className}
+			className={joinClassName(className, classNames)}
 			style={style}
 		>
 			{children}
@@ -139,50 +132,36 @@ export const P = ({ children, classNames = [], style = {} }: ClassNamesStyle): J
 export const Text = ({ children, classNames = [], right = false }: Text): JSX.Element => {
 	const className: string = right ? styles.rightSpace : styles.text
 	return (
-		<span className={classNames.length !== 0 ? joinClassName(className, classNames) : className}>
+		<span className={joinClassName(className, classNames)}>
 			{children}
 		</span>
 	)
 }
 
-export const Image = ({ src, alt, classNames = [], type = '', style = {} }: Image): JSX.Element => {
-	let className: string
-	switch(type) {
-		case 'logo': className = styles.logo; break
-		case 'link': className = styles.link; break
-		default: className = styles.img; break
-	}
+export const LayoutBox = ({ children }: Children): JSX.Element => {
 	return (
-		<img
-			src={src}
-			alt={alt}
-			className={classNames.length !== 0 ? joinClassName(className, classNames) : className}
-			style={style}
-		/>
-	)
-}
-
-export const ImageBox = ({ children }: Children): JSX.Element => {
-	return (
-		<div className={styles.imgBox}>
+		<div className={styles.layoutBox}>
 			{children}
 		</div>
 	)
 }
 
-export const ListBox = ({ children, classNames = []}: ClassNames): JSX.Element => {
+export const ListBox = ({ children, classNames = [] }: ClassNames): JSX.Element => {
 	const className: string = styles.listBox
 	return (
-		<ul className={classNames.length !== 0 ? joinClassName(className, classNames) : className}>
+		<ul className={joinClassName(className, classNames)}>
 			{children}
 		</ul>
 	)
 }
 
-export const List = ({ children, classNames = []}: ClassNames): JSX.Element => {
+export const List = ({ children, classNames = [], style = {} }: ClassNamesStyle): JSX.Element => {
 	const className: string = styles.li
 	return (
-		<li className={classNames.length !== 0 ? joinClassName(className, classNames) : className}>
+		<li
+			className={joinClassName(className, classNames)}
+			style={style}
+		>
 			{children}
 		</li>
 	)
@@ -191,7 +170,7 @@ export const List = ({ children, classNames = []}: ClassNames): JSX.Element => {
 export const ListText = ({ children, classNames = [] }: ClassNames): JSX.Element => {
 	const className: string = styles.liText
 	return (
-		<span className={classNames.length !== 0 ? joinClassName(className, classNames) : className}>
+		<span className={joinClassName(className, classNames)}>
 			{children}
 		</span>
 	)
@@ -200,7 +179,7 @@ export const ListText = ({ children, classNames = [] }: ClassNames): JSX.Element
 export const ListNote = ({ children, classNames = [] }: ClassNames): JSX.Element => {
 	const className: string = styles.liNote
 	return (
-		<p className={classNames.length !== 0 ? joinClassName(className, classNames) : className}>
+		<p className={joinClassName(className, classNames)}>
 			{children}
 		</p>
 	)
@@ -211,13 +190,13 @@ export const Iframe = ({ src, classNames = [] }: Iframe): JSX.Element => {
 	return (
 		<iframe
 			src={src}
-			className={classNames.length !== 0 ? joinClassName(className, classNames) : className}
+			className={joinClassName(className, classNames)}
 		/>
 	)
 }
 
 export default {
-	Page, BaseSection, ContentSection, SectionTitle,
-	H1, H2, H3, P, Text, Image, ImageBox,
+	Page, BaseSection, ContentSection, ContentSectionTitle,
+	H1, H2, H3, P, Text, LayoutBox,
 	ListBox, List, ListText, ListNote, Iframe
 }

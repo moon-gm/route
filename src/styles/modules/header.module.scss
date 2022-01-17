@@ -1,108 +1,112 @@
 /**********************
- ヘッダーエリア設定
+ Header module
 **********************/
 @import '../variables';
 
-/**** エリア内共通設定 ****/
-$font_size__topList: 18px;
+/**** Common ****/
+$font-size-of-home-list: 18px;
 @mixin shadowAnimation($shadow, $type) {
 
-	// ドロップシャドウの場合
 	@if($type == "drop-shadow") {
-		filter: drop-shadow($shadow 0px 0px $white__clear);
+		filter: drop-shadow($shadow 0px 0px $color-of-white-clear5);
 		transition: filter 0.3s;
 	}
 
-	// テキストシャドウの場合
 	@if($type == "text-shadow") {
-		color: $blue;
-		text-shadow: $shadow 0px 0px $white__clear;
+		color: $color-of-blue;
+		text-shadow: $shadow 0px 0px $color-of-white-clear5;
 		transition: text-shadow 0.3s;
 	}
 
 }
 
-/**** トップリスト設定 ****/
-.topList {
-	font-size: $font_size__topList;
+/**** Home List ****/
+.homeList {
+	font-size: $font-size-of-home-list;
 	font-weight: bold;
+
 	img {
-		width: $font_size__topList;
-		height: $font_size__topList;
+		width: $font-size-of-home-list;
+		height: $font-size-of-home-list;
 	}
 
-	/*** 1.ロゴ設定 ***/
-	.topLogo {
-		cursor: pointer;
+	&Wrapper {
+		// layout
+		max-width: $max-width-of-screen;
+		height: $height-of-home-list;
+		margin: 0 auto;
+		padding: 0 20px;
+		@media screen and (max-width: $max-width-of-sp) {
+			padding: 0;
+		}
+	}
 
-		/** 1-1.ホバー時設定 **/
+	/*** Home Button  ***/
+	.homeButton  {
+		cursor: pointer;
 		&:hover {
 			@include shadowAnimation(140px, text-shadow);
 		}
 
-		/** 1-2.画像アイコン設定 **/
-		&Img {
+		img {
 			margin-right: 5px;
 		}
 	}
 
-	/*** 2.Topに戻るボタン設定 ***/
-	.topBtn {
+	/*** Top Button ***/
+	.topButton {
 		cursor: pointer;
-		@media screen and (max-width: $sp_max_width){
+		@media screen and (max-width: $max-width-of-sp){
 			display: none;
 		}
-
-		/** 2-1.ホバー時設定 **/
 		&:hover {
 			@include shadowAnimation(-20px, drop-shadow);
 		}
 	}
 
-	/*** 3.メニューボタン設定 ***/
-	.menuBtn {
+	/*** Menu Button ***/
+	.menuButton {
 		display: none;
 		cursor: pointer;
-		@media screen and (max-width: $sp_max_width){
+		@media screen and (max-width: $max-width-of-sp){
 			display: block;
 		}
-
-		/** 3-1.ホバー時設定 **/
 		&:hover {
 			@include shadowAnimation(-20px, drop-shadow);
 		}
 	}
 }
 
-/**** タブリスト設定 ****/
+/**** Tab List ****/
 .tabList {
-	background: $black__clear;
-	box-shadow: 0px 0px 10px 0px $white__clear;
-	position: absolute;
-	top: $header_height;
-	left: 0;
-	right: 0;
+	margin: 0 auto;
+	width: 100%;
+	max-width: $max-width-of-screen;
 	
-	&Wrap {
-		max-width: $screen_max_width;
+	&Wrapper {
+		background: $color-of-black-clear7;
+		box-shadow: 0px 0px 10px 0px $color-of-white-clear5;
+		position: absolute;
+		top: $height-of-home-list;
+		left: 0;
+		right: 0;
 		margin: 0 auto;
+		width: 100%;
+		height: $height-of-tab-list;
 	}
 
-	/*** 1.ヘッダータブ設定 ***/
-	.headerTab {
+	/*** Tab  ***/
+	.tab {
 		text-align: center;
 		display: block;
 		width: 100px;
 		padding: 5px 0;
 		cursor: pointer;
-
-		/** 1-1.ホバー時設定 **/
 		&:hover {
 			@include commonHover;
 			transition: background 0.5s;
 		}
 
-		/** 1-2.aタグのリンク設定 **/
 		&Link {
 			color: unset;
 			padding: 0;

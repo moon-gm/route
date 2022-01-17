@@ -3,18 +3,23 @@ import $ from '../../../components/page-bundle'
 import Modal from '../../../components/modal'
 import Loading from '../../../components/loading'
 import { ProductPageData, Framework, Website, Skill } from '../../../types/index'
-import styles from '../../../styles/modules/page.module.scss'
 
-const Production = ({ $state, $category, $productionOrder, $siteData, $router, $judgments }): JSX.Element => {
+const Production = ({ $state, $category, $productionOrder, $router, $judgments }): JSX.Element => {
 
 	const { PRODUCTION } = $category
-	const { SITE_TITLE } = $siteData
-	const { isPC, isSP } = $judgments
+	const { isSP } = $judgments
 
 	// get parameter from URL
 	const { framework, website } = $router.query
 
-	// create page & section data
+	const sectionIds: Record<string, string> = {
+		description: 'description',
+		howToMake: 'howToMake',
+		skill: 'skill',
+		image: 'image',
+	}
+
+	// create page data
 	let pageData: ProductPageData
 	if (framework && website) {
 		const frameworkData: Framework = PRODUCTION.DATASET[$productionOrder.framework[framework]]
@@ -22,7 +27,7 @@ const Production = ({ $state, $category, $productionOrder, $siteData, $router, $
 		pageData = {
 			framework: frameworkData.NAME,
 			title: websiteData.NAME,
-			logo: websiteData.IMG,
+			image: websiteData.IMG,
 			summary: websiteData.SUMMARY,
 			baseData: [
 				{
@@ -50,25 +55,25 @@ const Production = ({ $state, $category, $productionOrder, $siteData, $router, $
 			],
 			sectionData: [
 				{
-					id: 'description',
+					id: sectionIds.description,
 					name: '内容',
 					modal: '作成したサイトが果たす主な役割・機能の詳細。このサイトで何ができるのかなど。',
 					content: websiteData.DESCRIPTION
 				},
 				{
-					id: 'howToMake',
+					id: sectionIds.howToMake,
 					name: '作成方法',
 					modal: '使用したフレームワークなどをどのように活用しているか、また、どのようなシステムにしているかなどの説明。',
 					content: websiteData.HOW_TO_MAKE
 				},
 				{
-					id: 'skill',
-					name: '使用技術・FW',
+					id: sectionIds.skill,
+					name: '使用技術',
 					modal: '各言語・フレームワーク内で実際に使用した技術を記載。',
 					content: websiteData.SKILL
 				},
 				{
-					id: 'image',
+					id: sectionIds.image,
 					name: '画面イメージ',
 					modal: 'イメージとしているが、iframeで挿入しているため、実際のサイト同様に操作できる。',
 					content: websiteData.LINK.SITE
@@ -77,19 +82,38 @@ const Production = ({ $state, $category, $productionOrder, $siteData, $router, $
 		}
 	}
 
+	const customStyles: Record<string, Record<string, string>> = {
+		titleImage: {
+			width: isSP ? '18px' : '25px',
+			marginRight: '7px',
+		},
+		linkImage: {
+			width: '13px',
+			marginLeft: '5px',
+		},
+		layoutBoxImage: {
+			width: isSP ? '25%' : '75px',
+			height: 'auto',
+			maxWidth: '75px',
+			padding: '3px',
+		},
+		skillList: {
+			display: 'inline-block',
+		},
+	}
+
 	return pageData === undefined ? <Loading/> : (
 		<$.Page
 			state={$state}
 			categoryState={PRODUCTION.STATE}
 			pageName={pageData.framework}
-			siteTitle={SITE_TITLE}
 		>
 			<$.BaseSection>
 				<$.H1>
-					<$.Image
-						src={pageData.logo}
-						alt={pageData.logo}
-						type='logo'
+					<img
+						src={pageData.image}
+						alt="ページアイコン"
+						style={customStyles.titleImage}
 					/>
 					{pageData.title}
 				</$.H1>
@@ -103,10 +127,10 @@ const Production = ({ $state, $category, $productionOrder, $siteData, $router, $
 								{base.url ? (
 									<a href={base.url} target="_blank">
 										{base.content}
-										<$.Image
+										<img
 											src="/icon/external-link.svg"
 											alt="外部リンクアイコン"
-											type='link'
+											style={customStyles.linkImage}
 										/>
 									</a>
 								) : base.content}
@@ -121,7 +145,7 @@ const Production = ({ $state, $category, $productionOrder, $siteData, $router, $
 
 			{pageData.sectionData.map(section => (
 				<$.ContentSection key={section.id}>
-					<$.SectionTitle>
+					<$.ContentSectionTitle>
 						<$.H2 classNames={['flex-start', 'align-items-center']}>
 							{section.name}
 						</$.H2>
@@ -129,37 +153,30 @@ const Production = ({ $state, $category, $productionOrder, $siteData, $router, $
 							title={section.name}
 							content={section.modal}
 						/>
-					</$.SectionTitle>
-					{section.id === 'skill' ? (
+					</$.ContentSectionTitle>
+					{section.id === sectionIds.skill ? (
 						<>
-							{isSP && (
-								<$.ImageBox>
-									{(section.content as Skill[]).map(skill => (
-										<img
-											src={`/main/${skill.image}`}
-											alt={skill.title}
-											key={`FW-image${skill.title}`}
-										/>
-									))}
-								</$.ImageBox>
-							)}
+							<$.LayoutBox>
+								{(section.content as Skill[]).map(skill => (
+									<img
+										key={`framework-image-${skill.title}`}
+										src={`/main/${skill.image}`}
+										alt={skill.title}
+										style={customStyles.layoutBoxImage}
+									/>
+								))}
+							</$.LayoutBox>
 							{(section.content as Skill[]).map(skill => (
-								<$.ListBox key={`FW-text${skill.title}`}>
-									{isPC && (
-										<$.Image
-											src={`/main/${skill.image}`}
-											alt="ロゴ"
-										/>
-									)}
-									<$.List classNames={[styles.liOnlyProduction]}>
+								<$.ListBox key={`framework-text-${skill.title}`}>
+									<$.List style={customStyles.skillList}>
 										<$.ListText>
 											{skill.title}
 										</$.ListText>
-										{skill.contents.map(item => (
-											<Fragment key={item}>
-												{item !== '' && (
+										{skill.contents.map(content => (
+											<Fragment key={content}>
+												{content !== '' && (
 													<$.ListNote>
-														{item}
+														{content}
 													</$.ListNote>
 												)}
 											</Fragment>
@@ -169,7 +186,7 @@ const Production = ({ $state, $category, $productionOrder, $siteData, $router, $
 							))}
 						</>
 					)
-					: section.id === 'image' ? <$.Iframe src={section.content as string}/>
+					: section.id === sectionIds.image ? <$.Iframe src={section.content as string}/>
 					: <$.P>{section.content as string}</$.P>}
 				</$.ContentSection>
 			))}

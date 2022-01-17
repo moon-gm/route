@@ -45,27 +45,23 @@ const MainSwiper = ({ app }): JSX.Element => {
 			onSlideChange={(swiper) => onSlideChange(swiper)} // set action when slides change
 		>
 			{PRODUCTION.DATASET.map((fw: Framework)=> (
-				<Fragment key={`mainVisual${fw.NAME}`}>
-
-					{/* Image List -- start -- */}
-						{fw.PAGES.map((ws: Website) => (
-							<SwiperSlide
-								tag="li" // set tag with 'class="swiper-slide"'
-								className={mainStyles.swiperSlide}
-								key={ws.ID}
-							>
-								<img
-									src={`/swiper/${ws.ID}.png`}
-									onClick={() => linkTo(ws.URL, PRODUCTION.STATE, ws.STATE)}
-									className={`
-										${mainStyles.swiperSlideImg}
-										${$state.websiteIndex === ws.STATE && mainStyles.swiperSlideImgSelected}
-									`}
-								/>
-							</SwiperSlide>
-						))}
-					{/* Image List -- end -- */}
-
+				<Fragment key={`main-swiper-${fw.NAME}`}>
+					{fw.PAGES.map((ws: Website) => (
+						<SwiperSlide
+							tag="li" // set tag with 'class="swiper-slide"'
+							className={mainStyles.swiperSlide}
+							key={ws.ID}
+						>
+							<img
+								src={`/swiper/${ws.ID}.png`}
+								onClick={() => linkTo(ws.URL, PRODUCTION.STATE, ws.STATE)}
+								className={`
+									${mainStyles.swiperSlideImg}
+									${$state.websiteIndex === ws.STATE && mainStyles.swiperSlideImgSelected}
+								`}
+							/>
+						</SwiperSlide>
+					))}
 				</Fragment>
 			))}
 		</Swiper>
@@ -76,7 +72,7 @@ const MainSwiper = ({ app }): JSX.Element => {
 const ThumbSwiper = ({ app }): JSX.Element => {
 
 	const { $state, $category, $methods } = app
-	const { linkTo, scrollToTop, showSideArea, setSwipeElement } = $methods
+	const { linkTo, scrollToTop, showThumbSwiperOnSP, setSwipeElement } = $methods
 	const { PRODUCTION } = $category
 
 	const label = {
@@ -85,82 +81,68 @@ const ThumbSwiper = ({ app }): JSX.Element => {
 		fromTo: '～',
 	}
 
+	const layout: Record<string, string> = {
+		titleBox: 'flex-space-between'
+	}
+
 	return (
 		<>
-			{/* Title Box -- start -- */}
-				<div className="flex-space-between">
-					{/* List Title -- start -- */}
-						<h1 className={thumbStyles.sectionTitle}>
-							{PRODUCTION.NAME}
-						</h1>
-					{/* List Title -- end -- */}
+			<div className={layout.titleBox}>
 
-					{/* Close Button -- start -- */}
-						<h1
-							onClick={() => showSideArea(false)}
-							className={thumbStyles.closeBtn}
-						>
-							{label.close}
-						</h1>
-					{/* Close Button -- end -- */}
-				</div>
-			{/* Title Box -- end -- */}
+				<h1 className={thumbStyles.thumbSwiperListTitle}>
+					{PRODUCTION.NAME}
+				</h1>
 
-			{/* Thumb Swiper -- start -- */}
-				<Swiper
-					id="thumbs"
-					direction="vertical"
-					tag="section"
-					wrapperTag="ul"
-					effect="slide"
-					slideToClickedSlide
-					slidesPerView={0}
-					initialSlide={$state.websiteIndex}
-					onSwiper={(swiper) => setSwipeElement(swiper)} // set action when slides change
+				<button
+					className={thumbStyles.closeButton}
+					onClick={() => showThumbSwiperOnSP(false)}
 				>
-					{PRODUCTION.DATASET.map((fw: Framework)=> (
-						<Fragment key={`sidelist${fw.STATE}`}>
+					{label.close}
+				</button>
 
-							{/** Production List -- start -- **/}
-								{fw.PAGES.map((ws: Website) => (
-									<SwiperSlide
-										tag="li"
-										className={thumbStyles.swiperSlide}
-										key={`sidelistItem${ws.ID}`}
-									>
-										<div
-											onClick={() => {
-												linkTo(ws.URL, PRODUCTION.STATE, ws.STATE)
-												scrollToTop()
-											}}
-											className={`
-												${thumbStyles.list}
-												${$state.websiteIndex === ws.STATE && thumbStyles.listSelected}
-											`}
-										>
-											<img
-												src={ws.IMG}
-												alt="icon"
-												className={thumbStyles.listImg}
-											/>
-											{ws.NAME}
-											<span className={thumbStyles.listSubText}>
-												<img
-													src={fw.IMG}
-													alt="icon"
-													className={thumbStyles.listImg}
-												/>
-												{fw.NAME} {label.separate} {ws.CREATE_DATE} {label.fromTo}
-											</span>
-										</div>
-									</SwiperSlide>
-								))}
-							{/** Production List -- end -- **/}
+			</div>
 
-						</Fragment>
-					))}
-				</Swiper>
-			{/* Thumb Swiper -- end -- */}
+			<Swiper
+				id="thumbs"
+				direction="vertical"
+				tag="section"
+				wrapperTag="ul"
+				effect="slide"
+				slideToClickedSlide
+				slidesPerView={0}
+				initialSlide={$state.websiteIndex}
+				onSwiper={(swiper) => setSwipeElement(swiper)} // set action when slides change
+			>
+				{PRODUCTION.DATASET.map((fw: Framework)=> (
+					<Fragment key={`thumb-swiper-${fw.STATE}`}>
+						{fw.PAGES.map((ws: Website) => (
+							<SwiperSlide
+								key={`thumb-swiper-slide-${ws.ID}`}
+								tag="li"
+								className={thumbStyles.swiperSlide}
+							>
+								<div
+									className={`
+										${thumbStyles.thumbSwiperList}
+										${$state.websiteIndex === ws.STATE && thumbStyles.thumbSwiperListSelected}
+									`}
+									onClick={() => {
+										linkTo(ws.URL, PRODUCTION.STATE, ws.STATE)
+										scrollToTop()
+									}}
+								>
+									<img src={ws.IMG} alt="icon" />
+									{ws.NAME}
+									<span className={thumbStyles.thumbSwiperListNote}>
+										<img src={fw.IMG} alt="icon" />
+										{fw.NAME} {label.separate} {ws.CREATE_DATE} {label.fromTo}
+									</span>
+								</div>
+							</SwiperSlide>
+						))}
+					</Fragment>
+				))}
+			</Swiper>
 
 		</>
 	)

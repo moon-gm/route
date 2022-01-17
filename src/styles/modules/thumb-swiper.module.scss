@@ -1,64 +1,61 @@
 /**********************
- サイドエリア設定
+ Thumb Swiper module
 **********************/
 @import '../variables';
 
-/**** エリア内共通設定 ****/
-@mixin sectionTitle {
+/**** Common ****/
+@mixin thumbSwiperListTitle {
 	font-size: 25px;
 	line-height: 1;
 	padding: 10px;
 	margin-bottom: 10px;
-	border-bottom: 2px solid $white;
-	@media screen and (max-width: $sp_max_width){
+	border-bottom: 2px solid $color-of-white;
+	@media screen and (max-width: $max-width-of-sp){
 		font-size: 20px;
 		margin-bottom: 10px;
 	}
 }
 
-/**** セクションタイトル設定 ****/
-.sectionTitle {
-	@include sectionTitle;
-}
-
-/**** リスト設定 ****/
-.list {
+/**** Thumb Swiper List ****/
+.thumbSwiperList {
 	font-size: 16px;
 	padding: 10px;
-
-	/*** 1.ホバー時設定 ***/
 	&:hover {
 		@include commonHover;
 		cursor: pointer;
 	}
 
-	/*** 2.選択時設定 ***/
-	&Selected {
-		color: $blue;
-		background: $white__clear;
-		border-bottom: 2px solid $blue;
+	&Title {
+		@include thumbSwiperListTitle;
 	}
 
-	/*** 3.サブテキスト設定 ***/
-	&SubText {
-		color: $grey;
+	&Selected {
+		color: $color-of-blue;
+		background: $color-of-white-clear5;
+		border-bottom: 2px solid $color-of-blue;
+	}
+
+	&Note {
+		color: $color-of-grey;
 		font-size: 12px;
 		display: block;
 		padding-left: 1.9em;
 	}
 
-	/*** 4.画像アイコン設定 ***/
-	&Img {
+	img {
 		width: 1em;
 		margin-right: 7px;
 	}
 }
 
-/**** 閉じるボタン設定 ****/
-.closeBtn {
-	@include sectionTitle;
+/**** Close Button ****/
+.closeButton {
+	@include thumbSwiperListTitle;
+	background-color: unset;
+	border-style: none;
 	display: none;
-	@media screen and (max-width: $sp_max_width){
+	color: $color-of-white;
+	@media screen and (max-width: $max-width-of-sp){
 		display: block;
 		border-bottom: none;
 	}

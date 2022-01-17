@@ -1,40 +1,33 @@
 /**********************
- 変数設定
+ Variables
 **********************/
 
-/**** 変数設定 ****/
-	// width定義
-	$sp_max_width: 768px;
-	$screen_max_width: 1280px;
-	$screen_min_width: 375px;
+/**** $variables ****/
+$max-width-of-sp: 768px;
+$max-width-of-screen: 1280px;
+$min-width-of-screen: 375px;
 
-	// height定義
-	$header_height: 40px;
+$height-of-home-list: 40px;
+$height-of-tab-list: 25px;
+$height-of-header: $height-of-home-list + $height-of-tab-list;
 
-	// カラー定義
-	$white: white;
-	$white__clear: rgba(255, 255, 255, 0.5);
+$color-of-white: white;
+$color-of-white-clear5: rgba(206, 187, 187, 0.5);
+$color-of-black: black;
+$color-of-black-light: rgb(47, 48, 55);
+$color-of-black-clear5: rgba(0, 0, 0, 0.5);
+$color-of-black-clear7: rgba(0, 0, 0, 0.7);
+$color-of-grey: rgb(193, 193, 193);
+$color-of-grey-dark: rgb(11, 11, 11);
+$color-of-blue: rgb(29, 29, 182);
+$color-of-blue-light: rgb(70, 150, 220);
+$color-of-blue-for-link: rgb(98, 127, 242);
+$color-of-yellow: rgb(255, 196, 0);
 
-	$black: black;
-	$black__light: rgb(47, 48, 55);
-	$black__clear: rgba(0, 0, 0, 0.7);
-	$black__clear_thin: rgba(0, 0, 0, 0.5);
+$z-index-of-header: 100;
 
-	$grey: rgb(193, 193, 193);
-	$grey__dark: rgb(11, 11, 11);
-
-	$blue: rgb(29, 29, 182);
-	$blue__link: rgb(98, 127, 242);
-	$blue__light: rgb(70, 150, 220);
-
-	$yellow: rgb(255, 196, 0);
-
-	// z-index定義
-	$header_z_index: 100;
-
-/**** @mixin設定 ****/
-	// ホバー時の共通設定
-	@mixin commonHover {
-		color: $blue;
-		background: $white__clear;
-	}
+/**** Mixin ****/
+@mixin commonHover {
+	color: $color-of-blue;
+	background: $color-of-white-clear5;
+}

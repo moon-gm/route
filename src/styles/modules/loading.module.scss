@@ -1,0 +1,48 @@
+/**********************
+ Loading module
+**********************/
+@import '../variables';
+
+/**** Loader ****/
+.loading {
+	width: 50px;
+	height: 50px;
+	border-radius: 150px;
+	border: 7px solid #fff;
+	border-top-color: rgba(0,0,0,0.3);
+	box-sizing: border-box;
+	position: fixed;
+	top: 150px;
+	left: 0;
+	right: 0;
+	margin: auto;
+	animation: loading 1.2s linear infinite;
+	-webkit-animation: loading 1.2s linear infinite;
+
+	&Label {
+		width: 100px;
+		position: fixed;
+		top: 110px;
+		left: 0;
+		right: 0;
+		margin: auto;
+	}
+  }
+
+  @keyframes loading {
+	0% {
+		transform:rotate(0deg)
+	}
+	100% {
+		transform:rotate(360deg)
+	}
+  }
+
+  @-webkit-keyframes loading {
+	0% {
+		-webkit-transform:rotate(0deg)
+	}
+	100% {
+		-webkit-transform:rotate(360deg)
+	}
+  }

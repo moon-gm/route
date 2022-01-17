@@ -1,113 +1,102 @@
 /**********************
- レイアウト設定
+ Layout
 **********************/
 
-/**** コンテナ設定 ****/
+/**** Container ****/
 .container {
-	// レイアウト設定
-	max-width: $screen_max_width;
+	// layout
+	max-width: $max-width-of-screen;
 	margin: 0 auto;
 
-	/*** 1.ヘッダーエリア設定 ***/
+	/*** Header Area ***/
 	.header-area {
-		// カラー設定
-		background: $white__clear;
+		// color
+		background: $color-of-white-clear5;
 		backdrop-filter: blur(30px);
 		-webkit-backdrop-filter: blur(30px);
 
-		// レイアウト設定
-		height: $header_height;
+		// layout
+		height: $height-of-header;
 		padding: 10px;
 		line-height: 1;
 
-		// ヘッダー固定設定
-		z-index: $header_z_index;
+		// header fixed
+		z-index: $z-index-of-header;
 		position: fixed;
 		top: 0;
 		left: 0;
 		right: 0;
-
-		/** 1-1.コンテンツラッパー設定 **/
-		&-wrap {
-			// レイアウト設定
-			max-width: $screen_max_width;
-			margin: 0 auto;
-			padding: 0 20px;
-			@media screen and (max-width: $sp_max_width) {
-				padding: 0;
-			}
-		}
 	}
 
-	/*** 2.メインビジュアルエリア設定 ***/
-	.main-visual-area {
-		// カラー設定
+	/*** Main Swiper Area ***/
+	.main-swiper-area {
+		// color
 		background: linear-gradient(
 			to left,
-			$black__clear_thin,
-			$white__clear,
-			$white,
-			$white__clear,
-			$black__clear_thin
+			$color-of-black-clear5,
+			$color-of-white-clear5,
+			$color-of-white,
+			$color-of-white-clear5,
+			$color-of-black-clear5
 		);
 
-		// レイアウト設定
+		// layout
 		margin-bottom: 20px;
-		margin-top: $header_height + 60px;
-		@media screen and (max-width: $sp_max_width) {
+		margin-top: $height-of-header + 35px;
+		@media screen and (max-width: $max-width-of-sp) {
 			margin-bottom: 0;
 		}
 
 	}
 
-	/*** 3.コンテンツエリア設定 ***/
+	/*** Contents Area ***/
 	.contents-area {
-		// レイアウト設定
+		// layout
 		padding: 20px 10px;
 
-		/** 3-1.サイドエリア設定 **/
-		.contents-aside {
-			// カラー設定
-			@media screen and (max-width: $sp_max_width) {
-				background: $black__clear;
+		/** Thumb Swiper Area **/
+		.thumb-swiper-area {
+			// color
+			@media screen and (max-width: $max-width-of-sp) {
+				background: $color-of-black-clear7;
 				backdrop-filter: blur(2px);
 				-webkit-backdrop-filter: blur(2px);
 			}
 
-			// レイアウト設定
+			// layout
 			width: 30%;
 			padding: 20px;
-			@media screen and (max-width: $sp_max_width) {
+			@media screen and (max-width: $max-width-of-sp) {
 				width: 100%;
 				height: 100%;
 				position: fixed;
 				top: 0;
-				left: $sp_max_width;
-				z-index: $header_z_index;
+				left: $max-width-of-sp;
+				z-index: $z-index-of-header;
 				padding: 0;
 			}
 
-			// その他設定
-			@media screen and (max-width: $sp_max_width) {
-				transition: left 1s;
+			// others
+			@media screen and (max-width: $max-width-of-sp) {
+				transition: left 0.5s;
 				overflow: scroll;
 			}
 		}
 
-		/** 3-2.メインエリア設定 **/
-		.contents-main {
-			// レイアウト設定
+		/** Main Area **/
+		.main-area {
+			// layout
 			width: 70%;
 			padding-right: 20px;
-			@media screen and (max-width: $sp_max_width) {
+			@media screen and (max-width: $max-width-of-sp) {
 				width: 100%;
 				padding-left: 20px;
 			}
 
-			/* 3-2-1.サイドエリア非表示時のメインエリア設定 */
-			&-no-sidearea {
-				// レイアウト設定
-				margin-top: $header_height + 30px;
+			/* without Thumb Swiper Area */
+			&-without-thumb-swiper {
+				// layout
+				margin-top: $height-of-header;
 			}
 		}
 	}

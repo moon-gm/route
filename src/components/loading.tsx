@@ -1,3 +1,5 @@
+import styles from '../styles/modules/loading.module.scss'
+
 const Loading = (): JSX.Element => {
 	
 	const label = {
@@ -5,9 +7,12 @@ const Loading = (): JSX.Element => {
 	}
 
 	return (
-		<div style={{textAlign: 'center'}}>
-			{label.loading}
-		</div>
+		<>
+			<div className={styles.loading}/>
+			<div className={styles.loadingLabel}>
+				{label.loading}
+			</div>
+		</>	
 	)
 }
 export default Loading

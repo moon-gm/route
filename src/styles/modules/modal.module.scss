@@ -1,52 +1,49 @@
 /**********************
- モーダルパーツ設定
+ Modal module
 **********************/
 @import './../variables';
 
-/**** モーダルを開くボタン ****/
-.openModal {
+/**** Modal Open Button ****/
+.modalOpenButton {
 	font-size: 12px;
-	color: $blue__link;
-	background: $black__light;
+	color: $color-of-blue-for-link;
+	background: $color-of-black-light;
 	border-radius: 50%;
-	padding: 5px 10px;
+	border-style: none;
+	padding: 7px 12px;
 	margin-left: 10px;
 	cursor: pointer;
-
-	/*** 1.ホバー時設定 ***/
 	&:hover {
-		color: $blue;
-		background: $white__clear;
+		color: $color-of-blue;
+		background: $color-of-white-clear5;
 	}
 }
 
-/**** モーダルウィンドウ ****/
+/**** Modal Window ****/
 .modalWindow {
 
-	/*** 1.タイトル設定 ***/
-	.title {
+	/*** Modal Title ***/
+	.modalTitle {
 		font-weight: bold;
-		border-bottom: 2px dotted $white;
-
-		/** 1-1.接頭文字設定 **/
+		border-bottom: 2px dotted $color-of-white;
 		&:before {
 			content: "?";
 			padding-right: 0.5em;
 		}
 	}
 
-	/*** 2.コンテンツ設定 ***/
-	.content {
+	/*** Modal Content ***/
+	.modalContent {
 		font-size: 14px;
 		padding: 20px 0;
 		max-width: 500px;
 	}
 
-	/*** 3.閉じるボタン設定 ***/
-	.closeModal {
-		color: $white;
-		background: $black__clear_thin;
-		border: 2px solid $white__clear;
+	/*** Modal Close Button ***/
+	.modalCloseButton {
+		color: $color-of-white;
+		background: $color-of-black-clear5;
+		border: 2px solid $color-of-white-clear5;
 		border-radius: 4px;
 		display: flex;
 		justify-content: center;
@@ -55,11 +52,9 @@
 		margin: 0 auto;
 		cursor: pointer;
 		outline: none;
-
-		/** 3-1.ホバー時設定 **/
 		&:hover {
 			@include commonHover;
-			border: 2px solid $blue;
+			border: 2px solid $color-of-blue;
 		}
 	}
 }

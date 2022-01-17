@@ -1,19 +1,19 @@
 /**********************
- 初期設定
+ Initialization
 **********************/
 html,
 body {
 	font-size: 15px;
 	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 	line-height: 1.8;
-	color: $white;
-	background: $black;
-	min-width: $screen_min_width;
+	color: $color-of-white;
+	background: $color-of-black;
+	min-width: $min-width-of-screen;
 	scroll-behavior: smooth;
 }
 
 a {
-	color: $blue__link;
+	color: $color-of-blue-for-link;
 	text-decoration: none;
 	padding: 3px;
 	cursor: pointer;

@@ -23,28 +23,27 @@ for (const [fwIdx, fw] of PRODUCTION.DATASET.entries()) {
 	}
 }
 
+// ---------- Media Data ---------- //
+const spMaxWidth = 768
+const media: Record<string, string> = {
+	PC: 'PC',
+	SP: 'SP'
+}
+
 // ---------- Create Element ---------- //
 const Layout = ({ children }): JSX.Element => {
 
 	/*** State ***/
 	const [categoryName, setCategoryName] = useState(PROFILE.STATE)
-	const [websiteIndex, setWebsiteIndex] = useState(Number())
+	const [websiteIndex, setWebsiteIndex] = useState(0)
 	const [swipeElement, setSwipeElement] = useState()
-	const [userAgent, setUserAgent] = useState(String())
+	const [mediaType, setMediaType] = useState(media.PC)
 
-	/*** User Agent ***/
-	const is = (device: string): boolean => {
-		if (userAgent) {
-			if (['android', 'androidTablet'].includes(device)) {
-				const mobileIdx = userAgent.indexOf('mobile')
-				return userAgent.indexOf('android')> -1 && (
-					device === 'androidTablet' ? mobileIdx === -1 : mobileIdx > -1
-				)
-			} else {
-				return userAgent.indexOf(device) > -1
-			}
-		}
-		return false
+	/*** Set Media Type ***/
+	const setMediaScreenType = (): void => {
+		const screenWidth : number = window.innerWidth
+		if (screenWidth <= spMaxWidth) setMediaType(media.SP)
+		if (screenWidth > spMaxWidth) setMediaType(media.PC)
 	}
 
 	/*** Common App ***/
@@ -55,37 +54,46 @@ const Layout = ({ children }): JSX.Element => {
 		$state: { categoryName, websiteIndex, swipeElement },
 		$methods: {
 			setSwipeElement,
-			scrollToTop(): void {
+			scrollToTop: (): void => {
 				window.scrollTo(0, 0)
 			},
-			showSideArea(isPC: boolean): void {
-				const spWidth: string = isPC ? '0' : '768px'
-				document.getElementById('contents-aside').style.left = spWidth
+			showThumbSwiperOnSP: (isOpen: boolean): void => {
+				const thumbSwiperStyle = document.getElementById(layout.thumbSwiper).style
+				thumbSwiperStyle.left = isOpen ? '0' : String(spMaxWidth) + 'px'
 			},
-			linkTo(
+			linkTo: (
 				url: string,
 				caName: string,
 				wsIdx?: number
-			): void {
+			): void => {
 				if (caName) setCategoryName(caName)
 				if (wsIdx || wsIdx === 0) setWebsiteIndex(wsIdx)
 				$next.$router.push(url)
 		
 				if ($next.$judgments.isSP && $next.$judgments.isProduction) {
-					$next.$methods.showSideArea(false)
+					$next.$methods.showThumbSwiperOnSP(false)
 				}
 			}
 		},
 		$judgments: {
-			isProduction: (categoryName === PRODUCTION.STATE),
-			isSP: (is('iphone') || is('ipad') || is('android') || is('androidTablet')),
-			isPC: (!is('iphone') && !is('ipad') && !is('android') && !is('androidTablet')),
+			isProduction: categoryName === PRODUCTION.STATE,
+			isSP: mediaType === media.SP,
+			isPC: mediaType === media.PC,
 		},
 		$router: useRouter()
 	}
 
 	/*** Prop of Parent => Children ***/
 	const $children: FunctionComponentElement<typeof $next> = cloneElement(children, $next)
+
+	/*** Layout ClassName ***/
+	const layout: Record<string, string> = {
+		container: 'container',
+		mainSwiper: 'main-swiper-area',
+		contents: 'contents-area flex-space-around flex-remove-sp',
+		thumbSwiper: 'thumb-swiper-area',
+		main: `main-area ${!$next.$judgments.isProduction && "main-area-without-thumb-swiper"}`
+	}
 
 	/*** Mounted Only First ***/
 	useEffect(() => {
@@ -105,56 +113,43 @@ const Layout = ({ children }): JSX.Element => {
 		const ws: Website | false = fw !== undefined && fw.PAGES.find(findPath)
 		ws && setWebsiteIndex(ws.STATE)
 
-		// set user agent
-		setUserAgent(navigator.userAgent.toLowerCase())
+		setMediaScreenType()
 
 	}, [])
 
+	/*** Mounted by changing mediaType***/
+	useEffect(() => {
+		window.onresize = setMediaScreenType
+	}, [mediaType])
+
 	/*** Render ***/
 	return (
-		<div id="top" className="container">
+		<div className={layout.container}>
 
-			{/*** Header Area -- start -- ***/}
-				<Header app={$next}/>
-			{/*** Header Area -- end -- ***/}
+			<Header app={$next}/>
 
-			{/*** Main Swipe Area -- start -- ***/}
-				{$next.$judgments.isProduction && (
-					<div className="main-visual-area">
-						<Swipers.MainSwiper app={$next}/>
-					</div>
-				)}
-			{/*** Main Swipe Area -- end -- ***/}
-
-			{/*** Contents Area -- start -- ***/}
-				<div className="contents-area flex-space-around flex-remove-sp">
-
-					{/** Thumb Swipe Area -- start -- **/}
-						{$next.$judgments.isProduction && (
-							<aside
-								id="contents-aside"
-								className="contents-aside"
-							>
-								<div className="contents-aside-wrap">
-									<Swipers.ThumbSwiper app={$next}/>
-								</div>
-							</aside>
-						)}
-					{/** Thumb Swipe Area -- end -- **/}
-
-					{/** Main Area -- start -- **/}
-						<main
-							className={`
-								contents-main
-								${!$next.$judgments.isProduction && "contents-main-no-sidearea"}
-							`}
-						>
-							{$children}
-						</main>
-					{/** Main Area -- end -- **/}
-
+			{$next.$judgments.isProduction && (
+				<div className={layout.mainSwiper}>
+					<Swipers.MainSwiper app={$next}/>
 				</div>
-			{/*** Contents Area -- end -- ***/}
+			)}
+
+			<div className={layout.contents}>
+
+				{$next.$judgments.isProduction && (
+					<aside
+						id={layout.thumbSwiper}
+						className={layout.thumbSwiper}
+					>
+						<Swipers.ThumbSwiper app={$next}/>
+					</aside>
+				)}
+
+				<main className={layout.main}>
+					{$children}
+				</main>
+
+			</div>
 
 		</div>
 	)
