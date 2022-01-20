@@ -2,10 +2,10 @@ import $ from '../components/page-bundle'
 
 const Home = ({ $meta, $category }): JSX.Element => {
 
-	const { SITE_TITLE, SITE_IMAGE } = $meta
-	const { HOME } = $category
+	const { siteTitle, siteImage } = $meta
+	const { home } = $category
 
-	const customStyle: Record<string, Record<string, string>> = {
+	const customStyles: Record<string, Record<string, string>> = {
 		p: {
 			textAlign: 'center',
 		},
@@ -18,21 +18,21 @@ const Home = ({ $meta, $category }): JSX.Element => {
 
 	return (
 		<$.Page
-			categoryState={HOME.STATE}
-			pageName={HOME.NAME}
+			categoryState={home.state}
+			pageName={home.name}
 		>
 			<$.BaseSection>
 				<$.H1>
-					{SITE_TITLE}
+					{siteTitle}
 				</$.H1>
 			</$.BaseSection>
 
 			<$.ContentSection>
-				<$.P style={customStyle.p}>
+				<$.P style={customStyles.p}>
 					<img
-						src={SITE_IMAGE.SRC}
-						alt={SITE_IMAGE.ALT}
-						style={customStyle.image}
+						src={siteImage.src}
+						alt={siteImage.alt}
+						style={customStyles.image}
 					/>
 				</$.P>
 			</$.ContentSection>

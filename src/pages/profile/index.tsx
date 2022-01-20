@@ -6,22 +6,22 @@ import { ProfilePage } from '../../types/index'
 
 const Profile = ({ $category }) => {
 
-	const { PROFILE } = $category
+	const { profile } = $category
 
 	const profileIndex = 0
 
 	const pageData: ProfilePage = {
-		sectionData: PROFILE.DATASET[profileIndex].SECTION_DATA
+		sectionData: profile.dataSet[profileIndex].sectionData
 	}
 
 	return pageData === undefined ? <Loading/> : (
 		<$.Page
-			categoryState={PROFILE.STATE}
-			pageName={PROFILE.NAME}
+			categoryState={profile.state}
+			pageName={profile.name}
 		>
 			<$.BaseSection>
 				<$.H1>
-					{PROFILE.NAME}
+					{profile.name}
 				</$.H1>
 			</$.BaseSection>
 

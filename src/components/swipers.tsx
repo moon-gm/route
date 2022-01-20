@@ -12,12 +12,12 @@ const MainSwiper = ({ app }): JSX.Element => {
 
 	const { $state, $methods, $category } = app
 	const { linkTo, findWebsiteData } = $methods
-	const { PRODUCTION } = $category
+	const { production } = $category
 
 	// on change active slide
 	const onSlideChange = (swiper: SwiperCore): void => {
-		const ws: Website | false = findWebsiteData(swiper.activeIndex, 'STATE')
-		ws && linkTo(ws.URL, PRODUCTION.STATE, ws.STATE)
+		const ws: Website | false = findWebsiteData(swiper.activeIndex, 'state')
+		ws && linkTo(ws.URL, production.state, ws.state)
 	}
 
 	return (
@@ -42,21 +42,21 @@ const MainSwiper = ({ app }): JSX.Element => {
 			pagination // display pagnation dot '・・・・・'
 			onSlideChange={(swiper) => onSlideChange(swiper)} // set action when slides change
 		>
-			{PRODUCTION.DATASET.map((fw: Framework)=> (
-				<Fragment key={`main-swiper-${fw.NAME}`}>
-					{fw.PAGES.map((ws: Website) => (
+			{production.dataSet.map((fw: Framework)=> (
+				<Fragment key={`main-swiper-${fw.name}`}>
+					{fw.pages.map((ws: Website) => (
 						<SwiperSlide
 							tag="li" // set tag with 'class="swiper-slide"'
 							className={mainStyles.swiperSlide}
-							key={ws.ID}
+							key={ws.id}
 						>
 							<img
-								src={`/swiper/${ws.ID}.png`}
-								alt={ws.NAME}
-								onClick={() => linkTo(ws.URL, PRODUCTION.STATE, ws.STATE)}
+								src={`/swiper/${ws.id}.png`}
+								alt={ws.name}
+								onClick={() => linkTo(ws.URL, production.state, ws.state)}
 								className={`
 									${mainStyles.swiperSlideImg}
-									${$state.websiteIndex === ws.STATE && mainStyles.swiperSlideImgSelected}
+									${$state.websiteIndex === ws.state && mainStyles.swiperSlideImgSelected}
 								`}
 							/>
 						</SwiperSlide>
@@ -72,7 +72,7 @@ const ThumbSwiper = ({ app }): JSX.Element => {
 
 	const { $state, $category, $methods } = app
 	const { linkTo, scrollToTop, showThumbSwiperOnSP, setSwipeElement } = $methods
-	const { PRODUCTION } = $category
+	const { production } = $category
 
 	const label = {
 		close: '✕',
@@ -89,7 +89,7 @@ const ThumbSwiper = ({ app }): JSX.Element => {
 			<div className={layout.titleBox}>
 
 				<h1 className={thumbStyles.thumbSwiperListTitle}>
-					{PRODUCTION.NAME}
+					{production.name}
 				</h1>
 
 				<button
@@ -112,29 +112,29 @@ const ThumbSwiper = ({ app }): JSX.Element => {
 				initialSlide={$state.websiteIndex}
 				onSwiper={(swiper) => setSwipeElement(swiper)} // set action when slides change
 			>
-				{PRODUCTION.DATASET.map((fw: Framework)=> (
-					<Fragment key={`thumb-swiper-${fw.STATE}`}>
-						{fw.PAGES.map((ws: Website) => (
+				{production.dataSet.map((fw: Framework)=> (
+					<Fragment key={`thumb-swiper-${fw.state}`}>
+						{fw.pages.map((ws: Website) => (
 							<SwiperSlide
-								key={`thumb-swiper-${ws.ID}`}
+								key={`thumb-swiper-${ws.id}`}
 								tag="li"
 								className={thumbStyles.swiperSlide}
 							>
 								<div
 									className={`
 										${thumbStyles.thumbSwiperList}
-										${$state.websiteIndex === ws.STATE && thumbStyles.thumbSwiperListSelected}
+										${$state.websiteIndex === ws.state && thumbStyles.thumbSwiperListSelected}
 									`}
 									onClick={() => {
-										linkTo(ws.URL, PRODUCTION.STATE, ws.STATE)
+										linkTo(ws.URL, production.state, ws.state)
 										scrollToTop()
 									}}
 								>
-									<img src={ws.IMG} alt={ws.NAME} />
-									{ws.NAME}
+									<img src={ws.imageSrc} alt={ws.name} />
+									{ws.name}
 									<span className={thumbStyles.thumbSwiperListNote}>
-										<img src={fw.IMG} alt={fw.NAME} />
-										{fw.NAME} {label.separate} {ws.CREATE_DATE} {label.fromTo}
+										<img src={fw.imageSrc} alt={fw.name} />
+										{fw.name} {label.separate} {ws.createDate} {label.fromTo}
 									</span>
 								</div>
 							</SwiperSlide>

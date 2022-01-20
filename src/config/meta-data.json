@@ -1,9 +1,9 @@
 {
-    "SITE_TITLE": "Portfolio Show",
-    "SITE_URL":"https://route-eight.vercel.app/",
-    "SITE_DESCRIPTION": "各種フレームワークを用いて学習しながら作成",
-    "SITE_IMAGE": {
-        "SRC": "/logo/top-logo.png",
-        "ALT": "TOP LOGO"
+    "siteTitle": "Portfolio Show",
+    "siteURL":"https://route-eight.vercel.app/",
+    "siteDescription": "各種フレームワークを用いて学習しながら作成",
+    "siteImage": {
+        "src": "/logo/top-logo.png",
+        "alt": "Top Logo"
     }
 }

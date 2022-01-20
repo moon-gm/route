@@ -1,18 +1,20 @@
 import { Fragment } from 'react'
+import { useRouter } from 'next/router'
 import $ from '../../../components/page-bundle'
 import Modal from '../../../components/modal'
 import Loading from '../../../components/loading'
-import { ProductPage, Framework, Website, Skill } from '../../../types/index'
+import { ProductionPage, Framework, Website, Skill } from '../../../types/index'
 
-const Production = ({ $category, $productionOrder, $router, $judgments }): JSX.Element => {
+const Production = ({ $category, $productionOrder, $judgments }): JSX.Element => {
 
-	const { PRODUCTION } = $category
+	const { production } = $category
 	const { isSP } = $judgments
 
 	// get parameter from URL
-	const { framework, website } = $router.query
+	const router = useRouter()
+	const { framework, website } = router.query
 
-	const sectionIds: Record<string, string> = {
+	const sectionIds = {
 		description: 'description',
 		howToMake: 'howToMake',
 		skill: 'skill',
@@ -20,37 +22,37 @@ const Production = ({ $category, $productionOrder, $router, $judgments }): JSX.E
 	}
 
 	// create page data
-	let pageData: ProductPage
+	let pageData: ProductionPage
 	if (framework && website) {
-		const frameworkData: Framework = PRODUCTION.DATASET[$productionOrder.framework[framework]]
-		const websiteData: Website = frameworkData.PAGES[$productionOrder.website[website]]
+		const frameworkData: Framework = production.dataSet[$productionOrder.framework[framework as string]]
+		const websiteData: Website = frameworkData.pages[$productionOrder.website[website as string]]
 		pageData = {
-			framework: frameworkData.NAME,
-			title: websiteData.NAME,
-			image: websiteData.IMG,
-			summary: websiteData.SUMMARY,
+			framework: frameworkData.name,
+			title: websiteData.name,
+			image: websiteData.imageSrc,
+			summary: websiteData.summary,
 			baseData: [
 				{
 					id: 'createDate',
 					title: '作成日',
-					content: websiteData.CREATE_DATE,
+					content: websiteData.createDate,
 				},
 				{
 					id: 'updateDate',
 					title: '更新日',
-					content: websiteData.UPDATE_DATE,
+					content: websiteData.updateDate,
 				},
 				{
 					id: 'site',
 					title: 'サイト',
-					content: websiteData.NAME,
-					url: websiteData.LINK.SITE,
+					content: websiteData.name,
+					url: websiteData.link.site,
 				},
 				{
 					id: 'source',
 					title: 'ソース',
 					content: 'Github',
-					url: websiteData.LINK.SOURCE,
+					url: websiteData.link.source,
 				}
 			],
 			sectionData: [
@@ -58,31 +60,31 @@ const Production = ({ $category, $productionOrder, $router, $judgments }): JSX.E
 					id: sectionIds.description,
 					name: '内容',
 					modal: '作成したサイトが果たす主な役割・機能の詳細。このサイトで何ができるのかなど。',
-					content: websiteData.DESCRIPTION
+					content: websiteData.description
 				},
 				{
 					id: sectionIds.howToMake,
 					name: '作成方法',
 					modal: '使用したフレームワークなどをどのように活用しているか、また、どのようなシステムにしているかなどの説明。',
-					content: websiteData.HOW_TO_MAKE
+					content: websiteData.howToMake
 				},
 				{
 					id: sectionIds.skill,
 					name: '使用技術',
 					modal: '各言語・フレームワーク内で実際に使用した技術を記載。',
-					content: websiteData.SKILL
+					content: websiteData.skills
 				},
 				{
 					id: sectionIds.image,
 					name: '画面イメージ',
 					modal: 'イメージとしているが、iframeで挿入しているため、実際のサイト同様に操作できる。',
-					content: websiteData.LINK.SITE
+					content: websiteData.link.site
 				},
 			]
 		}
 	}
 
-	const customStyles: Record<string, Record<string, string>> = {
+	const customStyles = {
 		titleImage: {
 			width: isSP ? '18px' : '25px',
 			marginRight: '7px',
@@ -104,7 +106,7 @@ const Production = ({ $category, $productionOrder, $router, $judgments }): JSX.E
 
 	return pageData === undefined ? <Loading/> : (
 		<$.Page
-			categoryState={PRODUCTION.STATE}
+			categoryState={production.state}
 			pageName={pageData.framework}
 		>
 			<$.BaseSection>

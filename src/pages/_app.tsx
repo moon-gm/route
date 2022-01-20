@@ -5,20 +5,26 @@ import { useRouter } from 'next/router'
 import { $Next, Category, ProductionOrder, Framework, Website } from '../types/index'
 import Header from '../components/header'
 import Swipers from '../components/swipers'
-import META_DATA from '../config/meta-data.json'
-import CATEGORY, { HOME, PROFILE, PRODUCTION } from '../config/category.json'
+import metaData from '../config/meta-data.json'
+import categoryData, { profile, production } from '../config/category-data.json'
+
+// ---------- Create Context ---------- //
+export const CategoryName = createContext(profile.state)
 
 // ---------- Create Production Data ---------- //
-const productionOrder: ProductionOrder = { framework: {}, website: {} }
+const productionOrder: ProductionOrder = {
+	framework: {},
+	website: {}
+}
 let wsOrderIdx = 0
-for (const [fwIdx, fw] of PRODUCTION.DATASET.entries()) {
-	// ID => STATE & URL
-	fw.STATE = fw.ID
-	productionOrder.framework[fw.ID] = fwIdx
-	for (const [wsIdx, ws] of fw.PAGES.entries()) {
-		ws.STATE = wsOrderIdx
-		ws.URL = '/' + PRODUCTION.ID + '/' + fw.ID + '/' + ws.ID
-		productionOrder.website[ws.ID] = wsIdx
+for (const [fwIdx, fw] of production.dataSet.entries()) {
+	// id => state & URL
+	fw.state = fw.id
+	productionOrder.framework[fw.id] = fwIdx
+	for (const [wsIdx, ws] of fw.pages.entries()) {
+		ws.state = wsOrderIdx
+		ws.URL = '/' + production.id + '/' + fw.id + '/' + ws.id
+		productionOrder.website[ws.id] = wsIdx
 		wsOrderIdx++
 	}
 }
@@ -30,28 +36,29 @@ const media: Record<string, string> = {
 	SP: 'SP'
 }
 
-export const CategoryName = createContext(PROFILE.STATE)
-
 // ---------- Create Element ---------- //
 const Layout = ({ children }): JSX.Element => {
 
 	/*** State ***/
-	const [categoryName, setCategoryName] = useState<string>(PROFILE.STATE)
+	const [categoryName, setCategoryName] = useState<string>(profile.state)
 	const [websiteIndex, setWebsiteIndex] = useState<number>(0)
 	const [swipeElement, setSwipeElement] = useState<ReactNode>()
 	const [mediaType, setMediaType] = useState<string>(media.PC)
 
-	/*** Set Media Type ***/
+	/*** Method ***/
 	const setMediaScreenType = (): void => {
 		const screenWidth : number = window.innerWidth
 		if (screenWidth <= spMaxWidth) setMediaType(media.SP)
 		if (screenWidth > spMaxWidth) setMediaType(media.PC)
 	}
 
+	/*** Router ***/
+	const router = useRouter()
+
 	/*** Common App ***/
 	const $next: $Next = {
-		$meta: META_DATA,
-		$category: CATEGORY,
+		$meta: metaData,
+		$category: categoryData,
 		$productionOrder: productionOrder,
 		$state: { categoryName, websiteIndex, swipeElement },
 		$methods: {
@@ -70,34 +77,30 @@ const Layout = ({ children }): JSX.Element => {
 			): void => {
 				if (caName) setCategoryName(caName)
 				if (wsIdx || wsIdx === 0) setWebsiteIndex(wsIdx)
-				$next.$router.push(url)
+				router.push(url)
 		
-				if ($next.$judgments.isSP && $next.$judgments.isProduction) {
-					$next.$methods.showThumbSwiperOnSP(false)
-				}
+				if (isSP && isProduction) showThumbSwiperOnSP(false)
 			},
 			findWebsiteData: (
 				comparedKey: string,
 				comparedItem: string
 			): Website | false => {
 				const findPath = (ws: Website): boolean => comparedKey === ws[comparedItem]
-				const fw: Framework | undefined = $next.$category.PRODUCTION.DATASET.find(fw => fw.PAGES.some(findPath))
-				const ws: Website | false = fw !== undefined && fw.PAGES.find(findPath)
-				return ws
+				const fw: Framework | undefined = production.dataSet.find(fw => fw.pages.some(findPath))
+				return fw !== undefined && fw.pages.find(findPath)
 			}
 		},
 		$judgments: {
-			isProduction: categoryName === PRODUCTION.STATE,
+			isProduction: categoryName === production.state,
 			isSP: mediaType === media.SP,
 			isPC: mediaType === media.PC,
 		},
-		$router: useRouter()
 	}
 
 	/*** Use $next ***/
 	const { $methods, $judgments } = $next
-	const { findWebsiteData } = $methods
-	const { isProduction } = $judgments
+	const { showThumbSwiperOnSP, findWebsiteData } = $methods
+	const { isSP, isProduction } = $judgments
 
 	/*** Prop of Parent => Children ***/
 	const newChildren: FunctionComponentElement<$Next> = cloneElement(children, $next)
@@ -117,12 +120,15 @@ const Layout = ({ children }): JSX.Element => {
 		const pathName: string = window.location.pathname
 		const categoryPath: string = '/' + pathName.split('/')[1]
 
-		const categories: Category[] = [ HOME, PROFILE, PRODUCTION ]
+		const categories: Category[] = []
+		Object.entries(categoryData).map(category => {
+			categories.push(category[1])
+		})
 		const cat: Category | undefined = categories.find(cat => categoryPath === cat.URL)
-		cat !== undefined && setCategoryName(cat.STATE)
+		cat !== undefined && setCategoryName(cat.state)
 
 		const ws: Website | false = findWebsiteData(pathName, 'URL')
-		ws && setWebsiteIndex(ws.STATE)
+		ws && setWebsiteIndex(ws.state)
 
 		setMediaScreenType()
 		window.onresize = setMediaScreenType

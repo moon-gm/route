@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Loading from './loading'
 import { CategoryName } from '../pages/_app'
 import styles from '../styles/modules/page.module.scss'
-import { SITE_TITLE } from '../config/meta-data.json'
+import { siteTitle } from '../config/meta-data.json'
 
 interface Page {
 	categoryState: string,
@@ -55,7 +55,7 @@ export const Page = ({ categoryState, pageName, children }: Page): JSX.Element =
 	return categoryName !== categoryState ? <Loading/> : (
 		<>
 			<Head>
-				<title>{pageName} | {SITE_TITLE}</title>
+				<title>{pageName} | {siteTitle}</title>
 			</Head>
 
 			<div className={styles.contentsBox}>

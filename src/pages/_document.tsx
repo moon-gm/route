@@ -1,5 +1,5 @@
 import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document'
-import META_DATA from '../config/meta-data.json'
+import metaData from '../config/meta-data.json'
 
 export default class MyDocument extends Document {
 	static async getInitialProps(ctx: DocumentContext) {
@@ -12,11 +12,11 @@ export default class MyDocument extends Document {
 			<Html>
 				<Head>
 					<meta charSet="UTF-8"/>
-					<meta name="description" content={META_DATA.SITE_TITLE}/>
-					<meta property="og:url" content={META_DATA.SITE_URL}/>
-					<meta property="og:title" content={META_DATA.SITE_TITLE}/>
-					<meta property="og:description" content={META_DATA.SITE_DESCRIPTION}/>
-					<meta property="og:image" content={META_DATA.SITE_IMAGE.SRC}/>
+					<meta name="description" content={metaData.siteTitle}/>
+					<meta property="og:url" content={metaData.siteURL}/>
+					<meta property="og:title" content={metaData.siteTitle}/>
+					<meta property="og:description" content={metaData.siteDescription}/>
+					<meta property="og:image" content={metaData.siteImage.src}/>
 					<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
 					<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png"/>
 					<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png"/>

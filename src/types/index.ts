@@ -1,4 +1,3 @@
-import { NextRouter } from 'next/router'
 import { ReactNode } from 'react'
 
 export type $Next = {
@@ -7,8 +6,7 @@ export type $Next = {
     $productionOrder: ProductionOrder,
     $state: Record<string, string | number | ReactNode>,
     $methods: Record<string, Function>,
-    $judgments: Record<string, boolean>,
-    $router: NextRouter
+    $judgments: Record<string, boolean>
 }
 
 export type HomeList = {
@@ -32,21 +30,21 @@ export type TabList = {
 }
 
 export type Meta = {
-    SITE_TITLE: string,
-    SITE_URL: string,
-    SITE_DESCRIPTION: string,
-    SITE_IMAGE: {
-        SRC: string,
-        ALT: string
+    siteTitle: string,
+    siteURL: string,
+    siteDescription: string,
+    siteImage: {
+        src: string,
+        alt: string
     }
 }
 
 export type Category = {
-    ID: string,
-    NAME: string,
+    id: string,
+    name: string,
     URL: string,
-    STATE: string,
-    DATASET?: any[]
+    state: string,
+    dataSet?: any[]
 }
 
 export type ProductionOrder = {
@@ -55,29 +53,29 @@ export type ProductionOrder = {
 }
 
 export type Framework = {
-    ID: string,
-    NAME: string,
-    STATE: string,
-    IMG: string,
-    PAGES: Website[]
+    id: string,
+    name: string,
+    state: string,
+    imageSrc: string,
+    pages: Website[]
 }
 
 export type Website = {
-    ID: string,
-    NAME: string,
+    id: string,
+    name: string,
     URL: string,
-    STATE: number,
-    IMG: string,
-    CREATE_DATE: string,
-    UPDATE_DATE: string,
-    SUMMARY: string,
-    LINK: {
-        SITE: string,
-        SOURCE: string,
+    state: number,
+    imageSrc: string,
+    createDate: string,
+    updateDate: string,
+    summary: string,
+    link: {
+        site: string,
+        source: string,
     },
-    DESCRIPTION: string,
-    HOW_TO_MAKE: string,
-    SKILL: Skill[]
+    description: string,
+    howToMake: string,
+    skills: Skill[]
 }
 
 export type Skill = {
@@ -86,7 +84,7 @@ export type Skill = {
     contents: string[]
 }
 
-export type ProductPage = {
+export type ProductionPage = {
     framework: string,
     title: string,
     image: string,

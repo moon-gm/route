@@ -7,20 +7,20 @@ const Header = ({ app }): JSX.Element => {
 	const { linkTo, scrollToTop, showThumbSwiperOnSP } = $methods
 	const { framework, website } = $productionOrder
 	const { isProduction } = $judgments	
-	const { HOME, PROFILE, PRODUCTION } = $category
-	const { SITE_TITLE, SITE_IMAGE } = $meta
+	const { home, profile, production } = $category
+	const { siteTitle, siteImage } = $meta
 
 	const homeList: HomeList[] = [
 		{
 			name: 'homeButton',
 			className: `${styles.homeButton} flex-space-between align-items-center`,
-			method: () => linkTo(HOME.URL, HOME.STATE),
+			method: () => linkTo(home.URL, home.state),
 			children: {
 				image: {
 					src: '/logo/portfolio.png',
-					alt: SITE_IMAGE.ALT,
+					alt: siteImage.alt,
 				},
-				etc: <span>{SITE_TITLE}</span>
+				etc: <span>{siteTitle}</span>
 			},
 		},
 		{
@@ -50,13 +50,13 @@ const Header = ({ app }): JSX.Element => {
 
 	const headerTabList: TabList[] = [
 		{
-			name: PROFILE.NAME,
-			url: PROFILE.URL,
-			state: PROFILE.STATE
+			name: profile.name,
+			url: profile.URL,
+			state: profile.state
 		},
 		{
-			name: PRODUCTION.NAME,
-			url: PRODUCTION.DATASET[framework.Nuxt].PAGES[website.Tequipedia2].URL
+			name: production.name,
+			url: production.dataSet[framework.Nuxt].pages[website.Tequipedia2].URL
 		},
 	]
 
