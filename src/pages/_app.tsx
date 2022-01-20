@@ -1,6 +1,6 @@
 import '../styles/swiper@6.3.3/swiper-bundle.min.css'
 import '../styles/globals.scss'
-import { FunctionComponentElement, useState, useEffect, cloneElement } from 'react'
+import { FunctionComponentElement, useState, useEffect, cloneElement, createContext } from 'react'
 import { useRouter } from 'next/router'
 import { Category, ProductionOrder, Framework, Website } from '../types/index'
 import Header from '../components/header'
@@ -29,6 +29,8 @@ const media: Record<string, string> = {
 	PC: 'PC',
 	SP: 'SP'
 }
+
+export const CategoryName = createContext(PROFILE.STATE)
 
 // ---------- Create Element ---------- //
 const Layout = ({ children }): JSX.Element => {
@@ -73,6 +75,15 @@ const Layout = ({ children }): JSX.Element => {
 				if ($next.$judgments.isSP && $next.$judgments.isProduction) {
 					$next.$methods.showThumbSwiperOnSP(false)
 				}
+			},
+			findWebsiteData: (
+				comparedKey: string,
+				comparedItem: string
+			): Website | false => {
+				const findPath = (ws: Website): boolean => comparedKey === ws[comparedItem]
+				const fw: Framework | undefined = $next.$category.PRODUCTION.DATASET.find(fw => fw.PAGES.some(findPath))
+				const ws: Website | false = fw !== undefined && fw.PAGES.find(findPath)
+				return ws
 			}
 		},
 		$judgments: {
@@ -98,29 +109,20 @@ const Layout = ({ children }): JSX.Element => {
 	/*** Mounted Only First ***/
 	useEffect(() => {
 
-		// get path name
 		const pathName: string = window.location.pathname
 		const categoryPath: string = '/' + pathName.split('/')[1]
 
-		// set categoryName from path name
 		const categories: Category[] = [ HOME, PROFILE, PRODUCTION ]
 		const cat: Category | undefined = categories.find(cat => categoryPath === cat.URL)
 		cat !== undefined && setCategoryName(cat.STATE)
 
-		// set websiteIndex from path name
-		const findPath = (ws: Website): boolean => pathName === ws.URL
-		const fw: Framework | undefined = $next.$category.PRODUCTION.DATASET.find(fw => fw.PAGES.some(findPath))
-		const ws: Website | false = fw !== undefined && fw.PAGES.find(findPath)
+		const ws: Website | false = $next.$methods.findWebsiteData(pathName, 'URL')
 		ws && setWebsiteIndex(ws.STATE)
 
 		setMediaScreenType()
+		window.onresize = setMediaScreenType
 
 	}, [])
-
-	/*** Mounted by changing mediaType***/
-	useEffect(() => {
-		window.onresize = setMediaScreenType
-	}, [mediaType])
 
 	/*** Render ***/
 	return (
@@ -146,7 +148,9 @@ const Layout = ({ children }): JSX.Element => {
 				)}
 
 				<main className={layout.main}>
-					{$children}
+					<CategoryName.Provider value={categoryName}>
+						{$children}
+					</CategoryName.Provider>
 				</main>
 
 			</div>

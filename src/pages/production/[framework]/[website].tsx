@@ -4,7 +4,7 @@ import Modal from '../../../components/modal'
 import Loading from '../../../components/loading'
 import { ProductPageData, Framework, Website, Skill } from '../../../types/index'
 
-const Production = ({ $state, $category, $productionOrder, $router, $judgments }): JSX.Element => {
+const Production = ({ $category, $productionOrder, $router, $judgments }): JSX.Element => {
 
 	const { PRODUCTION } = $category
 	const { isSP } = $judgments
@@ -104,7 +104,6 @@ const Production = ({ $state, $category, $productionOrder, $router, $judgments }
 
 	return pageData === undefined ? <Loading/> : (
 		<$.Page
-			state={$state}
 			categoryState={PRODUCTION.STATE}
 			pageName={pageData.framework}
 		>
@@ -129,7 +128,7 @@ const Production = ({ $state, $category, $productionOrder, $router, $judgments }
 										{base.content}
 										<img
 											src="/icon/external-link.svg"
-											alt="外部リンクアイコン"
+											alt="external-link"
 											style={customStyles.linkImage}
 										/>
 									</a>

@@ -1,13 +1,11 @@
-import { ReactNode } from 'react'
+import { ReactNode, useContext } from 'react'
 import Head from 'next/head'
 import Loading from './loading'
+import { CategoryName } from '../pages/_app'
 import styles from '../styles/modules/page.module.scss'
 import { SITE_TITLE } from '../config/meta-data.json'
 
 interface Page {
-	state: {
-		[key: string]: any
-	},
 	categoryState: string,
 	pageName: string,
 	children: ReactNode
@@ -52,8 +50,9 @@ const joinClassName = (
 	return className
 }
 
-export const Page = ({ state, categoryState, pageName, children }: Page): JSX.Element => {
-	return state.categoryName !== categoryState ? <Loading/> : (
+export const Page = ({ categoryState, pageName, children }: Page): JSX.Element => {
+	const categoryName = useContext(CategoryName)
+	return categoryName !== categoryState ? <Loading/> : (
 		<>
 			<Head>
 				<title>{pageName} | {SITE_TITLE}</title>

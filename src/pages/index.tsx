@@ -1,6 +1,6 @@
 import $ from '../components/page-bundle'
 
-const Home = ({ $state, $siteData, $category }): JSX.Element => {
+const Home = ({ $siteData, $category }): JSX.Element => {
 
 	const { SITE_TITLE, SITE_IMAGE } = $siteData
 	const { HOME } = $category
@@ -18,7 +18,6 @@ const Home = ({ $state, $siteData, $category }): JSX.Element => {
 
 	return (
 		<$.Page
-			state={$state}
 			categoryState={HOME.STATE}
 			pageName={HOME.NAME}
 		>

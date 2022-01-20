@@ -30,7 +30,7 @@ const Header = ({ app }): JSX.Element => {
 			children: {
 				image: {
 					src: '/icon/top.svg',
-					alt: 'トップに戻るアイコン',
+					alt: 'top',
 				},
 			}
 		},
@@ -41,7 +41,7 @@ const Header = ({ app }): JSX.Element => {
 			children: {
 				image: {
 					src: '/icon/menu.svg',
-					alt: 'メニューアイコン',
+					alt: 'menu',
 				},
 			},
 			display: isProduction

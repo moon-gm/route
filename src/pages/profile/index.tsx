@@ -4,7 +4,7 @@ import Modal from '../../components/modal'
 import Loading from '../../components/loading'
 import { ProfilePageData } from '../../types/index'
 
-const Profile = ({ $state, $category }) => {
+const Profile = ({ $category }) => {
 
 	const { PROFILE } = $category
 
@@ -16,7 +16,6 @@ const Profile = ({ $state, $category }) => {
 
 	return pageData === undefined ? <Loading/> : (
 		<$.Page
-			state={$state}
 			categoryState={PROFILE.STATE}
 			pageName={PROFILE.NAME}
 		>

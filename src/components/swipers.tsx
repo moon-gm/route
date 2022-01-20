@@ -11,14 +11,12 @@ SwiperCore.use([Pagination, Thumbs, EffectCoverflow]) // use Swiper Components
 const MainSwiper = ({ app }): JSX.Element => {
 
 	const { $state, $methods, $category } = app
-	const { linkTo } = $methods
+	const { linkTo, findWebsiteData } = $methods
 	const { PRODUCTION } = $category
 
 	// on change active slide
 	const onSlideChange = (swiper: SwiperCore): void => {
-		const activeCondition = (ws: Website): boolean => swiper.activeIndex === ws.STATE
-		const fw: Framework | undefined = PRODUCTION.DATASET.find((fw: Framework) => fw.PAGES.some(activeCondition))
-		const ws: Website | false = fw !== undefined && fw.PAGES.find(activeCondition)
+		const ws: Website | false = findWebsiteData(swiper.activeIndex, 'STATE')
 		ws && linkTo(ws.URL, PRODUCTION.STATE, ws.STATE)
 	}
 
@@ -54,6 +52,7 @@ const MainSwiper = ({ app }): JSX.Element => {
 						>
 							<img
 								src={`/swiper/${ws.ID}.png`}
+								alt={ws.NAME}
 								onClick={() => linkTo(ws.URL, PRODUCTION.STATE, ws.STATE)}
 								className={`
 									${mainStyles.swiperSlideImg}
@@ -76,7 +75,7 @@ const ThumbSwiper = ({ app }): JSX.Element => {
 	const { PRODUCTION } = $category
 
 	const label = {
-		close: '×',
+		close: '✕',
 		separate: '/',
 		fromTo: '～',
 	}
@@ -117,7 +116,7 @@ const ThumbSwiper = ({ app }): JSX.Element => {
 					<Fragment key={`thumb-swiper-${fw.STATE}`}>
 						{fw.PAGES.map((ws: Website) => (
 							<SwiperSlide
-								key={`thumb-swiper-slide-${ws.ID}`}
+								key={`thumb-swiper-${ws.ID}`}
 								tag="li"
 								className={thumbStyles.swiperSlide}
 							>
@@ -131,10 +130,10 @@ const ThumbSwiper = ({ app }): JSX.Element => {
 										scrollToTop()
 									}}
 								>
-									<img src={ws.IMG} alt="icon" />
+									<img src={ws.IMG} alt={ws.NAME} />
 									{ws.NAME}
 									<span className={thumbStyles.thumbSwiperListNote}>
-										<img src={fw.IMG} alt="icon" />
+										<img src={fw.IMG} alt={fw.NAME} />
 										{fw.NAME} {label.separate} {ws.CREATE_DATE} {label.fromTo}
 									</span>
 								</div>
