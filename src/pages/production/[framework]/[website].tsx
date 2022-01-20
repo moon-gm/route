@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import $ from '../../../components/page-bundle'
 import Modal from '../../../components/modal'
 import Loading from '../../../components/loading'
-import { ProductPageData, Framework, Website, Skill } from '../../../types/index'
+import { ProductPage, Framework, Website, Skill } from '../../../types/index'
 
 const Production = ({ $category, $productionOrder, $router, $judgments }): JSX.Element => {
 
@@ -20,7 +20,7 @@ const Production = ({ $category, $productionOrder, $router, $judgments }): JSX.E
 	}
 
 	// create page data
-	let pageData: ProductPageData
+	let pageData: ProductPage
 	if (framework && website) {
 		const frameworkData: Framework = PRODUCTION.DATASET[$productionOrder.framework[framework]]
 		const websiteData: Website = frameworkData.PAGES[$productionOrder.website[website]]

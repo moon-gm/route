@@ -1,8 +1,8 @@
 import '../styles/swiper@6.3.3/swiper-bundle.min.css'
 import '../styles/globals.scss'
-import { FunctionComponentElement, useState, useEffect, cloneElement, createContext } from 'react'
+import { FunctionComponentElement, useState, useEffect, cloneElement, createContext, ReactNode } from 'react'
 import { useRouter } from 'next/router'
-import { Category, ProductionOrder, Framework, Website } from '../types/index'
+import { $Next, Category, ProductionOrder, Framework, Website } from '../types/index'
 import Header from '../components/header'
 import Swipers from '../components/swipers'
 import META_DATA from '../config/meta-data.json'
@@ -36,10 +36,10 @@ export const CategoryName = createContext(PROFILE.STATE)
 const Layout = ({ children }): JSX.Element => {
 
 	/*** State ***/
-	const [categoryName, setCategoryName] = useState(PROFILE.STATE)
-	const [websiteIndex, setWebsiteIndex] = useState(0)
-	const [swipeElement, setSwipeElement] = useState()
-	const [mediaType, setMediaType] = useState(media.PC)
+	const [categoryName, setCategoryName] = useState<string>(PROFILE.STATE)
+	const [websiteIndex, setWebsiteIndex] = useState<number>(0)
+	const [swipeElement, setSwipeElement] = useState<ReactNode>()
+	const [mediaType, setMediaType] = useState<string>(media.PC)
 
 	/*** Set Media Type ***/
 	const setMediaScreenType = (): void => {
@@ -49,8 +49,8 @@ const Layout = ({ children }): JSX.Element => {
 	}
 
 	/*** Common App ***/
-	const $next = {
-		$siteData: META_DATA,
+	const $next: $Next = {
+		$meta: META_DATA,
 		$category: CATEGORY,
 		$productionOrder: productionOrder,
 		$state: { categoryName, websiteIndex, swipeElement },
@@ -94,8 +94,13 @@ const Layout = ({ children }): JSX.Element => {
 		$router: useRouter()
 	}
 
+	/*** Use $next ***/
+	const { $methods, $judgments } = $next
+	const { findWebsiteData } = $methods
+	const { isProduction } = $judgments
+
 	/*** Prop of Parent => Children ***/
-	const $children: FunctionComponentElement<typeof $next> = cloneElement(children, $next)
+	const newChildren: FunctionComponentElement<$Next> = cloneElement(children, $next)
 
 	/*** Layout ClassName ***/
 	const layout: Record<string, string> = {
@@ -103,7 +108,7 @@ const Layout = ({ children }): JSX.Element => {
 		mainSwiper: 'main-swiper-area',
 		contents: 'contents-area flex-space-around flex-remove-sp',
 		thumbSwiper: 'thumb-swiper-area',
-		main: `main-area ${!$next.$judgments.isProduction && "main-area-without-thumb-swiper"}`
+		main: `main-area ${!isProduction && "main-area-without-thumb-swiper"}`
 	}
 
 	/*** Mounted Only First ***/
@@ -116,7 +121,7 @@ const Layout = ({ children }): JSX.Element => {
 		const cat: Category | undefined = categories.find(cat => categoryPath === cat.URL)
 		cat !== undefined && setCategoryName(cat.STATE)
 
-		const ws: Website | false = $next.$methods.findWebsiteData(pathName, 'URL')
+		const ws: Website | false = findWebsiteData(pathName, 'URL')
 		ws && setWebsiteIndex(ws.STATE)
 
 		setMediaScreenType()
@@ -130,7 +135,7 @@ const Layout = ({ children }): JSX.Element => {
 
 			<Header app={$next}/>
 
-			{$next.$judgments.isProduction && (
+			{isProduction && (
 				<div className={layout.mainSwiper}>
 					<Swipers.MainSwiper app={$next}/>
 				</div>
@@ -138,7 +143,7 @@ const Layout = ({ children }): JSX.Element => {
 
 			<div className={layout.contents}>
 
-				{$next.$judgments.isProduction && (
+				{isProduction && (
 					<aside
 						id={layout.thumbSwiper}
 						className={layout.thumbSwiper}
@@ -149,7 +154,7 @@ const Layout = ({ children }): JSX.Element => {
 
 				<main className={layout.main}>
 					<CategoryName.Provider value={categoryName}>
-						{$children}
+						{newChildren}
 					</CategoryName.Provider>
 				</main>
 

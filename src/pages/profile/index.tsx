@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import $ from '../../components/page-bundle'
 import Modal from '../../components/modal'
 import Loading from '../../components/loading'
-import { ProfilePageData } from '../../types/index'
+import { ProfilePage } from '../../types/index'
 
 const Profile = ({ $category }) => {
 
@@ -10,7 +10,7 @@ const Profile = ({ $category }) => {
 
 	const profileIndex = 0
 
-	const pageData: ProfilePageData = {
+	const pageData: ProfilePage = {
 		sectionData: PROFILE.DATASET[profileIndex].SECTION_DATA
 	}
 

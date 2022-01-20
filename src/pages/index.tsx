@@ -1,8 +1,8 @@
 import $ from '../components/page-bundle'
 
-const Home = ({ $siteData, $category }): JSX.Element => {
+const Home = ({ $meta, $category }): JSX.Element => {
 
-	const { SITE_TITLE, SITE_IMAGE } = $siteData
+	const { SITE_TITLE, SITE_IMAGE } = $meta
 	const { HOME } = $category
 
 	const customStyle: Record<string, Record<string, string>> = {

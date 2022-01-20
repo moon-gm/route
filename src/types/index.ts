@@ -1,3 +1,16 @@
+import { NextRouter } from 'next/router'
+import { ReactNode } from 'react'
+
+export type $Next = {
+    $meta: Meta,
+    $category: Record<string, Category>,
+    $productionOrder: ProductionOrder,
+    $state: Record<string, string | number | ReactNode>,
+    $methods: Record<string, Function>,
+    $judgments: Record<string, boolean>,
+    $router: NextRouter
+}
+
 export type HomeList = {
     name: string,
     className: string,
@@ -16,6 +29,16 @@ export type TabList = {
     name: string,
     url: string,
     state?: string
+}
+
+export type Meta = {
+    SITE_TITLE: string,
+    SITE_URL: string,
+    SITE_DESCRIPTION: string,
+    SITE_IMAGE: {
+        SRC: string,
+        ALT: string
+    }
 }
 
 export type Category = {
@@ -63,7 +86,7 @@ export type Skill = {
     contents: string[]
 }
 
-export type ProductPageData = {
+export type ProductPage = {
     framework: string,
     title: string,
     image: string,
@@ -82,7 +105,7 @@ export type ProductPageData = {
     }[]
 }
 
-export type ProfilePageData = {
+export type ProfilePage = {
     sectionData: {
         id: string,
         name: string,

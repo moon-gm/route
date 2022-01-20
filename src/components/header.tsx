@@ -3,12 +3,12 @@ import { HomeList, TabList } from '../types/index'
 
 const Header = ({ app }): JSX.Element => {
 
-	const { $siteData, $judgments, $productionOrder, $category, $methods } = app
+	const { $meta, $judgments, $productionOrder, $category, $methods } = app
 	const { linkTo, scrollToTop, showThumbSwiperOnSP } = $methods
 	const { framework, website } = $productionOrder
 	const { isProduction } = $judgments	
 	const { HOME, PROFILE, PRODUCTION } = $category
-	const { SITE_TITLE, SITE_IMAGE } = $siteData
+	const { SITE_TITLE, SITE_IMAGE } = $meta
 
 	const homeList: HomeList[] = [
 		{
