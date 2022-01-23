@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import $ from '../../components/page-bundle'
 import Modal from '../../components/modal'
 import Loading from '../../components/loading'
-import { ProfilePage } from '../../types/index'
+import { ProfilePage } from '../../config/profile-data'
 
 const Profile = ({ $category }) => {
 

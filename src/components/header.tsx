@@ -1,14 +1,35 @@
 import styles from '../styles/modules/header.module.scss'
-import { HomeList, TabList } from '../types/index'
+import { productionOrder } from '../config/production-data'
 
 const Header = ({ app }): JSX.Element => {
 
-	const { $meta, $judgments, $productionOrder, $category, $methods } = app
+	type HomeList = {
+		name: string,
+		className: string,
+		method: () => void,
+		children: {
+			image: {
+				src: string,
+				alt: string
+			},
+			etc?: JSX.Element
+		},
+		display?: boolean
+	}
+	
+	type TabList = {
+		name: string,
+		url: string,
+		state?: string
+	}
+
+	const { $meta, $judgments, $category, $methods } = app
 	const { linkTo, scrollToTop, showThumbSwiperOnSP } = $methods
-	const { framework, website } = $productionOrder
 	const { isProduction } = $judgments	
 	const { home, profile, production } = $category
 	const { siteTitle, siteImage } = $meta
+
+	const { framework, website } = productionOrder
 
 	const homeList: HomeList[] = [
 		{
@@ -17,7 +38,7 @@ const Header = ({ app }): JSX.Element => {
 			method: () => linkTo(home.URL, home.state),
 			children: {
 				image: {
-					src: '/logo/portfolio.png',
+					src: production.dataSet[framework.next].pages[website['portfolio-show']].imageSrc,
 					alt: siteImage.alt,
 				},
 				etc: <span>{siteTitle}</span>
@@ -56,7 +77,7 @@ const Header = ({ app }): JSX.Element => {
 		},
 		{
 			name: production.name,
-			url: production.dataSet[framework.Nuxt].pages[website.Tequipedia2].URL
+			url: production.dataSet[framework.nuxt].pages[website.tequipedia2].URL
 		},
 	]
 

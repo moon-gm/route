@@ -1,5 +1,5 @@
 import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document'
-import metaData from '../config/meta-data.json'
+import metaData from '../config/site-data'
 
 export default class MyDocument extends Document {
 	static async getInitialProps(ctx: DocumentContext) {

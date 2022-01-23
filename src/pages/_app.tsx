@@ -2,32 +2,15 @@ import '../styles/swiper@6.3.3/swiper-bundle.min.css'
 import '../styles/globals.scss'
 import { FunctionComponentElement, useState, useEffect, cloneElement, createContext, ReactNode } from 'react'
 import { useRouter } from 'next/router'
-import { $Next, Category, ProductionOrder, Framework, Website } from '../types/index'
 import Header from '../components/header'
 import Swipers from '../components/swipers'
-import metaData from '../config/meta-data.json'
-import categoryData, { profile, production } from '../config/category-data.json'
+import site, { $Next, Category } from '../config/site-data'
+import home from '../config/home-data'
+import profile from '../config/profile-data'
+import production, { Framework, Website } from '../config/production-data'
 
 // ---------- Create Context ---------- //
 export const CategoryName = createContext(profile.state)
-
-// ---------- Create Production Data ---------- //
-const productionOrder: ProductionOrder = {
-	framework: {},
-	website: {}
-}
-let wsOrderIdx = 0
-for (const [fwIdx, fw] of production.dataSet.entries()) {
-	// id => state & URL
-	fw.state = fw.id
-	productionOrder.framework[fw.id] = fwIdx
-	for (const [wsIdx, ws] of fw.pages.entries()) {
-		ws.state = wsOrderIdx
-		ws.URL = '/' + production.id + '/' + fw.id + '/' + ws.id
-		productionOrder.website[ws.id] = wsIdx
-		wsOrderIdx++
-	}
-}
 
 // ---------- Media Data ---------- //
 const spMaxWidth = 768
@@ -57,9 +40,8 @@ const Layout = ({ children }): JSX.Element => {
 
 	/*** Common App ***/
 	const $next: $Next = {
-		$meta: metaData,
-		$category: categoryData,
-		$productionOrder: productionOrder,
+		$meta: site,
+		$category: { home, profile, production },
 		$state: { categoryName, websiteIndex, swipeElement },
 		$methods: {
 			setSwipeElement,
@@ -120,11 +102,8 @@ const Layout = ({ children }): JSX.Element => {
 		const pathName: string = window.location.pathname
 		const categoryPath: string = '/' + pathName.split('/')[1]
 
-		const categories: Category[] = []
-		Object.entries(categoryData).map(category => {
-			categories.push(category[1])
-		})
-		const cat: Category | undefined = categories.find(cat => categoryPath === cat.URL)
+		const categories: Category<unknown>[] = [home, profile, production]
+		const cat: Category<unknown> | undefined = categories.find(cat => categoryPath === cat.URL)
 		cat !== undefined && setCategoryName(cat.state)
 
 		const ws: Website | false = findWebsiteData(pathName, 'URL')

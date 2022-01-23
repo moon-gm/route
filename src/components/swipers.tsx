@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import mainStyles from '../styles/modules/main-swiper.module.scss'
 import thumbStyles from '../styles/modules/thumb-swiper.module.scss'
-import { Framework, Website } from '../types/index'
+import { Framework, Website } from '../config/production-data'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Pagination, Thumbs, EffectCoverflow } from 'swiper'// CSS in _document.tsx
 

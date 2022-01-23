@@ -3,9 +3,9 @@ import { useRouter } from 'next/router'
 import $ from '../../../components/page-bundle'
 import Modal from '../../../components/modal'
 import Loading from '../../../components/loading'
-import { ProductionPage, Framework, Website, Skill } from '../../../types/index'
+import { productionOrder, baseData, sectionData, setContentToOrigin, ProductionPage, ProductionBaseData, ProductionSectionData, Framework, Website, Skill } from '../../../config/production-data'
 
-const Production = ({ $category, $productionOrder, $judgments }): JSX.Element => {
+const Production = ({ $category, $judgments }): JSX.Element => {
 
 	const { production } = $category
 	const { isSP } = $judgments
@@ -15,72 +15,44 @@ const Production = ({ $category, $productionOrder, $judgments }): JSX.Element =>
 	const { framework, website } = router.query
 
 	const sectionIds = {
-		description: 'description',
-		howToMake: 'howToMake',
-		skill: 'skill',
-		image: 'image',
+		description: sectionData[0].id,
+		howToMake: sectionData[1].id,
+		skill: sectionData[2].id,
+		image: sectionData[3].id,
+	}
+
+	const label = {
+		github: 'Github'
 	}
 
 	// create page data
 	let pageData: ProductionPage
 	if (framework && website) {
-		const frameworkData: Framework = production.dataSet[$productionOrder.framework[framework as string]]
-		const websiteData: Website = frameworkData.pages[$productionOrder.website[website as string]]
+		const frameworkData: Framework = production.dataSet[productionOrder.framework[framework as string]]
+		const websiteData: Website = frameworkData.pages[productionOrder.website[website as string]]
 		pageData = {
 			framework: frameworkData.name,
 			title: websiteData.name,
 			image: websiteData.imageSrc,
 			summary: websiteData.summary,
-			baseData: [
-				{
-					id: 'createDate',
-					title: '作成日',
-					content: websiteData.createDate,
-				},
-				{
-					id: 'updateDate',
-					title: '更新日',
-					content: websiteData.updateDate,
-				},
-				{
-					id: 'site',
-					title: 'サイト',
+			baseData: setContentToOrigin<ProductionBaseData>(baseData, {
+				createDate: { content: websiteData.createDate },
+				updateDate: { content: websiteData.updateDate },
+				site: {
 					content: websiteData.name,
 					url: websiteData.link.site,
 				},
-				{
-					id: 'source',
-					title: 'ソース',
-					content: 'Github',
+				source: {
+					content: label.github,
 					url: websiteData.link.source,
 				}
-			],
-			sectionData: [
-				{
-					id: sectionIds.description,
-					name: '内容',
-					modal: '作成したサイトが果たす主な役割・機能の詳細。このサイトで何ができるのかなど。',
-					content: websiteData.description
-				},
-				{
-					id: sectionIds.howToMake,
-					name: '作成方法',
-					modal: '使用したフレームワークなどをどのように活用しているか、また、どのようなシステムにしているかなどの説明。',
-					content: websiteData.howToMake
-				},
-				{
-					id: sectionIds.skill,
-					name: '使用技術',
-					modal: '各言語・フレームワーク内で実際に使用した技術を記載。',
-					content: websiteData.skills
-				},
-				{
-					id: sectionIds.image,
-					name: '画面イメージ',
-					modal: 'イメージとしているが、iframeで挿入しているため、実際のサイト同様に操作できる。',
-					content: websiteData.link.site
-				},
-			]
+			}),
+			sectionData: setContentToOrigin<ProductionSectionData>(sectionData, {
+				description: { content: websiteData.description },
+				howToMake: { content: websiteData.howToMake },
+				skill: { content: websiteData.skills as Skill[] },
+				image: { content: websiteData.link.site },
+			})
 		}
 	}
 
@@ -113,7 +85,7 @@ const Production = ({ $category, $productionOrder, $judgments }): JSX.Element =>
 				<$.H1>
 					<img
 						src={pageData.image}
-						alt="ページアイコン"
+						alt={pageData.title}
 						style={customStyles.titleImage}
 					/>
 					{pageData.title}

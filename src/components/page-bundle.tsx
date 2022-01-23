@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Loading from './loading'
 import { CategoryName } from '../pages/_app'
 import styles from '../styles/modules/page.module.scss'
-import { siteTitle } from '../config/meta-data.json'
+import { siteTitle } from '../config/site-data'
 
 interface Page {
 	categoryState: string,
