@@ -132,18 +132,18 @@ const Production = ({ $category, $judgments }): JSX.Element => {
 							<$.LayoutBox>
 								{(section.content as Skill[]).map(skill => (
 									<img
-										key={`framework-image-${skill.title}`}
+										key={`framework-image-${skill.id}`}
 										src={`/main/${skill.image}`}
-										alt={skill.title}
+										alt={skill.name}
 										style={customStyles.layoutBoxImage}
 									/>
 								))}
 							</$.LayoutBox>
 							{(section.content as Skill[]).map(skill => (
-								<$.ListBox key={`framework-text-${skill.title}`}>
+								<$.ListBox key={`framework-text-${skill.id}`}>
 									<$.List style={customStyles.skillList}>
 										<$.ListText>
-											{skill.title}
+											{skill.name}
 										</$.ListText>
 										{skill.contents.map(content => (
 											<Fragment key={content}>

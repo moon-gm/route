@@ -37,6 +37,12 @@ export type Framework = {
     pages: Website[]
 }
 
+type FrameworkData = {
+    id: string,
+    name: string,
+    website: string[]
+}
+
 export type Website = {
     id: string,
     name: string,
@@ -55,52 +61,87 @@ export type Website = {
     skills: Skill[]
 }
 
+type WebsiteData = {
+    id: string,
+    name: string,
+    frameworkId: string,
+    imageSrc: string,
+    createDate: string,
+    updateDate: string,
+    summary: string,
+    link: {
+		site: string,
+		source: string
+	},
+    description: string,
+    howToMake: string,
+    skills: Record<string, string[]>
+}
+
 export type Skill = {
-    title: string,
+	id: string,
+    name: string,
     image: string,
     contents?: string[]
 }
 
-export type FW = {
-    id: string,
-    name: string,
-    website?: IdName[]
-}
-
-export type WS = {
-    id: string,
-    name: string,
-    frameworkId: string,
-    imageSrc: string,
-    createDate: string,
-    updateDate: string,
-    summary: string,
-    link: {
-		site: string,
-		source: string
+// ---------- Methods ---------- //
+const setItem: Record<string, Function> = {
+	imageSrc: (imageId: string): string => {
+		return '/logo/' + imageId + '.png'
 	},
-    description: string,
-    howToMake: string,
-    skills: Record<string, string[]>
-}
-
-export type FW2 = {
-    website: IdName[]
-}
-
-export type WS2 = {
-    frameworkId: string,
-    imageSrc: string,
-    createDate: string,
-    updateDate: string,
-    summary: string,
-    link: {
-		site: string,
-		source: string
+	state: (websiteId: string): number => {
+		const websiteIndex = websiteData.findIndex(ws => ws.id === websiteId)
+		return websiteIndex !== -1 ? websiteIndex : 0
 	},
-    description: string,
-    howToMake: string,
-    skills: Record<string, string[]>
+	skills: (skillLists: Record<string, string[]>): Skill[] => {
+		const rtn: Skill[] = []
+		const skillListsKeys = Object.keys(skillLists)
+		for (const skillListKey of skillListsKeys) {
+			const skillIndex = skills.findIndex(skill => skill.id === skillListKey)
+			if (skillIndex !== -1) {
+				Object.assign(skills[skillIndex], { contents: skillLists[skillListKey] })
+				rtn.push(skills[skillIndex])
+			}
+		}
+		return rtn
+	},
+	pages: (websites: string[]) => {
+		return websites.map(website => {
+			const wsIndex: number = websiteLists.findIndex(wsBlock => wsBlock.id === website)
+			return websiteLists[wsIndex]
+		})
+	}
+}
+
+const setProductionOrder = (productionDataSet: Framework[]): ProductionOrder => {
+	const productionOrder: ProductionOrder = {
+		framework: {},
+		website: {}
+	}
+	for (const [fwIdx, fw] of productionDataSet.entries()) {
+		productionOrder.framework[fw.id] = fwIdx
+		for (const [wsIdx, ws] of fw.pages.entries()) {
+			productionOrder.website[ws.id] = wsIdx
+		}
+	}
+	return productionOrder
+}
+
+export const setContentToOrigin = <T extends ProductionBaseData | ProductionSectionData>(
+	originLists: T[],
+	contentLists: Record<string, { content: string | Skill[], url?: string }>,
+): T[] => {
+	const rtn: T[] = []
+	const contents = Object.entries(contentLists)
+	for (const [contentskey, contentsValue] of contents) {
+		const originList = originLists.find(key => key.id === contentskey)
+		if (origin !== undefined) {
+			Object.assign(originList, contentsValue)
+			rtn.push(originList)
+		}
+	}
+	return rtn
 }
 
 // ---------- Values ---------- //
@@ -139,126 +180,46 @@ export const sectionData: ProductionSectionData[] = [
 	},
 ]
 
-const skills: Record<string, Skill> = {
-	sass: { title: 'Sass', image: 'sass.png' },
-	javaScript: { title: 'JavaScript', image: 'javascript.png' },
-	typeScript: { title: 'TypeScript', image: 'typescript.png' },
-	jQuery: { title: 'jQuery', image: 'jquery.png' },
-	react: { title: 'React', image: 'react.png'},
-	next: { title: 'Next', image: 'nextjs.png' },
-	gatsby: { title: 'Gatsby', image: 'gatsby.png' },
-	vue: { title: 'Vue', image: 'vue.png' },
-	nuxt: { title: 'Nuxt', image: 'nuxt.png' },
-	node: { title: 'Node.js', image: 'nodejs.png' },
-	swiper: { title: 'Swiper.js', image: 'swiperjs.svg' },
-	materialUI: { title: 'Material UI', image: 'material-ui.png' },
-	vuetify: { title: 'Vuetify', image: 'vuetify.png' },
-	php: { title: 'Php', image: 'php.png' },
-	laravel: { title: 'Laravel', image: 'laravel.png' },
-	mysql: { title: 'Mysql', image: 'mysql.png' },
-	faunaDB: { title: 'FaunaDB(FQL)', image: 'faunadb.png' },
-	graphQL: { title: 'GarphQL', image: 'graphql.png' },
-	windowsBat: { title: 'Windows Bat', image: 'windows.png' },
-	github: { title: 'Github', image: 'github.png' },
-	vercel: { title: 'Vercel', image: 'vercel.png' },
-	aws: { title: 'AWS', image: 'aws.png' },
-	googleAnalytics: { title: 'Google Analytics', image: 'google-analytics.png' }
-}
+const skills: Skill[] = [
+	{ id: 'sass', name: 'Sass', image: 'sass.png' },
+	{ id: 'javaScript', name: 'JavaScript', image: 'javascript.png' },
+	{ id: 'typeScript', name: 'TypeScript', image: 'typescript.png' },
+	{ id: 'jQuery', name: 'jQuery', image: 'jquery.png' },
+	{ id: 'react', name: 'React', image: 'react.png'},
+	{ id: 'next', name: 'Next', image: 'nextjs.png' },
+	{ id: 'gatsby', name: 'Gatsby', image: 'gatsby.png' },
+	{ id: 'vue', name: 'Vue', image: 'vue.png' },
+	{ id: 'nuxt', name: 'Nuxt', image: 'nuxt.png' },
+	{ id: 'node', name: 'Node.js', image: 'nodejs.png' },
+	{ id: 'swiper', name: 'Swiper.js', image: 'swiperjs.svg' },
+	{ id: 'materialUI', name: 'Material UI', image: 'material-ui.png' },
+	{ id: 'vuetify', name: 'Vuetify', image: 'vuetify.png' },
+	{ id: 'php', name: 'Php', image: 'php.png' },
+	{ id: 'laravel', name: 'Laravel', image: 'laravel.png' },
+	{ id: 'mysql', name: 'Mysql', image: 'mysql.png' },
+	{ id: 'faunaDB', name: 'FaunaDB(FQL)', image: 'faunadb.png' },
+	{ id: 'graphQL', name: 'GarphQL', image: 'graphql.png' },
+	{ id: 'windowsBat', name: 'Windows Bat', image: 'windows.png' },
+	{ id: 'github', name: 'Github', image: 'github.png' },
+	{ id: 'vercel', name: 'Vercel', image: 'vercel.png' },
+	{ id: 'aws', name: 'AWS', image: 'aws.png' },
+	{ id: 'googleAnalytics', name: 'Google Analytics', image: 'google-analytics.png' }
+]
 
-const frameworkIds: Record<string, IdName> = {
-	react: { id: 'react', name: 'React' },
-	next: { id: 'next', name: 'Next.js' },
-	gatsby: { id: 'gatsby', name: 'Gatsby.js' },
-	nuxt: { id: 'nuxt', name: 'Nuxt.js' },
-	laravel: { id: 'laravel', name: 'Laravel' },
-}
+const frameworkData: FrameworkData[] = [
+	{ id: 'react', name: 'React', website: ['cat-gallery', 'react-learning'] },
+	{ id: 'next', name: 'Next.js', website: ['portfolio-show', 'national-flags', 'next-learning'] },
+	{ id: 'gatsby', name: 'Gatsby.js', website: ['atelier-k', 'gatsby-learning'] },
+	{ id: 'nuxt', name: 'Nuxt.js', website: ['tequipedia2'] },
+	{ id: 'laravel', name: 'Laravel', website: ['tequipedia'] },
+]
 
-const websiteIds: Record<string, IdName> = {
-	catGallery: { id: 'cat-gallery', name: 'Cat Gallery' },
-	reactLearning: { id: 'react-learning', name: 'React Learning' },
-	portfolioShow: { id: 'portfolio-show', name: 'Portfolio Show' },
-	nationalFlags: { id: 'national-flags', name: 'National Flags' },
-	nextLearning: { id: 'next-learning', name: 'Next Learning' },
-	atelierK: { id: 'atelier-k', name: 'Atelier K' },
-	gatsbyLearning: { id: 'gatsby-learning', name: 'Gatsby Learning' },
-	tequipedia2: { id: 'tequipedia2', name: 'Tequipedia2' },
-	tequipedia: { id: 'tequipedia', name: 'テキーラ全書（運用停止中）' },
-}
-
-// ---------- Methods ---------- //
-const insertContents = <T extends FW | WS>(
-	idBlock: IdName,
-	contentsBlock: FW2 | WS2
-): T => {
-	Object.assign(idBlock, contentsBlock)
-	return idBlock as T
-}
-
-const setProductionOrder = (productionDataSet: Framework[]): ProductionOrder => {
-	const productionOrder: ProductionOrder = {
-		framework: {},
-		website: {}
-	}
-	for (const [fwIdx, fw] of productionDataSet.entries()) {
-		productionOrder.framework[fw.id] = fwIdx
-		for (const [wsIdx, ws] of fw.pages.entries()) {
-			productionOrder.website[ws.id] = wsIdx
-		}
-	}
-	return productionOrder
-}
-
-const setImageSrc = (frameworkId: string): string => {
-	return '/logo/' + frameworkId + '.png'
-}
-
-const setWebsiteURL = (
-	frameworkId: string,
-	websiteId: string
-): string => {
-	return '/' + category.id + '/' + frameworkId + '/' + websiteId
-}
-
-const setState = (websiteId: string): number => {
-	const websiteIndex = Object.entries(ws).findIndex(ws => (ws[1] as IdName).id === websiteId)
-	return websiteIndex !== -1 ? websiteIndex : 0
-}
-
-const setSkills = (skillLists: Record<string, string[]>): Skill[] => {
-	const rtn: Skill[] = []
-	const skillKeys = Object.keys(skills)
-	const skillListsKeys = Object.keys(skillLists)
-	for (const skillList of skillListsKeys) {
-		const skillKey = skillKeys.find(key => key === skillList)
-		if (skillKey !== undefined) {
-			Object.assign(skills[skillKey], { contents: skillLists[skillKey] })
-			rtn.push(skills[skillKey])
-		}
-	}
-	return rtn
-}
-
-export const setContentToOrigin = <T extends ProductionBaseData | ProductionSectionData>(
-	originLists: T[],
-	contentLists: Record<string, { content: string | Skill[], url?: string }>,
-): T[] => {
-	const rtn: T[] = []
-	const contents = Object.entries(contentLists)
-	for (const [contentskey, contentsValue] of contents) {
-		const originList = originLists.find(key => key.id === contentskey)
-		if (origin !== undefined) {
-			Object.assign(originList, contentsValue)
-			rtn.push(originList)
-		}
-	}
-	return rtn
-}
-
-// ---------- Set Value ---------- //
-const ws: Record<string, WS> = {
-	catGallery: insertContents<WS>(websiteIds.catGallery, {
-		frameworkId: frameworkIds.react.id,
-		imageSrc: websiteIds.catGallery.id,
+const websiteData: WebsiteData[] = [
+	{
+		id: 'cat-gallery',
+		name: 'Cat Gallery',
+		frameworkId: 'react',
+		imageSrc: 'cat-gallery',
 		createDate: '2021.9.25',
 		updateDate: '2021.9.25',
 		summary: '飼い猫を題材にした写真ギャラリーサイト。',
@@ -275,10 +236,12 @@ const ws: Record<string, WS> = {
 			github: ['リポジトリ利用'],
 			vercel: ['ホスティング利用']
 		}
-	}),
-	reactLearning: insertContents<WS>(websiteIds.reactLearning, {
-		frameworkId: frameworkIds.react.id,
-		imageSrc: frameworkIds.react.id,
+	},
+	{
+		id: 'react-learning',
+		name: 'React Learning',
+		frameworkId: 'react',
+		imageSrc: 'react',
 		createDate: '2020.6.5',
 		updateDate: '2020.7.24',
 		summary: 'Reactの学習内容をそのまま反映させていく学習サイト。',
@@ -294,10 +257,12 @@ const ws: Record<string, WS> = {
 			sass: ['animation', 'レスポンシブ'],
 			github: ['リポジトリ利用', 'Github Pages']
 		}
-	}),
-	portfolioShow: insertContents<WS>(websiteIds.portfolioShow, {
-		frameworkId: frameworkIds.next.id,
-		imageSrc: websiteIds.portfolioShow.id,
+	},
+	{
+		id: 'portfolio-show',
+		name: 'Portfolio Show',
+		frameworkId: 'next',
+		imageSrc: 'portfolio-show',
 		createDate: '2020.9.15',
 		updateDate: '2021.9.15',
 		summary: 'Next.jsで作成の当ポートフォリオサイト。',
@@ -316,10 +281,12 @@ const ws: Record<string, WS> = {
 			github: ['リポジトリ利用'],
 			vercel: ['ホスティング利用']
 		}
-	}),
-	nationalFlags: insertContents<WS>(websiteIds.nationalFlags, {
-		frameworkId: frameworkIds.next.id,
-		imageSrc: websiteIds.nationalFlags.id,
+	},
+	{
+		id: 'national-flags',
+		name: 'National Flags',
+		frameworkId: 'next',
+		imageSrc: 'national-flags',
 		createDate: '2020.8.26',
 		updateDate: '2020.10.13',
 		summary: 'Next.js + FaunaDB。国旗を軸とした国データ検索・登録アプリケーション。Node.jsで画像アップロード処理を実装。',
@@ -340,10 +307,12 @@ const ws: Record<string, WS> = {
 			github: ['リポジトリ利用'],
 			vercel: ['ホスティング利用', 'Secret Key', 'vercel-cli']
 		}
-	}),
-	nextLearning: insertContents<WS>(websiteIds.nextLearning, {
-		frameworkId: frameworkIds.next.id,
-		imageSrc: frameworkIds.next.id,
+	},
+	{
+		id: 'next-learning',
+		name: 'Next Learning',
+		frameworkId: 'next',
+		imageSrc: 'next',
 		createDate: '2020.7.21',
 		updateDate: '2020.8.17',
 		summary: 'Next.js学習サイト。',
@@ -361,10 +330,12 @@ const ws: Record<string, WS> = {
 			github: ['リポジトリ利用'],
 			vercel: ['ホスティング利用']
 		}
-	}),
-	atelierK: insertContents<WS>(websiteIds.atelierK, {
-		frameworkId: frameworkIds.gatsby.id,
-		imageSrc: websiteIds.catGallery.id,
+	},
+	{
+		id: 'atelier-k',
+		name: 'Atelier K',
+		frameworkId: 'gatsby',
+		imageSrc: 'cat-gallery',
 		createDate: '2020.5.6',
 		updateDate: '2020.6.30',
 		summary: '飼い猫を題材にした写真ギャラリーサイト。',
@@ -381,10 +352,12 @@ const ws: Record<string, WS> = {
 			sass: ['レスポンシブ'],
 			github: ['リポジトリ利用', 'Github Pages']
 		}
-	}),
-	gatsbyLearning: insertContents<WS>(websiteIds.gatsbyLearning, {
-		frameworkId: frameworkIds.gatsby.id,
-		imageSrc: frameworkIds.gatsby.id,
+	},
+	{
+		id: 'gatsby-learning',
+		name: 'Gatsby Learning',
+		frameworkId: 'gatsby',
+		imageSrc: 'gatsby',
 		createDate: '2020.7.23',
 		updateDate: '2020.7.30',
 		summary: 'Gatsby.js学習サイト。',
@@ -403,10 +376,12 @@ const ws: Record<string, WS> = {
 			github: ['リポジトリ利用'],
 			vercel: ['ホスティング利用']
 		}
-	}),
-	tequipedia2: insertContents<WS>(websiteIds.tequipedia2, {
-		frameworkId: frameworkIds.nuxt.id,
-		imageSrc: websiteIds.tequipedia.id,
+	},
+	{
+		id: 'tequipedia2',
+		name: 'Tequipedia2',
+		frameworkId: 'nuxt',
+		imageSrc: 'tequipedia',
 		createDate: '2021.9.15',
 		updateDate: '2021.9.20',
 		summary: 'テキーラを題材にした商品検索・情報サイト',
@@ -425,10 +400,12 @@ const ws: Record<string, WS> = {
 			github: ['リポジトリ利用'],
 			vercel: ['ホスティング利用']
 		}
-	}),
-	tequipedia: insertContents<WS>(websiteIds.tequipedia, {
-		frameworkId: frameworkIds.laravel.id,
-		imageSrc: websiteIds.tequipedia.id,
+	},
+	{
+		id: 'tequipedia',
+		name: 'テキーラ全書（運用停止中）',
+		frameworkId: 'laravel',
+		imageSrc: 'tequipedia',
 		createDate: '2020.2.18',
 		updateDate: '2021.9.15',
 		summary: 'テキーラを題材にした物品紹介サイト。',
@@ -448,56 +425,37 @@ const ws: Record<string, WS> = {
 			aws: ['EC2(インスタンス)', 'Route53(ドメイン取得)', 'Elastic IP'],
 			googleAnalytics: ['アクセスデータ分析']
 		}
-	}),
-}
-const fw: Record<string, FW> = {
-	react: insertContents<FW>(frameworkIds.react, {
-		website: [websiteIds.catGallery, websiteIds.reactLearning]
-	}),
-	next: insertContents<FW>(frameworkIds.next, {
-		website: [websiteIds.portfolioShow, websiteIds.nationalFlags, websiteIds.nextLearning]
-	}),
-	gatsby: insertContents<FW>(frameworkIds.gatsby, {
-		website: [websiteIds.atelierK, websiteIds.gatsbyLearning]
-	}),
-	nuxt: insertContents<FW>(frameworkIds.nuxt, {
-		website: [websiteIds.tequipedia2]
-	}),
-	laravel: insertContents<FW>(frameworkIds.laravel, {
-		website: [websiteIds.tequipedia]
-	}),
-}
+	},
+]
 
-const websiteLists: Website[] = Object.entries(ws).map(website => {
+// ---------- Set Content Value ---------- //
+const websiteLists: Website[] = websiteData.map(website => {
 	return {
-		id: website[1].id,
-		name: website[1].name,
-		URL: setWebsiteURL(website[1].frameworkId, website[1].id),
-		state: setState(website[1].id),
-		imageSrc: setImageSrc(website[1].imageSrc),
-		createDate: website[1].createDate,
-		updateDate: website[1].updateDate,
-		summary: website[1].summary,
+		id: website.id,
+		name: website.name,
+		URL: '/' + category.id + '/' + website.frameworkId + '/' + website.id,
+		state: setItem.state(website.id),
+		imageSrc: setItem.imageSrc(website.imageSrc),
+		createDate: website.createDate,
+		updateDate: website.updateDate,
+		summary: website.summary,
 		link: {
-			site: website[1].link.site,
-			source: website[1].link.source
+			site: website.link.site,
+			source: website.link.source
 		},
-		description: website[1].description,
-		howToMake: website[1].howToMake,
-		skills: setSkills(website[1].skills)
+		description: website.description,
+		howToMake: website.howToMake,
+		skills: setItem.skills(website.skills)
 	}
 })
 
-const frameworkLists: Framework[] = Object.entries(fw).map(framework => {
+const frameworkLists: Framework[] = frameworkData.map(framework => {
 	return {
-		id: framework[1].id,
-		name: framework[1].name,
-		state: framework[1].id,
-		imageSrc: setImageSrc(framework[1].id),
-		pages: framework[1].website.map(website => {
-			const wsIndex: number = websiteLists.findIndex(wsBlock => wsBlock.id === website.id)
-			return websiteLists[wsIndex]
-		})
+		id: framework.id,
+		name: framework.name,
+		state: framework.id,
+		imageSrc: setItem.imageSrc(framework.id),
+		pages: setItem.pages(framework.website)
 	}
 })
 
