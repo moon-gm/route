@@ -1,4 +1,5 @@
 import { Fragment } from 'react'
+import { useRouter } from 'next/router'
 import $ from '../../components/page-bundle'
 import Modal from '../../components/modal'
 import Loading from '../../components/loading'
@@ -8,11 +9,15 @@ const Profile = ({ $category }) => {
 
 	const { profile } = $category
 
-	const profileIndex = 0
+	// get parameter from URL
+	const router = useRouter()
+	const { profileType } = router.query
 
-	const pageData: ProfilePage = {
-		sectionData: profile.dataSet[profileIndex].sectionData
-	}
+	const profileKeys: string[] = Object.keys(profile.dataSet)
+
+	const profileKey: string = profileKeys.includes(profileType as string) ? profileType as string : ''
+
+	const pageData: ProfilePage = profileKey ? profile.dataSet[profileKey] : undefined
 
 	return pageData === undefined ? <Loading/> : (
 		<$.Page
@@ -21,11 +26,11 @@ const Profile = ({ $category }) => {
 		>
 			<$.BaseSection>
 				<$.H1>
-					{profile.name}
+					{pageData.name}
 				</$.H1>
 			</$.BaseSection>
 
-			{pageData.sectionData.map(section => (
+			{pageData.contents.map(section => (
 				<$.ContentSection key={section.id}>
 					<$.ContentSectionTitle>
 						<$.H2 classNames={['flex-start', 'align-items-center']}>
@@ -51,7 +56,7 @@ const Profile = ({ $category }) => {
 										{list.note ? (
 											<>
 												<$.ListText>
-													{list.type ? `${list.type}：${list.text}` : list.text}
+													{list.text}
 												</$.ListText>
 												{list.note.map((note, noteIdx) => (
 													<$.ListNote key={`note${noteIdx}`}>

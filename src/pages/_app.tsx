@@ -6,7 +6,7 @@ import Header from '../components/header'
 import Swipers from '../components/swipers'
 import site, { $Next, Category } from '../config/site-data'
 import home from '../config/home-data'
-import profile from '../config/profile-data'
+import profile, { ProfilePage } from '../config/profile-data'
 import production, { Framework, Website } from '../config/production-data'
 
 // ---------- Create Context ---------- //
@@ -25,6 +25,7 @@ const Layout = ({ children }): JSX.Element => {
 	/*** State ***/
 	const [categoryName, setCategoryName] = useState<string>(profile.state)
 	const [websiteIndex, setWebsiteIndex] = useState<number>(0)
+	const [profileType, setProfileType] = useState<string>((profile.dataSet as Record<string, ProfilePage>).career.id)
 	const [swipeElement, setSwipeElement] = useState<ReactNode>()
 	const [mediaType, setMediaType] = useState<string>(media.PC)
 
@@ -42,7 +43,7 @@ const Layout = ({ children }): JSX.Element => {
 	const $next: $Next = {
 		$meta: site,
 		$category: { home, profile, production },
-		$state: { categoryName, websiteIndex, swipeElement },
+		$state: { categoryName, websiteIndex, swipeElement, profileType },
 		$methods: {
 			setSwipeElement,
 			scrollToTop: (): void => {
@@ -55,24 +56,26 @@ const Layout = ({ children }): JSX.Element => {
 			linkTo: (
 				url: string,
 				caName: string,
-				wsIdx?: number
+				pageSubState?: number | string
 			): void => {
 				if (caName) setCategoryName(caName)
-				if (wsIdx || wsIdx === 0) setWebsiteIndex(wsIdx)
+				if (typeof pageSubState === 'number' && pageSubState || pageSubState === 0) setWebsiteIndex(pageSubState)
+				if (typeof pageSubState === 'string' && pageSubState) setProfileType(pageSubState)
 				router.push(url)
 		
-				if (isSP && isProduction) showThumbSwiperOnSP(false)
+				if (isSP && (isProduction || isProfile)) showThumbSwiperOnSP(false)
 			},
 			findWebsiteData: (
 				comparedKey: string,
 				comparedItem: string
 			): Website | false => {
 				const findPath = (ws: Website): boolean => comparedKey === ws[comparedItem]
-				const fw: Framework | undefined = production.dataSet.find(fw => fw.pages.some(findPath))
+				const fw: Framework | undefined = (production.dataSet as Framework[]).find(fw => fw.pages.some(findPath))
 				return fw !== undefined && fw.pages.find(findPath)
 			}
 		},
 		$judgments: {
+			isProfile: categoryName === profile.state,
 			isProduction: categoryName === production.state,
 			isSP: mediaType === media.SP,
 			isPC: mediaType === media.PC,
@@ -82,7 +85,7 @@ const Layout = ({ children }): JSX.Element => {
 	/*** Use $next ***/
 	const { $methods, $judgments } = $next
 	const { showThumbSwiperOnSP, findWebsiteData } = $methods
-	const { isSP, isProduction } = $judgments
+	const { isSP, isProduction, isProfile } = $judgments
 
 	/*** Prop of Parent => Children ***/
 	const newChildren: FunctionComponentElement<$Next> = cloneElement(children, $next)
@@ -92,7 +95,7 @@ const Layout = ({ children }): JSX.Element => {
 		container: 'container',
 		mainSwiper: 'main-swiper-area',
 		contents: 'contents-area flex-space-around flex-remove-sp',
-		thumbSwiper: 'thumb-swiper-area',
+		thumbSwiper: `thumb-swiper-area ${isProfile && "thumb-swiper-area-without-main-swiper"}`,
 		main: `main-area ${!isProduction && "main-area-without-thumb-swiper"}`
 	}
 
@@ -105,6 +108,9 @@ const Layout = ({ children }): JSX.Element => {
 		const categories: Category<unknown>[] = [home, profile, production]
 		const cat: Category<unknown> | undefined = categories.find(cat => categoryPath === cat.URL)
 		cat !== undefined && setCategoryName(cat.state)
+
+		const profileTypePath = pathName.split('/')[2]
+		setProfileType(profileTypePath)
 
 		const ws: Website | false = findWebsiteData(pathName, 'URL')
 		ws && setWebsiteIndex(ws.state)
@@ -128,7 +134,7 @@ const Layout = ({ children }): JSX.Element => {
 
 			<div className={layout.contents}>
 
-				{isProduction && (
+				{(isProfile || isProduction) && (
 					<aside
 						id={layout.thumbSwiper}
 						className={layout.thumbSwiper}

@@ -25,7 +25,7 @@ const Header = ({ app }): JSX.Element => {
 
 	const { $meta, $judgments, $category, $methods } = app
 	const { linkTo, scrollToTop, showThumbSwiperOnSP } = $methods
-	const { isProduction } = $judgments	
+	const { isProduction, isProfile } = $judgments	
 	const { home, profile, production } = $category
 	const { siteTitle, siteImage } = $meta
 
@@ -65,15 +65,14 @@ const Header = ({ app }): JSX.Element => {
 					alt: 'menu',
 				},
 			},
-			display: isProduction
+			display: isProduction || isProfile
 		}
 	]
 
 	const headerTabList: TabList[] = [
 		{
 			name: profile.name,
-			url: profile.URL,
-			state: profile.state
+			url: profile.dataSet.career.URL
 		},
 		{
 			name: production.name,

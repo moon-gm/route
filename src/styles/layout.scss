@@ -81,6 +81,11 @@
 				transition: left 0.5s;
 				overflow: scroll;
 			}
+
+			&-without-main-swiper {
+				// layout
+				margin-top: $height-of-header;
+			}
 		}
 
 		/** Main Area **/

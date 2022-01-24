@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import mainStyles from '../styles/modules/main-swiper.module.scss'
 import thumbStyles from '../styles/modules/thumb-swiper.module.scss'
 import { Framework, Website } from '../config/production-data'
+import { ProfilePage } from '../config/profile-data'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Pagination, Thumbs, EffectCoverflow } from 'swiper'// CSS in _document.tsx
 
@@ -70,9 +71,10 @@ const MainSwiper = ({ app }): JSX.Element => {
 // ---------- Create Thumb Swiper Element ---------- //
 const ThumbSwiper = ({ app }): JSX.Element => {
 
-	const { $state, $category, $methods } = app
+	const { $state, $category, $methods, $judgments } = app
 	const { linkTo, scrollToTop, showThumbSwiperOnSP, setSwipeElement } = $methods
-	const { production } = $category
+	const { isProduction, isProfile } = $judgments 
+	const { production, profile } = $category
 
 	const label = {
 		close: '✕',
@@ -84,12 +86,17 @@ const ThumbSwiper = ({ app }): JSX.Element => {
 		titleBox: 'flex-space-between'
 	}
 
+	const initialSlideState: number = isProduction ? $state.websiteIndex : isProfile ? Object.keys(profile.dataSet).indexOf($state.profileType) : 0
+
 	return (
 		<>
 			<div className={layout.titleBox}>
 
 				<h1 className={thumbStyles.thumbSwiperListTitle}>
-					{production.name}
+					{isProduction ? production.name
+						: isProfile ? profile.name
+						: ''
+					}
 				</h1>
 
 				<button
@@ -109,10 +116,10 @@ const ThumbSwiper = ({ app }): JSX.Element => {
 				effect="slide"
 				slideToClickedSlide
 				slidesPerView={0}
-				initialSlide={$state.websiteIndex}
+				initialSlide={initialSlideState}
 				onSwiper={(swiper) => setSwipeElement(swiper)} // set action when slides change
 			>
-				{production.dataSet.map((fw: Framework)=> (
+				{isProduction && production.dataSet.map((fw: Framework)=> (
 					<Fragment key={`thumb-swiper-${fw.state}`}>
 						{fw.pages.map((ws: Website) => (
 							<SwiperSlide
@@ -139,6 +146,28 @@ const ThumbSwiper = ({ app }): JSX.Element => {
 								</div>
 							</SwiperSlide>
 						))}
+					</Fragment>
+				))}
+				{isProfile && Object.entries(profile.dataSet).map((value: [string, ProfilePage])=> (
+					<Fragment key={`thumb-swiper-${value[1].state}`}>
+						<SwiperSlide
+							key={`thumb-swiper-${value[1].id}`}
+							tag="li"
+							className={thumbStyles.swiperSlide}
+						>
+							<div
+								className={`
+									${thumbStyles.thumbSwiperList}
+									${$state.profileType === value[1].state && thumbStyles.thumbSwiperListSelected}
+								`}
+								onClick={() => {
+									linkTo(value[1].URL, profile.state, value[1].state)
+									scrollToTop()
+								}}
+							>
+								{value[1].name}
+							</div>
+						</SwiperSlide>
 					</Fragment>
 				))}
 			</Swiper>

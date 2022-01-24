@@ -85,12 +85,16 @@
 		.h3 {
 			@include layout;
 			font-size: 14px;
+			border-bottom: 1px solid $color-of-yellow;
+			margin-bottom: 15px;
 			&:before {
 				content: "-";
+				color: $color-of-yellow;
 				padding-right: 5px;
 			}
 			&:after {
 				content: "-";
+				color: $color-of-yellow;
 				padding-left: 5px;
 			}
 		}

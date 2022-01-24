@@ -24,7 +24,7 @@ export type Category<T> = {
     name: string,
     URL: string,
     state: string,
-    dataSet?: T[]
+    dataSet?: T[] | Record<string, T>
 }
 
 export type IdName = {
