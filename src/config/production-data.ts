@@ -393,6 +393,7 @@ const websiteData: WebsiteData[] = [
 		howToMake: 'VueフレームワークのNuxt.jsで作成。データはEC2に配置しているデータベースを利用',
 		skills: {
 			nuxt: ['Routing', 'API'],
+			typeScript: [''],
 			vue: [''],
 			vuetify: ['要素は全てVuetifyコンポーネント利用'],
 			node: ['express', 'axios', 'serverless-mysql'],
