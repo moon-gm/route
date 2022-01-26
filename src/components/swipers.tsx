@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { ReactNode } from 'react'
 import mainStyles from '../styles/modules/main-swiper.module.scss'
 import thumbStyles from '../styles/modules/thumb-swiper.module.scss'
 import { Framework, Website } from '../config/production-data'
@@ -8,17 +8,78 @@ import SwiperCore, { Pagination, Thumbs, EffectCoverflow } from 'swiper'// CSS i
 
 SwiperCore.use([Pagination, Thumbs, EffectCoverflow]) // use Swiper Components
 
+type PageData = {
+	listTitle?: string,
+	initialSlideState?: number,
+	categoryState?: string,
+	state?: number | string,
+	mainSwiper?: ReactNode,
+	thumbSwiper?: ReactNode,
+	onSlideChange?: (swiper?: SwiperCore) => void
+}
+
 // ---------- Create Main Swiper Element ---------- //
 const MainSwiper = ({ app }): JSX.Element => {
 
-	const { $state, $methods, $category } = app
+	const { $state, $methods, $category, $judgments } = app
 	const { linkTo, findWebsiteData } = $methods
-	const { production } = $category
+	const { isProduction, isProfile } = $judgments 
+	const { profile, production } = $category
 
-	// on change active slide
-	const onSlideChange = (swiper: SwiperCore): void => {
-		const ws: Website | false = findWebsiteData(swiper.activeIndex, 'state')
-		ws && linkTo(ws.URL, production.state, ws.state)
+	let pageData: PageData
+
+	if (isProfile) {
+		const dataSet = []
+		for (const obj of Object.entries(profile.dataSet)) {
+			dataSet.push(obj[1])
+		}
+		pageData = {
+			listTitle: profile.name,
+			initialSlideState: Object.keys(profile.dataSet).indexOf($state.profileType),
+			categoryState: profile.state,
+			state: $state.profileType,
+			mainSwiper: dataSet.map((profilePage: ProfilePage)=> (
+				<SwiperSlide
+					key={`main-swiper-${profilePage.id}`}
+					tag="li"
+					className={mainStyles.swiperSlide}
+				>
+				</SwiperSlide>
+			)),
+			onSlideChange: (): void => {}
+		}
+	}
+
+	if (isProduction) {
+		pageData = {
+			listTitle: production.name,
+			initialSlideState: $state.websiteIndex,
+			categoryState: production.state,
+			state: $state.websiteIndex,
+			mainSwiper: production.dataSet.map((fw: Framework)=> (
+				fw.pages.map((ws: Website) => (
+					<SwiperSlide
+						key={`main-swiper-${ws.id}`}
+						tag="li" // set tag with 'class="swiper-slide"'
+						className={mainStyles.swiperSlide}
+					>
+						<img
+							src={`/swiper/${ws.id}.png`}
+							alt={ws.name}
+							onClick={() => linkTo(ws.URL, production.state, ws.state)}
+							className={`
+								${mainStyles.swiperSlideImg}
+								${$state.websiteIndex === ws.state && mainStyles.swiperSlideImgSelected}
+							`}
+						/>
+					</SwiperSlide>
+				))
+			)),
+			onSlideChange: (swiper: SwiperCore): void => {
+				const ws: Website | false = findWebsiteData(swiper.activeIndex, 'state')
+				ws && linkTo(ws.URL, production.state, ws.state)
+			}
+		}
 	}
 
 	return (
@@ -29,7 +90,7 @@ const MainSwiper = ({ app }): JSX.Element => {
 			wrapperTag="ul" // set tag with 'class="swiper-wrapper"'
 			speed={600} // set speed when go to prev or next slide
 			centeredSlides // centering active slide
-			initialSlide={$state.websiteIndex} // set slide when initial display
+			initialSlide={pageData.initialSlideState} // set slide when initial display
 			spaceBetween={0} // set space between slides
 			slidesPerView={3} // set number of slides when preview at one time
 			effect="coverflow" // set effect of slide view in 'coverflow', 'fade', 'flip', 'slide', 'cube'
@@ -41,29 +102,9 @@ const MainSwiper = ({ app }): JSX.Element => {
 			}}
 			direction='horizontal' // set direction of slides in 'vertical', 'horizontal'
 			pagination // display pagnation dot '・・・・・'
-			onSlideChange={(swiper) => onSlideChange(swiper)} // set action when slides change
+			onSlideChange={(swiper) => pageData.onSlideChange(swiper)} // set action when slides change => on change active slide
 		>
-			{production.dataSet.map((fw: Framework)=> (
-				<Fragment key={`main-swiper-${fw.name}`}>
-					{fw.pages.map((ws: Website) => (
-						<SwiperSlide
-							tag="li" // set tag with 'class="swiper-slide"'
-							className={mainStyles.swiperSlide}
-							key={ws.id}
-						>
-							<img
-								src={`/swiper/${ws.id}.png`}
-								alt={ws.name}
-								onClick={() => linkTo(ws.URL, production.state, ws.state)}
-								className={`
-									${mainStyles.swiperSlideImg}
-									${$state.websiteIndex === ws.state && mainStyles.swiperSlideImgSelected}
-								`}
-							/>
-						</SwiperSlide>
-					))}
-				</Fragment>
-			))}
+			{pageData.mainSwiper}
 		</Swiper>
 	)
 }
@@ -72,10 +113,42 @@ const MainSwiper = ({ app }): JSX.Element => {
 const ThumbSwiper = ({ app }): JSX.Element => {
 
 	const { $state, $category, $methods, $judgments } = app
-	const { linkTo, scrollToTop, showThumbSwiperOnSP, setSwipeElement } = $methods
+	const { linkTo, showThumbSwiperOnSP, setSwipeElement } = $methods
 	const { isProduction, isProfile } = $judgments 
 	const { production, profile } = $category
 
+	const SwiperContetnts = (
+		{
+			value,
+			subImage = undefined
+		}: {
+			value: Website | ProfilePage,
+			subImage?: {
+				name: string,
+				imageSrc: string,
+			} | undefined
+		}
+	): JSX.Element => {
+		return (
+			<div
+				className={`
+					${thumbStyles.thumbSwiperList}
+					${pageData.state === value.state && thumbStyles.thumbSwiperListSelected}
+				`}
+				onClick={() => linkTo(value.URL, pageData.categoryState, value.state)}
+			>
+				{(value as Website).imageSrc && <img src={(value as Website).imageSrc} alt={value.name} />}
+				{value.name}
+				{subImage && (
+					<span className={thumbStyles.thumbSwiperListNote}>
+						<img src={subImage.imageSrc} alt={subImage.name} />
+						{subImage.name} {label.separate} {(value as Website).createDate} {label.fromTo}
+					</span>
+				)}
+			</div>
+		)
+	}
+	
 	const label = {
 		close: '✕',
 		separate: '/',
@@ -86,17 +159,56 @@ const ThumbSwiper = ({ app }): JSX.Element => {
 		titleBox: 'flex-space-between'
 	}
 
-	const initialSlideState: number = isProduction ? $state.websiteIndex : isProfile ? Object.keys(profile.dataSet).indexOf($state.profileType) : 0
+	let pageData: PageData
+
+	if (isProfile) {
+		const dataSet = []
+		for (const obj of Object.entries(profile.dataSet)) {
+			dataSet.push(obj[1])
+		}
+		pageData = {
+			listTitle: profile.name,
+			initialSlideState: Object.keys(profile.dataSet).indexOf($state.profileType),
+			categoryState: profile.state,
+			state: $state.profileType,
+			thumbSwiper: dataSet.map((profilePage: ProfilePage)=> (
+				<SwiperSlide
+					key={`thumb-swiper-${profilePage.id}`}
+					tag="li"
+					className={thumbStyles.swiperSlide}
+				>
+					<SwiperContetnts value={profilePage}/>
+				</SwiperSlide>
+			))
+		}
+	}
+
+	if (isProduction) {
+		pageData = {
+			listTitle: production.name,
+			initialSlideState: $state.websiteIndex,
+			categoryState: production.state,
+			state: $state.websiteIndex,
+			thumbSwiper: production.dataSet.map((fw: Framework)=> (
+				fw.pages.map((ws: Website) => (
+					<SwiperSlide
+						key={`thumb-swiper-${ws.id}`}
+						tag="li"
+						className={thumbStyles.swiperSlide}
+					>
+						<SwiperContetnts value={ws} subImage={fw}/>
+					</SwiperSlide>
+				))
+			))
+		}
+	}
 
 	return (
 		<>
 			<div className={layout.titleBox}>
 
 				<h1 className={thumbStyles.thumbSwiperListTitle}>
-					{isProduction ? production.name
-						: isProfile ? profile.name
-						: ''
-					}
+					{pageData.listTitle}
 				</h1>
 
 				<button
@@ -116,60 +228,10 @@ const ThumbSwiper = ({ app }): JSX.Element => {
 				effect="slide"
 				slideToClickedSlide
 				slidesPerView={0}
-				initialSlide={initialSlideState}
+				initialSlide={pageData.initialSlideState}
 				onSwiper={(swiper) => setSwipeElement(swiper)} // set action when slides change
 			>
-				{isProduction && production.dataSet.map((fw: Framework)=> (
-					<Fragment key={`thumb-swiper-${fw.state}`}>
-						{fw.pages.map((ws: Website) => (
-							<SwiperSlide
-								key={`thumb-swiper-${ws.id}`}
-								tag="li"
-								className={thumbStyles.swiperSlide}
-							>
-								<div
-									className={`
-										${thumbStyles.thumbSwiperList}
-										${$state.websiteIndex === ws.state && thumbStyles.thumbSwiperListSelected}
-									`}
-									onClick={() => {
-										linkTo(ws.URL, production.state, ws.state)
-										scrollToTop()
-									}}
-								>
-									<img src={ws.imageSrc} alt={ws.name} />
-									{ws.name}
-									<span className={thumbStyles.thumbSwiperListNote}>
-										<img src={fw.imageSrc} alt={fw.name} />
-										{fw.name} {label.separate} {ws.createDate} {label.fromTo}
-									</span>
-								</div>
-							</SwiperSlide>
-						))}
-					</Fragment>
-				))}
-				{isProfile && Object.entries(profile.dataSet).map((value: [string, ProfilePage])=> (
-					<Fragment key={`thumb-swiper-${value[1].state}`}>
-						<SwiperSlide
-							key={`thumb-swiper-${value[1].id}`}
-							tag="li"
-							className={thumbStyles.swiperSlide}
-						>
-							<div
-								className={`
-									${thumbStyles.thumbSwiperList}
-									${$state.profileType === value[1].state && thumbStyles.thumbSwiperListSelected}
-								`}
-								onClick={() => {
-									linkTo(value[1].URL, profile.state, value[1].state)
-									scrollToTop()
-								}}
-							>
-								{value[1].name}
-							</div>
-						</SwiperSlide>
-					</Fragment>
-				))}
+				{pageData.thumbSwiper}
 			</Swiper>
 
 		</>

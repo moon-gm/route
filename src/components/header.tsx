@@ -25,7 +25,7 @@ const Header = ({ app }): JSX.Element => {
 
 	const { $meta, $judgments, $category, $methods } = app
 	const { linkTo, scrollToTop, showThumbSwiperOnSP } = $methods
-	const { isProduction, isProfile } = $judgments	
+	const { isSwiperPage } = $judgments	
 	const { home, profile, production } = $category
 	const { siteTitle, siteImage } = $meta
 
@@ -65,7 +65,7 @@ const Header = ({ app }): JSX.Element => {
 					alt: 'menu',
 				},
 			},
-			display: isProduction || isProfile
+			display: isSwiperPage
 		}
 	]
 

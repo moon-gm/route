@@ -62,8 +62,9 @@ const Layout = ({ children }): JSX.Element => {
 				if (typeof pageSubState === 'number' && pageSubState || pageSubState === 0) setWebsiteIndex(pageSubState)
 				if (typeof pageSubState === 'string' && pageSubState) setProfileType(pageSubState)
 				router.push(url)
+				scrollToTop()
 		
-				if (isSP && (isProduction || isProfile)) showThumbSwiperOnSP(false)
+				if (isSP && isSwiperPage) showThumbSwiperOnSP(false)
 			},
 			findWebsiteData: (
 				comparedKey: string,
@@ -77,6 +78,7 @@ const Layout = ({ children }): JSX.Element => {
 		$judgments: {
 			isProfile: categoryName === profile.state,
 			isProduction: categoryName === production.state,
+			isSwiperPage: categoryName === production.state || categoryName === profile.state,
 			isSP: mediaType === media.SP,
 			isPC: mediaType === media.PC,
 		},
@@ -84,8 +86,8 @@ const Layout = ({ children }): JSX.Element => {
 
 	/*** Use $next ***/
 	const { $methods, $judgments } = $next
-	const { showThumbSwiperOnSP, findWebsiteData } = $methods
-	const { isSP, isProduction, isProfile } = $judgments
+	const { showThumbSwiperOnSP, findWebsiteData, scrollToTop } = $methods
+	const { isSP, isProduction, isProfile, isSwiperPage } = $judgments
 
 	/*** Prop of Parent => Children ***/
 	const newChildren: FunctionComponentElement<$Next> = cloneElement(children, $next)
@@ -134,7 +136,7 @@ const Layout = ({ children }): JSX.Element => {
 
 			<div className={layout.contents}>
 
-				{(isProfile || isProduction) && (
+				{isSwiperPage && (
 					<aside
 						id={layout.thumbSwiper}
 						className={layout.thumbSwiper}
