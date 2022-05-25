@@ -1,4 +1,3 @@
-import '../styles/swiper@6.3.3/swiper-bundle.min.css'
 import '../styles/globals.scss'
 import { FunctionComponentElement, useState, useEffect, cloneElement, createContext, ReactNode } from 'react'
 import { useRouter } from 'next/router'
@@ -36,6 +35,15 @@ const Layout = ({ children }): JSX.Element => {
 		if (screenWidth > spMaxWidth) setMediaType(media.PC)
 	}
 
+	const findWebsiteData = (
+		comparedKey: string,
+		comparedItem: string
+	): Website | false => {
+		const findPath = (ws: Website): boolean => comparedKey === ws[comparedItem]
+		const fw: Framework | undefined = (production.dataSet as Framework[]).find(fw => fw.pages.some(findPath))
+		return fw !== undefined && fw.pages.find(findPath)
+	}
+
 	/*** Router ***/
 	const router = useRouter()
 
@@ -66,14 +74,7 @@ const Layout = ({ children }): JSX.Element => {
 		
 				if (isSP && isSwiperPage) showThumbSwiperOnSP(false)
 			},
-			findWebsiteData: (
-				comparedKey: string,
-				comparedItem: string
-			): Website | false => {
-				const findPath = (ws: Website): boolean => comparedKey === ws[comparedItem]
-				const fw: Framework | undefined = (production.dataSet as Framework[]).find(fw => fw.pages.some(findPath))
-				return fw !== undefined && fw.pages.find(findPath)
-			}
+			findWebsiteData
 		},
 		$judgments: {
 			isProfile: categoryName === profile.state,
@@ -86,7 +87,7 @@ const Layout = ({ children }): JSX.Element => {
 
 	/*** Use $next ***/
 	const { $methods, $judgments } = $next
-	const { showThumbSwiperOnSP, findWebsiteData, scrollToTop } = $methods
+	const { showThumbSwiperOnSP, scrollToTop } = $methods
 	const { isSP, isProduction, isProfile, isSwiperPage } = $judgments
 
 	/*** Prop of Parent => Children ***/

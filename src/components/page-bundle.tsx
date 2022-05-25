@@ -194,8 +194,10 @@ export const Iframe = ({ src, classNames = [] }: Iframe): JSX.Element => {
 	)
 }
 
-export default {
+const Bundle = {
 	Page, BaseSection, ContentSection, ContentSectionTitle,
 	H1, H2, H3, P, Text, LayoutBox,
 	ListBox, List, ListText, ListNote, Iframe
 }
+
+export default Bundle

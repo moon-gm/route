@@ -20,7 +20,8 @@ const Header = ({ app }): JSX.Element => {
 	type TabList = {
 		name: string,
 		url: string,
-		state?: string
+		state?: string,
+		subState?: string | number
 	}
 
 	const { $meta, $judgments, $category, $methods } = app
@@ -72,11 +73,15 @@ const Header = ({ app }): JSX.Element => {
 	const headerTabList: TabList[] = [
 		{
 			name: profile.name,
-			url: profile.dataSet.career.URL
+			url: profile.dataSet.career.URL,
+			state: profile.state,
+			subState: profile.dataSet.career.state
 		},
 		{
 			name: production.name,
-			url: production.dataSet[framework.nuxt].pages[website.tequipedia2].URL
+			url: production.dataSet[framework.nuxt].pages[website.tequipedia2].URL,
+			state: production.state,
+			subState: production.dataSet[framework.nuxt].pages[website.tequipedia2].state
 		},
 	]
 
@@ -111,7 +116,7 @@ const Header = ({ app }): JSX.Element => {
 						<li
 							key={element.name}
 							className={styles.tab}
-							onClick={() => linkTo(element.url, element.state)}
+							onClick={() => linkTo(element.url, element.state, element.subState)}
 						>
 							{element.name}
 						</li>

@@ -1,23 +1,31 @@
 {
-  "name": "route",
-  "version": "0.1.0",
+  "name": "portfolio-show",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "export": "next export"
+    "lint": "next lint"
   },
   "dependencies": {
-    "@types/node": "^16.10.3",
-    "@types/react": "^17.0.28",
-    "next": "^9.5.5",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
-    "react-modal": "^3.11.2",
-    "sass": "^1.43.2",
-    "swiper": "^6.3.3",
-    "typescript": "^4.4.3"
+    "@types/node": "^17.0.12",
+    "@types/react": "^17.0.38",
+    "next": "12.0.8",
+    "react": "17.0.2",
+    "react-coverflow": "^0.2.20",
+    "react-dom": "17.0.2",
+    "react-id-swiper": "^4.0.0",
+    "react-modal": "^3.14.4",
+    "react-native": "^0.67.1",
+    "react-native-coverflow": "^0.1.7",
+    "react-responsive-carousel": "^3.2.22",
+    "sass": "^1.49.0",
+    "swiper": "^7.4.1",
+    "typescript": "^4.5.5"
   },
-  "homepage": "."
+  "devDependencies": {
+    "@types/react-modal": "^3.13.1",
+    "eslint": "8.7.0",
+    "eslint-config-next": "12.0.8"
+  }
 }

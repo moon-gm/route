@@ -41,6 +41,8 @@ export const siteImage = {
     alt: 'Top Logo'
 }
 
-export default {
+const siteData = {
     siteTitle, siteURL, siteDescription, siteImage
 }
+
+export default siteData

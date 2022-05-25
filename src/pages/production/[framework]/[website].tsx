@@ -98,7 +98,7 @@ const Production = ({ $category, $judgments }): JSX.Element => {
 							</$.Text>
 							<span>
 								{base.url ? (
-									<a href={base.url} target="_blank">
+									<a href={base.url} target="_blank" rel="noreferrer">
 										{base.content}
 										<img
 											src="/icon/external-link.svg"

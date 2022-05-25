@@ -1,21 +1,19 @@
-import { ReactNode } from 'react'
+import { ReactNode, ReactChild } from 'react'
 import mainStyles from '../styles/modules/main-swiper.module.scss'
 import thumbStyles from '../styles/modules/thumb-swiper.module.scss'
 import { Framework, Website } from '../config/production-data'
 import { ProfilePage } from '../config/profile-data'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Pagination, Thumbs, EffectCoverflow } from 'swiper'// CSS in _document.tsx
-
-SwiperCore.use([Pagination, Thumbs, EffectCoverflow]) // use Swiper Components
+import Carousel from 'react-responsive-carousel/lib/js/components/Carousel/index'
+import 'react-responsive-carousel/lib/styles/carousel.min.css'
 
 type PageData = {
 	listTitle?: string,
 	initialSlideState?: number,
 	categoryState?: string,
 	state?: number | string,
-	mainSwiper?: ReactNode,
-	thumbSwiper?: ReactNode,
-	onSlideChange?: (swiper?: SwiperCore) => void
+	mainSwiper?: ReactNode & ReactChild[],
+	thumbSwiper?: ReactNode & ReactChild[],
+	onSlideChange?: (activeIndex: number) => void
 }
 
 // ---------- Create Main Swiper Element ---------- //
@@ -23,8 +21,47 @@ const MainSwiper = ({ app }): JSX.Element => {
 
 	const { $state, $methods, $category, $judgments } = app
 	const { linkTo, findWebsiteData } = $methods
-	const { isProduction, isProfile } = $judgments 
+	const { isProduction, isProfile, isPC } = $judgments 
 	const { profile, production } = $category
+
+	const fadeAnimationHandler: AnimationHandler = (props, state): AnimationHandlerResponse => {
+		const transitionTime = props.transitionTime + 'ms';
+		const transitionTimingFunction = 'ease-in-out';
+	
+		let slideStyle: React.CSSProperties = {
+			position: 'absolute',
+			display: 'block',
+			zIndex: -2,
+			minHeight: '100%',
+			opacity: 0,
+			top: 0,
+			right: 0,
+			left: 0,
+			bottom: 0,
+			transitionTimingFunction: transitionTimingFunction,
+			msTransitionTimingFunction: transitionTimingFunction,
+			MozTransitionTimingFunction: transitionTimingFunction,
+			WebkitTransitionTimingFunction: transitionTimingFunction,
+			OTransitionTimingFunction: transitionTimingFunction,
+		};
+	
+		if (!state.swiping) {
+			slideStyle = {
+				...slideStyle,
+				WebkitTransitionDuration: transitionTime,
+				MozTransitionDuration: transitionTime,
+				OTransitionDuration: transitionTime,
+				transitionDuration: transitionTime,
+				msTransitionDuration: transitionTime,
+			};
+		}
+	
+		return {
+			slideStyle,
+			selectedStyle: { ...slideStyle, opacity: 1, position: 'relative' },
+			prevStyle: { ...slideStyle },
+		};
+	}
 
 	let pageData: PageData
 
@@ -39,12 +76,11 @@ const MainSwiper = ({ app }): JSX.Element => {
 			categoryState: profile.state,
 			state: $state.profileType,
 			mainSwiper: dataSet.map((profilePage: ProfilePage)=> (
-				<SwiperSlide
+				<div
 					key={`main-swiper-${profilePage.id}`}
-					tag="li"
 					className={mainStyles.swiperSlide}
 				>
-				</SwiperSlide>
+				</div>
 			)),
 			onSlideChange: (): void => {}
 		}
@@ -58,9 +94,8 @@ const MainSwiper = ({ app }): JSX.Element => {
 			state: $state.websiteIndex,
 			mainSwiper: production.dataSet.map((fw: Framework)=> (
 				fw.pages.map((ws: Website) => (
-					<SwiperSlide
+					<div
 						key={`main-swiper-${ws.id}`}
-						tag="li" // set tag with 'class="swiper-slide"'
 						className={mainStyles.swiperSlide}
 					>
 						<img
@@ -72,40 +107,49 @@ const MainSwiper = ({ app }): JSX.Element => {
 								${$state.websiteIndex === ws.state && mainStyles.swiperSlideImgSelected}
 							`}
 						/>
-					</SwiperSlide>
+					</div>
 				))
 			)),
-			onSlideChange: (swiper: SwiperCore): void => {
-				const ws: Website | false = findWebsiteData(swiper.activeIndex, 'state')
+			onSlideChange: (activeIndex: number): void => {
+				const ws: Website | false = findWebsiteData(activeIndex, 'state')
 				ws && linkTo(ws.URL, production.state, ws.state)
 			}
 		}
 	}
 
 	return (
-		<Swiper
-			id="main" // Main Swiper's id
-			thumbs={{swiper: $state.swipeElement}} // link to swiper with 'id="thumbs"'
-			tag="section" // set tag with 'class="swiper-container"'
-			wrapperTag="ul" // set tag with 'class="swiper-wrapper"'
-			speed={600} // set speed when go to prev or next slide
-			centeredSlides // centering active slide
-			initialSlide={pageData.initialSlideState} // set slide when initial display
-			spaceBetween={0} // set space between slides
-			slidesPerView={3} // set number of slides when preview at one time
-			effect="coverflow" // set effect of slide view in 'coverflow', 'fade', 'flip', 'slide', 'cube'
-			slideToClickedSlide // go to clicked slide
-			breakpoints={{ // set break point by screen width
-				320: {slidesPerView: 1}, // set number of preview slides when screen width > 320px
-				640: {slidesPerView: 2}, // set number of preview slides when screen width > 640px
-				980: {slidesPerView: 3}, // set number of preview slides when screen width > 980px
+		<Carousel
+			autoFocus
+			// autoPlay
+			selectedItem={pageData.state as number}
+			width="100%"
+			// // ariaLabel="Sample"
+			centerMode
+			centerSlidePercentage={isPC ? 100/3 : 100}
+			dynamicHeight
+			infiniteLoop
+			// interval={1000}
+			showArrows
+			showStatus
+			swipeable={false}
+			showThumbs={true}
+			swipeScrollTolerance={10}
+			thumbWidth={100}
+			useKeyboardArrows
+			onClickItem={(clickIndex, clickItem) => {
+				console.log(clickItem)
+				pageData.onSlideChange(clickIndex)
 			}}
-			direction='horizontal' // set direction of slides in 'vertical', 'horizontal'
-			pagination // display pagnation dot '・・・・・'
-			onSlideChange={(swiper) => pageData.onSlideChange(swiper)} // set action when slides change => on change active slide
+			onClickThumb={(clickIndex, clickItem) => {
+				pageData.onSlideChange(clickIndex)
+			}}
+			onChange={(clickIndex, clickItem) => {
+				pageData.onSlideChange(clickIndex)
+			}}
+			animationHandler="slide"
 		>
 			{pageData.mainSwiper}
-		</Swiper>
+		</Carousel>
 	)
 }
 
@@ -113,7 +157,7 @@ const MainSwiper = ({ app }): JSX.Element => {
 const ThumbSwiper = ({ app }): JSX.Element => {
 
 	const { $state, $category, $methods, $judgments } = app
-	const { linkTo, showThumbSwiperOnSP, setSwipeElement } = $methods
+	const { linkTo, showThumbSwiperOnSP } = $methods
 	const { isProduction, isProfile } = $judgments 
 	const { production, profile } = $category
 
@@ -172,13 +216,12 @@ const ThumbSwiper = ({ app }): JSX.Element => {
 			categoryState: profile.state,
 			state: $state.profileType,
 			thumbSwiper: dataSet.map((profilePage: ProfilePage)=> (
-				<SwiperSlide
+				<div
 					key={`thumb-swiper-${profilePage.id}`}
-					tag="li"
 					className={thumbStyles.swiperSlide}
 				>
 					<SwiperContetnts value={profilePage}/>
-				</SwiperSlide>
+				</div>
 			))
 		}
 	}
@@ -191,13 +234,12 @@ const ThumbSwiper = ({ app }): JSX.Element => {
 			state: $state.websiteIndex,
 			thumbSwiper: production.dataSet.map((fw: Framework)=> (
 				fw.pages.map((ws: Website) => (
-					<SwiperSlide
+					<div
 						key={`thumb-swiper-${ws.id}`}
-						tag="li"
 						className={thumbStyles.swiperSlide}
 					>
 						<SwiperContetnts value={ws} subImage={fw}/>
-					</SwiperSlide>
+					</div>
 				))
 			))
 		}
@@ -220,22 +262,13 @@ const ThumbSwiper = ({ app }): JSX.Element => {
 
 			</div>
 
-			<Swiper
-				id="thumbs"
-				direction="vertical"
-				tag="section"
-				wrapperTag="ul"
-				effect="slide"
-				slideToClickedSlide
-				slidesPerView={0}
-				initialSlide={pageData.initialSlideState}
-				onSwiper={(swiper) => setSwipeElement(swiper)} // set action when slides change
-			>
+			<div>
 				{pageData.thumbSwiper}
-			</Swiper>
+			</div>
 
 		</>
 	)
 }
 
-export default { MainSwiper, ThumbSwiper }
+const Swipers = { MainSwiper, ThumbSwiper }
+export default Swipers

@@ -119,10 +119,10 @@ const setProductionOrder = (productionDataSet: Framework[]): ProductionOrder => 
 		framework: {},
 		website: {}
 	}
-	for (const [fwIdx, fw] of productionDataSet.entries()) {
-		productionOrder.framework[fw.id] = fwIdx
-		for (const [wsIdx, ws] of fw.pages.entries()) {
-			productionOrder.website[ws.id] = wsIdx
+	for (const fw of productionDataSet) {
+		productionOrder.framework[fw.id] = productionDataSet.findIndex(fwBlock => fwBlock.id === fw.id)
+		for (const ws of fw.pages) {
+			productionOrder.website[ws.id] = fw.pages.findIndex(wsBlock => wsBlock.id === ws.id)
 		}
 	}
 	return productionOrder
